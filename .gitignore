@@ -1,0 +1,8 @@
+# Unity-internal files
+*.meta
+*.mat
+*.unity
+
+# Pictures
+*.png
+*.jpg
