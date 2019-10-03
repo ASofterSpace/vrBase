@@ -16,6 +16,7 @@ public class MainCtrl : MonoBehaviour
 	private GameObject mainCamera;
 
 	private FarAwayCtrl farAwayCtrl;
+	private MaterialCtrl materialCtrl;
 
 	private VrSpecificCtrl vrSpecificCtrl;
 
@@ -53,6 +54,13 @@ public class MainCtrl : MonoBehaviour
 		skybox.transform.parent = world.transform;
 
 		mainCamera = GameObject.Find("/MainCamera");
+	}
+
+	public MaterialCtrl getMaterialCtrl() {
+		if (materialCtrl == null) {
+			materialCtrl = new MaterialCtrl(this);
+		}
+		return materialCtrl;
 	}
 
 	public GameObject getWorld() {
