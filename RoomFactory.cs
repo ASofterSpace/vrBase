@@ -13,8 +13,10 @@ public class RoomFactory
 	private MainCtrl mainCtrl;
 
 	private ControlRoomCtrl controlRoomCtrl;
-
 	private GameObject controlRoom;
+
+	private ArcadeRoomCtrl arcadeRoomCtrl;
+	private GameObject arcadeRoom;
 
 
 	public RoomFactory(MainCtrl mainCtrl) {
@@ -23,6 +25,7 @@ public class RoomFactory
 
 	public void createRooms() {
 		createControlRoom();
+		createArcadeRoom();
 	}
 
 	private void createControlRoom() {
@@ -30,8 +33,20 @@ public class RoomFactory
 
 		// every room is a child of the overall surface of the moon
 		controlRoom.transform.parent = mainCtrl.getSurface().transform;
+		controlRoom.transform.localPosition = new Vector3(0, 0, 0);
 
 		controlRoomCtrl = controlRoom.AddComponent<ControlRoomCtrl>();
 		controlRoomCtrl.init(mainCtrl);
+	}
+
+	private void createArcadeRoom() {
+		arcadeRoom = new GameObject("ArcadeRoom");
+
+		// every room is a child of the overall surface of the moon
+		arcadeRoom.transform.parent = mainCtrl.getSurface().transform;
+		arcadeRoom.transform.localPosition = new Vector3(-7, 0, -12);
+
+		arcadeRoomCtrl = arcadeRoom.AddComponent<ArcadeRoomCtrl>();
+		arcadeRoomCtrl.init(mainCtrl);
 	}
 }
