@@ -69,71 +69,155 @@ public class ControlRoomCtrl : MonoBehaviour
 
 		GameObject curBeam;
 
+		curBeam = createLowVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(-6.7f, 0.9f, 0);
+		curBeam.transform.eulerAngles = new Vector3(0, 0, -20);
+		curBeam = createLowCrossBeam(false);
+		curBeam.transform.localPosition = new Vector3(-5.56f, 1.32f, 0.98f);
+		curBeam.transform.eulerAngles = new Vector3(-68, 50, -10);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(-6, 0, 1);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle += 45;
 
+		curBeam = createLowLittleVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(-4.88f, 0.4f, 2);
+		curBeam.transform.eulerAngles = new Vector3(-5, 0, -15);
+		curBeam = createLowCrossBeam(true);
+		curBeam.transform.localPosition = new Vector3(-4.7f, 1.33f, 3.3f);
+		curBeam.transform.eulerAngles = new Vector3(50, -58.5f, 125);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(-5, 0, 3.5f);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle -= 90;
 
+		curBeam = createLowVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(-4.8f, 0.9f, 4.8f);
+		curBeam.transform.eulerAngles = new Vector3(-10, 0, -10);
+		curBeam = createLowCrossBeam(true);
+		curBeam.transform.localPosition = new Vector3(-3.3f, 1.33f, 4.7f);
+		curBeam.transform.eulerAngles = new Vector3(-66, 58.5f, 26.5f);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(-3.5f, 0, 5);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle += 45;
 
+		curBeam = createLowLittleVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(-2f, 0.4f, 4.88f);
+		curBeam.transform.eulerAngles = new Vector3(-15, 0, -5);
+		curBeam = createLowCrossBeam(false);
+		curBeam.transform.localPosition = new Vector3(-0.98f, 1.32f, 5.6f);
+		curBeam.transform.eulerAngles = new Vector3(68, 50, 1);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(-1, 0, 6);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle -= 90;
 
+		curBeam = createLowVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(0, 0.9f, 6.7f);
+		curBeam.transform.eulerAngles = new Vector3(-20, 0, 0);
+		curBeam = createLowCrossBeam(false);
+		curBeam.transform.localPosition = new Vector3(0.98f, 1.32f, 5.6f);
+		curBeam.transform.eulerAngles = new Vector3(68, -50, 1);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(1, 0, 6);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle += 45;
 
+		curBeam = createLowLittleVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(2, 0.4f, 4.88f);
+		curBeam.transform.eulerAngles = new Vector3(-15, 0, 5);
+		curBeam = createLowCrossBeam(true);
+		curBeam.transform.localPosition = new Vector3(3.3f, 1.33f, 4.7f);
+		curBeam.transform.eulerAngles = new Vector3(-66, -58.5f, -26.5f);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(3.5f, 0, 5);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle -= 90;
 
+		curBeam = createLowVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(4.8f, 0.9f, 4.8f);
+		curBeam.transform.eulerAngles = new Vector3(-10, 0, 10);
+		curBeam = createLowCrossBeam(true);
+		curBeam.transform.localPosition = new Vector3(4.7f, 1.33f, 3.3f);
+		curBeam.transform.eulerAngles = new Vector3(50, 58.5f, -125);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(5, 0, 3.5f);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle += 45;
 
+		curBeam = createLowLittleVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(4.88f, 0.4f, -2);
+		curBeam.transform.eulerAngles = new Vector3(5, 0, 15);
+		curBeam = createLowCrossBeam(false);
+		curBeam.transform.localPosition = new Vector3(5.56f, 1.32f, 0.98f);
+		curBeam.transform.eulerAngles = new Vector3(-68, -50, 10);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(6, 0, 1);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle -= 90;
 
+		curBeam = createLowVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(6.7f, 0.9f, 0);
+		curBeam.transform.eulerAngles = new Vector3(0, 0, 20);
+		curBeam = createLowCrossBeam(false);
+		curBeam.transform.localPosition = new Vector3(5.56f, 1.32f, -0.98f);
+		curBeam.transform.eulerAngles = new Vector3(68, 50, 10);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(6, 0, -1);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle += 45;
 
+		curBeam = createLowLittleVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(4.88f, 0.4f, 2);
+		curBeam.transform.eulerAngles = new Vector3(-5, 0, 15);
+		curBeam = createLowCrossBeam(true);
+		curBeam.transform.localPosition = new Vector3(4.7f, 1.33f, -3.3f);
+		curBeam.transform.eulerAngles = new Vector3(-50, -58.5f, -125);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(5, 0, -3.5f);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle -= 90;
 
+		curBeam = createLowVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(4.8f, 0.9f, -4.8f);
+		curBeam.transform.eulerAngles = new Vector3(10, 0, 10);
+		curBeam = createLowCrossBeam(true);
+		curBeam.transform.localPosition = new Vector3(3.3f, 1.33f, -4.7f);
+		curBeam.transform.eulerAngles = new Vector3(66, 58.5f, -26.5f);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(3.5f, 0, -5);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle += 45;
 
+		curBeam = createLowLittleVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(2, 0.4f, -4.88f);
+		curBeam.transform.eulerAngles = new Vector3(15, 0, 5);
+		curBeam = createLowCrossBeam(false);
+		curBeam.transform.localPosition = new Vector3(0.98f, 1.32f, -5.6f);
+		curBeam.transform.eulerAngles = new Vector3(-68, 50, 1);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(1, 0, -6);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle -= 90;
 
+		curBeam = createLowVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(0, 0.9f, -6.7f);
+		curBeam.transform.eulerAngles = new Vector3(20, 0, 0);
+		curBeam = createLowCrossBeam(false);
+		curBeam.transform.localPosition = new Vector3(-0.98f, 1.32f, -5.6f);
+		curBeam.transform.eulerAngles = new Vector3(-68, -50, 1);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(-1, 0, -6);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle += 45;
 
+		curBeam = createLowLittleVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(-2, 0.4f, -4.88f);
+		curBeam.transform.eulerAngles = new Vector3(15, 0, -5);
+		curBeam = createLowCrossBeam(true);
+		curBeam.transform.localPosition = new Vector3(-3.3f, 1.33f, -4.7f);
+		curBeam.transform.eulerAngles = new Vector3(66, -58.5f, 26.5f);
 		// this one has the purple door
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
@@ -145,113 +229,59 @@ public class ControlRoomCtrl : MonoBehaviour
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle -= 90;
 
+		curBeam = createLowVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(-4.8f, 0.9f, -4.8f);
+		curBeam.transform.eulerAngles = new Vector3(10, 0, -10);
+		curBeam = createLowCrossBeam(true);
+		curBeam.transform.localPosition = new Vector3(-4.7f, 1.33f, -3.3f);
+		curBeam.transform.eulerAngles = new Vector3(-50, 58.5f, 125);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(-5, 0, -3.5f);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle += 45;
 
+		curBeam = createLowLittleVerticalBeam();
+		curBeam.transform.localPosition = new Vector3(-4.88f, 0.4f, -2);
+		curBeam.transform.eulerAngles = new Vector3(5, 0, -15);
+		curBeam = createLowCrossBeam(false);
+		curBeam.transform.localPosition = new Vector3(-5.56f, 1.32f, -0.98f);
+		curBeam.transform.eulerAngles = new Vector3(68, -50, -10);
 		curBeam = createFloorBeam();
 		curBeam.transform.localPosition = new Vector3(-6, 0, -1);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 		curAngle -= 90;
 	}
 
-	/*
-	for future reference: beams for a "perfect" room - without doors and stuff :)
-
-	private void createBeams() {
-
-		int curAngle = -45;
-
-		GameObject curBeam;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(-6, 0, 1);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(-5, 0, 3.5f);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(-3.5f, 0, 5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(-1, 0, 6);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(1, 0, 6);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(3.5f, 0, 5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(5, 0, 3.5f);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(6, 0, 1);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(6, 0, -1);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(5, 0, -3.5f);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(3.5f, 0, -5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(1, 0, -6);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(-1, 0, -6);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(-3.5f, 0, -5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(-5, 0, -3.5f);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createFloorBeam();
-		curBeam.transform.localPosition = new Vector3(-6, 0, -1);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-	}
-	*/
 	private GameObject createFloorBeam() {
+		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
+		curBeam.transform.localScale = new Vector3(0.1f, 1.45f, 0.1f);
+		materialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
+		return curBeam;
+	}
 
-		GameObject floorBeam = createPrimitive(PrimitiveType.Cylinder);
-		floorBeam.transform.localScale = new Vector3(0.1f, 1.45f, 0.1f);
-		materialCtrl.setMaterial(floorBeam, MaterialCtrl.PLASTIC_WHITE);
-		return floorBeam;
+	private GameObject createLowVerticalBeam() {
+		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
+		curBeam.transform.localScale = new Vector3(0.1f, 1.0f, 0.1f);
+		materialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
+		return curBeam;
+	}
+
+	private GameObject createLowLittleVerticalBeam() {
+		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
+		curBeam.transform.localScale = new Vector3(0.1f, 0.4f, 0.1f);
+		materialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
+		return curBeam;
+	}
+
+	private GameObject createLowCrossBeam(bool longBeam) {
+		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
+		if (longBeam) {
+			curBeam.transform.localScale = new Vector3(0.1f, 1.45f, 0.1f);
+		} else {
+			curBeam.transform.localScale = new Vector3(0.1f, 1.37f, 0.1f);
+		}
+		materialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
+		return curBeam;
 	}
 
 	private void createDoors() {
