@@ -330,6 +330,90 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		curBeam.transform.localPosition = new Vector3(curDistS1, curY, curDistL1);
 		curBeam.transform.eulerAngles = new Vector3(92.5f, 0, 68);
 
+		// create fourth level:
+		// long beams upwards from the long ones of the 1st level,
+		// inverted-V-beams upwards from the triangles from the 2nd and 3rd level
+
+		curY = 2.54f;
+		float curDistL = 5.65f;
+		curLen = 1.0f;
+
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistL, curY, 0);
+		curBeam.transform.eulerAngles = new Vector3(0, 0, 45);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(0, curY, -curDistL);
+		curBeam.transform.eulerAngles = new Vector3(45, 0, 0);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistL, curY, 0);
+		curBeam.transform.eulerAngles = new Vector3(0, 0, -45);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(0, curY, curDistL);
+		curBeam.transform.eulerAngles = new Vector3(-45, 0, 0);
+
+		curY = 2.77f;
+		curDistL = 4.97f;
+		float curDistS = 0.72f;
+		curLen = 0.9f;
+
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistS, curY, -curDistL);
+		curBeam.transform.eulerAngles = new Vector3(-13, 10, 57);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistS, curY, -curDistL);
+		curBeam.transform.eulerAngles = new Vector3(-13, -10, -57);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistL, curY, curDistS);
+		curBeam.transform.eulerAngles = new Vector3(-57, -13, 10);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistL, curY, -curDistS);
+		curBeam.transform.eulerAngles = new Vector3(57, 13, 10);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistS, curY, curDistL);
+		curBeam.transform.eulerAngles = new Vector3(13, 10, -57);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistS, curY, curDistL);
+		curBeam.transform.eulerAngles = new Vector3(13, -10, 57);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistL, curY, -curDistS);
+		curBeam.transform.eulerAngles = new Vector3(57, 13, 10);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistL, curY, curDistS);
+		curBeam.transform.eulerAngles = new Vector3(-57, -13, 10);
+
+		curY = 3.6f;
+		curDistL = 3.63f;
+		curDistS = 0.46f;
+		curLen = 1.46f;
+
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistL, curY, curDistS);
+		curBeam.transform.eulerAngles = new Vector3(50, 0, 67);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistL, curY, -curDistS);
+		curBeam.transform.eulerAngles = new Vector3(-50, 0, 67);
+
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistS, curY, -curDistL);
+		curBeam.transform.eulerAngles = new Vector3(68.97f, -29.221f, -46.068f);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistS, curY, -curDistL);
+		curBeam.transform.eulerAngles = new Vector3(68.97f, 29.221f, 46.068f);
+
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistL, curY, -curDistS);
+		curBeam.transform.eulerAngles = new Vector3(-50, 0, -67);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistL, curY, curDistS);
+		curBeam.transform.eulerAngles = new Vector3(50, 0, -67);
+
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(-curDistS, curY, curDistL);
+		curBeam.transform.eulerAngles = new Vector3(-68.97f, -29.221f, 46.068f);
+		curBeam = createBeam(curLen);
+		curBeam.transform.localPosition = new Vector3(curDistS, curY, curDistL);
+		curBeam.transform.eulerAngles = new Vector3(-68.97f, 29.221f, -46.068f);
+
 		// create mid level:
 		// long beams connecting the 2nd/3rd-level triangles with the 3rd-highest-level long beams
 
@@ -339,6 +423,7 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		curDistS1 = 2.67f;
 		curDistS2 = 2.7f;
 		curLen = 1.28f;
+
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistS1, curY, curDistL1);
 		curBeam.transform.eulerAngles = new Vector3(-42, -32, 13);
@@ -370,8 +455,8 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		// then 4 long downwards beams between them
 
 		curY = 4.62f;
-		float curDistL = 1.85f;
-		float curDistS = 0.45f;
+		curDistL = 1.85f;
+		curDistS = 0.45f;
 		curLen = 0.9f;
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(-curDistL, curY, -curDistS);
