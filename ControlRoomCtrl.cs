@@ -40,6 +40,7 @@ public class ControlRoomCtrl : GenericRoomCtrl
 		// make room for the purple door
 		Destroy(beams[40]); // remove cross beam
 		Destroy(beams[41]); // remove floor beam
+		Destroy(beams[70]); // remove head beam
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.45f);
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
