@@ -9,14 +9,23 @@ using System;
 using UnityEngine;
 
 
-public class VrSpecificCtrl
+public class VrSpecificCtrl : MonoBehaviour
 {
 	private MainCtrl mainCtrl;
+
+	private GameObject mainCamera;
+	private GameObject mainCameraHolder;
 
 	private String vrKindInUse;
 
 
-	public VrSpecificCtrl(MainCtrl mainCtrl) {
+	void Start() {
+	}
+
+	void Update() {
+	}
+
+	public void init(MainCtrl mainCtrl) {
 
 		this.mainCtrl = mainCtrl;
 
@@ -34,12 +43,13 @@ public class VrSpecificCtrl
 
 	private void adjustCameraHeight() {
 
-		GameObject cam = mainCtrl.getMainCamera();
-		Vector3 curPos = cam.transform.localPosition;
+		mainCamera = mainCtrl.getMainCamera();
+		mainCameraHolder = mainCtrl.getMainCameraHolder();
+		Vector3 curPos = mainCameraHolder.transform.localPosition;
 
 		if (vrKindInUse.StartsWith("VIVE_")) {
 			// set camera to height 0, as the height is automatically taken into account by the vive
-			cam.transform.localPosition = new Vector3(curPos.x, curPos.y, 0.0f);
+			mainCameraHolder.transform.localPosition = new Vector3(curPos.x, 0.0f, curPos.z);
 		}
 
 		if (vrKindInUse.StartsWith("OCULUS_")) {
@@ -47,7 +57,9 @@ public class VrSpecificCtrl
 			// TODO :: we could be using Oculus Utilities, then we could get the player height from
 			//   OVRManager -> OVRProfile - but if different people are playing, then it will not be
 			//   correct either...
-			cam.transform.localPosition = new Vector3(curPos.x, curPos.y, 1.75f);
+			// TODO :: actually actually, a reasonable height like 1.75m is way too much...
+			// something much less (reasonable) seems to be needed - why? will this always work?
+			mainCameraHolder.transform.localPosition = new Vector3(curPos.x, 0.7f, curPos.z);
 		}
 	}
 

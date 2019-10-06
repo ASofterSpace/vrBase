@@ -25,7 +25,6 @@ public class FarAwayCtrl : MonoBehaviour
 
 	void Update()
 	{
-/* DEBUG
 		if (!initDone) {
 			return;
 		}
@@ -33,7 +32,6 @@ public class FarAwayCtrl : MonoBehaviour
 		// let the Earth rise, but slowly, unnoticeably! :)
 		// (up to 500+3600/5=1220 after one hour...)
 		earth.transform.localPosition = new Vector3(-3000, 500 + (Time.time / 5), 0);
-*/
 	}
 
 	public void init(MainCtrl mainCtrl) {
@@ -62,7 +60,7 @@ public class FarAwayCtrl : MonoBehaviour
 		moonFloor.transform.localPosition = new Vector3(0, -0.015f, 0);
 		moonFloor.transform.eulerAngles = new Vector3(90, 0, 0);
 		moonFloor.transform.localScale = new Vector3(4000, 4000, 1);
-		// DEBUG - taken out: materialCtrl.setMaterial(moonFloor, MaterialCtrl.SPACE_MOON_FLOOR);
+		materialCtrl.setMaterial(moonFloor, MaterialCtrl.SPACE_MOON_FLOOR);
 
 		curIterator = 0;
 		GameObject moonSouth = createMoonWall(moon);
@@ -85,7 +83,7 @@ public class FarAwayCtrl : MonoBehaviour
 
 		moonWall.transform.localScale = new Vector3(4000, 2283, 1);
 
-		// DEBUG - taken out: materialCtrl.setMaterial(moonWall, MaterialCtrl.SPACE_MOON_SOUTH + curIterator);
+		materialCtrl.setMaterial(moonWall, MaterialCtrl.SPACE_MOON_SOUTH + curIterator);
 
 		curIterator++;
 
@@ -100,7 +98,7 @@ public class FarAwayCtrl : MonoBehaviour
 		earth.transform.localPosition = new Vector3(-3000, 500, 0);
 		earth.transform.eulerAngles = new Vector3(180, 90, 180);
 		earth.transform.localScale = new Vector3(800, 800, 1);
-		// DEBUG - taken out: materialCtrl.setMaterial(earth, MaterialCtrl.SPACE_EARTH);
+		materialCtrl.setMaterial(earth, MaterialCtrl.SPACE_EARTH);
 	}
 
 	private void createSun() {
@@ -114,7 +112,7 @@ public class FarAwayCtrl : MonoBehaviour
 		sunImage.transform.localPosition = new Vector3(0, 0, 0);
 		sunImage.transform.eulerAngles = new Vector3(275, 0, 0);
 		sunImage.transform.localScale = new Vector3(500, 500, 1);
-		// DEBUG - taken out: materialCtrl.setMaterial(sunImage, MaterialCtrl.SPACE_SUN);
+		materialCtrl.setMaterial(sunImage, MaterialCtrl.SPACE_SUN);
 
 		GameObject sunLight = new GameObject();
 		sunLight.transform.parent = sun.transform;
@@ -141,7 +139,7 @@ public class FarAwayCtrl : MonoBehaviour
 			star.transform.eulerAngles = new Vector3(270, 0, 0);
 			float size = 10 + (20 * Random.value);
 			star.transform.localScale = new Vector3(size, size, 1);
-		// DEBUG - taken out: materialCtrl.setMaterial(star, MaterialCtrl.SPACE_STAR);
+			materialCtrl.setMaterial(star, MaterialCtrl.SPACE_STAR);
 		}
 	}
 }

@@ -14,6 +14,7 @@ public class MainCtrl : MonoBehaviour
 	private GameObject surface;
 	private GameObject skybox;
 	private GameObject mainCamera;
+	private GameObject mainCameraHolder;
 
 	private FarAwayCtrl farAwayCtrl;
 	private MaterialCtrl materialCtrl;
@@ -26,9 +27,6 @@ public class MainCtrl : MonoBehaviour
 		// main objects
 		initMainGameObjects();
 
-		// VR equipment specific code
-		vrSpecificCtrl = new VrSpecificCtrl(this);
-
 		// faraway things / skybox
 		farAwayCtrl = skybox.AddComponent<FarAwayCtrl>();
 		farAwayCtrl.init(this);
@@ -36,6 +34,10 @@ public class MainCtrl : MonoBehaviour
 		// close objects / rooms
 		RoomFactory roomFactory = new RoomFactory(this);
 		roomFactory.createRooms();
+
+		// VR equipment specific code
+		vrSpecificCtrl = world.AddComponent<VrSpecificCtrl>();
+		vrSpecificCtrl.init(this);
 	}
 
 	void Update()
@@ -53,7 +55,8 @@ public class MainCtrl : MonoBehaviour
 		skybox = new GameObject("Skybox");
 		skybox.transform.parent = world.transform;
 
-		mainCamera = GameObject.Find("/MainCamera");
+		mainCameraHolder = GameObject.Find("/MainCameraHolder");
+		mainCamera = GameObject.Find("/MainCameraHolder/MainCamera");
 	}
 
 	public MaterialCtrl getMaterialCtrl() {
@@ -77,5 +80,9 @@ public class MainCtrl : MonoBehaviour
 
 	public GameObject getMainCamera() {
 		return mainCamera;
+	}
+
+	public GameObject getMainCameraHolder() {
+		return mainCameraHolder;
 	}
 }
