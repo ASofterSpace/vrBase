@@ -703,7 +703,7 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		vertices[i++] = new Vector3(-5, 0, -2);
 
 		// blocks 2, 3, 4 - South, East, West
-		i = createOtherVertices(vertices, 6, i, x, y, z);
+		i = createWallBlockVertices(vertices, 6, i, x, y, z);
 
 		// block 5 - North-East
 		vertices[i++] = new Vector3(-5.02f, 0, 5.02f);
@@ -714,7 +714,7 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		vertices[i++] = new Vector3(-2, 0, 5);
 
 		// blocks 6, 7, 8 - South-East, South-West, North-West
-		i = createOtherVertices45(vertices, 6, i, x, y, z);
+		i = createWallBlockVertices45(vertices, 6, i, x, y, z);
 
 		mesh.vertices = vertices;
 
@@ -730,8 +730,18 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		*/
 
 		// create triangles using the previously set vertices
+		int[] triangles = createMeshedWallTriangles();
+
+		mesh.triangles = triangles;
+
+		// assign our resulting results
+		mesh.RecalculateNormals();
+	}
+
+	protected virtual int[] createMeshedWallTriangles() {
+
 		int[] triangles = new int[6*4*8];
-		i = 0;
+		int i = 0;
 
 		// block 1 - North
 		i = addTriangleWallBlock(triangles, i, 0);
@@ -750,10 +760,7 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		// block 8 - North-West
 		i = addTriangleWallBlock(triangles, i, 42);
 
-		mesh.triangles = triangles;
-
-		// assign our resulting results
-		mesh.RecalculateNormals();
+		return triangles;
 	}
 
 	// we add each triangle twice, once inwards facing, once outwards facing
@@ -767,6 +774,10 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		return i + 6;
 	}
 
+	/**
+	 * i is the index into triangles that we are currently at
+	 * start is the index into vertices that we are currently at
+	 */
 	protected int addTriangleWallBlock(int[] triangles, int i, int start) {
 		i = addTriangle(triangles, i, start, start + 1, start + 2);
 		i = addTriangle(triangles, i, start, start + 2, start + 3);
@@ -775,7 +786,7 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		return i;
 	}
 
-	protected int createOtherVertices(Vector3[] vertices, int howManyVertices, int i, float x, float y, float z) {
+	protected int createWallBlockVertices(Vector3[] vertices, int howManyVertices, int i, float x, float y, float z) {
 		int startI = i;
 
 		for (int j = 0; j < howManyVertices; j++) {
@@ -799,9 +810,13 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		return i;
 	}
 
-	protected int createOtherVertices45(Vector3[] vertices, int howManyVertices, int i, float x, float y, float z) {
+	protected int createWallBlockVertices45(Vector3[] vertices, int howManyVertices, int i, float x, float y, float z) {
 		int startI = i;
 
+		for (int j = 0; j < howManyVertices; j++) {
+			Vector3 orig = vertices[j + startI - howManyVertices];
+			vertices[i++] = new Vector3(x + orig.z, y + orig.y, z - orig.x);
+		}
 		for (int j = 0; j < howManyVertices; j++) {
 			Vector3 orig = vertices[j + startI - howManyVertices];
 			vertices[i++] = new Vector3(x - orig.x, y + orig.y, z - orig.z);
@@ -809,10 +824,6 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		for (int j = 0; j < howManyVertices; j++) {
 			Vector3 orig = vertices[j + startI - howManyVertices];
 			vertices[i++] = new Vector3(x - orig.z, y + orig.y, z + orig.x);
-		}
-		for (int j = 0; j < howManyVertices; j++) {
-			Vector3 orig = vertices[j + startI - howManyVertices];
-			vertices[i++] = new Vector3(x + orig.z, y + orig.y, z - orig.x);
 		}
 		for (int j = 0; j < howManyVertices; j++) {
 			int origIndex = j + startI - howManyVertices;

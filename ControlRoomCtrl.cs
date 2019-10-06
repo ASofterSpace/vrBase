@@ -52,6 +52,32 @@ public class ControlRoomCtrl : GenericRoomCtrl
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 	}
 
+	protected override int[] createMeshedWallTriangles() {
+
+		int[] triangles = new int[6*4*7 + 6*2];
+		int i = 0;
+
+		// block 1 - North
+		i = addTriangleWallBlock(triangles, i, 0);
+		// block 2 - South
+		i = addTriangleWallBlock(triangles, i, 6);
+		// block 3 - East
+		i = addTriangleWallBlock(triangles, i, 12);
+		// block 4 - West
+		i = addTriangleWallBlock(triangles, i, 18);
+		// block 5 - North-East
+		i = addTriangleWallBlock(triangles, i, 24);
+		// block 6 - South-East
+		i = addTriangleWallBlock(triangles, i, 30);
+		// block 7 - South-West
+		i = addTriangleWallBlock(triangles, i, 36);
+		// block 8 - North-West
+		i = addTriangle(triangles, i, 42, 42 + 1, 42 + 4);
+		i = addTriangle(triangles, i, 42, 42 + 4, 42 + 5);
+
+		return triangles;
+	}
+
 	private void createDoors() {
 
 		createDoor(-3.5f, -5.0f);
