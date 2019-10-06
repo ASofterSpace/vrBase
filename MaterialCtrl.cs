@@ -100,4 +100,9 @@ public class MaterialCtrl
 	public void setMaterial(GameObject obj, int materialNum) {
 		obj.GetComponent<Renderer>().material = getMaterial(materialNum);
 	}
+
+	public void setColor(int materialNum, Color newColor) {
+		Material material = getMaterial(materialNum);
+		material.color = newColor;
+	}
 }

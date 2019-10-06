@@ -6,18 +6,57 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 
+using UnityEngine.XR;
 using UnityEngine;
 
 
 public class ControlRoomCtrl : GenericRoomCtrl
 {
-	void Start() {
+	public InputDeviceRole deviceRole;
+	public List<InputDevice> inputDevices;
+	public bool inputValue;
+	public InputFeatureUsage<bool> inputFeature;
 
+	void Start() {
+		inputDevices = new List<InputDevice>();
 	}
 
 	void Update() {
 
+		InputDevices.GetDevicesWithRole(deviceRole, inputDevices);
+
+		for (int i = 0; i < inputDevices.Count; i++)
+		{
+			if (inputDevices[i].TryGetFeatureValue(inputFeature,
+				out inputValue) && inputValue)
+			{
+				materialCtrl.setColor(
+					MaterialCtrl.PLASTIC_WHITE,
+					new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value, 1.0f)
+				);
+			}
+		}
 	}
+
+		/*
+		bool triggerValue;
+		if (device.TryGetFeatureValue(CommonUsages.triggerButton,
+									  out triggerValue)
+			&& triggerValue)
+		{
+
+
+
+		InputFeatureUsage<bool> triggerBtn = CommonUsages.triggerButton;
+		if (triggerBtn) {
+	//	if (Input.GetButton(Button.One)) {
+			materialCtrl.setColor(
+				MaterialCtrl.PLASTIC_WHITE,
+				new Color(Random.value, Random.value, Random.value, 1.0f)
+			);
+		}
+	}
+	*/
 
 	protected override void createRoom() {
 

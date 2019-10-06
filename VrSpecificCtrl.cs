@@ -51,4 +51,16 @@ public class VrSpecificCtrl
 		}
 	}
 
+/*
+	private void gatherInput() {
+		// see: https://docs.unity3d.com/Manual/OculusControllers.html
+
+		string[] joystickNames = Input.GetJoystickNames();
+
+		for (int i = 0; i < joystickNames.Length; i++) {
+			// do something?
+		}
+	}
+*/
+
 }

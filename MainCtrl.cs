@@ -26,6 +26,9 @@ public class MainCtrl : MonoBehaviour
 		// main objects
 		initMainGameObjects();
 
+		// VR equipment specific code
+		vrSpecificCtrl = new VrSpecificCtrl(this);
+
 		// faraway things / skybox
 		farAwayCtrl = skybox.AddComponent<FarAwayCtrl>();
 		farAwayCtrl.init(this);
@@ -33,9 +36,6 @@ public class MainCtrl : MonoBehaviour
 		// close objects / rooms
 		RoomFactory roomFactory = new RoomFactory(this);
 		roomFactory.createRooms();
-
-		// VR equipment specific code
-		vrSpecificCtrl = new VrSpecificCtrl(this);
 	}
 
 	void Update()
