@@ -23,8 +23,9 @@ public class MaterialCtrl
 	public const int SPACE_STAR = 8;
 	public const int PLASTIC_PURPLE = 9;
 	public const int PLASTIC_WHITE = 10;
+	public const int PLASTIC_GRAY = 11;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 11;
+	public const int MATERIAL_AMOUNT = 12;
 
 
 	public MaterialCtrl(MainCtrl mainCtrl) {
@@ -76,6 +77,9 @@ public class MaterialCtrl
 					break;
 				case PLASTIC_PURPLE:
 					result.color = new Color(0.3542f, 0.0654f, 0.6603f, 1.0f);
+					break;
+				case PLASTIC_GRAY:
+					result.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
 					break;
 				case SPACE_STAR:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);

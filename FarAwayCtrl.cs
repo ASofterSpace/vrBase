@@ -47,7 +47,7 @@ public class FarAwayCtrl : MonoBehaviour
 
 		GameObject moonFloor = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		moonFloor.transform.parent = moon.transform;
-		moonFloor.transform.localPosition = new Vector3(0, -0.1f, 0);
+		moonFloor.transform.localPosition = new Vector3(0, -0.015f, 0);
 		moonFloor.transform.eulerAngles = new Vector3(90, 0, 0);
 		moonFloor.transform.localScale = new Vector3(4000, 4000, 1);
 		materialCtrl.setMaterial(moonFloor, MaterialCtrl.SPACE_MOON_FLOOR);

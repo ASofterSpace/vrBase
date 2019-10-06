@@ -42,17 +42,17 @@ public class ControlRoomCtrl : GenericRoomCtrl
 		Destroy(beams[41]); // remove floor beam
 		Destroy(beams[70]); // remove head beam
 		// add two new floor beams to each side of the purple door
-		curBeam = createBeam(0.45f);
+		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curBeam = createBeam(0.55f);
-		curBeam.transform.localPosition = new Vector3(-4.4f, 0, -5);
+		curBeam = createBeam(0.5f);
+		curBeam.transform.localPosition = new Vector3(-4.45f, 0, -5);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 	}
 
 	private void createDoors() {
 
-		createDoor(-3.4f, -5.0f);
+		createDoor(-3.5f, -5.0f);
 	}
 
 	private void createObjects() {

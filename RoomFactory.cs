@@ -26,6 +26,7 @@ public class RoomFactory
 	public void createRooms() {
 		createControlRoom();
 		createArcadeRoom();
+		createBridges();
 	}
 
 	private void createControlRoom() {
@@ -48,5 +49,15 @@ public class RoomFactory
 
 		arcadeRoomCtrl = arcadeRoom.AddComponent<ArcadeRoomCtrl>();
 		arcadeRoomCtrl.init(mainCtrl);
+	}
+
+	private void createBridges() {
+		GameObject controlArcadeBridge = new GameObject("ControlArcadeBridge");
+
+		controlArcadeBridge.transform.parent = mainCtrl.getSurface().transform;
+		controlArcadeBridge.transform.localPosition = new Vector3(-3.5f, 0, -6);
+
+		BridgeCtrl bridgeCtrl = controlArcadeBridge.AddComponent<BridgeCtrl>();
+		bridgeCtrl.init(mainCtrl);
 	}
 }

@@ -41,6 +41,21 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		return result;
 	}
 
+	protected virtual void createFloor() {
+
+		GameObject floor = createPrimitive(PrimitiveType.Quad);
+		floor.transform.localPosition = new Vector3(0, 0, 0);
+		floor.transform.eulerAngles = new Vector3(90, 0, 0);
+		floor.transform.localScale = new Vector3(10, 10, 1);
+		materialCtrl.setMaterial(floor, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
+
+		GameObject floor2 = createPrimitive(PrimitiveType.Quad);
+		floor2.transform.localPosition = new Vector3(0, -0.01f, 0);
+		floor2.transform.eulerAngles = new Vector3(90, 45, 0);
+		floor2.transform.localScale = new Vector3(10, 10, 1);
+		materialCtrl.setMaterial(floor2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
+	}
+
 	protected virtual void createBeams() {
 
 		int curAngle = -45;
@@ -337,10 +352,10 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		curLen = 0.56f;
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistL1, curY, curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(0, 72, 92.5f);
+		curBeam.transform.eulerAngles = new Vector3(0, 72, -92.5f);
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistL1, curY, -curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(0, -72, 92.5f);
+		curBeam.transform.eulerAngles = new Vector3(0, -72, -92.5f);
 
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistS1, curY, -curDistL1);
@@ -653,21 +668,6 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		materialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
 		beams[curBeamNum++] = curBeam;
 		return curBeam;
-	}
-
-	protected void createFloor() {
-
-		GameObject floor = createPrimitive(PrimitiveType.Quad);
-		floor.transform.localPosition = new Vector3(0, 0, 0);
-		floor.transform.eulerAngles = new Vector3(90, 0, 0);
-		floor.transform.localScale = new Vector3(10, 10, 1);
-		materialCtrl.setMaterial(floor, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
-
-		GameObject floor2 = createPrimitive(PrimitiveType.Quad);
-		floor2.transform.localPosition = new Vector3(0, -0.01f, 0);
-		floor2.transform.eulerAngles = new Vector3(90, 45, 0);
-		floor2.transform.localScale = new Vector3(10, 10, 1);
-		materialCtrl.setMaterial(floor2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
 	}
 
 	protected GameObject createDoor(float x, float z) {

@@ -19,6 +19,8 @@ public class ArcadeRoomCtrl : GenericRoomCtrl
 		createFloor();
 
 		createBeams();
+
+		createDoors();
 	}
 
 	protected override void createBeams() {
@@ -31,14 +33,19 @@ public class ArcadeRoomCtrl : GenericRoomCtrl
 		// make room for the door to the control room
 		Destroy(beams[16]); // remove cross beam
 		Destroy(beams[17]); // remove floor beam
+		Destroy(beams[66]); // remove head beam
 		// add two new floor beams to each side of the purple door
-		curBeam = createBeam(0.45f);
+		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(2.5f, 0, 5);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curBeam = createBeam(0.55f);
-		curBeam.transform.localPosition = new Vector3(4.4f, 0, 5);
-		curBeam.transform.localScale = new Vector3(0.1f, 0.55f, 0.1f);
+		curBeam = createBeam(0.5f);
+		curBeam.transform.localPosition = new Vector3(4.45f, 0, 5);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+	}
+
+	private void createDoors() {
+
+		createDoor(3.5f, 5.0f);
 	}
 
 }
