@@ -691,7 +691,7 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 
 		// create vertices that are available to create the mesh
 		int i = 0;
-		Vector3[] vertices = new Vector3[6*8];
+		Vector3[] vertices = new Vector3[6*8 + getAdditionalWallVertexAmount()];
 
 		// vertices for the lowest level
 		// block 1 - North
@@ -716,6 +716,8 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		// blocks 6, 7, 8 - South-East, South-West, North-West
 		i = createWallBlockVertices45(vertices, 6, i, x, y, z);
 
+		createAdditionalWallVertices(vertices, i);
+
 		mesh.vertices = vertices;
 
 		/*
@@ -736,6 +738,13 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 
 		// assign our resulting results
 		mesh.RecalculateNormals();
+	}
+
+	protected virtual int getAdditionalWallVertexAmount() {
+		return 0;
+	}
+
+	protected virtual void createAdditionalWallVertices(Vector3[] vertices, int i) {
 	}
 
 	protected virtual int[] createMeshedWallTriangles() {

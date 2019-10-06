@@ -45,9 +45,39 @@ public class ArcadeRoomCtrl : GenericRoomCtrl
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
 	}
 
+	protected override int getAdditionalWallVertexAmount() {
+		return 12;
+	}
+
+	protected override void createAdditionalWallVertices(Vector3[] vertices, int i) {
+		float x = thisRoom.transform.position.x;
+		float y = thisRoom.transform.position.y;
+		float z = thisRoom.transform.position.z;
+
+		// create the wall around the door - to the left of the door...
+		vertices[i++] = new Vector3(x+2.05f, y, z+5);
+		vertices[i++] = new Vector3(x+1.85f, y+0.825f, z+4.88f);
+		vertices[i++] = new Vector3(x-0.74f+3.5f, y+1.15f, z+5);
+		vertices[i++] = new Vector3(x-0.74f+3.5f, y, z+5);
+		vertices[i++] = new Vector3(x-0.74f+3.5f, y+0.3f, z+5);
+		vertices[i++] = new Vector3(x-0.4f+3.5f, y, z+5);
+
+		// ... and to the right of the door
+		vertices[i++] = new Vector3(x+0.74f+3.5f, y+1.65f, z+5);
+		vertices[i++] = new Vector3(x+4.6f, y+1.85f, z+4.6f);
+		vertices[i++] = new Vector3(x+5f, y, z+5);
+		vertices[i++] = new Vector3(x+0.74f+3.5f, y, z+5);
+		vertices[i++] = new Vector3(x+0.74f+3.5f, y+0.3f, z+5);
+		vertices[i++] = new Vector3(x+0.4f+3.5f, y, z+5);
+	}
+
 	protected override int[] createMeshedWallTriangles() {
 
-		int[] triangles = new int[6*4*7 + 6*2];
+		// 7 full wall blocks (each 6*4),
+		// one half wall block (so 6*4/2),
+		// one wall around the door
+		// (each call to addTriangle requires 6 points, each call to addTriangleWallBlock four times that many)
+		int[] triangles = new int[6*4*7 + 6*2 + 6*6];
 		int i = 0;
 
 		// block 1 - North
@@ -68,6 +98,15 @@ public class ArcadeRoomCtrl : GenericRoomCtrl
 		i = addTriangleWallBlock(triangles, i, 36);
 		// block 8 - North-West
 		i = addTriangleWallBlock(triangles, i, 42);
+
+		// block 9 - wall around the door
+		i = addTriangle(triangles, i, 48, 48 + 1, 48 + 2);
+		i = addTriangle(triangles, i, 48, 48 + 2, 48 + 3);
+		i = addTriangle(triangles, i, 48 + 3, 48 + 4, 48 + 5);
+
+		i = addTriangle(triangles, i, 54, 54 + 1, 54 + 2);
+		i = addTriangle(triangles, i, 54, 54 + 2, 54 + 3);
+		i = addTriangle(triangles, i, 54 + 3, 54 + 4, 54 + 5);
 
 		return triangles;
 	}
