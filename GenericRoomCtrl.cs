@@ -92,8 +92,8 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		curAngle -= 90;
 
 		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(-4.8f, 0.9f, 4.8f);
-		curBeam.transform.eulerAngles = new Vector3(-10, 0, -10);
+		curBeam.transform.localPosition = new Vector3(-4.815f, 0.9f, 4.815f);
+		curBeam.transform.eulerAngles = new Vector3(-10.8f, 0, -10.8f);
 		curBeam = createBeam(1.45f);
 		curBeam.transform.localPosition = new Vector3(-3.3f, 1.33f, 4.7f);
 		curBeam.transform.eulerAngles = new Vector3(-66, 58.5f, 26.5f);
@@ -136,8 +136,8 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		curAngle -= 90;
 
 		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(4.8f, 0.9f, 4.8f);
-		curBeam.transform.eulerAngles = new Vector3(-10, 0, 10);
+		curBeam.transform.localPosition = new Vector3(4.815f, 0.9f, 4.815f);
+		curBeam.transform.eulerAngles = new Vector3(-10.8f, 0, 10.8f);
 		curBeam = createBeam(1.45f);
 		curBeam.transform.localPosition = new Vector3(4.7f, 1.33f, 3.3f);
 		curBeam.transform.eulerAngles = new Vector3(50, 58.5f, -125);
@@ -180,8 +180,8 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		curAngle -= 90;
 
 		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(4.8f, 0.9f, -4.8f);
-		curBeam.transform.eulerAngles = new Vector3(10, 0, 10);
+		curBeam.transform.localPosition = new Vector3(4.815f, 0.9f, -4.815f);
+		curBeam.transform.eulerAngles = new Vector3(10.8f, 0, 10.8f);
 		curBeam = createBeam(1.45f);
 		curBeam.transform.localPosition = new Vector3(3.3f, 1.33f, -4.7f);
 		curBeam.transform.eulerAngles = new Vector3(66, 58.5f, -26.5f);
@@ -224,8 +224,8 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		curAngle -= 90;
 
 		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(-4.8f, 0.9f, -4.8f);
-		curBeam.transform.eulerAngles = new Vector3(10, 0, -10);
+		curBeam.transform.localPosition = new Vector3(-4.815f, 0.9f, -4.815f);
+		curBeam.transform.eulerAngles = new Vector3(10.8f, 0, -10.8f);
 		curBeam = createBeam(1.45f);
 		curBeam.transform.localPosition = new Vector3(-4.7f, 1.33f, -3.3f);
 		curBeam.transform.eulerAngles = new Vector3(-50, 58.5f, 125);
@@ -668,6 +668,159 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		materialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
 		beams[curBeamNum++] = curBeam;
 		return curBeam;
+	}
+
+	protected void createMeshedWall() {
+
+		// get the position of the parent explicitly, to add it to all points,
+		// as we seem to specify the mesh in world coordinates...
+		// TODO :: in case we want to rotate the parent object, actually figure
+		// out how to specify a mesh in local coordinates!
+		float x = thisRoom.transform.position.x;
+		float y = thisRoom.transform.position.y;
+		float z = thisRoom.transform.position.z;
+
+		// create the mesh
+		GameObject meshWall = new GameObject("meshWall");
+		meshWall.transform.parent = thisRoom.transform;
+		meshWall.AddComponent<MeshFilter>();
+		meshWall.AddComponent<MeshRenderer>();
+		Mesh mesh = meshWall.GetComponent<MeshFilter>().mesh;
+		materialCtrl.setMaterial(meshWall, MaterialCtrl.PLASTIC_WHITE);
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		int i = 0;
+		Vector3[] vertices = new Vector3[6*8];
+
+		// vertices for the lowest level
+		// block 1 - North
+		vertices[i++] = new Vector3(-7.05f, 0, 0);
+		vertices[i++] = new Vector3(-6.4f, 1.84f, 0);
+		vertices[i++] = new Vector3(-4.8f, 0.8f, 1.95f);
+		vertices[i++] = new Vector3(-5, 0, 2);
+		vertices[i++] = new Vector3(-4.8f, 0.8f, -1.95f);
+		vertices[i++] = new Vector3(-5, 0, -2);
+
+		// blocks 2, 3, 4 - South, East, West
+		i = createOtherVertices(vertices, 6, i, x, y, z);
+
+		// block 5 - North-East
+		vertices[i++] = new Vector3(-5.02f, 0, 5.02f);
+		vertices[i++] = new Vector3(-4.65f, 1.84f, 4.65f);
+		vertices[i++] = new Vector3(-4.8f, 0.8f, 1.95f);
+		vertices[i++] = new Vector3(-5, 0, 2);
+		vertices[i++] = new Vector3(-1.95f, 0.8f, 4.8f);
+		vertices[i++] = new Vector3(-2, 0, 5);
+
+		// blocks 6, 7, 8 - South-East, South-West, North-West
+		i = createOtherVertices45(vertices, 6, i, x, y, z);
+
+		mesh.vertices = vertices;
+
+		/*
+		// add some color!
+		Vector2[] uv = new Vector2[vertices.Length];
+		for (i = 0; i < vertices.Length;) {
+			uv[i++] = new Vector2(0, 0);
+			uv[i++] = new Vector2(0, 1);
+			uv[i++] = new Vector2(1, 1);
+		}
+		mesh.uv = uv;
+		*/
+
+		// create triangles using the previously set vertices
+		int[] triangles = new int[6*4*8];
+		i = 0;
+
+		// block 1 - North
+		i = addTriangleWallBlock(triangles, i, 0);
+		// block 2 - South
+		i = addTriangleWallBlock(triangles, i, 6);
+		// block 3 - East
+		i = addTriangleWallBlock(triangles, i, 12);
+		// block 4 - West
+		i = addTriangleWallBlock(triangles, i, 18);
+		// block 5 - North-East
+		i = addTriangleWallBlock(triangles, i, 24);
+		// block 6 - South-East
+		i = addTriangleWallBlock(triangles, i, 30);
+		// block 7 - South-West
+		i = addTriangleWallBlock(triangles, i, 36);
+		// block 8 - North-West
+		i = addTriangleWallBlock(triangles, i, 42);
+
+		mesh.triangles = triangles;
+
+		// assign our resulting results
+		mesh.RecalculateNormals();
+	}
+
+	// we add each triangle twice, once inwards facing, once outwards facing
+	protected int addTriangle(int[] triangles, int i, int a, int b, int c) {
+		triangles[i]   = a;
+		triangles[i+1] = b;
+		triangles[i+2] = c;
+		triangles[i+3] = a;
+		triangles[i+4] = c;
+		triangles[i+5] = b;
+		return i + 6;
+	}
+
+	protected int addTriangleWallBlock(int[] triangles, int i, int start) {
+		i = addTriangle(triangles, i, start, start + 1, start + 2);
+		i = addTriangle(triangles, i, start, start + 2, start + 3);
+		i = addTriangle(triangles, i, start, start + 1, start + 4);
+		i = addTriangle(triangles, i, start, start + 4, start + 5);
+		return i;
+	}
+
+	protected int createOtherVertices(Vector3[] vertices, int howManyVertices, int i, float x, float y, float z) {
+		int startI = i;
+
+		for (int j = 0; j < howManyVertices; j++) {
+			Vector3 orig = vertices[j + startI - howManyVertices];
+			vertices[i++] = new Vector3(x - orig.x, y + orig.y, z + orig.z);
+		}
+		for (int j = 0; j < howManyVertices; j++) {
+			Vector3 orig = vertices[j + startI - howManyVertices];
+			vertices[i++] = new Vector3(x + orig.z, y + orig.y, z + orig.x);
+		}
+		for (int j = 0; j < howManyVertices; j++) {
+			Vector3 orig = vertices[j + startI - howManyVertices];
+			vertices[i++] = new Vector3(x + orig.z, y + orig.y, z - orig.x);
+		}
+		for (int j = 0; j < howManyVertices; j++) {
+			int origIndex = j + startI - howManyVertices;
+			Vector3 orig = vertices[origIndex];
+			vertices[origIndex] = new Vector3(x + orig.x, y + orig.y, z + orig.z);
+		}
+
+		return i;
+	}
+
+	protected int createOtherVertices45(Vector3[] vertices, int howManyVertices, int i, float x, float y, float z) {
+		int startI = i;
+
+		for (int j = 0; j < howManyVertices; j++) {
+			Vector3 orig = vertices[j + startI - howManyVertices];
+			vertices[i++] = new Vector3(x - orig.x, y + orig.y, z - orig.z);
+		}
+		for (int j = 0; j < howManyVertices; j++) {
+			Vector3 orig = vertices[j + startI - howManyVertices];
+			vertices[i++] = new Vector3(x - orig.z, y + orig.y, z + orig.x);
+		}
+		for (int j = 0; j < howManyVertices; j++) {
+			Vector3 orig = vertices[j + startI - howManyVertices];
+			vertices[i++] = new Vector3(x + orig.z, y + orig.y, z - orig.x);
+		}
+		for (int j = 0; j < howManyVertices; j++) {
+			int origIndex = j + startI - howManyVertices;
+			Vector3 orig = vertices[origIndex];
+			vertices[origIndex] = new Vector3(x + orig.x, y + orig.y, z + orig.z);
+		}
+
+		return i;
 	}
 
 	protected GameObject createDoor(float x, float z) {

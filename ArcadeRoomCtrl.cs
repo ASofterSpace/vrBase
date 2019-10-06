@@ -20,6 +20,8 @@ public class ArcadeRoomCtrl : GenericRoomCtrl
 
 		createBeams();
 
+		createMeshedWall();
+
 		createDoors();
 	}
 

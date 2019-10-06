@@ -25,6 +25,8 @@ public class ControlRoomCtrl : GenericRoomCtrl
 
 		createBeams();
 
+		createMeshedWall();
+
 		createDoors();
 
 		createObjects();
