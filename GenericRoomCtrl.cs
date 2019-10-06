@@ -670,6 +670,51 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 		materialCtrl.setMaterial(floor2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
 	}
 
+	protected GameObject createDoor(float x, float z) {
+
+		GameObject door = new GameObject("door");
+		door.transform.parent = thisRoom.transform;
+		door.transform.localPosition = new Vector3(x, 0, z);
+
+		GameObject bottomRightBeam = createDoorBeam(door, 0.29f);
+		bottomRightBeam.transform.localPosition = new Vector3(-0.54f, 0.15f, 0);
+		bottomRightBeam.transform.eulerAngles = new Vector3(0, 0, 45);
+
+		GameObject rightBeam = createDoorBeam(door, 0.77f);
+		rightBeam.transform.localPosition = new Vector3(-0.74f, 1.08f, 0);
+		rightBeam.transform.eulerAngles = new Vector3(0, 0, 0);
+
+		GameObject topRightBeam = createDoorBeam(door, 0.28f);
+		topRightBeam.transform.localPosition = new Vector3(-0.545f, 2.02f, 0);
+		topRightBeam.transform.eulerAngles = new Vector3(0, 0, -45);
+
+		GameObject topBeam = createDoorBeam(door, 0.4f);
+		topBeam.transform.localPosition = new Vector3(0, 2.2f, 0);
+		topBeam.transform.eulerAngles = new Vector3(0, 0, 90);
+
+		GameObject topLeftBeam = createDoorBeam(door, 0.28f);
+		topLeftBeam.transform.localPosition = new Vector3(0.545f, 2.02f, 0);
+		topLeftBeam.transform.eulerAngles = new Vector3(0, 0, 45);
+
+		GameObject leftBeam = createDoorBeam(door, 0.77f);
+		leftBeam.transform.localPosition = new Vector3(0.74f, 1.08f, 0);
+		leftBeam.transform.eulerAngles = new Vector3(0, 0, 0);
+
+		GameObject bottomLeftBeam = createDoorBeam(door, 0.29f);
+		bottomLeftBeam.transform.localPosition = new Vector3(0.54f, 0.15f, 0);
+		bottomLeftBeam.transform.eulerAngles = new Vector3(0, 0, -45);
+
+		return door;
+	}
+
+	private GameObject createDoorBeam(GameObject door, float length) {
+		GameObject result = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		result.transform.parent = door.transform;
+		result.transform.localScale = new Vector3(0.15f, length, 0.15f);
+		materialCtrl.setMaterial(result, MaterialCtrl.PLASTIC_PURPLE);
+		return result;
+	}
+
 	protected void createTank(String name, int x, int z) {
 
 		GameObject tank = new GameObject(name);

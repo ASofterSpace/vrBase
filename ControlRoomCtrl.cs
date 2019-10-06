@@ -52,7 +52,7 @@ public class ControlRoomCtrl : GenericRoomCtrl
 
 	private void createDoors() {
 
-		// TODO
+		createDoor(-3.4f, -5.0f);
 	}
 
 	private void createObjects() {

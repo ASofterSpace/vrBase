@@ -13,17 +13,18 @@ public class MaterialCtrl
 	private string[] textures;
 
 	public const int BUILDING_FLOOR_CONCRETE = 0;
-	public const int PLASTIC_WHITE = 1;
-	public const int SPACE_MOON_FLOOR = 2;
-	public const int SPACE_MOON_SOUTH = 3;
-	public const int SPACE_MOON_WEST = 4;
-	public const int SPACE_MOON_NORTH = 5;
-	public const int SPACE_MOON_EAST = 6;
-	public const int SPACE_EARTH = 7;
-	public const int SPACE_SUN = 8;
-	public const int SPACE_STAR = 9;
+	public const int SPACE_MOON_FLOOR = 1;
+	public const int SPACE_MOON_SOUTH = 2;
+	public const int SPACE_MOON_WEST = 3;
+	public const int SPACE_MOON_NORTH = 4;
+	public const int SPACE_MOON_EAST = 5;
+	public const int SPACE_EARTH = 6;
+	public const int SPACE_SUN = 7;
+	public const int SPACE_STAR = 8;
+	public const int PLASTIC_PURPLE = 9;
+	public const int PLASTIC_WHITE = 10;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 10;
+	public const int MATERIAL_AMOUNT = 11;
 
 
 	public MaterialCtrl(MainCtrl mainCtrl) {
@@ -72,6 +73,9 @@ public class MaterialCtrl
 			switch (materialNum) {
 				case PLASTIC_WHITE:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					break;
+				case PLASTIC_PURPLE:
+					result.color = new Color(0.3542f, 0.0654f, 0.6603f, 1.0f);
 					break;
 				case SPACE_STAR:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
