@@ -13,7 +13,9 @@ public class FarAwayCtrl : MonoBehaviour
 	private MainCtrl mainCtrl;
 	private MaterialCtrl materialCtrl;
 	private GameObject skybox;
+	private GameObject earth;
 	private int curIterator;
+	private bool initDone = false;
 
 
 	void Start()
@@ -23,7 +25,13 @@ public class FarAwayCtrl : MonoBehaviour
 
 	void Update()
 	{
+		if (!initDone) {
+			return;
+		}
 
+		// let the Earth rise, but slowly, unnoticeably! :)
+		// (up to 500+3600/5=1220 after one hour...)
+		earth.transform.localPosition = new Vector3(-3000, 500 + (Time.time / 5), 0);
 	}
 
 	public void init(MainCtrl mainCtrl) {
@@ -38,6 +46,8 @@ public class FarAwayCtrl : MonoBehaviour
 		createSun();
 
 		createStars();
+
+		this.initDone = true;
 	}
 
 	private void createMoon() {
@@ -82,7 +92,7 @@ public class FarAwayCtrl : MonoBehaviour
 
 	private void createEarth() {
 
-		GameObject earth = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		earth = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		earth.name = "Earth";
 		earth.transform.parent = skybox.transform;
 		earth.transform.localPosition = new Vector3(-3000, 500, 0);
