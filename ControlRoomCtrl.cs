@@ -14,49 +14,34 @@ public class ControlRoomCtrl : GenericRoomCtrl
 {
 	public InputDeviceRole deviceRole;
 	public List<InputDevice> inputDevices;
-	public bool inputValue;
-	public InputFeatureUsage<bool> inputFeature;
+	public InputFeatureUsage<float> inputFeature;
 
 	void Start() {
+		deviceRole = InputDeviceRole.RightHanded;
 		inputDevices = new List<InputDevice>();
+		inputFeature = CommonUsages.trigger;
 	}
 
 	void Update() {
 
-		InputDevices.GetDevicesWithRole(deviceRole, inputDevices);
+		InputDevices.GetDevices(inputDevices);
 
 		for (int i = 0; i < inputDevices.Count; i++)
 		{
-			if (inputDevices[i].TryGetFeatureValue(inputFeature,
-				out inputValue) && inputValue)
+			float inputValue = 0.0f;
+			inputDevices[i].TryGetFeatureValue(inputFeature, out inputValue);
+
+			materialCtrl.setColor(
+				MaterialCtrl.PLASTIC_WHITE,
+				new Color(1.0f - inputValue, 1.0f, 1.0f, 1.0f)
+			);
+
+			if (inputValue > 0)
 			{
-				materialCtrl.setColor(
-					MaterialCtrl.PLASTIC_WHITE,
-					new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value, 1.0f)
-				);
+				// the button is pressed!
 			}
 		}
 	}
-
-		/*
-		bool triggerValue;
-		if (device.TryGetFeatureValue(CommonUsages.triggerButton,
-									  out triggerValue)
-			&& triggerValue)
-		{
-
-
-
-		InputFeatureUsage<bool> triggerBtn = CommonUsages.triggerButton;
-		if (triggerBtn) {
-	//	if (Input.GetButton(Button.One)) {
-			materialCtrl.setColor(
-				MaterialCtrl.PLASTIC_WHITE,
-				new Color(Random.value, Random.value, Random.value, 1.0f)
-			);
-		}
-	}
-	*/
 
 	protected override void createRoom() {
 
