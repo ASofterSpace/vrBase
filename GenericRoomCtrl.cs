@@ -5,8 +5,8 @@ using System;
 using UnityEngine;
 
 
-public abstract class GenericRoomCtrl : MonoBehaviour
-{
+public abstract class GenericRoomCtrl {
+
 	protected MainCtrl mainCtrl;
 	protected MaterialCtrl materialCtrl;
 	protected string roomName;
@@ -15,15 +15,15 @@ public abstract class GenericRoomCtrl : MonoBehaviour
 	private int curBeamNum;
 
 
-	public void init(MainCtrl mainCtrl) {
+	public GenericRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) {
 
 		this.mainCtrl = mainCtrl;
 
 		this.materialCtrl = mainCtrl.getMaterialCtrl();
 
-		this.roomName = this.gameObject.name;
+		this.thisRoom = thisRoom;
 
-		this.thisRoom = this.gameObject;
+		this.roomName = thisRoom.name;
 
 		// let's have more slots available than should be necessary:
 		// we create 48 for a standard room here, but special rooms

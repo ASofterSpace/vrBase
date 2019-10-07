@@ -4,13 +4,9 @@ using System.Collections;
 using UnityEngine;
 
 
-public class BridgeCtrl : GenericRoomCtrl
-{
-	void Start() {
+public class BridgeCtrl : GenericRoomCtrl {
 
-	}
-
-	void Update() {
+	public BridgeCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
 	}
 

@@ -5,8 +5,8 @@ using System;
 using UnityEngine;
 
 
-public class MaterialCtrl
-{
+public class MaterialCtrl {
+
 	private MainCtrl mainCtrl;
 
 	private Material[] materials;

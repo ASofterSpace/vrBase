@@ -8,33 +8,17 @@ using System.Collections;
 using UnityEngine;
 
 
-public class FarAwayCtrl : MonoBehaviour
-{
+public class FarAwayCtrl {
+
 	private MainCtrl mainCtrl;
 	private MaterialCtrl materialCtrl;
 	private GameObject skybox;
 	private GameObject earth;
 	private int curIterator;
-	private bool initDone = false;
 
 
-	void Start()
-	{
+	public FarAwayCtrl(MainCtrl mainCtrl) {
 
-	}
-
-	void Update()
-	{
-		if (!initDone) {
-			return;
-		}
-
-		// let the Earth rise, but slowly, unnoticeably! :)
-		// (up to 500+3600/5=1220 after one hour...)
-		earth.transform.localPosition = new Vector3(-3000, 500 + (Time.time / 5), 0);
-	}
-
-	public void init(MainCtrl mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		this.materialCtrl = mainCtrl.getMaterialCtrl();
 		this.skybox = mainCtrl.getSkybox();
@@ -46,8 +30,13 @@ public class FarAwayCtrl : MonoBehaviour
 		createSun();
 
 		createStars();
+	}
 
-		this.initDone = true;
+	public void update(VrInput input) {
+
+		// let the Earth rise, but slowly, unnoticeably! :)
+		// (up to 500+3600/5=1220 after one hour...)
+		earth.transform.localPosition = new Vector3(-3000, 500 + (Time.time / 5), 0);
 	}
 
 	private void createMoon() {

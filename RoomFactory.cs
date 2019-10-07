@@ -8,8 +8,8 @@ using System.Collections;
 using UnityEngine;
 
 
-public class RoomFactory
-{
+public class RoomFactory {
+
 	private MainCtrl mainCtrl;
 
 	private ControlRoomCtrl controlRoomCtrl;
@@ -36,8 +36,7 @@ public class RoomFactory
 		controlRoom.transform.parent = mainCtrl.getSurface().transform;
 		controlRoom.transform.localPosition = new Vector3(0, 0, 0);
 
-		controlRoomCtrl = controlRoom.AddComponent<ControlRoomCtrl>();
-		controlRoomCtrl.init(mainCtrl);
+		controlRoomCtrl = new ControlRoomCtrl(mainCtrl, controlRoom);
 	}
 
 	private void createArcadeRoom() {
@@ -47,8 +46,7 @@ public class RoomFactory
 		arcadeRoom.transform.parent = mainCtrl.getSurface().transform;
 		arcadeRoom.transform.localPosition = new Vector3(-7, 0, -12);
 
-		arcadeRoomCtrl = arcadeRoom.AddComponent<ArcadeRoomCtrl>();
-		arcadeRoomCtrl.init(mainCtrl);
+		arcadeRoomCtrl = new ArcadeRoomCtrl(mainCtrl, arcadeRoom);
 	}
 
 	private void createBridges() {
@@ -57,7 +55,6 @@ public class RoomFactory
 		controlArcadeBridge.transform.parent = mainCtrl.getSurface().transform;
 		controlArcadeBridge.transform.localPosition = new Vector3(-3.5f, 0, -6);
 
-		BridgeCtrl bridgeCtrl = controlArcadeBridge.AddComponent<BridgeCtrl>();
-		bridgeCtrl.init(mainCtrl);
+		BridgeCtrl bridgeCtrl = new BridgeCtrl(mainCtrl, controlArcadeBridge);
 	}
 }

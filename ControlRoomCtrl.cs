@@ -6,41 +6,13 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 
-using UnityEngine.XR;
 using UnityEngine;
 
 
-public class ControlRoomCtrl : GenericRoomCtrl
-{
-	public InputDeviceRole deviceRole;
-	public List<InputDevice> inputDevices;
-	public InputFeatureUsage<float> inputFeature;
+public class ControlRoomCtrl : GenericRoomCtrl {
 
-	void Start() {
-		deviceRole = InputDeviceRole.RightHanded;
-		inputDevices = new List<InputDevice>();
-		inputFeature = CommonUsages.trigger;
-	}
+	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
-	void Update() {
-
-		InputDevices.GetDevices(inputDevices);
-
-		for (int i = 0; i < inputDevices.Count; i++)
-		{
-			float inputValue = 0.0f;
-			inputDevices[i].TryGetFeatureValue(inputFeature, out inputValue);
-
-			materialCtrl.setColor(
-				MaterialCtrl.PLASTIC_WHITE,
-				new Color(1.0f - inputValue, 1.0f, 1.0f, 1.0f)
-			);
-
-			if (inputValue > 0)
-			{
-				// the button is pressed!
-			}
-		}
 	}
 
 	protected override void createRoom() {
@@ -64,9 +36,9 @@ public class ControlRoomCtrl : GenericRoomCtrl
 		int curAngle = 90;
 
 		// make room for the purple door
-		Destroy(beams[40]); // remove cross beam
-		Destroy(beams[41]); // remove floor beam
-		Destroy(beams[70]); // remove head beam
+		GameObject.Destroy(beams[40]); // remove cross beam
+		GameObject.Destroy(beams[41]); // remove floor beam
+		GameObject.Destroy(beams[70]); // remove head beam
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);

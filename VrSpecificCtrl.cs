@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 
+using UnityEngine.XR;
 using UnityEngine;
 
 
-public class VrSpecificCtrl : MonoBehaviour
-{
+public class VrSpecificCtrl {
+
 	private MainCtrl mainCtrl;
 
 	private GameObject mainCamera;
@@ -18,20 +19,52 @@ public class VrSpecificCtrl : MonoBehaviour
 
 	private String vrKindInUse;
 
+	private List<InputDevice> leftInputDevices;
+	private List<InputDevice> rightInputDevices;
 
-	void Start() {
-	}
 
-	void Update() {
-	}
-
-	public void init(MainCtrl mainCtrl) {
+	public VrSpecificCtrl(MainCtrl mainCtrl) {
 
 		this.mainCtrl = mainCtrl;
 
 		this.vrKindInUse = detectVrKind();
 
 		adjustCameraHeight();
+
+		leftInputDevices = new List<InputDevice>();
+		rightInputDevices = new List<InputDevice>();
+	}
+
+	/**
+	 * The heavyUpdate() function is called less often, such that more resource-
+	 * hungry things can be done here
+	 */
+	public void heavyUpdate() {
+
+		InputDevices.GetDevicesWithRole(InputDeviceRole.LeftHanded, leftInputDevices);
+		InputDevices.GetDevicesWithRole(InputDeviceRole.RightHanded, rightInputDevices);
+	}
+
+	/**
+	 * The update() function of this class is special; it gathers input for all
+	 * other classes to use during their update() call
+	 */
+	public VrInput update() {
+
+		VrInput result = new VrInput();
+
+		foreach (InputDevice inputDevice in leftInputDevices) {
+			inputDevice.TryGetFeatureValue(CommonUsages.trigger, out result.leftTrigger);
+		}
+		foreach (InputDevice inputDevice in rightInputDevices) {
+			inputDevice.TryGetFeatureValue(CommonUsages.trigger, out result.rightTrigger);
+		}
+
+		// TODO :: this will be wonky if we have several left or several right controllers,
+		// as we only update trigger-ness once in the end instead of during the for loops...
+		result.consolidate();
+
+		return result;
 	}
 
 	private String detectVrKind() {

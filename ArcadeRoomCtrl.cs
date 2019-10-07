@@ -4,13 +4,9 @@ using System.Collections;
 using UnityEngine;
 
 
-public class ArcadeRoomCtrl : GenericRoomCtrl
-{
-	void Start() {
+public class ArcadeRoomCtrl : GenericRoomCtrl {
 
-	}
-
-	void Update() {
+	public ArcadeRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
 	}
 
@@ -33,9 +29,9 @@ public class ArcadeRoomCtrl : GenericRoomCtrl
 		int curAngle = 90;
 
 		// make room for the door to the control room
-		Destroy(beams[16]); // remove cross beam
-		Destroy(beams[17]); // remove floor beam
-		Destroy(beams[66]); // remove head beam
+		GameObject.Destroy(beams[16]); // remove cross beam
+		GameObject.Destroy(beams[17]); // remove floor beam
+		GameObject.Destroy(beams[66]); // remove head beam
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(2.5f, 0, 5);

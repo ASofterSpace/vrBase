@@ -8,8 +8,8 @@ using System.Collections;
 using UnityEngine;
 
 
-public class MainCtrl : MonoBehaviour
-{
+public class MainCtrl : MonoBehaviour {
+
 	private GameObject world;
 	private GameObject surface;
 	private GameObject skybox;
@@ -21,28 +21,61 @@ public class MainCtrl : MonoBehaviour
 
 	private VrSpecificCtrl vrSpecificCtrl;
 
+	private bool initDone = false;
 
-	void Start()
-	{
+	// we do not want to perform some actions ALL the time,
+	// but instead only sometimes... so we keep track of
+	// the last time of a full update and perform another
+	// one in case a whole second elapsed since then
+	private float lastFullUpdateTime;
+
+
+	void Start() {
+
 		// main objects
 		initMainGameObjects();
 
 		// faraway things / skybox
-		farAwayCtrl = skybox.AddComponent<FarAwayCtrl>();
-		farAwayCtrl.init(this);
+		farAwayCtrl = new FarAwayCtrl(this);
 
 		// close objects / rooms
 		RoomFactory roomFactory = new RoomFactory(this);
 		roomFactory.createRooms();
 
 		// VR equipment specific code
-		vrSpecificCtrl = world.AddComponent<VrSpecificCtrl>();
-		vrSpecificCtrl.init(this);
+		vrSpecificCtrl = new VrSpecificCtrl(this);
+
+		lastFullUpdateTime = -100.0f;
+
+		initDone = true;
 	}
 
-	void Update()
-	{
+	void Update() {
 
+		// ensure that everything has been created and initialized before we call
+		// update on anything, ever
+		if (!initDone) {
+			return;
+		}
+
+		float currentUpdateTime = Time.time;
+		if (lastFullUpdateTime + 1 < currentUpdateTime) {
+			lastFullUpdateTime = currentUpdateTime;
+			vrSpecificCtrl.heavyUpdate();
+		}
+
+		VrInput input = vrSpecificCtrl.update();
+
+		farAwayCtrl.update(input);
+
+		/*
+		change the color upon input :)
+
+		materialCtrl.setColor(
+			MaterialCtrl.PLASTIC_WHITE,
+			new Color(1.0f - inputValue, 1.0f, 1.0f, 1.0f)
+		);
+		*/
 	}
 
 	private void initMainGameObjects() {
