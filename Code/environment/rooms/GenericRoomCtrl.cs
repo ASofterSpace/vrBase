@@ -44,12 +44,14 @@ public abstract class GenericRoomCtrl {
 	protected virtual void createFloor() {
 
 		GameObject floor = createPrimitive(PrimitiveType.Quad);
+		floor.name = TeleportCtrl.FLOOR_NAME;
 		floor.transform.localPosition = new Vector3(0, 0, 0);
 		floor.transform.eulerAngles = new Vector3(90, 0, 0);
 		floor.transform.localScale = new Vector3(10, 10, 1);
 		materialCtrl.setMaterial(floor, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
 
 		GameObject floor2 = createPrimitive(PrimitiveType.Quad);
+		floor2.name = TeleportCtrl.FLOOR_NAME;
 		floor2.transform.localPosition = new Vector3(0, -0.01f, 0);
 		floor2.transform.eulerAngles = new Vector3(90, 45, 0);
 		floor2.transform.localScale = new Vector3(10, 10, 1);

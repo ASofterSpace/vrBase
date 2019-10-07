@@ -24,8 +24,17 @@ public class MaterialCtrl {
 	public const int PLASTIC_PURPLE = 9;
 	public const int PLASTIC_WHITE = 10;
 	public const int PLASTIC_GRAY = 11;
+	public const int INTERACTION_TELEPORT_TARGET = 12;
+	public const int INTERACTION_TELEPORT_RAY = 13;
+	public const int FADEABLE_BLACK = 14;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 12;
+	public const int MATERIAL_AMOUNT = 15;
+
+	private Material standard;
+	private Material standardFade;
+	private Material unlitColor;
+	private Material unlitTexture;
+	private Material unlitTransparent;
 
 
 	public MaterialCtrl(MainCtrl mainCtrl) {
@@ -44,6 +53,13 @@ public class MaterialCtrl {
 		textures[SPACE_MOON_EAST] = "Space/moonNorthMirrored";
 		textures[SPACE_EARTH] = "Space/earth";
 		textures[SPACE_SUN] = "Space/sun";
+		textures[INTERACTION_TELEPORT_TARGET] = "Interaction/teleportTarget";
+
+		standard = GameObject.Find("/Shaders/standard").GetComponent<Renderer>().material;
+		standardFade = GameObject.Find("/Shaders/standardFade").GetComponent<Renderer>().material;
+		unlitColor = GameObject.Find("/Shaders/unlitColor").GetComponent<Renderer>().material;
+		unlitTexture = GameObject.Find("/Shaders/unlitTexture").GetComponent<Renderer>().material;
+		unlitTransparent = GameObject.Find("/Shaders/unlitTransparent").GetComponent<Renderer>().material;
 	}
 
 	/**
@@ -62,13 +78,20 @@ public class MaterialCtrl {
 				case SPACE_MOON_EAST:
 				case SPACE_EARTH:
 				case SPACE_SUN:
-					result = new Material(Shader.Find("Unlit/Texture"));
+					result = new Material(unlitTexture);
 					break;
 				case SPACE_STAR:
-					result = new Material(Shader.Find("Unlit/Color"));
+				case INTERACTION_TELEPORT_RAY:
+					result = new Material(unlitColor);
+					break;
+				case INTERACTION_TELEPORT_TARGET:
+					result = new Material(unlitTransparent);
+					break;
+				case FADEABLE_BLACK:
+					result = new Material(standardFade);
 					break;
 				default:
-					result = new Material(Shader.Find("Standard"));
+					result = new Material(standard);
 					break;
 			}
 			switch (materialNum) {
@@ -83,6 +106,12 @@ public class MaterialCtrl {
 					break;
 				case SPACE_STAR:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					break;
+				case INTERACTION_TELEPORT_RAY:
+					result.color = new Color(0.9f, 0.1f, 1.0f, 1.0f);
+					break;
+				case FADEABLE_BLACK:
+					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 					break;
 				default:
 					result.mainTexture = Resources.Load<Texture2D>("Textures/" + textures[materialNum]);

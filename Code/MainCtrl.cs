@@ -96,6 +96,10 @@ public class MainCtrl : MonoBehaviour {
 
 		mainCameraHolder = GameObject.Find("/MainCameraHolder");
 		mainCamera = GameObject.Find("/MainCameraHolder/MainCamera");
+
+		// move the shader holders out of the ways
+		GameObject shaders = GameObject.Find("/Shaders");
+		shaders.transform.localPosition = new Vector3(0, -10000, 0);
 	}
 
 	public MaterialCtrl getMaterialCtrl() {

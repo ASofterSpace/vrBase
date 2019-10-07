@@ -16,16 +16,25 @@ public class VrSpecificCtrl {
 
 	private GameObject mainCamera;
 	private GameObject mainCameraHolder;
+	private GameObject world;
 
 	private String vrKindInUse;
 
 	private List<InputDevice> leftInputDevices;
 	private List<InputDevice> rightInputDevices;
 
+	private VrInput previousInput;
+
+	private GameObject leftController;
+	private GameObject rightController;
+
 
 	public VrSpecificCtrl(MainCtrl mainCtrl) {
 
 		this.mainCtrl = mainCtrl;
+		mainCamera = mainCtrl.getMainCamera();
+		mainCameraHolder = mainCtrl.getMainCameraHolder();
+		world = mainCtrl.getWorld();
 
 		this.vrKindInUse = detectVrKind();
 
@@ -33,6 +42,14 @@ public class VrSpecificCtrl {
 
 		leftInputDevices = new List<InputDevice>();
 		rightInputDevices = new List<InputDevice>();
+
+		// by providing a dummy object here we avoid checking for null ALL THE TIME later :)
+		previousInput = new VrInput();
+
+		leftController = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		leftController.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		rightController = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		rightController.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 	}
 
 	/**
@@ -55,14 +72,29 @@ public class VrSpecificCtrl {
 
 		foreach (InputDevice inputDevice in leftInputDevices) {
 			inputDevice.TryGetFeatureValue(CommonUsages.trigger, out result.leftTrigger);
+			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.leftPosition);
+			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.leftRotation);
+			leftController.transform.position = result.leftPosition;
 		}
 		foreach (InputDevice inputDevice in rightInputDevices) {
 			inputDevice.TryGetFeatureValue(CommonUsages.trigger, out result.rightTrigger);
+			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.rightPosition);
+			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.rightRotation);
+			rightController.transform.position = result.rightPosition;
 		}
+
+		/* test code /
+		result.leftTrigger = 1.0f;
+		result.leftPosition = new Vector3(1, 2, 1);
+		result.leftRotation = leftController.transform.rotation;
+		leftController.transform.position = result.leftPosition;
+		// /* */
 
 		// TODO :: this will be wonky if we have several left or several right controllers,
 		// as we only update trigger-ness once in the end instead of during the for loops...
-		result.consolidate();
+		result.consolidate(previousInput);
+
+		previousInput = result;
 
 		return result;
 	}
@@ -76,13 +108,11 @@ public class VrSpecificCtrl {
 
 	private void adjustCameraHeight() {
 
-		mainCamera = mainCtrl.getMainCamera();
-		mainCameraHolder = mainCtrl.getMainCameraHolder();
-		Vector3 curPos = mainCameraHolder.transform.localPosition;
+		Vector3 curPos = world.transform.localPosition;
 
 		if (vrKindInUse.StartsWith("VIVE_")) {
 			// set camera to height 0, as the height is automatically taken into account by the vive
-			mainCameraHolder.transform.localPosition = new Vector3(curPos.x, 0.0f, curPos.z);
+			world.transform.localPosition = new Vector3(curPos.x, 0.0f, curPos.z);
 		}
 
 		if (vrKindInUse.StartsWith("OCULUS_")) {
@@ -92,7 +122,8 @@ public class VrSpecificCtrl {
 			//   correct either...
 			// TODO :: actually actually, a reasonable height like 1.75m is way too much...
 			// something much less (reasonable) seems to be needed - why? will this always work?
-			mainCameraHolder.transform.localPosition = new Vector3(curPos.x, 0.7f, curPos.z);
+			// mainCameraHolder.transform.localPosition = new Vector3(curPos.x, 0.7f, curPos.z);
+			world.transform.localPosition = new Vector3(curPos.x, -0.7f, curPos.z);
 		}
 	}
 
