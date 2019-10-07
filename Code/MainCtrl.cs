@@ -20,6 +20,7 @@ public class MainCtrl : MonoBehaviour {
 	private MaterialCtrl materialCtrl;
 
 	private VrSpecificCtrl vrSpecificCtrl;
+	private TeleportCtrl teleportCtrl;
 
 	private bool initDone = false;
 
@@ -41,6 +42,9 @@ public class MainCtrl : MonoBehaviour {
 		// close objects / rooms
 		RoomFactory roomFactory = new RoomFactory(this);
 		roomFactory.createRooms();
+
+		// interactions
+		teleportCtrl = new TeleportCtrl(this);
 
 		// VR equipment specific code
 		vrSpecificCtrl = new VrSpecificCtrl(this);
@@ -65,6 +69,8 @@ public class MainCtrl : MonoBehaviour {
 		}
 
 		VrInput input = vrSpecificCtrl.update();
+
+		teleportCtrl.update(input);
 
 		farAwayCtrl.update(input);
 
