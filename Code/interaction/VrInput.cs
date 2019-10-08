@@ -10,6 +10,9 @@ using UnityEngine;
 
 public class VrInput {
 
+	public Vector3 camPosition;
+	public Quaternion camRotation;
+
 	public float leftTrigger = 0.0f;
 	public float rightTrigger = 0.0f;
 	public bool leftTriggerPressed = false;

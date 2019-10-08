@@ -20,6 +20,7 @@ public class VrSpecificCtrl {
 
 	private String vrKindInUse;
 
+	private List<InputDevice> camInputDevices;
 	private List<InputDevice> leftInputDevices;
 	private List<InputDevice> rightInputDevices;
 
@@ -40,6 +41,7 @@ public class VrSpecificCtrl {
 
 		adjustCameraHeight();
 
+		camInputDevices = new List<InputDevice>();
 		leftInputDevices = new List<InputDevice>();
 		rightInputDevices = new List<InputDevice>();
 
@@ -58,6 +60,7 @@ public class VrSpecificCtrl {
 	 */
 	public void heavyUpdate() {
 
+		InputDevices.GetDevicesWithRole(InputDeviceRole.Generic, camInputDevices);
 		InputDevices.GetDevicesWithRole(InputDeviceRole.LeftHanded, leftInputDevices);
 		InputDevices.GetDevicesWithRole(InputDeviceRole.RightHanded, rightInputDevices);
 	}
@@ -70,6 +73,10 @@ public class VrSpecificCtrl {
 
 		VrInput result = new VrInput();
 
+		foreach (InputDevice inputDevice in camInputDevices) {
+			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.camPosition);
+			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.camRotation);
+		}
 		foreach (InputDevice inputDevice in leftInputDevices) {
 			inputDevice.TryGetFeatureValue(CommonUsages.trigger, out result.leftTrigger);
 			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.leftPosition);

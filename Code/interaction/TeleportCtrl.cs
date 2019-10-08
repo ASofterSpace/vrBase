@@ -15,6 +15,7 @@ public class TeleportCtrl {
 
 	private GameObject ray;
 	private GameObject targetMarker;
+	private GameObject faderHolder;
 	private GameObject[] faders;
 	private Transform worldTransform;
 
@@ -52,37 +53,62 @@ public class TeleportCtrl {
 		targetMarker.GetComponent<Collider>().enabled = false;
 		materialCtrl.setMaterial(targetMarker, MaterialCtrl.INTERACTION_TELEPORT_TARGET);
 
-		// create a box made of fader objects
-		faders = new GameObject[6];
+		// create two boxes made of fader objects, one a bit further inside
+		// that is better (but might miss the camera), and one a bit further
+		// outside that is worse (because objects might slip inside), but is
+		// more definitely actually surrounding the camera :D
+		faderHolder = new GameObject("faderHolder");
+		faders = new GameObject[12];
+		float small = 0.1f;
+		float big = 0.5f;
 		for (int i = 0; i < 6; i++) {
-			faders[i] = createFader();
+			faders[i] = createFader(small);
 		}
-		faders[0].transform.localPosition = new Vector3(0, 0, 0.5f);
+		for (int i = 6; i < 12; i++) {
+			faders[i] = createFader(big);
+		}
+		faders[0].transform.localPosition = new Vector3(0, 0, small);
 		faders[0].transform.eulerAngles = new Vector3(0, 0, 0);
-		faders[1].transform.localPosition = new Vector3(0, -0.5f, 0);
+		faders[1].transform.localPosition = new Vector3(0, -small, 0);
 		faders[1].transform.eulerAngles = new Vector3(90, 0, 0);
-		faders[2].transform.localPosition = new Vector3(0, 0, -0.5f);
+		faders[2].transform.localPosition = new Vector3(0, 0, -small);
 		faders[2].transform.eulerAngles = new Vector3(180, 0, 0);
-		faders[3].transform.localPosition = new Vector3(0, 0.5f, 0);
+		faders[3].transform.localPosition = new Vector3(0, small, 0);
 		faders[3].transform.eulerAngles = new Vector3(270, 0, 0);
-		faders[4].transform.localPosition = new Vector3(-0.5f, 0, 0);
+		faders[4].transform.localPosition = new Vector3(-small, 0, 0);
 		faders[4].transform.eulerAngles = new Vector3(0, -90, 0);
-		faders[5].transform.localPosition = new Vector3(0.5f, 0, 0);
+		faders[5].transform.localPosition = new Vector3(small, 0, 0);
 		faders[5].transform.eulerAngles = new Vector3(0, 90, 0);
+		faders[6].transform.localPosition = new Vector3(0, 0, big);
+		faders[6].transform.eulerAngles = new Vector3(0, 0, 0);
+		faders[7].transform.localPosition = new Vector3(0, -big, 0);
+		faders[7].transform.eulerAngles = new Vector3(90, 0, 0);
+		faders[8].transform.localPosition = new Vector3(0, 0, -big);
+		faders[8].transform.eulerAngles = new Vector3(180, 0, 0);
+		faders[9].transform.localPosition = new Vector3(0, big, 0);
+		faders[9].transform.eulerAngles = new Vector3(270, 0, 0);
+		faders[10].transform.localPosition = new Vector3(-big, 0, 0);
+		faders[10].transform.eulerAngles = new Vector3(0, -90, 0);
+		faders[11].transform.localPosition = new Vector3(big, 0, 0);
+		faders[11].transform.eulerAngles = new Vector3(0, 90, 0);
 	}
 
-	public GameObject createFader() {
+	public GameObject createFader(float dist) {
 
 		GameObject fader = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		fader.name = "fader";
-		fader.transform.parent = mainCtrl.getMainCamera().transform;
-		fader.transform.localScale = new Vector3(2, 2, 1);
+		fader.transform.parent = faderHolder.transform;
+		fader.transform.localScale = new Vector3(dist*2, dist*2, dist*2);
 		materialCtrl.setMaterial(fader, MaterialCtrl.FADEABLE_BLACK);
 		fader.SetActive(false);
 		return fader;
 	}
 
 	public void update(VrInput input) {
+
+		if (input.camPosition != null) {
+			faderHolder.transform.position = input.camPosition;
+		}
 
 		if (targetMarker.activeSelf) {
 			// slowly rotate the transport target point, because... well... it looks fun! :D
@@ -210,7 +236,7 @@ public class TeleportCtrl {
 
 		teleportInProgress = true;
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < faders.Length; i++) {
 			faders[i].SetActive(true);
 		}
 	}
@@ -243,7 +269,7 @@ public class TeleportCtrl {
 
 		teleportInProgress = false;
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < faders.Length; i++) {
 			faders[i].SetActive(false);
 		}
 	}
