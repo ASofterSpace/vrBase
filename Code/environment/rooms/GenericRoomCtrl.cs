@@ -52,7 +52,7 @@ public abstract class GenericRoomCtrl {
 
 		GameObject floor2 = createPrimitive(PrimitiveType.Quad);
 		floor2.name = TeleportCtrl.FLOOR_NAME;
-		floor2.transform.localPosition = new Vector3(0, -0.01f, 0);
+		floor2.transform.localPosition = new Vector3(0, -0.001f, 0);
 		floor2.transform.eulerAngles = new Vector3(90, 45, 0);
 		floor2.transform.localScale = new Vector3(10, 10, 1);
 		materialCtrl.setMaterial(floor2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);

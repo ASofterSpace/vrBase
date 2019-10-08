@@ -95,12 +95,14 @@ public class VrSpecificCtrl {
 			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.leftPosition);
 			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.leftRotation);
 			leftController.transform.position = result.leftPosition;
+			adjustRoomForPlausibility(result.leftPosition);
 		}
 		foreach (InputDevice inputDevice in rightInputDevices) {
 			inputDevice.TryGetFeatureValue(CommonUsages.trigger, out result.rightTrigger);
 			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.rightPosition);
 			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.rightRotation);
 			rightController.transform.position = result.rightPosition;
+			adjustRoomForPlausibility(result.rightPosition);
 		}
 
 		/* test code /
