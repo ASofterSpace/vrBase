@@ -53,19 +53,12 @@ public class TeleportCtrl {
 		targetMarker.GetComponent<Collider>().enabled = false;
 		materialCtrl.setMaterial(targetMarker, MaterialCtrl.INTERACTION_TELEPORT_TARGET);
 
-		// create two boxes made of fader objects, one a bit further inside
-		// that is better (but might miss the camera), and one a bit further
-		// outside that is worse (because objects might slip inside), but is
-		// more definitely actually surrounding the camera :D
+		// create a box made of fader objects
 		faderHolder = new GameObject("faderHolder");
-		faders = new GameObject[12];
+		faders = new GameObject[6];
 		float small = 0.1f;
-		float big = 0.5f;
 		for (int i = 0; i < 6; i++) {
 			faders[i] = createFader(small);
-		}
-		for (int i = 6; i < 12; i++) {
-			faders[i] = createFader(big);
 		}
 		faders[0].transform.localPosition = new Vector3(0, 0, small);
 		faders[0].transform.eulerAngles = new Vector3(0, 0, 0);
@@ -79,18 +72,6 @@ public class TeleportCtrl {
 		faders[4].transform.eulerAngles = new Vector3(0, -90, 0);
 		faders[5].transform.localPosition = new Vector3(small, 0, 0);
 		faders[5].transform.eulerAngles = new Vector3(0, 90, 0);
-		faders[6].transform.localPosition = new Vector3(0, 0, big);
-		faders[6].transform.eulerAngles = new Vector3(0, 0, 0);
-		faders[7].transform.localPosition = new Vector3(0, -big, 0);
-		faders[7].transform.eulerAngles = new Vector3(90, 0, 0);
-		faders[8].transform.localPosition = new Vector3(0, 0, -big);
-		faders[8].transform.eulerAngles = new Vector3(180, 0, 0);
-		faders[9].transform.localPosition = new Vector3(0, big, 0);
-		faders[9].transform.eulerAngles = new Vector3(270, 0, 0);
-		faders[10].transform.localPosition = new Vector3(-big, 0, 0);
-		faders[10].transform.eulerAngles = new Vector3(0, -90, 0);
-		faders[11].transform.localPosition = new Vector3(big, 0, 0);
-		faders[11].transform.eulerAngles = new Vector3(0, 90, 0);
 	}
 
 	public GameObject createFader(float dist) {
