@@ -895,23 +895,17 @@ public abstract class GenericRoomCtrl {
 
 		GameObject tankMain = GameObject.CreatePrimitive(PrimitiveType.Capsule);
 		tankMain.transform.parent = tank.transform;
-//		tankMain.transform.localPosition = new Vector3(0, 0.9f, 0);
-		tankMain.transform.localPosition = new Vector3(0, 2f, 0);
+		tankMain.transform.localPosition = new Vector3(0, 0.9f, 0);
 		tankMain.transform.localScale = new Vector3(1, 1, 1);
 		MaterialCtrl.setMaterial(tankMain, MaterialCtrl.PLASTIC_WHITE);
 
 		GameObject tankFoot = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		tankFoot.transform.parent = tank.transform;
-	//	tankFoot.transform.localPosition = new Vector3(-0.4f, 0, 0);
-		tankFoot.transform.localPosition = new Vector3(-0.4f, 0, 0.2f);
-	//	tankFoot.transform.eulerAngles = new Vector3(0, 0, -30);
-		tankFoot.transform.eulerAngles = new Vector3(45, 0, -60);
+		tankFoot.transform.localPosition = new Vector3(-0.4f, 0, 0);
+		tankFoot.transform.eulerAngles = new Vector3(0, 0, -30);
 		tankFoot.transform.localScale = new Vector3(0.1f, 0.15f, 0.1f);
 		MaterialCtrl.setMaterial(tankFoot, MaterialCtrl.PLASTIC_WHITE);
-		// ObjectFactory.quadruplize(tankFoot);
-	//	ObjectFactory.octuplize(tankFoot);
-		ObjectFactory.axisOctuplize(tankFoot);
-//		ObjectFactory.pointOctuplize(tankFoot);
+		ObjectFactory.pointQuadruplize(tankFoot);
 	}
 
 }

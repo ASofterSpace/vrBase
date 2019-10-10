@@ -78,13 +78,13 @@ public class ObjectFactory {
 		float qw = rot.w;
 
 		objs[0].transform.localPosition = new Vector3(x, y, -z);
-		objs[0].transform.rotation = new Quaternion(qw, qz, qy, qx); // SET
+		objs[0].transform.rotation = new Quaternion(qw, qz, qy, qx);
 
 		objs[1].transform.localPosition = new Vector3(-x, y, -z);
-		objs[1].transform.rotation = new Quaternion(qy, qx, qw, qz); //         qw, qz, qy, qx);
+		objs[1].transform.rotation = new Quaternion(qy, qx, qw, qz);
 
 		objs[2].transform.localPosition = new Vector3(-x, y, z);
-		objs[2].transform.rotation = new Quaternion(qz, qw, qx, qy); // SET
+		objs[2].transform.rotation = new Quaternion(qz, qw, qx, qy);
 	}
 
 	/**
