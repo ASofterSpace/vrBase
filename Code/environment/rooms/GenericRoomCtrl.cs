@@ -891,33 +891,21 @@ public abstract class GenericRoomCtrl {
 
 		GameObject tank = new GameObject(name);
 		tank.transform.parent = thisRoom.transform;
+		tank.transform.localPosition = new Vector3(x, 0, z);
 
 		GameObject tankMain = GameObject.CreatePrimitive(PrimitiveType.Capsule);
 		tankMain.transform.parent = tank.transform;
-		tankMain.transform.localPosition = new Vector3(x, 0.9f, z);
+		tankMain.transform.localPosition = new Vector3(0, 0.9f, 0);
 		tankMain.transform.localScale = new Vector3(1, 1, 1);
 		MaterialCtrl.setMaterial(tankMain, MaterialCtrl.PLASTIC_WHITE);
 
-		GameObject tankFoot = createTankFoot(tank);
-		tankFoot.transform.eulerAngles = new Vector3(0, 0, -30);
-		tankFoot.transform.localPosition = new Vector3(x - 0.4f, 0, z);
-		tankFoot = createTankFoot(tank);
-		tankFoot.transform.eulerAngles = new Vector3(0, 0, 30);
-		tankFoot.transform.localPosition = new Vector3(x + 0.4f, 0, z);
-		tankFoot = createTankFoot(tank);
-		tankFoot.transform.eulerAngles = new Vector3(-30, 0, 0);
-		tankFoot.transform.localPosition = new Vector3(x, 0, z + 0.4f);
-		tankFoot = createTankFoot(tank);
-		tankFoot.transform.eulerAngles = new Vector3(30, 0, 0);
-		tankFoot.transform.localPosition = new Vector3(x, 0, z - 0.4f);
-	}
-
-	protected GameObject createTankFoot(GameObject tank) {
 		GameObject tankFoot = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		tankFoot.transform.parent = tank.transform;
+		tankFoot.transform.localPosition = new Vector3(-0.4f, 0, 0);
+		tankFoot.transform.eulerAngles = new Vector3(0, 0, -30);
 		tankFoot.transform.localScale = new Vector3(0.1f, 0.15f, 0.1f);
 		MaterialCtrl.setMaterial(tankFoot, MaterialCtrl.PLASTIC_WHITE);
-		return tankFoot;
+		ObjectFactory.quadruplize(tankFoot);
 	}
 
 }
