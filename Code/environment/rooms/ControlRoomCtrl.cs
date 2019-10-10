@@ -36,9 +36,9 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		int curAngle = 90;
 
 		// make room for the purple door
-		GameObject.Destroy(beams[40]); // remove cross beam
-		GameObject.Destroy(beams[41]); // remove floor beam
-		GameObject.Destroy(beams[70]); // remove head beam
+		GameObject.Destroy(beams[21]); // remove cross beam
+		GameObject.Destroy(beams[27]); // remove floor beam
+		GameObject.Destroy(beams[65]); // remove head beam
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
