@@ -26,6 +26,7 @@ public class TriggerCtrl {
 
 	private bool teleportInProgress;
 	private bool targetingTeleportableArea;
+	private Button targetingButton;
 
 	private float fade;
 	private float fadeStartTime;
@@ -41,6 +42,7 @@ public class TriggerCtrl {
 
 		this.teleportInProgress = false;
 		this.targetingTeleportableArea = false;
+		this.targetingButton = null;
 
 		ray = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		ray.name = "teleportRay";
@@ -94,16 +96,42 @@ public class TriggerCtrl {
 
 		} else {
 
-			// TODO :: use some other button to perform teleportation ;)
+			// keep track of the last targeted button, such that we can send an on blur
+			// event in case the button is no longer targeted
+			Button unhighlightButton = null;
+			if (targetingButton != null) {
+				unhighlightButton = targetingButton;
+			}
+
+			// if a key is being pressed, check the direction in which we are pointing
 			if (input.someTriggerPressed) {
-				checkTeleportDirection(input);
+				checkTriggeringDirection(input);
 			} else {
 				ray.SetActive(false);
 				targetMarker.SetActive(false);
 			}
 
-			if (input.someTriggerReleased && targetingTeleportableArea) {
-				startTeleportation();
+			// if there is a button that we can unhighlight (as it was targeted before)...
+			if (unhighlightButton != null) {
+				// ... and this button is no longer targeted (because the current target is
+				// null or a different button)...
+				if (targetingButton != unhighlightButton) {
+					// ... then send an on blur event to this button!
+					unhighlightButton.blur();
+				}
+			}
+
+			// if the trigger has been released now...
+			if (input.someTriggerReleased) {
+				// ... and if we are pointing somewhere teleport-y, then actually teleport!
+				if (input.someTriggerReleased && targetingTeleportableArea) {
+					startTeleportation();
+				}
+				// ... and if we are targeting a button, push it!
+				if (targetingButton != null) {
+					targetingButton.trigger();
+					targetingButton.blur();
+				}
 			}
 		}
 	}
@@ -112,7 +140,7 @@ public class TriggerCtrl {
 	 * Check the direction in which we are pointing and either show a teleportation
 	 * indicator (if we can teleport there), or elsewise at least a ray
 	 */
-	private void checkTeleportDirection(VrInput input) {
+	private void checkTriggeringDirection(VrInput input) {
 
 		Vector3 origin = input.leftPosition;
 		Vector3 direction = input.leftRotation * Vector3.forward;
@@ -132,8 +160,10 @@ public class TriggerCtrl {
 			10000
 		);
 
+		// if we are targeting something then we are VERY interested in the following:
 		if (targetingSomething) {
 
+			// are we targeting an area that we can teleport into?
 			targetingTeleportableArea = FLOOR_NAME.Equals(target.transform.gameObject.name);
 
 			if (targetingTeleportableArea) {
@@ -148,6 +178,18 @@ public class TriggerCtrl {
 
 				potentialTeleportVector = targetPoint - origin;
 				potentialTeleportVector.y = 0;
+			}
+
+			// or are we maybe targeting a button that we can click?
+			targetingButton = null;
+			string btnName = target.transform.gameObject.name;
+			if (btnName != null) {
+				if (btnName.StartsWith("btn-")) {
+					targetingButton = ButtonCtrl.get(btnName);
+					if (targetingButton != null) {
+						targetingButton.hover();
+					}
+				}
 			}
 
 			// show a ray even if the floor is not target to show people that they CAN do something

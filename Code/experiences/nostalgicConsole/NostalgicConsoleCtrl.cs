@@ -96,12 +96,13 @@ public class NostalgicConsoleCtrl {
 		buttons.transform.eulerAngles = new Vector3(0, 0, 0);
 
 		GameObject buttonRedAlert = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-		ButtonCtrl.add(buttonRedAlert, ButtonCtrl.BTN_NOSTALGICCONSOLE_BIG_RED);
 		buttonRedAlert.transform.parent = buttons.transform;
 		buttonRedAlert.transform.localPosition = new Vector3(0.8f, 1.05f, 0);
 		buttonRedAlert.transform.eulerAngles = new Vector3(-15, 0, 0);
 		buttonRedAlert.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
 		MaterialCtrl.setMaterial(buttonRedAlert, MaterialCtrl.PLASTIC_RED);
+		Button btnRedAlert = new ColorizeButton(buttonRedAlert, ButtonCtrl.BTN_NOSTALGICCONSOLE_BIG_RED);
+		ButtonCtrl.add(btnRedAlert);
 
 		GameObject buttonRedAlertFrame = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		buttonRedAlertFrame.transform.parent = buttons.transform;

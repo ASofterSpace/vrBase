@@ -24,13 +24,14 @@ public class ButtonCtrl {
 		buttons = new Dictionary<string, Button>();
 	}
 
-	public static void add(GameObject buttonObject, string buttonName) {
+	public static void add(Button button) {
 
-		buttonObject.name = buttonName;
+		buttons.Add(button.getName(), button);
+	}
 
-		Button button = new Button(buttonObject);
+	public static Button get(string buttonName) {
 
-		buttons.Add(buttonName, button);
+		return buttons[buttonName];
 	}
 
 }

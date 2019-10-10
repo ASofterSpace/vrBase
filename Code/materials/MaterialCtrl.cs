@@ -26,6 +26,7 @@ public class MaterialCtrl {
 	public const int PLASTIC_RED = 21;
 	public const int INTERACTION_TELEPORT_TARGET = 12;
 	public const int INTERACTION_TELEPORT_RAY = 13;
+	public const int INTERACTION_BUTTON_HOVER = 23;
 	public const int FADEABLE_BLACK = 14;
 	public const int OBJECTS_BOWLING_BALL_RED = 16;
 	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
@@ -34,7 +35,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
 	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 23;
+	public const int MATERIAL_AMOUNT = 24;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -89,6 +90,7 @@ public class MaterialCtrl {
 					break;
 				case SPACE_STAR:
 				case INTERACTION_TELEPORT_RAY:
+				case INTERACTION_BUTTON_HOVER:
 					result = new Material(unlitColor);
 					break;
 				case INTERACTION_TELEPORT_TARGET:
@@ -118,7 +120,10 @@ public class MaterialCtrl {
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 					break;
 				case INTERACTION_TELEPORT_RAY:
-					result.color = new Color(0.9f, 0.1f, 1.0f, 1.0f);
+					result.color = new Color(0.8f, 0.1f, 0.9f, 1.0f);
+					break;
+				case INTERACTION_BUTTON_HOVER:
+					result.color = new Color(1.0f, 0.9f, 1.0f, 1.0f);
 					break;
 				case FADEABLE_BLACK:
 					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);

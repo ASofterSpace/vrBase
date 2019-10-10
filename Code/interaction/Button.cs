@@ -15,10 +15,42 @@ public class Button {
 
 	private GameObject gameObject;
 
+	private Material defaultMaterial;
 
-	public Button(GameObject obj) {
+
+	public Button(GameObject obj, string buttonName) {
+
+		obj.name = buttonName;
 
 		this.gameObject = obj;
+
+		this.defaultMaterial = obj.GetComponent<Renderer>().material;
+	}
+
+	/**
+	 * Some controller is hovering over this button...
+	 */
+	public void hover() {
+		MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
+	}
+
+	/**
+	 * The controller formerly hovering over this button is moving away again,
+	 * no longer hovering...
+	 */
+	public void blur() {
+		gameObject.GetComponent<Renderer>().material = defaultMaterial;
+	}
+
+	/**
+	 * This button is being pressed - whoop whoop!
+	 */
+	public virtual void trigger() {
+		// actually do something!
+	}
+
+	public string getName() {
+		return gameObject.name;
 	}
 
 }

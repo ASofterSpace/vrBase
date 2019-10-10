@@ -91,15 +91,6 @@ public class MainCtrl : MonoBehaviour {
 		triggerCtrl.update(input);
 
 		farAwayCtrl.update(input);
-
-		/*
-		change the color upon input :)
-
-		materialCtrl.setColor(
-			MaterialCtrl.PLASTIC_WHITE,
-			new Color(1.0f - inputValue, 1.0f, 1.0f, 1.0f)
-		);
-		*/
 	}
 
 	private void initMainGameObjects() {
