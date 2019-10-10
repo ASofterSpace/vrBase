@@ -26,7 +26,7 @@ public class ObjectFactory {
 	 *               /
 	 *                   \
 	 */
-	public static void pointQuadruplize(GameObject first) {
+	public static GameObject[] pointQuadruplize(GameObject first) {
 
 		GameObject[] objs = new GameObject[3];
 
@@ -47,6 +47,8 @@ public class ObjectFactory {
 
 		objs[2].transform.localPosition = new Vector3(-z, y, x);
 		objs[2].transform.rotation = Quaternion.Euler(Vector3.up * 270) * rot;
+
+		return objs;
 	}
 
 	/**
@@ -60,7 +62,7 @@ public class ObjectFactory {
 	 *   O              O
 	 *               /     \
 	 */
-	public static void axisQuadruplize(GameObject first) {
+	public static GameObject[] axisQuadruplize(GameObject first) {
 
 		GameObject[] objs = new GameObject[3];
 
@@ -85,6 +87,8 @@ public class ObjectFactory {
 
 		objs[2].transform.localPosition = new Vector3(-x, y, z);
 		objs[2].transform.rotation = new Quaternion(qz, qw, qx, qy);
+
+		return objs;
 	}
 
 	/**
@@ -99,7 +103,7 @@ public class ObjectFactory {
 	 *                -   \
 	 *                 / |
 	 */
-	public static void pointOctuplize(GameObject first) {
+	public static GameObject[] pointOctuplize(GameObject first) {
 
 		GameObject[] objs = new GameObject[7];
 
@@ -132,6 +136,8 @@ public class ObjectFactory {
 
 		objs[6].transform.localPosition = new Vector3(x, y, -z);
 		objs[6].transform.rotation = Quaternion.Euler(Vector3.up * 315) * rot;
+
+		return objs;
 	}
 
 	/**
@@ -146,24 +152,40 @@ public class ObjectFactory {
 	 *                -   -
 	 *                 | |
 	 */
-	public static void axisOctuplize(GameObject first) {
+	public static GameObject[] axisOctuplize(GameObject first) {
 
-		axisQuadruplize(first);
+		GameObject[] objs = new GameObject[7];
 
-		GameObject fifth = Object.Instantiate(first, first.transform.parent);
-		fifth.transform.localPosition = new Vector3(
+		// basically, we first quadruplize...
+		GameObject[] objs012 = axisQuadruplize(first);
+
+		// ... then copy the input object and rotate the copy by 90 degrees...
+		GameObject obj3 = Object.Instantiate(first, first.transform.parent);
+		obj3.transform.localPosition = new Vector3(
 			 first.transform.localPosition.z,
 			 first.transform.localPosition.y,
 			-first.transform.localPosition.x
 		);
-		fifth.transform.rotation = Quaternion.Euler(Vector3.up * 90) * first.transform.rotation;
+		obj3.transform.rotation = Quaternion.Euler(Vector3.up * 90) * first.transform.rotation;
 
-		axisQuadruplize(fifth);
+		// ... and quadruplize again! Wheee! \o/
+		GameObject[] objs456 = axisQuadruplize(obj3);
+
+		objs[0] = objs012[0];
+		objs[1] = objs012[1];
+		objs[2] = objs012[2];
+		objs[3] = obj3;
+		objs[4] = objs456[0];
+		objs[5] = objs456[1];
+		objs[6] = objs456[2];
+
+		return objs;
 	}
 
 	/**
 	 * Create an inverted Cube centered around the parent
 	 * (inverted meaning that the textures are shown inwards, rather than outwards)
+	 * TODO :: actually do this via mesh instead of six game objects!
 	 */
 	public static void createInvertedCube(GameObject parent, float radius, int material) {
 
