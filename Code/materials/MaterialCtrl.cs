@@ -11,6 +11,7 @@ public class MaterialCtrl {
 	private static string[] textures;
 
 	public const int BUILDING_FLOOR_CONCRETE = 0;
+	public const int BUILDING_FLOOR_WOOD = 15;
 	public const int SPACE_MOON_FLOOR = 1;
 	public const int SPACE_MOON_SOUTH = 2;
 	public const int SPACE_MOON_WEST = 3;
@@ -22,16 +23,18 @@ public class MaterialCtrl {
 	public const int PLASTIC_PURPLE = 9;
 	public const int PLASTIC_WHITE = 10;
 	public const int PLASTIC_GRAY = 11;
+	public const int PLASTIC_RED = 21;
 	public const int INTERACTION_TELEPORT_TARGET = 12;
 	public const int INTERACTION_TELEPORT_RAY = 13;
 	public const int FADEABLE_BLACK = 14;
-	public const int BUILDING_FLOOR_WOOD = 15;
 	public const int OBJECTS_BOWLING_BALL_RED = 16;
 	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
 	public const int OBJECTS_BOWLING_PIN_RED = 18;
 	public const int OBJECTS_BLOBFLYER_BLACK = 19;
+	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
+	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 20;
+	public const int MATERIAL_AMOUNT = 23;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -48,6 +51,8 @@ public class MaterialCtrl {
 
 		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concrete";
 		textures[BUILDING_FLOOR_WOOD] = "Building/Floor/woodenLengthwiseFloor";
+		textures[OBJECTS_NOSTALGICCONSOLE_GREEN] = "Building/Wall/wallpaper_1_azure_continuous";
+		textures[OBJECTS_NOSTALGICCONSOLE_SCREEN] = "Objects/Screens/legacy_screen_on_wallpaper_1_azure_continuous";
 		textures[SPACE_MOON_FLOOR] = "Space/moonFloor";
 		textures[SPACE_MOON_SOUTH] = "Space/moonNorth";
 		textures[SPACE_MOON_WEST] = "Space/moonNorthMirrored";
@@ -105,6 +110,9 @@ public class MaterialCtrl {
 					break;
 				case PLASTIC_GRAY:
 					result.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+					break;
+				case PLASTIC_RED:
+					result.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
 					break;
 				case SPACE_STAR:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
