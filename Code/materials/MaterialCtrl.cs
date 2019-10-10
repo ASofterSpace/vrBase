@@ -25,8 +25,13 @@ public class MaterialCtrl {
 	public const int INTERACTION_TELEPORT_TARGET = 12;
 	public const int INTERACTION_TELEPORT_RAY = 13;
 	public const int FADEABLE_BLACK = 14;
+	public const int BUILDING_FLOOR_WOOD = 15;
+	public const int OBJECTS_BOWLING_BALL_RED = 16;
+	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
+	public const int OBJECTS_BOWLING_PIN_RED = 18;
+	public const int OBJECTS_BLOBFLYER_BLACK = 19;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 15;
+	public const int MATERIAL_AMOUNT = 20;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -42,6 +47,7 @@ public class MaterialCtrl {
 		textures = new string[MATERIAL_AMOUNT];
 
 		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concrete";
+		textures[BUILDING_FLOOR_WOOD] = "Building/Floor/woodenLengthwiseFloor";
 		textures[SPACE_MOON_FLOOR] = "Space/moonFloor";
 		textures[SPACE_MOON_SOUTH] = "Space/moonNorth";
 		textures[SPACE_MOON_WEST] = "Space/moonNorthMirrored";
@@ -107,6 +113,18 @@ public class MaterialCtrl {
 					result.color = new Color(0.9f, 0.1f, 1.0f, 1.0f);
 					break;
 				case FADEABLE_BLACK:
+					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+					break;
+				case OBJECTS_BOWLING_BALL_RED:
+					result.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+					break;
+				case OBJECTS_BOWLING_PIN_WHITE:
+					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					break;
+				case OBJECTS_BOWLING_PIN_RED:
+					result.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+					break;
+				case OBJECTS_BLOBFLYER_BLACK:
 					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 					break;
 				default:
