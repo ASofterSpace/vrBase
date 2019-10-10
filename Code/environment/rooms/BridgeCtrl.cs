@@ -24,12 +24,12 @@ public class BridgeCtrl : GenericRoomCtrl {
 		floor.transform.localPosition = new Vector3(0, 0, 0);
 		floor.transform.eulerAngles = new Vector3(90, 0, 0);
 		floor.transform.localScale = new Vector3(0.8f, 2, 1);
-		materialCtrl.setMaterial(floor, MaterialCtrl.PLASTIC_GRAY);
+		MaterialCtrl.setMaterial(floor, MaterialCtrl.PLASTIC_GRAY);
 	}
 
 	private GameObject createWallPanel() {
 		GameObject result = createPrimitive(PrimitiveType.Quad);
-		materialCtrl.setMaterial(result, MaterialCtrl.PLASTIC_WHITE);
+		MaterialCtrl.setMaterial(result, MaterialCtrl.PLASTIC_WHITE);
 		return result;
 	}
 

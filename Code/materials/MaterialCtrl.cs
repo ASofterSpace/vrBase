@@ -7,10 +7,8 @@ using UnityEngine;
 
 public class MaterialCtrl {
 
-	private MainCtrl mainCtrl;
-
-	private Material[] materials;
-	private string[] textures;
+	private static Material[] materials;
+	private static string[] textures;
 
 	public const int BUILDING_FLOOR_CONCRETE = 0;
 	public const int SPACE_MOON_FLOOR = 1;
@@ -30,20 +28,18 @@ public class MaterialCtrl {
 	// do not add anything after the amount ;)
 	public const int MATERIAL_AMOUNT = 15;
 
-	private Material standard;
-	private Material standardFade;
-	private Material unlitColor;
-	private Material unlitTexture;
-	private Material unlitTransparent;
+	private static Material standard;
+	private static Material standardFade;
+	private static Material unlitColor;
+	private static Material unlitTexture;
+	private static Material unlitTransparent;
 
 
-	public MaterialCtrl(MainCtrl mainCtrl) {
+	public static void init() {
 
-		this.mainCtrl = mainCtrl;
+		materials = new Material[MATERIAL_AMOUNT];
 
-		this.materials = new Material[MATERIAL_AMOUNT];
-
-		this.textures = new string[MATERIAL_AMOUNT];
+		textures = new string[MATERIAL_AMOUNT];
 
 		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concrete";
 		textures[SPACE_MOON_FLOOR] = "Space/moonFloor";
@@ -65,7 +61,7 @@ public class MaterialCtrl {
 	/**
 	 * Get a material by its number
 	 */
-	public Material getMaterial(int materialNum) {
+	public static Material getMaterial(int materialNum) {
 
 		Material result = materials[materialNum];
 
@@ -126,11 +122,11 @@ public class MaterialCtrl {
 	/**
 	 * Assign a material to a gameobject by its number
 	 */
-	public void setMaterial(GameObject obj, int materialNum) {
+	public static void setMaterial(GameObject obj, int materialNum) {
 		obj.GetComponent<Renderer>().material = getMaterial(materialNum);
 	}
 
-	public void setColor(int materialNum, Color newColor) {
+	public static void setColor(int materialNum, Color newColor) {
 		Material material = getMaterial(materialNum);
 		material.color = newColor;
 	}

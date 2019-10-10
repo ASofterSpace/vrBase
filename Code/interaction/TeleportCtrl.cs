@@ -11,12 +11,10 @@ using UnityEngine;
 public class TeleportCtrl {
 
 	private MainCtrl mainCtrl;
-	private MaterialCtrl materialCtrl;
 
 	private GameObject ray;
 	private GameObject targetMarker;
 	private GameObject faderHolder;
-	private GameObject[] faders;
 	private Transform worldTransform;
 
 	private Vector3 targetPoint;
@@ -35,7 +33,6 @@ public class TeleportCtrl {
 	public TeleportCtrl(MainCtrl mainCtrl) {
 
 		this.mainCtrl = mainCtrl;
-		this.materialCtrl = mainCtrl.getMaterialCtrl();
 		this.worldTransform = mainCtrl.getWorld().transform;
 
 		this.teleportInProgress = false;
@@ -45,44 +42,18 @@ public class TeleportCtrl {
 		ray.name = "teleportRay";
 		ray.transform.parent = this.worldTransform;
 		ray.GetComponent<Collider>().enabled = false;
-		materialCtrl.setMaterial(ray, MaterialCtrl.INTERACTION_TELEPORT_RAY);
+		MaterialCtrl.setMaterial(ray, MaterialCtrl.INTERACTION_TELEPORT_RAY);
 
 		targetMarker = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		targetMarker.name = "teleportMarker";
 		targetMarker.transform.parent = this.worldTransform;
 		targetMarker.GetComponent<Collider>().enabled = false;
-		materialCtrl.setMaterial(targetMarker, MaterialCtrl.INTERACTION_TELEPORT_TARGET);
+		MaterialCtrl.setMaterial(targetMarker, MaterialCtrl.INTERACTION_TELEPORT_TARGET);
 
 		// create a box made of fader objects
 		faderHolder = new GameObject("faderHolder");
-		faders = new GameObject[6];
-		float small = 0.1f;
-		for (int i = 0; i < 6; i++) {
-			faders[i] = createFader(small);
-		}
-		faders[0].transform.localPosition = new Vector3(0, 0, small);
-		faders[0].transform.eulerAngles = new Vector3(0, 0, 0);
-		faders[1].transform.localPosition = new Vector3(0, -small, 0);
-		faders[1].transform.eulerAngles = new Vector3(90, 0, 0);
-		faders[2].transform.localPosition = new Vector3(0, 0, -small);
-		faders[2].transform.eulerAngles = new Vector3(180, 0, 0);
-		faders[3].transform.localPosition = new Vector3(0, small, 0);
-		faders[3].transform.eulerAngles = new Vector3(270, 0, 0);
-		faders[4].transform.localPosition = new Vector3(-small, 0, 0);
-		faders[4].transform.eulerAngles = new Vector3(0, -90, 0);
-		faders[5].transform.localPosition = new Vector3(small, 0, 0);
-		faders[5].transform.eulerAngles = new Vector3(0, 90, 0);
-	}
-
-	public GameObject createFader(float dist) {
-
-		GameObject fader = GameObject.CreatePrimitive(PrimitiveType.Quad);
-		fader.name = "fader";
-		fader.transform.parent = faderHolder.transform;
-		fader.transform.localScale = new Vector3(dist*2, dist*2, dist*2);
-		materialCtrl.setMaterial(fader, MaterialCtrl.FADEABLE_BLACK);
-		fader.SetActive(false);
-		return fader;
+		ObjectFactory.createInvertedCube(faderHolder, 0.1f, MaterialCtrl.FADEABLE_BLACK);
+		faderHolder.SetActive(false);
 	}
 
 	public void update(VrInput input) {
@@ -113,9 +84,9 @@ public class TeleportCtrl {
 			}
 
 			// update the fader color based on the calculated value
-			Color fadeColor = materialCtrl.getMaterial(MaterialCtrl.FADEABLE_BLACK).color;
+			Color fadeColor = MaterialCtrl.getMaterial(MaterialCtrl.FADEABLE_BLACK).color;
 			fadeColor.a = fade;
-			materialCtrl.setColor(MaterialCtrl.FADEABLE_BLACK, fadeColor);
+			MaterialCtrl.setColor(MaterialCtrl.FADEABLE_BLACK, fadeColor);
 
 		} else {
 
@@ -217,9 +188,7 @@ public class TeleportCtrl {
 
 		teleportInProgress = true;
 
-		for (int i = 0; i < faders.Length; i++) {
-			faders[i].SetActive(true);
-		}
+		faderHolder.SetActive(true);
 	}
 
 	/**
@@ -250,9 +219,7 @@ public class TeleportCtrl {
 
 		teleportInProgress = false;
 
-		for (int i = 0; i < faders.Length; i++) {
-			faders[i].SetActive(false);
-		}
+		faderHolder.SetActive(false);
 	}
 
 }

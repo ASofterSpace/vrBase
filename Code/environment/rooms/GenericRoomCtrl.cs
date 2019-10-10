@@ -8,7 +8,6 @@ using UnityEngine;
 public abstract class GenericRoomCtrl {
 
 	protected MainCtrl mainCtrl;
-	protected MaterialCtrl materialCtrl;
 	protected string roomName;
 	protected GameObject thisRoom;
 	protected GameObject[] beams;
@@ -18,8 +17,6 @@ public abstract class GenericRoomCtrl {
 	public GenericRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) {
 
 		this.mainCtrl = mainCtrl;
-
-		this.materialCtrl = mainCtrl.getMaterialCtrl();
 
 		this.thisRoom = thisRoom;
 
@@ -48,14 +45,14 @@ public abstract class GenericRoomCtrl {
 		floor.transform.localPosition = new Vector3(0, 0, 0);
 		floor.transform.eulerAngles = new Vector3(90, 0, 0);
 		floor.transform.localScale = new Vector3(10, 10, 1);
-		materialCtrl.setMaterial(floor, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
+		MaterialCtrl.setMaterial(floor, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
 
 		GameObject floor2 = createPrimitive(PrimitiveType.Quad);
 		floor2.name = TeleportCtrl.FLOOR_NAME;
 		floor2.transform.localPosition = new Vector3(0, -0.001f, 0);
 		floor2.transform.eulerAngles = new Vector3(90, 45, 0);
 		floor2.transform.localScale = new Vector3(10, 10, 1);
-		materialCtrl.setMaterial(floor2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
+		MaterialCtrl.setMaterial(floor2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
 	}
 
 	protected virtual void createBeams() {
@@ -667,7 +664,7 @@ public abstract class GenericRoomCtrl {
 		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
 		curBeam.name = "beam" + curBeamNum;
 		curBeam.transform.localScale = new Vector3(0.1f, length, 0.1f);
-		materialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
+		MaterialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
 		beams[curBeamNum++] = curBeam;
 		return curBeam;
 	}
@@ -688,7 +685,7 @@ public abstract class GenericRoomCtrl {
 		meshWall.AddComponent<MeshFilter>();
 		meshWall.AddComponent<MeshRenderer>();
 		Mesh mesh = meshWall.GetComponent<MeshFilter>().mesh;
-		materialCtrl.setMaterial(meshWall, MaterialCtrl.PLASTIC_WHITE);
+		MaterialCtrl.setMaterial(meshWall, MaterialCtrl.PLASTIC_WHITE);
 		mesh.Clear();
 
 		// create vertices that are available to create the mesh
@@ -886,7 +883,7 @@ public abstract class GenericRoomCtrl {
 		GameObject result = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		result.transform.parent = door.transform;
 		result.transform.localScale = new Vector3(0.15f, length, 0.15f);
-		materialCtrl.setMaterial(result, MaterialCtrl.PLASTIC_PURPLE);
+		MaterialCtrl.setMaterial(result, MaterialCtrl.PLASTIC_PURPLE);
 		return result;
 	}
 
@@ -899,7 +896,7 @@ public abstract class GenericRoomCtrl {
 		tankMain.transform.parent = tank.transform;
 		tankMain.transform.localPosition = new Vector3(x, 0.9f, z);
 		tankMain.transform.localScale = new Vector3(1, 1, 1);
-		materialCtrl.setMaterial(tankMain, MaterialCtrl.PLASTIC_WHITE);
+		MaterialCtrl.setMaterial(tankMain, MaterialCtrl.PLASTIC_WHITE);
 
 		GameObject tankFoot = createTankFoot(tank);
 		tankFoot.transform.eulerAngles = new Vector3(0, 0, -30);
@@ -919,7 +916,7 @@ public abstract class GenericRoomCtrl {
 		GameObject tankFoot = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		tankFoot.transform.parent = tank.transform;
 		tankFoot.transform.localScale = new Vector3(0.1f, 0.15f, 0.1f);
-		materialCtrl.setMaterial(tankFoot, MaterialCtrl.PLASTIC_WHITE);
+		MaterialCtrl.setMaterial(tankFoot, MaterialCtrl.PLASTIC_WHITE);
 		return tankFoot;
 	}
 

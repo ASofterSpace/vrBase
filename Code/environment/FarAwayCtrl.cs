@@ -11,7 +11,6 @@ using UnityEngine;
 public class FarAwayCtrl {
 
 	private MainCtrl mainCtrl;
-	private MaterialCtrl materialCtrl;
 	private GameObject skybox;
 	private GameObject earth;
 	private int curIterator;
@@ -20,7 +19,6 @@ public class FarAwayCtrl {
 	public FarAwayCtrl(MainCtrl mainCtrl) {
 
 		this.mainCtrl = mainCtrl;
-		this.materialCtrl = mainCtrl.getMaterialCtrl();
 		this.skybox = mainCtrl.getSkybox();
 
 		createMoon();
@@ -49,7 +47,7 @@ public class FarAwayCtrl {
 		moonFloor.transform.localPosition = new Vector3(0, -0.03f, 0);
 		moonFloor.transform.eulerAngles = new Vector3(90, 0, 0);
 		moonFloor.transform.localScale = new Vector3(4000, 4000, 1);
-		materialCtrl.setMaterial(moonFloor, MaterialCtrl.SPACE_MOON_FLOOR);
+		MaterialCtrl.setMaterial(moonFloor, MaterialCtrl.SPACE_MOON_FLOOR);
 
 		curIterator = 0;
 		GameObject moonSouth = createMoonWall(moon);
@@ -72,7 +70,7 @@ public class FarAwayCtrl {
 
 		moonWall.transform.localScale = new Vector3(4000, 2283, 1);
 
-		materialCtrl.setMaterial(moonWall, MaterialCtrl.SPACE_MOON_SOUTH + curIterator);
+		MaterialCtrl.setMaterial(moonWall, MaterialCtrl.SPACE_MOON_SOUTH + curIterator);
 
 		curIterator++;
 
@@ -87,7 +85,7 @@ public class FarAwayCtrl {
 		earth.transform.localPosition = new Vector3(-3000, 500, 0);
 		earth.transform.eulerAngles = new Vector3(180, 90, 180);
 		earth.transform.localScale = new Vector3(800, 800, 1);
-		materialCtrl.setMaterial(earth, MaterialCtrl.SPACE_EARTH);
+		MaterialCtrl.setMaterial(earth, MaterialCtrl.SPACE_EARTH);
 	}
 
 	private void createSun() {
@@ -101,7 +99,7 @@ public class FarAwayCtrl {
 		sunImage.transform.localPosition = new Vector3(0, 0, 0);
 		sunImage.transform.eulerAngles = new Vector3(275, 0, 0);
 		sunImage.transform.localScale = new Vector3(500, 500, 1);
-		materialCtrl.setMaterial(sunImage, MaterialCtrl.SPACE_SUN);
+		MaterialCtrl.setMaterial(sunImage, MaterialCtrl.SPACE_SUN);
 
 		GameObject sunLight = new GameObject();
 		sunLight.transform.parent = sun.transform;
@@ -128,7 +126,7 @@ public class FarAwayCtrl {
 			star.transform.eulerAngles = new Vector3(270, 0, 0);
 			float size = 10 + (20 * Random.value);
 			star.transform.localScale = new Vector3(size, size, 1);
-			materialCtrl.setMaterial(star, MaterialCtrl.SPACE_STAR);
+			MaterialCtrl.setMaterial(star, MaterialCtrl.SPACE_STAR);
 		}
 	}
 }

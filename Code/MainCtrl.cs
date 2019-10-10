@@ -8,6 +8,13 @@ using System.Collections;
 using UnityEngine;
 
 
+/**
+ * This is the main entrypoint into the program which handles both
+ * the startup and initialization of all other parts, as well as
+ * handling the updating each frame by gathering inputs from the
+ * VR specific controller and delivering it to all parts that want
+ * to be updated.
+ */
 public class MainCtrl : MonoBehaviour {
 
 	private GameObject world;
@@ -17,7 +24,6 @@ public class MainCtrl : MonoBehaviour {
 	private GameObject mainCameraHolder;
 
 	private FarAwayCtrl farAwayCtrl;
-	private MaterialCtrl materialCtrl;
 
 	private VrSpecificCtrl vrSpecificCtrl;
 	private TeleportCtrl teleportCtrl;
@@ -31,10 +37,20 @@ public class MainCtrl : MonoBehaviour {
 	private float lastFullUpdateTime;
 
 
+	/**
+	 * Main function, basically ;)
+	 * Called once at startup by Unity
+	 */
 	void Start() {
+
+		// mainCtrl internal setup
+		lastFullUpdateTime = -100.0f;
 
 		// main objects
 		initMainGameObjects();
+
+		// static helpers
+		MaterialCtrl.init();
 
 		// faraway things / skybox
 		farAwayCtrl = new FarAwayCtrl(this);
@@ -49,11 +65,12 @@ public class MainCtrl : MonoBehaviour {
 		// VR equipment specific code
 		vrSpecificCtrl = new VrSpecificCtrl(this);
 
-		lastFullUpdateTime = -100.0f;
-
 		initDone = true;
 	}
 
+	/**
+	 * Called on every frame by Unity
+	 */
 	void Update() {
 
 		// ensure that everything has been created and initialized before we call
@@ -97,16 +114,9 @@ public class MainCtrl : MonoBehaviour {
 		mainCameraHolder = GameObject.Find("/MainCameraHolder");
 		mainCamera = GameObject.Find("/MainCameraHolder/MainCamera");
 
-		// move the shader holders out of the ways
+		// move the shader holders out of the way
 		GameObject shaders = GameObject.Find("/Shaders");
 		shaders.transform.localPosition = new Vector3(0, -10000, 0);
-	}
-
-	public MaterialCtrl getMaterialCtrl() {
-		if (materialCtrl == null) {
-			materialCtrl = new MaterialCtrl(this);
-		}
-		return materialCtrl;
 	}
 
 	public GameObject getWorld() {
