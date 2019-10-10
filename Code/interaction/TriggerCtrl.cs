@@ -8,7 +8,11 @@ using System.Collections;
 using UnityEngine;
 
 
-public class TeleportCtrl {
+/**
+ * This class takes care of the normal operation of the triggers, mostly
+ * for teleporting, but also for interacting with buttons, objects, etc.
+ */
+public class TriggerCtrl {
 
 	private MainCtrl mainCtrl;
 
@@ -30,7 +34,7 @@ public class TeleportCtrl {
 	public const string FLOOR_NAME = "floor";
 
 
-	public TeleportCtrl(MainCtrl mainCtrl) {
+	public TriggerCtrl(MainCtrl mainCtrl) {
 
 		this.mainCtrl = mainCtrl;
 		this.worldTransform = mainCtrl.getWorld().transform;

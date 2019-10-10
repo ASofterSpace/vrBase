@@ -207,6 +207,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		buttons.transform.eulerAngles = new Vector3(0, 0, 0);
 
 		GameObject buttonRedAlert = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		ButtonCtrl.add(buttonRedAlert, ButtonCtrl.BTN_NOSTALGICCONSOLE_BIG_RED);
 		buttonRedAlert.transform.parent = buttons.transform;
 		buttonRedAlert.transform.localPosition = new Vector3(0.8f, 1.05f, 0);
 		buttonRedAlert.transform.eulerAngles = new Vector3(-15, 0, 0);
@@ -277,7 +278,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		bowlingAlley.transform.localPosition = new Vector3(3.5f, 0, 0);
 
 		GameObject bowlingFloor = GameObject.CreatePrimitive(PrimitiveType.Quad);
-		bowlingFloor.name = TeleportCtrl.FLOOR_NAME;
+		bowlingFloor.name = TriggerCtrl.FLOOR_NAME;
 		bowlingFloor.transform.parent = bowlingAlley.transform;
 		bowlingFloor.transform.localPosition = new Vector3(0, 0.001f, 0);
 		bowlingFloor.transform.eulerAngles = new Vector3(90, 0, 0);

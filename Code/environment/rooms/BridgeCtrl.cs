@@ -20,7 +20,7 @@ public class BridgeCtrl : GenericRoomCtrl {
 	protected override void createFloor() {
 
 		GameObject floor = createPrimitive(PrimitiveType.Quad);
-		floor.name = TeleportCtrl.FLOOR_NAME;
+		floor.name = TriggerCtrl.FLOOR_NAME;
 		floor.transform.localPosition = new Vector3(0, 0, 0);
 		floor.transform.eulerAngles = new Vector3(90, 0, 0);
 		floor.transform.localScale = new Vector3(0.8f, 2, 1);

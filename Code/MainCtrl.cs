@@ -26,7 +26,7 @@ public class MainCtrl : MonoBehaviour {
 	private FarAwayCtrl farAwayCtrl;
 
 	private VrSpecificCtrl vrSpecificCtrl;
-	private TeleportCtrl teleportCtrl;
+	private TriggerCtrl triggerCtrl;
 
 	private bool initDone = false;
 
@@ -51,6 +51,7 @@ public class MainCtrl : MonoBehaviour {
 
 		// static helpers
 		MaterialCtrl.init();
+		ButtonCtrl.init();
 
 		// faraway things / skybox
 		farAwayCtrl = new FarAwayCtrl(this);
@@ -60,7 +61,7 @@ public class MainCtrl : MonoBehaviour {
 		roomFactory.createRooms();
 
 		// interactions
-		teleportCtrl = new TeleportCtrl(this);
+		triggerCtrl = new TriggerCtrl(this);
 
 		// VR equipment specific code
 		vrSpecificCtrl = new VrSpecificCtrl(this);
@@ -87,7 +88,7 @@ public class MainCtrl : MonoBehaviour {
 
 		VrInput input = vrSpecificCtrl.update();
 
-		teleportCtrl.update(input);
+		triggerCtrl.update(input);
 
 		farAwayCtrl.update(input);
 
