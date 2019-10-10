@@ -18,8 +18,15 @@ public class ObjectFactory {
 	 * You have created the first object, and realize that you want three more just like that,
 	 * arranged in a point-symmetrical(!) shape in the X-Z-axis around their parent?
 	 * WELL LUCKY YOU! I take one object, and make it into four! :D
+	 *
+	 * so this:    turns into:
+	 *                 \
+	 *      /              /
+	 *   O              O
+	 *               /
+	 *                   \
 	 */
-	public static void quadruplize(GameObject first) {
+	public static void pointQuadruplize(GameObject first) {
 
 		GameObject[] objs = new GameObject[3];
 
@@ -29,16 +36,129 @@ public class ObjectFactory {
 
 		float x = first.transform.localPosition.x;
 		float z = first.transform.localPosition.z;
+		float y = first.transform.localPosition.y;
 		Quaternion rot = first.transform.rotation;
 
-		objs[0].transform.localPosition = new Vector3(z, 0, -x);
+		objs[0].transform.localPosition = new Vector3(z, y, -x);
 		objs[0].transform.rotation = Quaternion.Euler(Vector3.up * 90) * rot;
 
-		objs[1].transform.localPosition = new Vector3(-x, 0, -z);
+		objs[1].transform.localPosition = new Vector3(-x, y, -z);
 		objs[1].transform.rotation = Quaternion.Euler(Vector3.up * 180) * rot;
 
-		objs[2].transform.localPosition = new Vector3(-z, 0, x);
+		objs[2].transform.localPosition = new Vector3(-z, y, x);
 		objs[2].transform.rotation = Quaternion.Euler(Vector3.up * 270) * rot;
+	}
+
+	/**
+	 * You have created the first object, and realize that you want three more just like that,
+	 * arranged in an axis-symmetrical(!) shape in the X-Z-axis around their parent?
+	 * WELL LUCKY YOU! I take one object, and make it into four! :D
+	 *
+	 * so this:    turns into:
+	 *
+	 *      /        \     /
+	 *   O              O
+	 *               /     \
+	 */
+	public static void axisQuadruplize(GameObject first) {
+
+		GameObject[] objs = new GameObject[3];
+
+		for (int i = 0; i < objs.Length; i++) {
+			objs[i] = Object.Instantiate(first, first.transform.parent);
+		}
+
+		float x = first.transform.localPosition.x;
+		float z = first.transform.localPosition.z;
+		float y = first.transform.localPosition.y;
+		Quaternion rot = first.transform.rotation;
+		float qx = rot.x;
+		float qy = rot.y;
+		float qz = rot.z;
+		float qw = rot.w;
+
+		objs[0].transform.localPosition = new Vector3(x, y, -z);
+		objs[0].transform.rotation = new Quaternion(qw, qz, qy, qx); // SET
+
+		objs[1].transform.localPosition = new Vector3(-x, y, -z);
+		objs[1].transform.rotation = new Quaternion(qy, qx, qw, qz); //         qw, qz, qy, qx);
+
+		objs[2].transform.localPosition = new Vector3(-x, y, z);
+		objs[2].transform.rotation = new Quaternion(qz, qw, qx, qy); // SET
+	}
+
+	/**
+	 * You have created the first object, and realize that you want seven more just like that,
+	 * arranged in a point-symmetrical(!) shape in the X-Z-axis around their parent?
+	 * WELL LUCKY YOU! I take one object, and make it into eight! :D
+	 *
+	 * so this:    turns into:
+	 *                 | /
+	 *     -          \   -
+	 *   O              O
+	 *                -   \
+	 *                 / |
+	 */
+	public static void pointOctuplize(GameObject first) {
+
+		GameObject[] objs = new GameObject[7];
+
+		for (int i = 0; i < objs.Length; i++) {
+			objs[i] = Object.Instantiate(first, first.transform.parent);
+		}
+
+		float x = first.transform.localPosition.x;
+		float z = first.transform.localPosition.z;
+		float y = first.transform.localPosition.y;
+		Quaternion rot = first.transform.rotation;
+
+		objs[0].transform.localPosition = new Vector3(-z, y, -x);
+		objs[0].transform.rotation = Quaternion.Euler(Vector3.up * 45) * rot;
+
+		objs[1].transform.localPosition = new Vector3(z, y, -x);
+		objs[1].transform.rotation = Quaternion.Euler(Vector3.up * 90) * rot;
+
+		objs[2].transform.localPosition = new Vector3(-x, y, z);
+		objs[2].transform.rotation = Quaternion.Euler(Vector3.up * 135) * rot;
+
+		objs[3].transform.localPosition = new Vector3(-x, y, -z);
+		objs[3].transform.rotation = Quaternion.Euler(Vector3.up * 180) * rot;
+
+		objs[4].transform.localPosition = new Vector3(z, y, x);
+		objs[4].transform.rotation = Quaternion.Euler(Vector3.up * 225) * rot;
+
+		objs[5].transform.localPosition = new Vector3(-z, y, x);
+		objs[5].transform.rotation = Quaternion.Euler(Vector3.up * 270) * rot;
+
+		objs[6].transform.localPosition = new Vector3(x, y, -z);
+		objs[6].transform.rotation = Quaternion.Euler(Vector3.up * 315) * rot;
+	}
+
+	/**
+	 * You have created the first object, and realize that you want seven more just like that,
+	 * arranged in an axis-symmetrical(!) shape in the X-Z-axis around their parent?
+	 * WELL LUCKY YOU! I take one object, and make it into eight! :D
+	 *
+	 * so this:    turns into:
+	 *                 | |
+	 *     -          -   -
+	 *   O              O
+	 *                -   -
+	 *                 | |
+	 */
+	public static void axisOctuplize(GameObject first) {
+
+		axisQuadruplize(first);
+
+		GameObject fifth = Object.Instantiate(first, first.transform.parent);
+		fifth.transform.localPosition = new Vector3(
+			 first.transform.localPosition.z,
+			 first.transform.localPosition.y,
+			-first.transform.localPosition.x
+		);
+		fifth.transform.rotation = Quaternion.Euler(Vector3.up * 90) * first.transform.rotation;
+
+		axisQuadruplize(fifth);
 	}
 
 	/**
