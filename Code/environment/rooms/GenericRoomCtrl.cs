@@ -71,177 +71,29 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(1.0f);
 		curBeam.transform.localPosition = new Vector3(-6.7f, 0.9f, 0);
 		curBeam.transform.eulerAngles = new Vector3(0, 0, -20);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 		curBeam = createBeam(1.37f);
 		curBeam.transform.localPosition = new Vector3(-5.56f, 1.32f, 0.98f);
 		curBeam.transform.eulerAngles = new Vector3(-68, 50, -10);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 		curBeam = createBeam(1.45f);
 		curBeam.transform.localPosition = new Vector3(-6, 0, 1);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 		curAngle += 45;
 
 		curBeam = createBeam(0.425f);
 		curBeam.transform.localPosition = new Vector3(-4.88f, 0.4f, 2);
 		curBeam.transform.eulerAngles = new Vector3(-5, 0, -15);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 		curBeam = createBeam(1.45f);
 		curBeam.transform.localPosition = new Vector3(-4.7f, 1.33f, 3.3f);
 		curBeam.transform.eulerAngles = new Vector3(50, -58.5f, 125);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 		curBeam = createBeam(1.45f);
 		curBeam.transform.localPosition = new Vector3(-5, 0, 3.5f);
 		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(-4.815f, 0.9f, 4.815f);
-		curBeam.transform.eulerAngles = new Vector3(-10.8f, 0, -10.8f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-3.3f, 1.33f, 4.7f);
-		curBeam.transform.eulerAngles = new Vector3(-66, 58.5f, 26.5f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-3.5f, 0, 5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createBeam(0.425f);
-		curBeam.transform.localPosition = new Vector3(-2f, 0.4f, 4.88f);
-		curBeam.transform.eulerAngles = new Vector3(-15, 0, -5);
-		curBeam = createBeam(1.37f);
-		curBeam.transform.localPosition = new Vector3(-0.983f, 1.319f, 5.563f);
-		curBeam.transform.eulerAngles = new Vector3(68.175f, 53, 1.923f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-1, 0, 6);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(0, 0.9f, 6.7f);
-		curBeam.transform.eulerAngles = new Vector3(-20, 0, 0);
-		curBeam = createBeam(1.37f);
-		curBeam.transform.localPosition = new Vector3(0.983f, 1.319f, 5.563f);
-		curBeam.transform.eulerAngles = new Vector3(68.175f, -53, -1.923f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(1, 0, 6);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createBeam(0.425f);
-		curBeam.transform.localPosition = new Vector3(2, 0.4f, 4.88f);
-		curBeam.transform.eulerAngles = new Vector3(-15, 0, 5);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(3.3f, 1.33f, 4.7f);
-		curBeam.transform.eulerAngles = new Vector3(-66, -58.5f, -26.5f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(3.5f, 0, 5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(4.815f, 0.9f, 4.815f);
-		curBeam.transform.eulerAngles = new Vector3(-10.8f, 0, 10.8f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(4.7f, 1.33f, 3.3f);
-		curBeam.transform.eulerAngles = new Vector3(50, 58.5f, -125);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(5, 0, 3.5f);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createBeam(0.425f);
-		curBeam.transform.localPosition = new Vector3(4.88f, 0.4f, -2);
-		curBeam.transform.eulerAngles = new Vector3(5, 0, 15);
-		curBeam = createBeam(1.37f);
-		curBeam.transform.localPosition = new Vector3(5.56f, 1.32f, 0.98f);
-		curBeam.transform.eulerAngles = new Vector3(-68, -50, 10);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(6, 0, 1);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(6.7f, 0.9f, 0);
-		curBeam.transform.eulerAngles = new Vector3(0, 0, 20);
-		curBeam = createBeam(1.37f);
-		curBeam.transform.localPosition = new Vector3(5.56f, 1.32f, -0.98f);
-		curBeam.transform.eulerAngles = new Vector3(68, 50, 10);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(6, 0, -1);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createBeam(0.425f);
-		curBeam.transform.localPosition = new Vector3(4.88f, 0.4f, 2);
-		curBeam.transform.eulerAngles = new Vector3(-5, 0, 15);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(4.7f, 1.33f, -3.3f);
-		curBeam.transform.eulerAngles = new Vector3(-50, -58.5f, -125);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(5, 0, -3.5f);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(4.815f, 0.9f, -4.815f);
-		curBeam.transform.eulerAngles = new Vector3(10.8f, 0, 10.8f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(3.3f, 1.33f, -4.7f);
-		curBeam.transform.eulerAngles = new Vector3(66, 58.5f, -26.5f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(3.5f, 0, -5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createBeam(0.425f);
-		curBeam.transform.localPosition = new Vector3(2, 0.4f, -4.88f);
-		curBeam.transform.eulerAngles = new Vector3(15, 0, 5);
-		curBeam = createBeam(1.37f);
-		curBeam.transform.localPosition = new Vector3(0.983f, 1.319f, -5.563f);
-		curBeam.transform.eulerAngles = new Vector3(-68.175f, 53, -1.923f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(1, 0, -6);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(0, 0.9f, -6.7f);
-		curBeam.transform.eulerAngles = new Vector3(20, 0, 0);
-		curBeam = createBeam(1.37f);
-		curBeam.transform.localPosition = new Vector3(-0.983f, 1.319f, -5.563f);
-		curBeam.transform.eulerAngles = new Vector3(-68.175f, -53, 1.923f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-1, 0, -6);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createBeam(0.425f);
-		curBeam.transform.localPosition = new Vector3(-2, 0.4f, -4.88f);
-		curBeam.transform.eulerAngles = new Vector3(15, 0, -5);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-3.3f, 1.33f, -4.7f);
-		curBeam.transform.eulerAngles = new Vector3(66, -58.5f, 26.5f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-3.5f, 0, -5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle -= 90;
-
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(-4.815f, 0.9f, -4.815f);
-		curBeam.transform.eulerAngles = new Vector3(10.8f, 0, -10.8f);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-4.7f, 1.33f, -3.3f);
-		curBeam.transform.eulerAngles = new Vector3(-50, 58.5f, 125);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-5, 0, -3.5f);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
-		curAngle += 45;
-
-		curBeam = createBeam(0.425f);
-		curBeam.transform.localPosition = new Vector3(-4.88f, 0.4f, -2);
-		curBeam.transform.eulerAngles = new Vector3(5, 0, -15);
-		curBeam = createBeam(1.37f);
-		curBeam.transform.localPosition = new Vector3(-5.56f, 1.32f, -0.98f);
-		curBeam.transform.eulerAngles = new Vector3(68, -50, -10);
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-6, 0, -1);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 		curAngle -= 90;
 
 		// create second level:
@@ -260,55 +112,11 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(-curDistL1, curY, curDistS1);
 		curBeam.transform.eulerAngles = new Vector3(-20, 20, 0);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(-curDistL2, 1.597f, curDistS2);
 		curBeam.transform.eulerAngles = new Vector3(20, 20, 0);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS22, curY, curDistL22);
-		curBeam.transform.eulerAngles = new Vector3(0, -20, 20);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS1, curY, curDistL12);
-		curBeam.transform.eulerAngles = new Vector3(0, -20, -20);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS1, curY, curDistL12);
-		curBeam.transform.eulerAngles = new Vector3(0, 20, 20);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS22, curY, curDistL22);
-		curBeam.transform.eulerAngles = new Vector3(0, 20, -20);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL2, 1.597f, curDistS2);
-		curBeam.transform.eulerAngles = new Vector3(20, -20, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL1, curY, curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(-20, -20, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL1, curY, -curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(20, 20, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL2, 1.597f, -curDistS2);
-		curBeam.transform.eulerAngles = new Vector3(-20, 20, 0);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS22, curY, -curDistL22);
-		curBeam.transform.eulerAngles = new Vector3(0, -20, -20);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS1, curY, -curDistL12);
-		curBeam.transform.eulerAngles = new Vector3(0, -20, 20);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS1, curY, -curDistL12);
-		curBeam.transform.eulerAngles = new Vector3(0, 20, -20);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS22, curY, -curDistL22);
-		curBeam.transform.eulerAngles = new Vector3(0, 20, 20);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL2, 1.597f, -curDistS2);
-		curBeam.transform.eulerAngles = new Vector3(-20, -20, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL1, curY, -curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(20, -20, 0);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 
 		curY = 2.094f;
 		float curY2 = 2.077f;
@@ -318,29 +126,9 @@ public abstract class GenericRoomCtrl {
 		curDistS2 = 3.549f;
 		curLen = 1.1f;
 		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL1, curY, curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(59.803f, -116.362f, 60.538f);
-		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(-curDistS2, curY2, curDistL2);
 		curBeam.transform.eulerAngles = new Vector3(-71.008f, -134.677f, 45.078f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS2, curY2, curDistL2);
-		curBeam.transform.eulerAngles = new Vector3(-71.008f, 134.677f, -45.078f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL1, curY, curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(59.803f, -116.362f, 60.538f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL1, curY, -curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(-59.803f, 116.362f, 60.538f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS2, curY2, -curDistL2);
-		curBeam.transform.eulerAngles = new Vector3(71.008f, -134.677f, -45.078f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS2, curY2, -curDistL2);
-		curBeam.transform.eulerAngles = new Vector3(71.008f, 134.677f, 45.078f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL1, curY, -curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(-59.803f, 116.362f, 60.538f);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 
 		// create third level:
 		// short horizontal beams between the 2V-shaped ones on top of the short vertical ones
@@ -352,30 +140,7 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistL1, curY, curDistS1);
 		curBeam.transform.eulerAngles = new Vector3(0, 72, -92.5f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL1, curY, -curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(0, -72, -92.5f);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS1, curY, -curDistL1);
-		curBeam.transform.eulerAngles = new Vector3(92.5f, 0, -68);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS1, curY, -curDistL1);
-		curBeam.transform.eulerAngles = new Vector3(92.5f, 0, 68);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL1, curY, -curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(0, 72, 92.5f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL1, curY, curDistS1);
-		curBeam.transform.eulerAngles = new Vector3(0, -72, 92.5f);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS1, curY, curDistL1);
-		curBeam.transform.eulerAngles = new Vector3(92.5f, 0, -68);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS1, curY, curDistL1);
-		curBeam.transform.eulerAngles = new Vector3(92.5f, 0, 68);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 
 		// create fourth level:
 		// long beams upwards from the long ones of the 1st level,
@@ -388,15 +153,7 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistL, curY, 0);
 		curBeam.transform.eulerAngles = new Vector3(0, 0, 45);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(0, curY, -curDistL);
-		curBeam.transform.eulerAngles = new Vector3(45, 0, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL, curY, 0);
-		curBeam.transform.eulerAngles = new Vector3(0, 0, -45);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(0, curY, curDistL);
-		curBeam.transform.eulerAngles = new Vector3(-45, 0, 0);
+		addBeams(ObjectFactory.pointQuadruplize(curBeam));
 
 		curY = 2.77f;
 		curDistL = 4.97f;
@@ -405,27 +162,7 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistS, curY, -curDistL);
 		curBeam.transform.eulerAngles = new Vector3(-13, 10, 57);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS, curY, -curDistL);
-		curBeam.transform.eulerAngles = new Vector3(-13, -10, -57);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL, curY, curDistS);
-		curBeam.transform.eulerAngles = new Vector3(-57, -13, 10);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL, curY, -curDistS);
-		curBeam.transform.eulerAngles = new Vector3(57, 13, 10);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS, curY, curDistL);
-		curBeam.transform.eulerAngles = new Vector3(13, 10, -57);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS, curY, curDistL);
-		curBeam.transform.eulerAngles = new Vector3(13, -10, 57);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL, curY, -curDistS);
-		curBeam.transform.eulerAngles = new Vector3(57, 13, 10);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL, curY, curDistS);
-		curBeam.transform.eulerAngles = new Vector3(-57, -13, 10);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 
 		curY = 3.6f;
 		curDistL = 3.63f;
@@ -434,30 +171,7 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistL, curY, curDistS);
 		curBeam.transform.eulerAngles = new Vector3(50, 0, 67);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL, curY, -curDistS);
-		curBeam.transform.eulerAngles = new Vector3(-50, 0, 67);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS, curY, -curDistL);
-		curBeam.transform.eulerAngles = new Vector3(68.97f, -29.221f, -46.068f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS, curY, -curDistL);
-		curBeam.transform.eulerAngles = new Vector3(68.97f, 29.221f, 46.068f);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL, curY, -curDistS);
-		curBeam.transform.eulerAngles = new Vector3(-50, 0, -67);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL, curY, curDistS);
-		curBeam.transform.eulerAngles = new Vector3(50, 0, -67);
-
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS, curY, curDistL);
-		curBeam.transform.eulerAngles = new Vector3(-68.97f, -29.221f, 46.068f);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS, curY, curDistL);
-		curBeam.transform.eulerAngles = new Vector3(-68.97f, 29.221f, -46.068f);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 
 		// create mid level:
 		// long beams connecting the 2nd/3rd-level triangles with the 3rd-highest-level long beams
@@ -470,29 +184,9 @@ public abstract class GenericRoomCtrl {
 		curLen = 1.28f;
 
 		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS1, curY, curDistL1);
-		curBeam.transform.eulerAngles = new Vector3(-42, -32, 13);
-		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(curDistL2, curY, curDistS2);
 		curBeam.transform.eulerAngles = new Vector3(38, -42, 25);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL2, curY, -curDistS2);
-		curBeam.transform.eulerAngles = new Vector3(-38, 42, 25);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS1, curY, -curDistL1);
-		curBeam.transform.eulerAngles = new Vector3(42, 32, 13);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS1, curY, -curDistL1);
-		curBeam.transform.eulerAngles = new Vector3(42, -32, -13);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL2, curY, -curDistS2);
-		curBeam.transform.eulerAngles = new Vector3(-38, -42, -25);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL2, curY, curDistS2);
-		curBeam.transform.eulerAngles = new Vector3(38, 42, -25);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS1, curY, curDistL1);
-		curBeam.transform.eulerAngles = new Vector3(-42, 32, -13);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 
 		// create third-highest level:
 		// 8 diagonal beams that sprout from 4 points,
@@ -507,27 +201,7 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(-curDistL, curY, -curDistS);
 		curBeam.transform.eulerAngles = new Vector3(45, 45, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistL, curY, curDistS);
-		curBeam.transform.eulerAngles = new Vector3(-45, -45, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS, curY, curDistL);
-		curBeam.transform.eulerAngles = new Vector3(-45, -45, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS, curY, curDistL);
-		curBeam.transform.eulerAngles = new Vector3(-45, 45, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL, curY, -curDistS);
-		curBeam.transform.eulerAngles = new Vector3(45, -45, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistL, curY, curDistS);
-		curBeam.transform.eulerAngles = new Vector3(-45, 45, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDistS, curY, -curDistL);
-		curBeam.transform.eulerAngles = new Vector3(45, 45, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDistS, curY, -curDistL);
-		curBeam.transform.eulerAngles = new Vector3(45, -45, 0);
+		addBeams(ObjectFactory.axisOctuplize(curBeam));
 
 		curY = 4;
 		float curDist = 2.3f;
@@ -535,15 +209,7 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(curLen);
 		curBeam.transform.localPosition = new Vector3(0, curY, curDist);
 		curBeam.transform.eulerAngles = new Vector3(0, 0, 90);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(curDist, curY);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, 0);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(0, curY, -curDist);
-		curBeam.transform.eulerAngles = new Vector3(0, 0, 90);
-		curBeam = createBeam(curLen);
-		curBeam.transform.localPosition = new Vector3(-curDist, curY);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, 0);
+		addBeams(ObjectFactory.pointQuadruplize(curBeam));
 
 		curY = 4.083f;
 		curDistL = 2.593f;
