@@ -15,6 +15,7 @@ public class ButtonCtrl {
 
 	// all buttons' names need to start with "btn-", such that the TriggerCtrl can target them
 	public const string BTN_NOSTALGICCONSOLE_BIG_RED = "btn-1";
+	public const string BTN_NOSTALGICCONSOLE_BIG_WHITE = "btn-2";
 
 	private static Dictionary<string, Button> buttons;
 

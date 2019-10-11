@@ -13,15 +13,16 @@ using UnityEngine;
  */
 public class ColorizeButton : Button {
 
-	public ColorizeButton(GameObject obj, string buttonName) : base(obj, buttonName) {
+	private Color targetColor;
 
+
+	public ColorizeButton(GameObject obj, string buttonName, Color targetColor) : base(obj, buttonName) {
+
+		this.targetColor = targetColor;
 	}
 
 	public override void trigger() {
-		MaterialCtrl.setColor(
-			MaterialCtrl.PLASTIC_WHITE,
-			new Color(1.0f, 0.0f, 0.0f, 1.0f)
-		);
+		MaterialCtrl.setColor(MaterialCtrl.BUILDING_BEAM_WHITE, targetColor);
 	}
 
 }

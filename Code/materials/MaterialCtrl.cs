@@ -12,6 +12,7 @@ public class MaterialCtrl {
 
 	public const int BUILDING_FLOOR_CONCRETE = 0;
 	public const int BUILDING_FLOOR_WOOD = 15;
+	public const int BUILDING_BEAM_WHITE = 24;
 	public const int SPACE_MOON_FLOOR = 1;
 	public const int SPACE_MOON_SOUTH = 2;
 	public const int SPACE_MOON_WEST = 3;
@@ -35,7 +36,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
 	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 24;
+	public const int MATERIAL_AMOUNT = 25;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -104,6 +105,9 @@ public class MaterialCtrl {
 					break;
 			}
 			switch (materialNum) {
+				case BUILDING_BEAM_WHITE:
+					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					break;
 				case PLASTIC_WHITE:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 					break;

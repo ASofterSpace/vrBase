@@ -182,7 +182,7 @@ public abstract class GenericRoomCtrl {
 		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
 		curBeam.name = "beam" + curBeamNum;
 		curBeam.transform.localScale = new Vector3(0.1f, length, 0.1f);
-		MaterialCtrl.setMaterial(curBeam, MaterialCtrl.PLASTIC_WHITE);
+		MaterialCtrl.setMaterial(curBeam, MaterialCtrl.BUILDING_BEAM_WHITE);
 		beams[curBeamNum++] = curBeam;
 		return curBeam;
 	}

@@ -101,7 +101,11 @@ public class NostalgicConsoleCtrl {
 		buttonRedAlert.transform.eulerAngles = new Vector3(-15, 0, 0);
 		buttonRedAlert.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
 		MaterialCtrl.setMaterial(buttonRedAlert, MaterialCtrl.PLASTIC_RED);
-		Button btnRedAlert = new ColorizeButton(buttonRedAlert, ButtonCtrl.BTN_NOSTALGICCONSOLE_BIG_RED);
+		Button btnRedAlert = new ColorizeButton(
+			buttonRedAlert,
+			ButtonCtrl.BTN_NOSTALGICCONSOLE_BIG_RED,
+			new Color(1.0f, 0.0f, 0.0f, 1.0f)
+		);
 		ButtonCtrl.add(btnRedAlert);
 
 		GameObject buttonRedAlertFrame = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -110,6 +114,26 @@ public class NostalgicConsoleCtrl {
 		buttonRedAlertFrame.transform.eulerAngles = new Vector3(-15, 0, 0);
 		buttonRedAlertFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
 		MaterialCtrl.setMaterial(buttonRedAlertFrame, MaterialCtrl.PLASTIC_WHITE);
+
+		GameObject buttonColorizeWhite = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		buttonColorizeWhite.transform.parent = buttons.transform;
+		buttonColorizeWhite.transform.localPosition = new Vector3(0.6f, 1.05f, 0);
+		buttonColorizeWhite.transform.eulerAngles = new Vector3(-15, 0, 0);
+		buttonColorizeWhite.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
+		MaterialCtrl.setMaterial(buttonColorizeWhite, MaterialCtrl.PLASTIC_WHITE);
+		Button btnWhite = new ColorizeButton(
+			buttonColorizeWhite,
+			ButtonCtrl.BTN_NOSTALGICCONSOLE_BIG_WHITE,
+			new Color(1.0f, 1.0f, 1.0f, 1.0f)
+		);
+		ButtonCtrl.add(btnWhite);
+
+		GameObject buttonColorizeWhiteFrame = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		buttonColorizeWhiteFrame.transform.parent = buttons.transform;
+		buttonColorizeWhiteFrame.transform.localPosition = new Vector3(0.6f, 1.03f, 0.006f);
+		buttonColorizeWhiteFrame.transform.eulerAngles = new Vector3(-15, 0, 0);
+		buttonColorizeWhiteFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
+		MaterialCtrl.setMaterial(buttonColorizeWhiteFrame, MaterialCtrl.PLASTIC_WHITE);
 
 		nostalgicConsole.transform.localPosition = position;
 		nostalgicConsole.transform.eulerAngles = angles;

@@ -152,6 +152,7 @@ public class TriggerCtrl {
 		RaycastHit target;
 
 		targetingTeleportableArea = false;
+		targetingButton = null;
 
 		bool targetingSomething = Physics.Raycast(
 			origin,
@@ -181,7 +182,6 @@ public class TriggerCtrl {
 			}
 
 			// or are we maybe targeting a button that we can click?
-			targetingButton = null;
 			string btnName = target.transform.gameObject.name;
 			if (btnName != null) {
 				if (btnName.StartsWith("btn-")) {
