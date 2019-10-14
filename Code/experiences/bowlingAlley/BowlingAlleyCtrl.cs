@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 using System;
@@ -35,13 +36,25 @@ public class BowlingAlleyCtrl {
 		GameObject bowlingBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		bowlingBall.name = "redBowlingBall";
 		bowlingBall.transform.parent = bowlingAlley.transform;
-		bowlingBall.transform.localPosition = new Vector3(0, 0.1f, -3);
+		bowlingBall.transform.localPosition = new Vector3(0, 0.1f, -2.8f);
 		bowlingBall.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 		MaterialCtrl.setMaterial(bowlingBall, MaterialCtrl.OBJECTS_BOWLING_BALL_RED);
 
-		GameObject pin = createBowlingPin();
-		pin.transform.parent = bowlingAlley.transform;
-		pin.transform.localPosition = new Vector3(0, 0, 2);
+		GameObject[] pins = new GameObject[10];
+		for (int i = 0; i < pins.Length; i++) {
+			pins[i] = createBowlingPin();
+			pins[i].transform.parent = bowlingAlley.transform;
+		}
+		pins[0].transform.localPosition = new Vector3(0, 0, 2.3f);
+		pins[1].transform.localPosition = new Vector3(0.12f, 0, 2.45f);
+		pins[2].transform.localPosition = new Vector3(-0.12f, 0, 2.45f);
+		pins[3].transform.localPosition = new Vector3(-0.24f, 0, 2.6f);
+		pins[4].transform.localPosition = new Vector3(0, 0, 2.6f);
+		pins[5].transform.localPosition = new Vector3(0.24f, 0, 2.6f);
+		pins[6].transform.localPosition = new Vector3(-0.36f, 0, 2.75f);
+		pins[7].transform.localPosition = new Vector3(-0.12f, 0, 2.75f);
+		pins[8].transform.localPosition = new Vector3(0.12f, 0, 2.75f);
+		pins[9].transform.localPosition = new Vector3(0.36f, 0, 2.75f);
 
 		bowlingAlley.transform.localPosition = position;
 		bowlingAlley.transform.eulerAngles = angles;
