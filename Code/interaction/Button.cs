@@ -31,7 +31,7 @@ public class Button {
 	/**
 	 * Some controller is hovering over this button...
 	 */
-	public void hover() {
+	public virtual void hover() {
 		MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
 	}
 
@@ -39,7 +39,7 @@ public class Button {
 	 * The controller formerly hovering over this button is moving away again,
 	 * no longer hovering...
 	 */
-	public void blur() {
+	public virtual void blur() {
 		gameObject.GetComponent<Renderer>().material = defaultMaterial;
 	}
 

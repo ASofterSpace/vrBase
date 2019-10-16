@@ -506,6 +506,10 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 			buttons[x][y].setRobo();
 
+			// let the human player already make a new selection while
+			// the robot is still on its way back
+			humansTurn = true;
+
 			moveRobotBack();
 		};
 	}
@@ -517,8 +521,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		robotTargetRotT = -50;
 		moving = true;
 
-		callAfterReachingTarget = () => {
-			humansTurn = true;
-		};
+		callAfterReachingTarget = null;
 	}
 }

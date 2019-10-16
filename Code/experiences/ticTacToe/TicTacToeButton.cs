@@ -47,6 +47,15 @@ public class TicTacToeButton : Button {
 		recolorize();
 	}
 
+	public override void hover() {
+		if (ctrl.isHumansTurn() && (state == 0)) {
+			MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
+		}
+	}
+
+	public override void blur() {
+		recolorize();
+	}
 	public void setRobo() {
 		state = 1;
 		recolorize();
