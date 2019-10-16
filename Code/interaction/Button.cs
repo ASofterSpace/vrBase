@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -13,9 +14,9 @@ using UnityEngine;
  */
 public class Button {
 
-	private GameObject gameObject;
+	protected GameObject gameObject;
 
-	private Material defaultMaterial;
+	protected Material defaultMaterial;
 
 
 	public Button(GameObject obj, string buttonName) {
