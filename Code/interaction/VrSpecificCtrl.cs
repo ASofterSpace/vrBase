@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 using System;
@@ -59,9 +60,11 @@ public class VrSpecificCtrl {
 		// do not want to show them at the wrong place - only show them somewhere when we
 		// get an update telling us where they are :)
 		leftController = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		leftController.name = "Left Controller";
 		leftController.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 		leftController.transform.localPosition = new Vector3(0, -1000, 0);
 		rightController = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		rightController.name = "Right Controller";
 		rightController.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 		rightController.transform.localPosition = new Vector3(0, -1000, 0);
 	}

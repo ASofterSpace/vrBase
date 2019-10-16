@@ -130,6 +130,11 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 
 		bowlingAlleyCtrl = new BowlingAlleyCtrl(mainCtrl, thisRoom);
 		bowlingAlleyCtrl.createBowlingAlley(new Vector3(-1.5f, 0, 3.5f), new Vector3(0, -90, 0));
+
+		GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_FLIPPERQND);
+		poster.name = "FlipperQnD Poster";
+		poster.transform.localPosition = new Vector3(-1.052f, 0.893f, -5.67f);
+		poster.transform.eulerAngles = new Vector3(-13.834f, -135.159f, -2.95f);
 	}
 
 }

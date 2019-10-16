@@ -30,6 +30,11 @@ public class MaterialCtrl {
 	public const int OBJECTS_BLOBFLYER_BLACK = 19;
 	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
 	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
+	public const int OBJECTS_POSTERS_FLIPPERQND = 35;
+	public const int OBJECTS_POSTERS_SOFTWARE = 36;
+	public const int OBJECTS_POSTERS_MARS = 37;
+	public const int OBJECTS_POSTERS_VR = 38;
+	public const int OBJECTS_POSTERS_PROCESS = 39;
 	public const int OBJECTS_VRCADE_DIGITWHEEL = 34;
 	public const int OBJECTS_VRCADE_FLIPPERQND_LAYOUT = 29;
 	public const int OBJECTS_VRCADE_LABELS_BALLS = 28;
@@ -51,7 +56,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 35;
+	public const int MATERIAL_AMOUNT = 40;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -72,6 +77,11 @@ public class MaterialCtrl {
 		textures[OBJECTS_NOSTALGICCONSOLE_GREEN] = "Building/Wall/wallpaper_1_azure_continuous";
 		textures[OBJECTS_NOSTALGICCONSOLE_SCREEN] = "Objects/Screens/legacy_screen_on_wallpaper_1_azure_continuous";
 		textures[OBJECTS_PARTICLEBOARD] = "Objects/particleboard_1_continuous_small";
+		textures[OBJECTS_POSTERS_FLIPPERQND] = "Objects/Posters/flipperQnD";
+		textures[OBJECTS_POSTERS_SOFTWARE] = "Objects/Posters/flyer_software_en";
+		textures[OBJECTS_POSTERS_MARS] = "Objects/Posters/flyer_mars_en";
+		textures[OBJECTS_POSTERS_VR] = "Objects/Posters/flyer_vr_en";
+		textures[OBJECTS_POSTERS_PROCESS] = "Objects/Posters/flyer_process_en";
 		textures[OBJECTS_VRCADE_DIGITWHEEL] = "Objects/vrCade/digits";
 		textures[OBJECTS_VRCADE_FLIPPERQND_LAYOUT] = "Objects/vrCade/FlipperQnD/layout";
 		textures[OBJECTS_VRCADE_LABELS_BALLS] = "Objects/vrCade/Labels/balls";

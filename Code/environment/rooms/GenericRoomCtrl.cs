@@ -442,4 +442,11 @@ public abstract class GenericRoomCtrl {
 		ObjectFactory.pointQuadruplize(tankFoot);
 	}
 
+	protected GameObject createPoster(int material) {
+		GameObject poster = createPrimitive(PrimitiveType.Quad);
+		poster.transform.localScale = new Vector3(0.45f, 0.6f, 1);
+		MaterialCtrl.setMaterial(poster, material);
+		return poster;
+	}
+
 }
