@@ -35,6 +35,9 @@ public class MaterialCtrl {
 	public const int OBJECTS_POSTERS_MARS = 37;
 	public const int OBJECTS_POSTERS_VR = 38;
 	public const int OBJECTS_POSTERS_PROCESS = 39;
+	public const int OBJECTS_TICTACTOE_BLUE = 42;
+	public const int OBJECTS_TICTACTOE_RED = 41;
+	public const int OBJECTS_TICTACTOE_GRAY = 40;
 	public const int OBJECTS_VRCADE_DIGITWHEEL = 34;
 	public const int OBJECTS_VRCADE_FLIPPERQND_LAYOUT = 29;
 	public const int OBJECTS_VRCADE_LABELS_BALLS = 28;
@@ -56,7 +59,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 40;
+	public const int MATERIAL_AMOUNT = 43;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -178,6 +181,15 @@ public class MaterialCtrl {
 				case OBJECTS_DARK_METAL:
 					result.color = new Color(0.2f, 0.2f, 0.2f, 1);
 					// TODO :: set metallic to somesuch
+					break;
+				case OBJECTS_TICTACTOE_BLUE:
+					result.color = new Color(0, 0, 0.8f, 1);
+					break;
+				case OBJECTS_TICTACTOE_RED:
+					result.color = new Color(0.8f, 0, 0, 1);
+					break;
+				case OBJECTS_TICTACTOE_GRAY:
+					result.color = new Color(0.4f, 0.4f, 0.4f, 1);
 					break;
 				case OBJECTS_VRCADE_TRIGGER_SILVER:
 				case OBJECTS_VRCADE_PINBALL_SILVER:

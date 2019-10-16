@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -16,6 +17,7 @@ public class ButtonCtrl {
 	// all buttons' names need to start with "btn-", such that the TriggerCtrl can target them
 	public const string BTN_NOSTALGICCONSOLE_BIG_RED = "btn-1";
 	public const string BTN_NOSTALGICCONSOLE_BIG_WHITE = "btn-2";
+	public const string BTN_TICTACTOE_FIELD = "btn-ttt-";
 
 	private static Dictionary<string, Button> buttons;
 
