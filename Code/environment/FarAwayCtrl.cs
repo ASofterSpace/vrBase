@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -43,6 +44,7 @@ public class FarAwayCtrl {
 		moon.transform.parent = skybox.transform;
 
 		GameObject moonFloor = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		moonFloor.name = "moonFloor";
 		moonFloor.transform.parent = moon.transform;
 		moonFloor.transform.localPosition = new Vector3(0, -0.03f, 0);
 		moonFloor.transform.eulerAngles = new Vector3(90, 0, 0);
@@ -51,12 +53,16 @@ public class FarAwayCtrl {
 
 		curIterator = 0;
 		GameObject moonSouth = createMoonWall(moon);
+		moonSouth.name = "moonSouth";
 		moonSouth.transform.localPosition = new Vector3(0, -1000, -2000);
 		GameObject moonWest = createMoonWall(moon);
+		moonWest.name = "moonWest";
 		moonWest.transform.localPosition = new Vector3(-2000, -1000, 0);
 		GameObject moonNorth = createMoonWall(moon);
+		moonNorth.name = "moonNorth";
 		moonNorth.transform.localPosition = new Vector3(0, -1000, 2000);
 		GameObject moonEast = createMoonWall(moon);
+		moonEast.name = "moonEast";
 		moonEast.transform.localPosition = new Vector3(2000, -1000, 0);
 	}
 
@@ -95,6 +101,7 @@ public class FarAwayCtrl {
 		sun.transform.localPosition = new Vector3(1000, 3000, 0);
 
 		GameObject sunImage = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		sunImage.name = "sunImage";
 		sunImage.transform.parent = sun.transform;
 		sunImage.transform.localPosition = new Vector3(0, 0, 0);
 		sunImage.transform.eulerAngles = new Vector3(275, 0, 0);
@@ -102,12 +109,14 @@ public class FarAwayCtrl {
 		MaterialCtrl.setMaterial(sunImage, MaterialCtrl.SPACE_SUN);
 
 		GameObject sunLight = new GameObject();
+		sunLight.name = "sunLight";
 		sunLight.transform.parent = sun.transform;
 		sunLight.transform.localPosition = new Vector3(0, 0, 0);
 		sunLight.transform.eulerAngles = new Vector3(60, -100, 0);
 		Light sunLightLight = sunLight.AddComponent<Light>();
 		sunLightLight.color = new Color(1.0f, 0.9568f, 0.8392f, 1.0f);
 		sunLightLight.type = LightType.Directional;
+		sunLightLight.intensity = 0.75f;
 		// TODO :: set mixed mode instead of realtime mode, if possible?
 	}
 
