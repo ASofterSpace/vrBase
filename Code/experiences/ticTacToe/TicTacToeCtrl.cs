@@ -17,14 +17,22 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	private GameObject hostRoom;
 
 	private GameObject roboArm;
+	private GameObject roboJoint;
+	private GameObject roboPointer;
+	private GameObject roboLowerArm;
 
 	private TicTacToeButton[][] buttons;
 
 	private bool humansTurn;
 
-	private int robotTargetRotX;
+	// robot rotation up and down
+	private float robotTargetRotX;
 
-	private int robotTargetRotY;
+	// robot rotation left and right
+	private float robotTargetRotY;
+
+	// robot rotation lower arm against upper arm
+	private float robotTargetRotT;
 
 	private Action callAfterReachingTarget;
 
@@ -41,8 +49,8 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		this.humansTurn = true;
 
 		this.robotTargetRotX = 0;
-
 		this.robotTargetRotY = 0;
+		this.robotTargetRotT = 0;
 
 		this.callAfterReachingTarget = null;
 
@@ -81,9 +89,9 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		GameObject roboBase = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		roboBase.name = "roboBase";
 		roboBase.transform.parent = ticTacToe.transform;
-		roboBase.transform.localPosition = new Vector3(0, 0.05f, -1.65f);
+		roboBase.transform.localPosition = new Vector3(0, -0.05f, -1.65f);
 		roboBase.transform.eulerAngles = new Vector3(0, 0, 0);
-		roboBase.transform.localScale = new Vector3(0.6f, 0.1f, 0.6f);
+		roboBase.transform.localScale = new Vector3(0.6f, 0.2f, 0.6f);
 		MaterialCtrl.setMaterial(roboBase, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
 
 		GameObject roboHorzBasePart = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -113,7 +121,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboUpperArm.transform.localScale = new Vector3(0.1f, 0.84f, 0.1f);
 		MaterialCtrl.setMaterial(roboUpperArm, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
 
-		GameObject roboJoint = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		roboJoint = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		roboJoint.name = "roboJoint";
 		roboJoint.transform.parent = roboArm.transform;
 		roboJoint.transform.localPosition = new Vector3(0, 1.98f, 0);
@@ -121,7 +129,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboJoint.transform.localScale = new Vector3(0.3f, 0.05f, 0.3f);
 		MaterialCtrl.setMaterial(roboJoint, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT_GRAY);
 
-		GameObject roboLowerArm = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		roboLowerArm = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		roboLowerArm.name = "roboLowerArm";
 		roboLowerArm.transform.parent = roboArm.transform;
 		roboLowerArm.transform.localPosition = new Vector3(0, 1.332f, 0.605f);
@@ -129,7 +137,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboLowerArm.transform.localScale = new Vector3(0.1f, 0.84f, 0.1f);
 		MaterialCtrl.setMaterial(roboLowerArm, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
 
-		GameObject roboPointer = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		roboPointer = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		roboPointer.name = "roboPointer";
 		roboPointer.transform.parent = roboArm.transform;
 		roboPointer.transform.localPosition = new Vector3(0, 0.7f, 1.236f);
@@ -141,6 +149,8 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboArm.transform.eulerAngles = new Vector3(0, 0, 0);
 
 		mainCtrl.addUpdateableCtrl(this);
+
+		moveRobotToField(0, 0); // DEBUG
 	}
 
 	public void restartGame() {
@@ -163,45 +173,127 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		}
 
 		float threshold = 0.001f;
+		float speed = 10;
 
 		bool moved = false;
 
-		float x = roboArm.transform.eulerAngles.x;
-		float y = roboArm.transform.eulerAngles.y;
-		float z = roboArm.transform.eulerAngles.z;
+		float x = Utils.clampRot(roboArm.transform.eulerAngles.x);
+		float y = Utils.clampRot(roboArm.transform.eulerAngles.y);
+		float z = 0;
 
-		if (x > robotTargetRotX + threshold) {
-			x = x - Time.deltaTime;
-			if (x < robotTargetRotX) {
-				x = robotTargetRotX;
+		if ((robotTargetRotY < 0) || (y < 0)) {
+
+			// start with movement to the right
+			if (y > robotTargetRotY + threshold) {
+				y = y - speed * Time.deltaTime;
+				if (y < robotTargetRotY) {
+					y = robotTargetRotY;
+				}
+				moved = true;
+			}
+
+			// continue with movement down, then later up
+			if (!moved) {
+				if (x > robotTargetRotX + threshold) {
+					x = x - speed * Time.deltaTime;
+					if (x < robotTargetRotX) {
+						x = robotTargetRotX;
+					}
+					moved = true;
+				}
+				if (x < robotTargetRotX - threshold) {
+					x = x + speed * Time.deltaTime;
+					if (x > robotTargetRotX) {
+						x = robotTargetRotX;
+					}
+					moved = true;
+				}
+			}
+
+			// finally, move backwards to the left
+			if (!moved) {
+				if (y < robotTargetRotY - threshold) {
+					y = y + speed * Time.deltaTime;
+					if (y > robotTargetRotY) {
+						y = robotTargetRotY;
+					}
+					moved = true;
+				}
+			}
+
+		} else {
+
+			// start with movement to the left
+			if (y < robotTargetRotY - threshold) {
+				y = y + speed * Time.deltaTime;
+				if (y > robotTargetRotY) {
+					y = robotTargetRotY;
+				}
+				moved = true;
+			}
+
+			// continue with movement down, then later up
+			if (!moved) {
+				if (x > robotTargetRotX + threshold) {
+					x = x - speed * Time.deltaTime;
+					if (x < robotTargetRotX) {
+						x = robotTargetRotX;
+					}
+					moved = true;
+				}
+				if (x < robotTargetRotX - threshold) {
+					x = x + speed * Time.deltaTime;
+					if (x > robotTargetRotX) {
+						x = robotTargetRotX;
+					}
+					moved = true;
+				}
+			}
+
+			// finally, move backwards to the right
+			if (!moved) {
+				if (y > robotTargetRotY + threshold) {
+					y = y - speed * Time.deltaTime;
+					if (y < robotTargetRotY) {
+						y = robotTargetRotY;
+					}
+					moved = true;
+				}
+			}
+		}
+
+		// while all the other movements at the base are happening,
+		// also move the arm at the top joint
+		float t = Utils.clampRot(roboLowerArm.transform.localEulerAngles.x);
+
+		if (t < robotTargetRotT - threshold) {
+			t = t + speed * Time.deltaTime;
+			if (t > robotTargetRotT) {
+				t = robotTargetRotT;
 			}
 			moved = true;
 		}
-		if (x < robotTargetRotX - threshold) {
-			x = x + Time.deltaTime;
-			if (x > robotTargetRotX) {
-				x = robotTargetRotX;
+		if (t > robotTargetRotT + threshold) {
+			t = t - speed * Time.deltaTime;
+			if (t < robotTargetRotT) {
+				t = robotTargetRotT;
 			}
 			moved = true;
 		}
 
-		if (y > robotTargetRotY + threshold) {
-			y = y - Time.deltaTime;
-			if (y < robotTargetRotY) {
-				y = robotTargetRotY;
-			}
-			moved = true;
-		}
-		if (y < robotTargetRotY - threshold) {
-			y = y + Time.deltaTime;
-			if (y > robotTargetRotY) {
-				y = robotTargetRotY;
-			}
-			moved = true;
-		}
+		roboLowerArm.transform.localEulerAngles = new Vector3(t, 0, 0);
+		roboLowerArm.transform.localPosition =
+			roboJoint.transform.localPosition - roboLowerArm.transform.localRotation * (0.84f * Vector3.up);
+		roboPointer.transform.localPosition =
+			roboJoint.transform.localPosition - roboLowerArm.transform.localRotation * (1.68f * Vector3.up);
 
-		if (!moved) {
+		if (moved) {
+			roboArm.transform.eulerAngles = new Vector3(x, y, z);
+		} else {
 			moving = false;
+			if (callAfterReachingTarget != null) {
+				callAfterReachingTarget();
+			}
 		}
 	}
 
@@ -253,12 +345,14 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	private void moveRobotToField(int x, int y) {
 
 		if ((x == 0) && (y == 0)) {
-			robotTargetRotX = 28;
+			robotTargetRotX = 33.5f;
 			robotTargetRotY = -35;
+			robotTargetRotT = -37;
 		}
 		if ((x == 2) && (y == 0)) {
-			robotTargetRotX = 28;
+			robotTargetRotX = 33.5f;
 			robotTargetRotY = 35;
+			robotTargetRotT = -37;
 		}
 		moving = true;
 
@@ -276,10 +370,12 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		robotTargetRotX = 0;
 		robotTargetRotY = 0;
+		robotTargetRotT = -50;
 		moving = true;
 
 		callAfterReachingTarget = () => {
 			humansTurn = true;
+			moveRobotToField(0, 0); // DEBUG
 		};
 	}
 }
