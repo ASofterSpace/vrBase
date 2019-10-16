@@ -48,13 +48,10 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		this.humansTurn = true;
 
-		this.robotTargetRotX = 0;
-		this.robotTargetRotY = 0;
-		this.robotTargetRotT = 0;
-
-		this.callAfterReachingTarget = null;
-
-		this.moving = false;
+		// start moving such that the robot comes to its natural rest position
+		// and such that we have the internal robo state initialized to useful
+		// values
+		moveRobotBack();
 	}
 
 	public void createPlayingField(Vector3 position, Vector3 angles) {
@@ -149,8 +146,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboArm.transform.eulerAngles = new Vector3(0, 0, 0);
 
 		mainCtrl.addUpdateableCtrl(this);
-
-		moveRobotToField(0, 0); // DEBUG
 	}
 
 	public void restartGame() {
@@ -318,10 +313,126 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	private void findNextRobotTarget(out int x, out int y) {
 
 		// first of all, check if we have any immediately winning moves - if yes, make one of them!
-		// TODO
+		for (y = 0; y < 3; y++) {
+			if (buttons[0][y].isRobo() && buttons[1][y].isRobo()) {
+				x = 2;
+				return;
+			}
+			if (buttons[0][y].isRobo() && buttons[2][y].isRobo()) {
+				x = 1;
+				return;
+			}
+			if (buttons[1][y].isRobo() && buttons[2][y].isRobo()) {
+				x = 0;
+				return;
+			}
+		}
+		for (x = 0; x < 3; x++) {
+			if (buttons[x][0].isRobo() && buttons[x][1].isRobo()) {
+				y = 2;
+				return;
+			}
+			if (buttons[x][0].isRobo() && buttons[x][2].isRobo()) {
+				y = 1;
+				return;
+			}
+			if (buttons[x][1].isRobo() && buttons[x][2].isRobo()) {
+				y = 0;
+				return;
+			}
+		}
+		// diagonals
+		if (buttons[0][0].isRobo() && buttons[1][1].isRobo()) {
+			x = 2;
+			y = 2;
+			return;
+		}
+		if (buttons[0][0].isRobo() && buttons[2][2].isRobo()) {
+			x = 1;
+			y = 1;
+			return;
+		}
+		if (buttons[1][1].isRobo() && buttons[2][2].isRobo()) {
+			x = 0;
+			y = 0;
+			return;
+		}
+		if (buttons[0][2].isRobo() && buttons[1][1].isRobo()) {
+			x = 2;
+			y = 0;
+			return;
+		}
+		if (buttons[0][2].isRobo() && buttons[2][0].isRobo()) {
+			x = 1;
+			y = 1;
+			return;
+		}
+		if (buttons[1][1].isRobo() && buttons[2][0].isRobo()) {
+			x = 0;
+			y = 2;
+			return;
+		}
 
 		// then, check if the human has any immediately winning moves - if yes, prevent them!
-		// TODO
+		for (y = 0; y < 3; y++) {
+			if (buttons[0][y].isHuman() && buttons[1][y].isHuman()) {
+				x = 2;
+				return;
+			}
+			if (buttons[0][y].isHuman() && buttons[2][y].isHuman()) {
+				x = 1;
+				return;
+			}
+			if (buttons[1][y].isHuman() && buttons[2][y].isHuman()) {
+				x = 0;
+				return;
+			}
+		}
+		for (x = 0; x < 3; x++) {
+			if (buttons[x][0].isHuman() && buttons[x][1].isHuman()) {
+				y = 2;
+				return;
+			}
+			if (buttons[x][0].isHuman() && buttons[x][2].isHuman()) {
+				y = 1;
+				return;
+			}
+			if (buttons[x][1].isHuman() && buttons[x][2].isHuman()) {
+				y = 0;
+				return;
+			}
+		}
+		// diagonals
+		if (buttons[0][0].isHuman() && buttons[1][1].isHuman()) {
+			x = 2;
+			y = 2;
+			return;
+		}
+		if (buttons[0][0].isHuman() && buttons[2][2].isHuman()) {
+			x = 1;
+			y = 1;
+			return;
+		}
+		if (buttons[1][1].isHuman() && buttons[2][2].isHuman()) {
+			x = 0;
+			y = 0;
+			return;
+		}
+		if (buttons[0][2].isHuman() && buttons[1][1].isHuman()) {
+			x = 2;
+			y = 0;
+			return;
+		}
+		if (buttons[0][2].isHuman() && buttons[2][0].isHuman()) {
+			x = 1;
+			y = 1;
+			return;
+		}
+		if (buttons[1][1].isHuman() && buttons[2][0].isHuman()) {
+			x = 0;
+			y = 2;
+			return;
+		}
 
 		// now, check if the middle field is free... if yes, take it!
 		x = 1;
@@ -349,18 +460,51 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			robotTargetRotY = -35;
 			robotTargetRotT = -37;
 		}
+		if ((x == 1) && (y == 0)) {
+			robotTargetRotX = 32;
+			robotTargetRotY = 0;
+			robotTargetRotT = -30;
+		}
 		if ((x == 2) && (y == 0)) {
 			robotTargetRotX = 33.5f;
 			robotTargetRotY = 35;
 			robotTargetRotT = -37;
+		}
+		if ((x == 0) && (y == 1)) {
+			robotTargetRotX = 39;
+			robotTargetRotY = -25.5f;
+			robotTargetRotT = -60;
+		}
+		if ((x == 1) && (y == 1)) {
+			robotTargetRotX = 35.25f;
+			robotTargetRotY = 0;
+			robotTargetRotT = -50;
+		}
+		if ((x == 2) && (y == 1)) {
+			robotTargetRotX = 39;
+			robotTargetRotY = 25.5f;
+			robotTargetRotT = -60;
+		}
+		if ((x == 0) && (y == 2)) {
+			robotTargetRotX = 48;
+			robotTargetRotY = -20;
+			robotTargetRotT = -85;
+		}
+		if ((x == 1) && (y == 2)) {
+			robotTargetRotX = 45.8f;
+			robotTargetRotY = 0;
+			robotTargetRotT = -80;
+		}
+		if ((x == 2) && (y == 2)) {
+			robotTargetRotX = 48;
+			robotTargetRotY = 20;
+			robotTargetRotT = -85;
 		}
 		moving = true;
 
 		callAfterReachingTarget = () => {
 
 			buttons[x][y].setRobo();
-
-			// TODO :: sleep
 
 			moveRobotBack();
 		};
@@ -375,7 +519,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		callAfterReachingTarget = () => {
 			humansTurn = true;
-			moveRobotToField(0, 0); // DEBUG
 		};
 	}
 }

@@ -70,4 +70,12 @@ public class TicTacToeButton : Button {
 		return state == 0;
 	}
 
+	public bool isRobo() {
+		return state == 1;
+	}
+
+	public bool isHuman() {
+		return state == 2;
+	}
+
 }
