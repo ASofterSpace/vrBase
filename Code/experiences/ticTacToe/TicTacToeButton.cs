@@ -56,6 +56,7 @@ public class TicTacToeButton : Button {
 	public override void blur() {
 		recolorize();
 	}
+
 	public void setRobo() {
 		state = 1;
 		recolorize();

@@ -301,6 +301,10 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	 */
 	public void makeRoboMove() {
 
+		if (checkForGameOver()) {
+			return;
+		}
+
 		humansTurn = false;
 
 		int x, y;
@@ -510,6 +514,8 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			// the robot is still on its way back
 			humansTurn = true;
 
+			checkForGameOver();
+
 			moveRobotBack();
 		};
 	}
@@ -522,5 +528,60 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		moving = true;
 
 		callAfterReachingTarget = null;
+	}
+
+	/**
+	 * Returns true if any one player won, or all fields are taken up
+	 */
+	private bool checkForGameOver() {
+
+		// check if human won
+		for (int y = 0; y < 3; y++) {
+			if (buttons[0][y].isHuman() && buttons[1][y].isHuman() && buttons[2][y].isHuman()) {
+				return true;
+			}
+		}
+		for (int x = 0; x < 3; x++) {
+			if (buttons[x][0].isHuman() && buttons[x][1].isHuman() && buttons[x][2].isHuman()) {
+				return true;
+			}
+		}
+		// diagonals
+		if (buttons[0][0].isHuman() && buttons[1][1].isHuman() && buttons[2][2].isHuman()) {
+			return true;
+		}
+		if (buttons[0][2].isHuman() && buttons[1][1].isHuman() && buttons[2][0].isHuman()) {
+			return true;
+		}
+
+		// check if robo won
+		for (int y = 0; y < 3; y++) {
+			if (buttons[0][y].isRobo() && buttons[1][y].isRobo() && buttons[2][y].isRobo()) {
+				return true;
+			}
+		}
+		for (int x = 0; x < 3; x++) {
+			if (buttons[x][0].isRobo() && buttons[x][1].isRobo() && buttons[x][2].isRobo()) {
+				return true;
+			}
+		}
+		// diagonals
+		if (buttons[0][0].isRobo() && buttons[1][1].isRobo() && buttons[2][2].isRobo()) {
+			return true;
+		}
+		if (buttons[0][2].isRobo() && buttons[1][1].isRobo() && buttons[2][0].isRobo()) {
+			return true;
+		}
+
+		// check if all fields are taken
+		bool someFree = false;
+		for (int x = 0; x < 3; x++) {
+			for (int y = 0; y < 3; y++) {
+				if (buttons[x][y].isFree()) {
+					someFree = true;
+				}
+			}
+		}
+		return !someFree;
 	}
 }
