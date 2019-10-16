@@ -238,7 +238,7 @@ public class FlipperQnDCtrl {
 		bottomPlane.transform.localPosition = new Vector3(0, 0.94f, -0.26f);
 		bottomPlane.transform.eulerAngles = new Vector3(-90, 0, 180);
 		bottomPlane.transform.localScale = new Vector3(0.784f, 1.274f, 1);
-		MaterialCtrl.setMaterial(bottomPlane, MaterialCtrl.OBJECTS_PARTICLEBOARD);
+		MaterialCtrl.setMaterial(bottomPlane, MaterialCtrl.OBJECTS_MATERIALS_PARTICLEBOARD);
 
 		GameObject shellBottom = createLog(top);
 		shellBottom.name = "shellBottom";
@@ -477,7 +477,7 @@ public class FlipperQnDCtrl {
 	private GameObject createLog(GameObject parent) {
 		GameObject log = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		log.transform.parent = parent.transform;
-		MaterialCtrl.setMaterial(log, MaterialCtrl.OBJECTS_PARTICLEBOARD);
+		MaterialCtrl.setMaterial(log, MaterialCtrl.OBJECTS_MATERIALS_PARTICLEBOARD);
 		return log;
 	}
 

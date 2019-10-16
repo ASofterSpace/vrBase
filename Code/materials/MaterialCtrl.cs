@@ -23,11 +23,11 @@ public class MaterialCtrl {
 	public const int INTERACTION_BUTTON_HOVER = 23;
 	public const int FADEABLE_BLACK = 14;
 	public const int OBJECTS_DARK_METAL = 31;
-	public const int OBJECTS_PARTICLEBOARD = 30;
 	public const int OBJECTS_BOWLING_BALL_RED = 16;
 	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
 	public const int OBJECTS_BOWLING_PIN_RED = 18;
 	public const int OBJECTS_BLOBFLYER_BLACK = 19;
+	public const int OBJECTS_MATERIALS_PARTICLEBOARD = 30;
 	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
 	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
 	public const int OBJECTS_POSTERS_FLIPPERQND = 35;
@@ -38,6 +38,8 @@ public class MaterialCtrl {
 	public const int OBJECTS_TICTACTOE_BLUE = 42;
 	public const int OBJECTS_TICTACTOE_RED = 41;
 	public const int OBJECTS_TICTACTOE_GRAY = 40;
+	public const int OBJECTS_TICTACTOE_ROBOT = 43;
+	public const int OBJECTS_TICTACTOE_ROBOT_GRAY = 44;
 	public const int OBJECTS_VRCADE_DIGITWHEEL = 34;
 	public const int OBJECTS_VRCADE_FLIPPERQND_LAYOUT = 29;
 	public const int OBJECTS_VRCADE_LABELS_BALLS = 28;
@@ -59,7 +61,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 43;
+	public const int MATERIAL_AMOUNT = 45;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -77,14 +79,15 @@ public class MaterialCtrl {
 		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concrete";
 		textures[BUILDING_FLOOR_WOOD] = "Building/Floor/woodenLengthwiseFloor";
 		textures[INTERACTION_TELEPORT_TARGET] = "Interaction/teleportTarget";
+		textures[OBJECTS_MATERIALS_PARTICLEBOARD] = "Objects/Materials/particleboard_1_continuous_small";
 		textures[OBJECTS_NOSTALGICCONSOLE_GREEN] = "Building/Wall/wallpaper_1_azure_continuous";
 		textures[OBJECTS_NOSTALGICCONSOLE_SCREEN] = "Objects/Screens/legacy_screen_on_wallpaper_1_azure_continuous";
-		textures[OBJECTS_PARTICLEBOARD] = "Objects/particleboard_1_continuous_small";
 		textures[OBJECTS_POSTERS_FLIPPERQND] = "Objects/Posters/flipperQnD";
 		textures[OBJECTS_POSTERS_SOFTWARE] = "Objects/Posters/flyer_software_en";
 		textures[OBJECTS_POSTERS_MARS] = "Objects/Posters/flyer_mars_en";
 		textures[OBJECTS_POSTERS_VR] = "Objects/Posters/flyer_vr_en";
 		textures[OBJECTS_POSTERS_PROCESS] = "Objects/Posters/flyer_process_en";
+		textures[OBJECTS_TICTACTOE_ROBOT] = "Objects/Materials/bee_tape";
 		textures[OBJECTS_VRCADE_DIGITWHEEL] = "Objects/vrCade/digits";
 		textures[OBJECTS_VRCADE_FLIPPERQND_LAYOUT] = "Objects/vrCade/FlipperQnD/layout";
 		textures[OBJECTS_VRCADE_LABELS_BALLS] = "Objects/vrCade/Labels/balls";
@@ -189,6 +192,9 @@ public class MaterialCtrl {
 					result.color = new Color(0.8f, 0, 0, 1);
 					break;
 				case OBJECTS_TICTACTOE_GRAY:
+					result.color = new Color(0.6f, 0.6f, 0.6f, 1);
+					break;
+				case OBJECTS_TICTACTOE_ROBOT_GRAY:
 					result.color = new Color(0.4f, 0.4f, 0.4f, 1);
 					break;
 				case OBJECTS_VRCADE_TRIGGER_SILVER:

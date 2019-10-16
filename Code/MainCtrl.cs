@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -36,6 +37,8 @@ public class MainCtrl : MonoBehaviour {
 	// one in case a whole second elapsed since then
 	private float lastFullUpdateTime;
 
+	private List<UpdateableCtrl> updateableCtrls;
+
 
 	/**
 	 * Main function, basically ;)
@@ -45,6 +48,7 @@ public class MainCtrl : MonoBehaviour {
 
 		// mainCtrl internal setup
 		lastFullUpdateTime = -100.0f;
+		updateableCtrls = new List<UpdateableCtrl>();
 
 		// main objects
 		initMainGameObjects();
@@ -80,6 +84,12 @@ public class MainCtrl : MonoBehaviour {
 			return;
 		}
 
+		// this check should not be necessary, but seems to be - as otherwise we sometimes
+		// get debug errors during game previews...
+		if (vrSpecificCtrl == null) {
+			return;
+		}
+
 		float currentUpdateTime = Time.time;
 		if (lastFullUpdateTime + 1 < currentUpdateTime) {
 			lastFullUpdateTime = currentUpdateTime;
@@ -91,6 +101,10 @@ public class MainCtrl : MonoBehaviour {
 		triggerCtrl.update(input);
 
 		farAwayCtrl.update(input);
+
+		foreach (UpdateableCtrl ctrl in updateableCtrls) {
+			ctrl.update(input);
+		}
 	}
 
 	private void initMainGameObjects() {
@@ -129,5 +143,9 @@ public class MainCtrl : MonoBehaviour {
 
 	public GameObject getMainCameraHolder() {
 		return mainCameraHolder;
+	}
+
+	public void addUpdateableCtrl(UpdateableCtrl updateableCtrl) {
+		updateableCtrls.Add(updateableCtrl);
 	}
 }
