@@ -14,8 +14,6 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private NostalgicConsoleCtrl nostalgicConsoleCtrl;
 
-	private BowlingAlleyCtrl bowlingAlleyCtrl;
-
 	private BlobFlyerCtrl blobFlyerCtrl;
 
 
@@ -133,9 +131,6 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 		nostalgicConsoleCtrl = new NostalgicConsoleCtrl(mainCtrl, thisRoom);
 		nostalgicConsoleCtrl.createNostalgicConsole(new Vector3(-2, 0, 3), new Vector3(0, -36, 0));
-
-		bowlingAlleyCtrl = new BowlingAlleyCtrl(mainCtrl, thisRoom);
-		bowlingAlleyCtrl.createBowlingAlley(new Vector3(3.5f, 0, 0), new Vector3(0, 0, 0));
 
 		blobFlyerCtrl = new BlobFlyerCtrl(mainCtrl, thisRoom);
 		blobFlyerCtrl.createBlobFlyer(new Vector3(0, 0, -4), new Vector3(0, 0, 0));

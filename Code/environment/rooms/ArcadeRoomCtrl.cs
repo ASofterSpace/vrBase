@@ -13,6 +13,8 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 
 	private FlipperQnDCtrl flipperQnDCtrl;
 
+	private BowlingAlleyCtrl bowlingAlleyCtrl;
+
 
 	public ArcadeRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -125,6 +127,9 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 
 		flipperQnDCtrl = new FlipperQnDCtrl(mainCtrl, thisRoom);
 		flipperQnDCtrl.createFlipperQnD(new Vector3(-2.5f, 0, -2), new Vector3(0, 55, 0));
+
+		bowlingAlleyCtrl = new BowlingAlleyCtrl(mainCtrl, thisRoom);
+		bowlingAlleyCtrl.createBowlingAlley(new Vector3(-1.5f, 0, 3.5f), new Vector3(0, -90, 0));
 	}
 
 }
