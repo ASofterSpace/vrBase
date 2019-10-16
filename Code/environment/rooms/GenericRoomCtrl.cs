@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 using System;
@@ -238,8 +239,8 @@ public abstract class GenericRoomCtrl {
 		i = createWallBlockVertices(vertices, 6, i, x, y, z);
 
 		// block 5 - North-East
-		vertices[i++] = new Vector3(-5.02f, 0, 5.02f);
-		vertices[i++] = new Vector3(-4.65f, 1.84f, 4.65f);
+		vertices[i++] = new Vector3(-4.96f, 0, 4.96f);
+		vertices[i++] = new Vector3(-4.5f, 1.82f, 4.5f);
 		vertices[i++] = new Vector3(-4.8f, 0.8f, 1.95f);
 		vertices[i++] = new Vector3(-5, 0, 2);
 		vertices[i++] = new Vector3(-1.95f, 0.8f, 4.8f);
