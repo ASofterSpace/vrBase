@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * Unlicensed code created by A Softer Space, 2019
+ * www.asofterspace.com/licenses/unlicense.txt
+ */
+
+using System.Collections.Generic;
 using System.Collections;
 using System;
 
@@ -13,6 +18,30 @@ public class MaterialCtrl {
 	public const int BUILDING_FLOOR_CONCRETE = 0;
 	public const int BUILDING_FLOOR_WOOD = 15;
 	public const int BUILDING_BEAM_WHITE = 24;
+	public const int INTERACTION_TELEPORT_TARGET = 12;
+	public const int INTERACTION_TELEPORT_RAY = 13;
+	public const int INTERACTION_BUTTON_HOVER = 23;
+	public const int FADEABLE_BLACK = 14;
+	public const int OBJECTS_DARK_METAL = 31;
+	public const int OBJECTS_PARTICLEBOARD = 30;
+	public const int OBJECTS_BOWLING_BALL_RED = 16;
+	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
+	public const int OBJECTS_BOWLING_PIN_RED = 18;
+	public const int OBJECTS_BLOBFLYER_BLACK = 19;
+	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
+	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
+	public const int OBJECTS_VRCADE_DIGITWHEEL = 34;
+	public const int OBJECTS_VRCADE_FLIPPERQND_LAYOUT = 29;
+	public const int OBJECTS_VRCADE_LABELS_BALLS = 28;
+	public const int OBJECTS_VRCADE_LABELS_SCORE = 27;
+	public const int OBJECTS_VRCADE_LABELS_START = 26;
+	public const int OBJECTS_VRCADE_PINBALL_SILVER = 25;
+	public const int OBJECTS_VRCADE_TARGET_WHITE = 32;
+	public const int OBJECTS_VRCADE_TRIGGER_SILVER = 33;
+	public const int PLASTIC_PURPLE = 9;
+	public const int PLASTIC_WHITE = 10;
+	public const int PLASTIC_GRAY = 11;
+	public const int PLASTIC_RED = 21;
 	public const int SPACE_MOON_FLOOR = 1;
 	public const int SPACE_MOON_SOUTH = 2;
 	public const int SPACE_MOON_WEST = 3;
@@ -21,22 +50,8 @@ public class MaterialCtrl {
 	public const int SPACE_EARTH = 6;
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
-	public const int PLASTIC_PURPLE = 9;
-	public const int PLASTIC_WHITE = 10;
-	public const int PLASTIC_GRAY = 11;
-	public const int PLASTIC_RED = 21;
-	public const int INTERACTION_TELEPORT_TARGET = 12;
-	public const int INTERACTION_TELEPORT_RAY = 13;
-	public const int INTERACTION_BUTTON_HOVER = 23;
-	public const int FADEABLE_BLACK = 14;
-	public const int OBJECTS_BOWLING_BALL_RED = 16;
-	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
-	public const int OBJECTS_BOWLING_PIN_RED = 18;
-	public const int OBJECTS_BLOBFLYER_BLACK = 19;
-	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
-	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 25;
+	public const int MATERIAL_AMOUNT = 35;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -53,8 +68,15 @@ public class MaterialCtrl {
 
 		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concrete";
 		textures[BUILDING_FLOOR_WOOD] = "Building/Floor/woodenLengthwiseFloor";
+		textures[INTERACTION_TELEPORT_TARGET] = "Interaction/teleportTarget";
 		textures[OBJECTS_NOSTALGICCONSOLE_GREEN] = "Building/Wall/wallpaper_1_azure_continuous";
 		textures[OBJECTS_NOSTALGICCONSOLE_SCREEN] = "Objects/Screens/legacy_screen_on_wallpaper_1_azure_continuous";
+		textures[OBJECTS_PARTICLEBOARD] = "Objects/particleboard_1_continuous_small";
+		textures[OBJECTS_VRCADE_DIGITWHEEL] = "Objects/vrCade/digits";
+		textures[OBJECTS_VRCADE_FLIPPERQND_LAYOUT] = "Objects/vrCade/FlipperQnD/layout";
+		textures[OBJECTS_VRCADE_LABELS_BALLS] = "Objects/vrCade/Labels/balls";
+		textures[OBJECTS_VRCADE_LABELS_SCORE] = "Objects/vrCade/Labels/score";
+		textures[OBJECTS_VRCADE_LABELS_START] = "Objects/vrCade/Labels/start";
 		textures[SPACE_MOON_FLOOR] = "Space/moonFloor";
 		textures[SPACE_MOON_SOUTH] = "Space/moonNorth";
 		textures[SPACE_MOON_WEST] = "Space/moonNorthMirrored";
@@ -62,7 +84,6 @@ public class MaterialCtrl {
 		textures[SPACE_MOON_EAST] = "Space/moonNorthMirrored";
 		textures[SPACE_EARTH] = "Space/earth";
 		textures[SPACE_SUN] = "Space/sun";
-		textures[INTERACTION_TELEPORT_TARGET] = "Interaction/teleportTarget";
 
 		standard = GameObject.Find("/Shaders/standard").GetComponent<Renderer>().material;
 		standardFade = GameObject.Find("/Shaders/standardFade").GetComponent<Renderer>().material;
@@ -143,6 +164,19 @@ public class MaterialCtrl {
 					break;
 				case OBJECTS_BLOBFLYER_BLACK:
 					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+					break;
+				case OBJECTS_DARK_METAL:
+					result.color = new Color(0.2f, 0.2f, 0.2f, 1);
+					// TODO :: set metallic to somesuch
+					break;
+				case OBJECTS_VRCADE_TRIGGER_SILVER:
+				case OBJECTS_VRCADE_PINBALL_SILVER:
+					result.color = new Color(1, 1, 1, 1);
+					// TODO :: set metallic to 1.0f
+					// TODO :: set smoothness to 0.403f
+					break;
+				case OBJECTS_VRCADE_TARGET_WHITE:
+					result.color = new Color(1, 1, 1, 1);
 					break;
 				default:
 					result.mainTexture = Resources.Load<Texture2D>("Textures/" + textures[materialNum]);

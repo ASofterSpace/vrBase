@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -9,6 +10,9 @@ using UnityEngine;
 
 
 public class ArcadeRoomCtrl : GenericRoomCtrl {
+
+	private FlipperQnDCtrl flipperQnDCtrl;
+
 
 	public ArcadeRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -23,6 +27,8 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		createMeshedWall();
 
 		createDoors();
+
+		createObjects();
 	}
 
 	protected override void createBeams() {
@@ -113,6 +119,12 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 	private void createDoors() {
 
 		createDoor(3.5f, 5.0f);
+	}
+
+	private void createObjects() {
+
+		flipperQnDCtrl = new FlipperQnDCtrl(mainCtrl, thisRoom);
+		flipperQnDCtrl.createFlipperQnD(new Vector3(-2.5f, 0, -2), new Vector3(0, 55, 0));
 	}
 
 }
