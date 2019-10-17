@@ -40,6 +40,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_TICTACTOE_GRAY = 40;
 	public const int OBJECTS_TICTACTOE_ROBOT = 43;
 	public const int OBJECTS_TICTACTOE_ROBOT_GRAY = 44;
+	public const int OBJECTS_TICTACTOE_LABELS_RESTART = 45;
 	public const int OBJECTS_VRCADE_DIGITWHEEL = 34;
 	public const int OBJECTS_VRCADE_FLIPPERQND_LAYOUT = 29;
 	public const int OBJECTS_VRCADE_LABELS_BALLS = 28;
@@ -61,7 +62,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 45;
+	public const int MATERIAL_AMOUNT = 46;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -88,6 +89,7 @@ public class MaterialCtrl {
 		textures[OBJECTS_POSTERS_VR] = "Objects/Posters/flyer_vr_en";
 		textures[OBJECTS_POSTERS_PROCESS] = "Objects/Posters/flyer_process_en";
 		textures[OBJECTS_TICTACTOE_ROBOT] = "Objects/Materials/bee_tape";
+		textures[OBJECTS_TICTACTOE_LABELS_RESTART] = "Objects/TicTacToe/Labels/restart";
 		textures[OBJECTS_VRCADE_DIGITWHEEL] = "Objects/vrCade/digits";
 		textures[OBJECTS_VRCADE_FLIPPERQND_LAYOUT] = "Objects/vrCade/FlipperQnD/layout";
 		textures[OBJECTS_VRCADE_LABELS_BALLS] = "Objects/vrCade/Labels/balls";

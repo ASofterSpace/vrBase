@@ -166,7 +166,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		GameObject restartConsoleBtn = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		restartConsoleBtn.transform.parent = restartConsole.transform;
-		restartConsoleBtn.transform.localPosition = new Vector3(-0.1265f, 0.9096f, -0.1f);
+		restartConsoleBtn.transform.localPosition = new Vector3(-0.1495f, 0.8832f, 0);
 		restartConsoleBtn.transform.localEulerAngles = new Vector3(0, 0, 45);
 		restartConsoleBtn.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
 		MaterialCtrl.setMaterial(restartConsoleBtn, MaterialCtrl.PLASTIC_RED);
@@ -180,10 +180,18 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		GameObject restartConsoleBtnFrame = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		restartConsoleBtnFrame.name = "restartConsoleBtnFrame";
 		restartConsoleBtnFrame.transform.parent = restartConsole.transform;
-		restartConsoleBtnFrame.transform.localPosition = new Vector3(-0.1082f, 0.8944f, -0.1f);
+		restartConsoleBtnFrame.transform.localPosition = new Vector3(-0.1314f, 0.8672f, 0);
 		restartConsoleBtnFrame.transform.localEulerAngles = new Vector3(0, 0, 45);
 		restartConsoleBtnFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
 		MaterialCtrl.setMaterial(restartConsoleBtnFrame, MaterialCtrl.PLASTIC_WHITE);
+
+		GameObject restartConsoleSign = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		restartConsoleSign.name = "restartConsoleSign";
+		restartConsoleSign.transform.parent = restartConsole.transform;
+		restartConsoleSign.transform.localPosition = new Vector3(-0.0552f, 0.957f, 0);
+		restartConsoleSign.transform.localEulerAngles = new Vector3(45, 90, 0);
+		restartConsoleSign.transform.localScale = new Vector3(0.1921978f, 0.065866f, 1);
+		MaterialCtrl.setMaterial(restartConsoleSign, MaterialCtrl.OBJECTS_TICTACTOE_LABELS_RESTART);
 
 		mainCtrl.addUpdateableCtrl(this);
 	}
