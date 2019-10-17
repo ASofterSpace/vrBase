@@ -164,10 +164,33 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		restartConsoleTop.transform.localScale = new Vector3(0.28f, 0.28f, 0.395f);
 		MaterialCtrl.setMaterial(restartConsoleTop, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
 
+		GameObject restartConsoleBtn = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		restartConsoleBtn.transform.parent = restartConsole.transform;
+		restartConsoleBtn.transform.localPosition = new Vector3(-0.1265f, 0.9096f, -0.1f);
+		restartConsoleBtn.transform.localEulerAngles = new Vector3(0, 0, 45);
+		restartConsoleBtn.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
+		MaterialCtrl.setMaterial(restartConsoleBtn, MaterialCtrl.PLASTIC_RED);
+		Button btnRestart = new TicTacToeButtonRestart(
+			restartConsoleBtn,
+			ButtonCtrl.BTN_TICTACTOE_RESTART,
+			this
+		);
+		ButtonCtrl.add(btnRestart);
+
+		GameObject restartConsoleBtnFrame = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		restartConsoleBtnFrame.name = "restartConsoleBtnFrame";
+		restartConsoleBtnFrame.transform.parent = restartConsole.transform;
+		restartConsoleBtnFrame.transform.localPosition = new Vector3(-0.1082f, 0.8944f, -0.1f);
+		restartConsoleBtnFrame.transform.localEulerAngles = new Vector3(0, 0, 45);
+		restartConsoleBtnFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
+		MaterialCtrl.setMaterial(restartConsoleBtnFrame, MaterialCtrl.PLASTIC_WHITE);
+
 		mainCtrl.addUpdateableCtrl(this);
 	}
 
 	public void restartGame() {
+
+		moveRobotBack();
 
 		for (int x = 0; x < 3; x++) {
 			for (int y = 0; y < 3; y++) {
@@ -176,8 +199,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		}
 
 		humansTurn = true;
-
-		moveRobotBack();
 	}
 
 	void UpdateableCtrl.update(VrInput input) {

@@ -18,6 +18,7 @@ public class ButtonCtrl {
 	public const string BTN_NOSTALGICCONSOLE_BIG_RED = "btn-1";
 	public const string BTN_NOSTALGICCONSOLE_BIG_WHITE = "btn-2";
 	public const string BTN_TICTACTOE_FIELD = "btn-ttt-";
+	public const string BTN_TICTACTOE_RESTART = "btn-tttrestart";
 
 	private static Dictionary<string, Button> buttons;
 
