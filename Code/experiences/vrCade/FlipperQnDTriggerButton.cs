@@ -20,7 +20,9 @@ public class FlipperQnDTriggerButton : Button {
 	}
 
 	public override void hover() {
-		ctrl.startPullingTrigger();
+		if (!ctrl.isPullingTrigger()) {
+			ctrl.startPullingTrigger();
+		}
 		base.hover();
 	}
 

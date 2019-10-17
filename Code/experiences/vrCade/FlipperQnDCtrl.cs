@@ -86,6 +86,18 @@ public class FlipperQnDCtrl {
 
 		pinballCollisionScript.update(input);
 
+		if (pullingTrigger) {
+			setTriggerTo(curTriggerSpeed());
+
+			if (input.someTriggerReleased) {
+				letGoTrigger();
+			}
+		}
+
+		if (input.someTriggerReleased) {
+			btnTrigger.unhover();
+		}
+
 		if (!gameRunning) {
 			return;
 		}
@@ -96,15 +108,6 @@ public class FlipperQnDCtrl {
 			if (pinball.transform.localPosition.x > -0.3f) {
 				// ... call the appropriate function!
 				pinballLost();
-			}
-		}
-
-		if (pullingTrigger) {
-			setTriggerTo(curTriggerSpeed());
-
-			if (input.someTriggerReleased) {
-				letGoTrigger();
-				btnTrigger.unhover();
 			}
 		}
 
@@ -787,6 +790,10 @@ public class FlipperQnDCtrl {
 		pullingTrigger = false;
 
 		setTriggerTo(0.0f);
+	}
+
+	public bool isPullingTrigger() {
+		return pullingTrigger;
 	}
 
 	private void setTriggerTo(float triggerSpeed) {
