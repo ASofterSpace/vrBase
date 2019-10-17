@@ -58,6 +58,8 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		GameObject ticTacToe = new GameObject("TicTacToe");
 		ticTacToe.transform.parent = hostRoom.transform;
+		ticTacToe.transform.localPosition = position;
+		ticTacToe.transform.eulerAngles = angles;
 
 		GameObject[][] fields = new GameObject[3][];
 		buttons = new TicTacToeButton[3][];
@@ -69,7 +71,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 				fields[x][y] = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 				fields[x][y].transform.parent = ticTacToe.transform;
 				fields[x][y].transform.localPosition = new Vector3((x - 1) * 0.7f, 0.025f, (y - 1) * 0.7f);
-				fields[x][y].transform.eulerAngles = new Vector3(0, 0, 0);
+				fields[x][y].transform.localEulerAngles = new Vector3(0, 0, 0);
 				fields[x][y].transform.localScale = new Vector3(0.55f, 0.025f, 0.55f);
 				buttons[x][y] = new TicTacToeButton(
 					fields[x][y],
@@ -80,14 +82,11 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			}
 		}
 
-		ticTacToe.transform.localPosition = position;
-		ticTacToe.transform.eulerAngles = angles;
-
 		GameObject roboBase = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		roboBase.name = "roboBase";
 		roboBase.transform.parent = ticTacToe.transform;
 		roboBase.transform.localPosition = new Vector3(0, -0.05f, -1.65f);
-		roboBase.transform.eulerAngles = new Vector3(0, 0, 0);
+		roboBase.transform.localEulerAngles = new Vector3(0, 0, 0);
 		roboBase.transform.localScale = new Vector3(0.6f, 0.2f, 0.6f);
 		MaterialCtrl.setMaterial(roboBase, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
 
@@ -95,18 +94,20 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboHorzBasePart.name = "roboHorzBasePart";
 		roboHorzBasePart.transform.parent = ticTacToe.transform;
 		roboHorzBasePart.transform.localPosition = new Vector3(0, 0.2f, -1.65f);
-		roboHorzBasePart.transform.eulerAngles = new Vector3(0, 0, 0);
+		roboHorzBasePart.transform.localEulerAngles = new Vector3(0, 0, 0);
 		roboHorzBasePart.transform.localScale = new Vector3(0.41f, 0.05f, 0.41f);
 		MaterialCtrl.setMaterial(roboHorzBasePart, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT_GRAY);
 
 		roboArm = new GameObject("roboArm");
 		roboArm.transform.parent = ticTacToe.transform;
+		roboArm.transform.localPosition = new Vector3(0, 0.2f, -1.65f);
+		roboArm.transform.localEulerAngles = new Vector3(0, 0, 0);
 
 		GameObject roboVertBasePart = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		roboVertBasePart.name = "roboVertBasePart";
 		roboVertBasePart.transform.parent = roboArm.transform;
 		roboVertBasePart.transform.localPosition = new Vector3(0, 0, 0);
-		roboVertBasePart.transform.eulerAngles = new Vector3(90, 90, 0);
+		roboVertBasePart.transform.localEulerAngles = new Vector3(90, 90, 0);
 		roboVertBasePart.transform.localScale = new Vector3(0.38f, 0.05f, 0.38f);
 		MaterialCtrl.setMaterial(roboVertBasePart, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT_GRAY);
 
@@ -114,7 +115,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboUpperArm.name = "roboUpperArm";
 		roboUpperArm.transform.parent = roboArm.transform;
 		roboUpperArm.transform.localPosition = new Vector3(0, 1.025f, 0);
-		roboUpperArm.transform.eulerAngles = new Vector3(0, 0, 0);
+		roboUpperArm.transform.localEulerAngles = new Vector3(0, 0, 0);
 		roboUpperArm.transform.localScale = new Vector3(0.1f, 0.84f, 0.1f);
 		MaterialCtrl.setMaterial(roboUpperArm, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
 
@@ -122,7 +123,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboJoint.name = "roboJoint";
 		roboJoint.transform.parent = roboArm.transform;
 		roboJoint.transform.localPosition = new Vector3(0, 1.98f, 0);
-		roboJoint.transform.eulerAngles = new Vector3(90, 90, 0);
+		roboJoint.transform.localEulerAngles = new Vector3(90, 90, 0);
 		roboJoint.transform.localScale = new Vector3(0.3f, 0.05f, 0.3f);
 		MaterialCtrl.setMaterial(roboJoint, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT_GRAY);
 
@@ -130,7 +131,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboLowerArm.name = "roboLowerArm";
 		roboLowerArm.transform.parent = roboArm.transform;
 		roboLowerArm.transform.localPosition = new Vector3(0, 1.332f, 0.605f);
-		roboLowerArm.transform.eulerAngles = new Vector3(-45, 0, 0);
+		roboLowerArm.transform.localEulerAngles = new Vector3(-45, 0, 0);
 		roboLowerArm.transform.localScale = new Vector3(0.1f, 0.84f, 0.1f);
 		MaterialCtrl.setMaterial(roboLowerArm, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
 
@@ -138,21 +139,20 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboPointer.name = "roboPointer";
 		roboPointer.transform.parent = roboArm.transform;
 		roboPointer.transform.localPosition = new Vector3(0, 0.7f, 1.236f);
-		roboPointer.transform.eulerAngles = new Vector3(0, 0, 0);
+		roboPointer.transform.localEulerAngles = new Vector3(0, 0, 0);
 		roboPointer.transform.localScale = new Vector3(0.2f, 0.3f, 0.3f);
 		MaterialCtrl.setMaterial(roboPointer, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT_GRAY);
 
-		roboArm.transform.localPosition = new Vector3(0, 0.2f, -1.65f);
-		roboArm.transform.eulerAngles = new Vector3(0, 0, 0);
-
 		GameObject restartConsole = new GameObject("restartConsole");
 		restartConsole.transform.parent = ticTacToe.transform;
+		restartConsole.transform.localPosition = new Vector3(1.3f, 0, 1.2f);
+		restartConsole.transform.localEulerAngles = new Vector3(0, 35, 0);
 
 		GameObject restartConsoleBase = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		restartConsoleBase.name = "restartConsoleBase";
 		restartConsoleBase.transform.parent = restartConsole.transform;
 		restartConsoleBase.transform.localPosition = new Vector3(0, 0.4f, 0);
-		restartConsoleBase.transform.eulerAngles = new Vector3(0, 0, 0);
+		restartConsoleBase.transform.localEulerAngles = new Vector3(0, 0, 0);
 		restartConsoleBase.transform.localScale = new Vector3(0.4f, 0.8f, 0.4f);
 		MaterialCtrl.setMaterial(restartConsoleBase, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT_GRAY);
 
@@ -160,12 +160,9 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		restartConsoleTop.name = "restartConsoleTop";
 		restartConsoleTop.transform.parent = restartConsole.transform;
 		restartConsoleTop.transform.localPosition = new Vector3(0, 0.8f, 0);
-		restartConsoleTop.transform.eulerAngles = new Vector3(0, 0, 45);
+		restartConsoleTop.transform.localEulerAngles = new Vector3(0, 0, 45);
 		restartConsoleTop.transform.localScale = new Vector3(0.28f, 0.28f, 0.395f);
 		MaterialCtrl.setMaterial(restartConsoleTop, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
-
-		restartConsole.transform.localPosition = new Vector3(1.3f, 0, 1.2f);
-		restartConsole.transform.eulerAngles = new Vector3(0, 35, 0);
 
 		mainCtrl.addUpdateableCtrl(this);
 	}
@@ -305,7 +302,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			roboJoint.transform.localPosition - roboLowerArm.transform.localRotation * (1.68f * Vector3.up);
 
 		if (moved) {
-			roboArm.transform.eulerAngles = new Vector3(x, y, z);
+			roboArm.transform.localEulerAngles = new Vector3(x, y, z);
 		} else {
 			robotMoving = false;
 			if (callAfterReachingTarget != null) {
