@@ -37,7 +37,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	private Action callAfterReachingTarget;
 
 	// is the robot moving?
-	private bool moving;
+	private bool robotMoving;
 
 
 	public TicTacToeCtrl(MainCtrl mainCtrl, GameObject hostRoom) {
@@ -145,6 +145,28 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		roboArm.transform.localPosition = new Vector3(0, 0.2f, -1.65f);
 		roboArm.transform.eulerAngles = new Vector3(0, 0, 0);
 
+		GameObject restartConsole = new GameObject("restartConsole");
+		restartConsole.transform.parent = ticTacToe.transform;
+
+		GameObject restartConsoleBase = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		restartConsoleBase.name = "restartConsoleBase";
+		restartConsoleBase.transform.parent = restartConsole.transform;
+		restartConsoleBase.transform.localPosition = new Vector3(0, 0.4f, 0);
+		restartConsoleBase.transform.eulerAngles = new Vector3(0, 0, 0);
+		restartConsoleBase.transform.localScale = new Vector3(0.4f, 0.8f, 0.4f);
+		MaterialCtrl.setMaterial(restartConsoleBase, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT_GRAY);
+
+		GameObject restartConsoleTop = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		restartConsoleTop.name = "restartConsoleTop";
+		restartConsoleTop.transform.parent = restartConsole.transform;
+		restartConsoleTop.transform.localPosition = new Vector3(0, 0.8f, 0);
+		restartConsoleTop.transform.eulerAngles = new Vector3(0, 0, 45);
+		restartConsoleTop.transform.localScale = new Vector3(0.28f, 0.28f, 0.395f);
+		MaterialCtrl.setMaterial(restartConsoleTop, MaterialCtrl.OBJECTS_TICTACTOE_ROBOT);
+
+		restartConsole.transform.localPosition = new Vector3(1.3f, 0, 1.2f);
+		restartConsole.transform.eulerAngles = new Vector3(0, 35, 0);
+
 		mainCtrl.addUpdateableCtrl(this);
 	}
 
@@ -163,7 +185,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 	void UpdateableCtrl.update(VrInput input) {
 
-		if (!moving) {
+		if (!robotMoving) {
 			return;
 		}
 
@@ -285,7 +307,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		if (moved) {
 			roboArm.transform.eulerAngles = new Vector3(x, y, z);
 		} else {
-			moving = false;
+			robotMoving = false;
 			if (callAfterReachingTarget != null) {
 				callAfterReachingTarget();
 			}
@@ -301,11 +323,11 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	 */
 	public void makeRoboMove() {
 
+		humansTurn = false;
+
 		if (checkForGameOver()) {
 			return;
 		}
-
-		humansTurn = false;
 
 		int x, y;
 
@@ -318,60 +340,60 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		// first of all, check if we have any immediately winning moves - if yes, make one of them!
 		for (y = 0; y < 3; y++) {
-			if (buttons[0][y].isRobo() && buttons[1][y].isRobo()) {
+			if (buttons[0][y].isRobo() && buttons[1][y].isRobo() && buttons[2][y].isFree()) {
 				x = 2;
 				return;
 			}
-			if (buttons[0][y].isRobo() && buttons[2][y].isRobo()) {
+			if (buttons[0][y].isRobo() && buttons[2][y].isRobo() && buttons[1][y].isFree()) {
 				x = 1;
 				return;
 			}
-			if (buttons[1][y].isRobo() && buttons[2][y].isRobo()) {
+			if (buttons[1][y].isRobo() && buttons[2][y].isRobo() && buttons[0][y].isFree()) {
 				x = 0;
 				return;
 			}
 		}
 		for (x = 0; x < 3; x++) {
-			if (buttons[x][0].isRobo() && buttons[x][1].isRobo()) {
+			if (buttons[x][0].isRobo() && buttons[x][1].isRobo() && buttons[x][2].isFree()) {
 				y = 2;
 				return;
 			}
-			if (buttons[x][0].isRobo() && buttons[x][2].isRobo()) {
+			if (buttons[x][0].isRobo() && buttons[x][2].isRobo() && buttons[x][1].isFree()) {
 				y = 1;
 				return;
 			}
-			if (buttons[x][1].isRobo() && buttons[x][2].isRobo()) {
+			if (buttons[x][1].isRobo() && buttons[x][2].isRobo() && buttons[x][0].isFree()) {
 				y = 0;
 				return;
 			}
 		}
 		// diagonals
-		if (buttons[0][0].isRobo() && buttons[1][1].isRobo()) {
+		if (buttons[0][0].isRobo() && buttons[1][1].isRobo() && buttons[2][2].isFree()) {
 			x = 2;
 			y = 2;
 			return;
 		}
-		if (buttons[0][0].isRobo() && buttons[2][2].isRobo()) {
+		if (buttons[0][0].isRobo() && buttons[2][2].isRobo() && buttons[1][1].isFree()) {
 			x = 1;
 			y = 1;
 			return;
 		}
-		if (buttons[1][1].isRobo() && buttons[2][2].isRobo()) {
+		if (buttons[1][1].isRobo() && buttons[2][2].isRobo() && buttons[0][0].isFree()) {
 			x = 0;
 			y = 0;
 			return;
 		}
-		if (buttons[0][2].isRobo() && buttons[1][1].isRobo()) {
+		if (buttons[0][2].isRobo() && buttons[1][1].isRobo() && buttons[2][0].isFree()) {
 			x = 2;
 			y = 0;
 			return;
 		}
-		if (buttons[0][2].isRobo() && buttons[2][0].isRobo()) {
+		if (buttons[0][2].isRobo() && buttons[2][0].isRobo() && buttons[1][1].isFree()) {
 			x = 1;
 			y = 1;
 			return;
 		}
-		if (buttons[1][1].isRobo() && buttons[2][0].isRobo()) {
+		if (buttons[1][1].isRobo() && buttons[2][0].isRobo() && buttons[0][2].isFree()) {
 			x = 0;
 			y = 2;
 			return;
@@ -379,60 +401,60 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		// then, check if the human has any immediately winning moves - if yes, prevent them!
 		for (y = 0; y < 3; y++) {
-			if (buttons[0][y].isHuman() && buttons[1][y].isHuman()) {
+			if (buttons[0][y].isHuman() && buttons[1][y].isHuman() && buttons[2][y].isFree()) {
 				x = 2;
 				return;
 			}
-			if (buttons[0][y].isHuman() && buttons[2][y].isHuman()) {
+			if (buttons[0][y].isHuman() && buttons[2][y].isHuman() && buttons[1][y].isFree()) {
 				x = 1;
 				return;
 			}
-			if (buttons[1][y].isHuman() && buttons[2][y].isHuman()) {
+			if (buttons[1][y].isHuman() && buttons[2][y].isHuman() && buttons[0][y].isFree()) {
 				x = 0;
 				return;
 			}
 		}
 		for (x = 0; x < 3; x++) {
-			if (buttons[x][0].isHuman() && buttons[x][1].isHuman()) {
+			if (buttons[x][0].isHuman() && buttons[x][1].isHuman() && buttons[x][2].isFree()) {
 				y = 2;
 				return;
 			}
-			if (buttons[x][0].isHuman() && buttons[x][2].isHuman()) {
+			if (buttons[x][0].isHuman() && buttons[x][2].isHuman() && buttons[x][1].isFree()) {
 				y = 1;
 				return;
 			}
-			if (buttons[x][1].isHuman() && buttons[x][2].isHuman()) {
+			if (buttons[x][1].isHuman() && buttons[x][2].isHuman() && buttons[x][0].isFree()) {
 				y = 0;
 				return;
 			}
 		}
 		// diagonals
-		if (buttons[0][0].isHuman() && buttons[1][1].isHuman()) {
+		if (buttons[0][0].isHuman() && buttons[1][1].isHuman() && buttons[2][2].isFree()) {
 			x = 2;
 			y = 2;
 			return;
 		}
-		if (buttons[0][0].isHuman() && buttons[2][2].isHuman()) {
+		if (buttons[0][0].isHuman() && buttons[2][2].isHuman() && buttons[1][1].isFree()) {
 			x = 1;
 			y = 1;
 			return;
 		}
-		if (buttons[1][1].isHuman() && buttons[2][2].isHuman()) {
+		if (buttons[1][1].isHuman() && buttons[2][2].isHuman() && buttons[0][0].isFree()) {
 			x = 0;
 			y = 0;
 			return;
 		}
-		if (buttons[0][2].isHuman() && buttons[1][1].isHuman()) {
+		if (buttons[0][2].isHuman() && buttons[1][1].isHuman() && buttons[2][0].isFree()) {
 			x = 2;
 			y = 0;
 			return;
 		}
-		if (buttons[0][2].isHuman() && buttons[2][0].isHuman()) {
+		if (buttons[0][2].isHuman() && buttons[2][0].isHuman() && buttons[1][1].isFree()) {
 			x = 1;
 			y = 1;
 			return;
 		}
-		if (buttons[1][1].isHuman() && buttons[2][0].isHuman()) {
+		if (buttons[1][1].isHuman() && buttons[2][0].isHuman() && buttons[0][2].isFree()) {
 			x = 0;
 			y = 2;
 			return;
@@ -447,7 +469,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		// the middle field is not free, we have no winning moves and nothing to prevent things either...
 		// just take a leftover button at random :)
-
 		for (x = 0; x < 3; x++) {
 			for (y = 0; y < 3; y++) {
 				if (buttons[x][y].isFree()) {
@@ -504,17 +525,16 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			robotTargetRotY = 20;
 			robotTargetRotT = -85;
 		}
-		moving = true;
+		robotMoving = true;
 
 		callAfterReachingTarget = () => {
 
 			buttons[x][y].setRobo();
 
 			// let the human player already make a new selection while
-			// the robot is still on its way back
-			humansTurn = true;
-
-			checkForGameOver();
+			// the robot is still on its way back - only while the game
+			// is still going on!
+			humansTurn = !checkForGameOver();
 
 			moveRobotBack();
 		};
@@ -525,7 +545,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		robotTargetRotX = 0;
 		robotTargetRotY = 0;
 		robotTargetRotT = -50;
-		moving = true;
+		robotMoving = true;
 
 		callAfterReachingTarget = null;
 	}
@@ -573,15 +593,16 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			return true;
 		}
 
-		// check if all fields are taken
-		bool someFree = false;
+		// no one won yet...
+		// now check if all fields are taken - if yes, the game is over anyway;
+		// if not (so if at least one is free), the game is still going on
 		for (int x = 0; x < 3; x++) {
 			for (int y = 0; y < 3; y++) {
 				if (buttons[x][y].isFree()) {
-					someFree = true;
+					return false;
 				}
 			}
 		}
-		return !someFree;
+		return true;
 	}
 }
