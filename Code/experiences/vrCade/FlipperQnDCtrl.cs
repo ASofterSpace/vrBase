@@ -18,29 +18,25 @@ public class FlipperQnDCtrl {
 
 	private GameObject hostRoom;
 
-	public GameObject flipperMachine;
-	public GameObject pinball;
-	public GameObject flipperLeft;
-	public GameObject flipperRight;
-	public GameObject barrierLeft;
-	public GameObject barrierRight;
-	public GameObject trigger;
+	private GameObject flipperMachine;
+	private GameObject pinball;
+	private GameObject flipperLeft;
+	private GameObject flipperRight;
+	private GameObject barrierLeft;
+	private GameObject barrierRight;
+	private GameObject trigger;
+	private FlipperQnDTriggerButton btnTrigger;
 
-	public GameObject scoresDigit1;
-	public GameObject scoresDigit10;
-	public GameObject scoresDigit100;
-	public GameObject scoresDigit1000;
-	public GameObject scoresDigit10000;
+	private GameObject scoresDigit1;
+	private GameObject scoresDigit10;
+	private GameObject scoresDigit100;
+	private GameObject scoresDigit1000;
+	private GameObject scoresDigit10000;
 
-	public GameObject ballsDigit1;
-	public GameObject ballsDigit10;
+	private GameObject ballsDigit1;
+	private GameObject ballsDigit10;
 
-	public AudioClip soundTriggerPull; // whoosh_5
-	public AudioClip soundTriggerLetGo; // klack_11
-
-	public AudioClip soundFlipperUp; // klack_wood_2
-	public AudioClip soundFlipperDown; // klack_1
-
+	private PinballCollisionScript pinballCollisionScript;
 
 	private bool gameRunning = false;
 
@@ -88,6 +84,8 @@ public class FlipperQnDCtrl {
 
 	public void update(VrInput input) {
 
+		pinballCollisionScript.update(input);
+
 		if (!gameRunning) {
 			return;
 		}
@@ -103,6 +101,24 @@ public class FlipperQnDCtrl {
 
 		if (pullingTrigger) {
 			setTriggerTo(curTriggerSpeed());
+
+			if (input.someTriggerReleased) {
+				letGoTrigger();
+				btnTrigger.unhover();
+			}
+		}
+
+		if (input.leftGripClicked) {
+			flipLeft();
+		}
+		if (input.leftGripReleased) {
+			unflipLeft();
+		}
+		if (input.rightGripClicked) {
+			flipRight();
+		}
+		if (input.rightGripReleased) {
+			unflipRight();
 		}
 
 		scoresDigit1CurrentRotation = (scoresDigit1TargetRotation + scoresDigit1CurrentRotation) / 2;
@@ -173,6 +189,9 @@ public class FlipperQnDCtrl {
 
 	private void initGame() {
 
+		// create scripts
+		pinballCollisionScript = new PinballCollisionScript(pinball, this);
+
 		// init audio
 		pinball.AddComponent<AudioSource>();
 		triggerAudioSource = trigger.AddComponent<AudioSource>();
@@ -218,6 +237,14 @@ public class FlipperQnDCtrl {
 		startButton.transform.eulerAngles = new Vector3(90, 0, 0);
 		startButton.transform.localScale = new Vector3(0.04f, 0.02f, 0.04f);
 		MaterialCtrl.setMaterial(startButton, MaterialCtrl.PLASTIC_PURPLE);
+		Button btnStart = new DefaultButton(
+			startButton,
+			ButtonCtrl.BTN_FLIPPERQND_START,
+			() => {
+				startGame();
+			}
+		);
+		ButtonCtrl.add(btnStart);
 		GameObject glassPanel = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		glassPanel.name = "glassPanel";
 		glassPanel.transform.parent = top.transform;
@@ -334,13 +361,10 @@ public class FlipperQnDCtrl {
 		shellRight.transform.eulerAngles = new Vector3(0, 90, 0);
 		shellRight.transform.localScale = new Vector3(1.3f, 0.15f, 0.008f);
 		GameObject targetTopLeft = createShroomTarget(top);
-		targetTopLeft.name = "targetTopLeft";
 		targetTopLeft.transform.localPosition = new Vector3(0.16f, 0.9909258f, -0.5188189f);
 		GameObject targetTopRight = createShroomTarget(top);
-		targetTopRight.name = "targetTopRight";
 		targetTopRight.transform.localPosition = new Vector3(-0.16f, 0.9909258f, -0.5188189f);
 		GameObject targetTopMiddle = createShroomTarget(top);
-		targetTopMiddle.name = "targetTopMiddle";
 		targetTopMiddle.transform.localPosition = new Vector3(0, 0.9909257f, -0.583819f);
 		GameObject targetRotatorBar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		targetRotatorBar.name = "targetRotatorBar";
@@ -372,10 +396,10 @@ public class FlipperQnDCtrl {
 		curLog.transform.localPosition = new Vector3(-0.34f, 1, -0.82f);
 		curLog.transform.eulerAngles = new Vector3(0, -35, 0);
 		curLog.transform.localScale = new Vector3(0.0108218f, 0.075f, 0.21f);
-		flipperLeft = createFlipper(top, "flipperLeft");
+		flipperLeft = createFlipper(top, "flipper");
 		flipperLeft.transform.localPosition = new Vector3(0.119f, 1.005f, 0.272f);
 		flipperLeft.transform.eulerAngles = new Vector3(0, 25, 0);
-		flipperRight = createFlipper(top, "flipperRight");
+		flipperRight = createFlipper(top, "flipper");
 		flipperRight.transform.localPosition = new Vector3(-0.037f, 1.005f, 0.272f);
 		flipperRight.transform.eulerAngles = new Vector3(0, -25, 0);
 		GameObject flipperLeftBar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -427,6 +451,12 @@ public class FlipperQnDCtrl {
 		trigger.transform.eulerAngles = new Vector3(90, 0, 0);
 		trigger.transform.localScale = new Vector3(0.08f, 0.06f, 0.08f);
 		MaterialCtrl.setMaterial(trigger, MaterialCtrl.OBJECTS_VRCADE_TRIGGER_SILVER);
+		btnTrigger = new FlipperQnDTriggerButton(
+			trigger,
+			ButtonCtrl.BTN_FLIPPERQND_TRIGGER,
+			this
+		);
+		ButtonCtrl.add(btnTrigger);
 
 		top.transform.eulerAngles = new Vector3(15, 0, 0);
 
@@ -513,11 +543,13 @@ public class FlipperQnDCtrl {
 
 	private GameObject createShroomTarget(GameObject parent) {
 		GameObject target = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		target.name = "targetShroom";
 		target.transform.parent = parent.transform;
 		target.transform.eulerAngles = new Vector3(0, 0, 0);
 		target.transform.localScale = new Vector3(0.032f, 0.025f, 0.0325f);
 		MaterialCtrl.setMaterial(target, MaterialCtrl.OBJECTS_VRCADE_TARGET_WHITE);
 		GameObject targetTop = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		targetTop.name = "targetShroom";
 		targetTop.transform.parent = target.transform;
 		targetTop.transform.localPosition = new Vector3(0, 1, 0);
 		targetTop.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -636,32 +668,6 @@ public class FlipperQnDCtrl {
 		return false;
 	}
 
-	public void triggerDown(int which) {
-
-		if (pinballIsInStartPosition()) {
-			startPullingTrigger();
-		}
-
-		if (which == 1) {
-			flipRight();
-		} else {
-			flipLeft();
-		}
-	}
-
-	public void triggerUp(int which) {
-
-		if (pinballIsInStartPosition()) {
-			letGoTrigger();
-		}
-
-		if (which == 1) {
-			unflipRight();
-		} else {
-			unflipLeft();
-		}
-	}
-
 	private void flipLeft() {
 
 		var hinge = barrierLeft.GetComponent<HingeJoint>();
@@ -671,7 +677,7 @@ public class FlipperQnDCtrl {
 		motor.targetVelocity = 2000;
 		hinge.useMotor = true;
 
-		flipperLeftAudioSource.PlayOneShot(soundFlipperUp, 1.0f);
+		flipperLeftAudioSource.PlayOneShot(SoundCtrl.getSound(SoundCtrl.KLACK_WOOD_2), 1.0f);
 	}
 
 	private void unflipLeft() {
@@ -681,7 +687,7 @@ public class FlipperQnDCtrl {
 		var motor = hinge.motor;
 		hinge.useMotor = false;
 
-		flipperLeftAudioSource.PlayOneShot(soundFlipperDown, 1.0f);
+		flipperLeftAudioSource.PlayOneShot(SoundCtrl.getSound(SoundCtrl.KLACK_1), 1.0f);
 	}
 
 	private void flipRight() {
@@ -693,7 +699,7 @@ public class FlipperQnDCtrl {
 		motor.targetVelocity = 2000;
 		hinge.useMotor = true;
 
-		flipperRightAudioSource.PlayOneShot(soundFlipperUp, 1.0f);
+		flipperRightAudioSource.PlayOneShot(SoundCtrl.getSound(SoundCtrl.KLACK_WOOD_2), 1.0f);
 	}
 
 	private void unflipRight() {
@@ -703,7 +709,7 @@ public class FlipperQnDCtrl {
 		var motor = hinge.motor;
 		hinge.useMotor = false;
 
-		flipperRightAudioSource.PlayOneShot(soundFlipperDown, 1.0f);
+		flipperRightAudioSource.PlayOneShot(SoundCtrl.getSound(SoundCtrl.KLACK_1), 1.0f);
 	}
 
 	private void pinballLost() {
@@ -729,13 +735,13 @@ public class FlipperQnDCtrl {
 
 	private float triggerStartTime = 0;
 
-	private void startPullingTrigger() {
+	public void startPullingTrigger() {
 
 		triggerStartTime = Time.time;
 
 		pullingTrigger = true;
 
-		triggerAudioSource.PlayOneShot(soundTriggerPull, 1.0f);
+		triggerAudioSource.PlayOneShot(SoundCtrl.getSound(SoundCtrl.WHOOSH_5), 1.0f);
 	}
 
 	private float curTriggerSpeed() {
@@ -756,7 +762,7 @@ public class FlipperQnDCtrl {
 
 		if (pullingTrigger) {
 
-			triggerAudioSource.PlayOneShot(soundTriggerLetGo, 1.0f);
+			triggerAudioSource.PlayOneShot(SoundCtrl.getSound(SoundCtrl.KLACK_11), 1.0f);
 
 			float triggerSpeed = curTriggerSpeed();
 

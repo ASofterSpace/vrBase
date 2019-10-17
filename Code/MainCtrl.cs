@@ -55,6 +55,7 @@ public class MainCtrl : MonoBehaviour {
 
 		// static helpers
 		MaterialCtrl.init();
+		SoundCtrl.init();
 		ButtonCtrl.init();
 
 		// faraway things / skybox
@@ -143,6 +144,10 @@ public class MainCtrl : MonoBehaviour {
 
 	public GameObject getMainCameraHolder() {
 		return mainCameraHolder;
+	}
+
+	public VrSpecificCtrl getVrSpecificCtrl() {
+		return vrSpecificCtrl;
 	}
 
 	public void addUpdateableCtrl(UpdateableCtrl updateableCtrl) {

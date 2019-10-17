@@ -95,6 +95,7 @@ public class VrSpecificCtrl {
 		}
 		foreach (InputDevice inputDevice in leftInputDevices) {
 			inputDevice.TryGetFeatureValue(CommonUsages.trigger, out result.leftTrigger);
+			inputDevice.TryGetFeatureValue(CommonUsages.grip, out result.leftGrip);
 			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.leftPosition);
 			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.leftRotation);
 			leftController.transform.position = result.leftPosition;
@@ -102,6 +103,7 @@ public class VrSpecificCtrl {
 		}
 		foreach (InputDevice inputDevice in rightInputDevices) {
 			inputDevice.TryGetFeatureValue(CommonUsages.trigger, out result.rightTrigger);
+			inputDevice.TryGetFeatureValue(CommonUsages.grip, out result.rightGrip);
 			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.rightPosition);
 			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.rightRotation);
 			rightController.transform.position = result.rightPosition;
@@ -179,6 +181,13 @@ public class VrSpecificCtrl {
 
 		Vector3 curPos = world.transform.localPosition;
 		world.transform.localPosition = new Vector3(curPos.x, worldY, curPos.z);
+	}
+
+	public void adjustCameraHeightBy(float upAmount) {
+
+		worldY += upAmount;
+
+		adjustCameraHeight();
 	}
 
 /*

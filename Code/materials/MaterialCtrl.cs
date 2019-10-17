@@ -49,6 +49,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_VRCADE_PINBALL_SILVER = 25;
 	public const int OBJECTS_VRCADE_TARGET_WHITE = 32;
 	public const int OBJECTS_VRCADE_TRIGGER_SILVER = 33;
+	public const int PLASTIC_BLACK = 46;
 	public const int PLASTIC_PURPLE = 9;
 	public const int PLASTIC_WHITE = 10;
 	public const int PLASTIC_GRAY = 11;
@@ -62,7 +63,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 46;
+	public const int MATERIAL_AMOUNT = 47;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -146,6 +147,9 @@ public class MaterialCtrl {
 			switch (materialNum) {
 				case BUILDING_BEAM_WHITE:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					break;
+				case PLASTIC_BLACK:
+					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 					break;
 				case PLASTIC_WHITE:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
