@@ -27,6 +27,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
 	public const int OBJECTS_BOWLING_PIN_RED = 18;
 	public const int OBJECTS_BLOBFLYER_BLACK = 19;
+	public const int OBJECTS_FIREFIGHTING_OXYGEN_YELLOW = 47;
 	public const int OBJECTS_MATERIALS_PARTICLEBOARD = 30;
 	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
 	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
@@ -63,7 +64,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 47;
+	public const int MATERIAL_AMOUNT = 48;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -190,6 +191,9 @@ public class MaterialCtrl {
 				case OBJECTS_DARK_METAL:
 					result.color = new Color(0.2f, 0.2f, 0.2f, 1);
 					// TODO :: set metallic to somesuch
+					break;
+				case OBJECTS_FIREFIGHTING_OXYGEN_YELLOW:
+					result.color = new Color(0.8f, 0.9f, 0, 1);
 					break;
 				case OBJECTS_TICTACTOE_BLUE:
 					result.color = new Color(0, 0, 0.8f, 1);

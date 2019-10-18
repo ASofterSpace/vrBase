@@ -16,6 +16,8 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private BlobFlyerCtrl blobFlyerCtrl;
 
+	private BreathingApparatusCtrl breathingApparatusCtrl;
+
 
 	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -134,6 +136,9 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 		blobFlyerCtrl = new BlobFlyerCtrl(mainCtrl, thisRoom);
 		blobFlyerCtrl.createBlobFlyer(new Vector3(0, 0, -4), new Vector3(0, 0, 0));
+
+		breathingApparatusCtrl = new BreathingApparatusCtrl(mainCtrl, thisRoom);
+		breathingApparatusCtrl.createQuickTester(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
 	}
 
 }
