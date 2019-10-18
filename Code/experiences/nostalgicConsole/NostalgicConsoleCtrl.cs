@@ -75,13 +75,23 @@ public class NostalgicConsoleCtrl {
 		wallSideLeft.transform.localPosition = new Vector3(-1, 0, 0);
 
 		GameObject screenLeft = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		screenLeft.name = "Screen Left";
 		screenLeft.transform.parent = nostalgicConsole.transform;
 		screenLeft.transform.localPosition = new Vector3(-0.65f, 1.4f, 0.27f);
 		screenLeft.transform.localEulerAngles = new Vector3(10, 0, 0);
 		screenLeft.transform.localScale = new Vector3(0.55f, 0.55f, 1);
 		MaterialCtrl.setMaterial(screenLeft, MaterialCtrl.OBJECTS_NOSTALGICCONSOLE_SCREEN);
 
+		GameObject screenLeftLogo = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		screenLeftLogo.name = "Screen Left Logo";
+		screenLeftLogo.transform.parent = nostalgicConsole.transform;
+		screenLeftLogo.transform.localPosition = new Vector3(-0.65f, 1.4f, 0.269f);
+		screenLeftLogo.transform.localEulerAngles = new Vector3(10, 0, 0);
+		screenLeftLogo.transform.localScale = new Vector3(0.5f, 0.14f, 1);
+		MaterialCtrl.setMaterial(screenLeftLogo, MaterialCtrl.OBJECTS_LOGOS_ASOFTERSPACE_DARK);
+
 		GameObject screenMiddle = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		screenMiddle.name = "Screen Middle";
 		screenMiddle.transform.parent = nostalgicConsole.transform;
 		screenMiddle.transform.localPosition = new Vector3(0, 1.4f, 0.27f);
 		screenMiddle.transform.localEulerAngles = new Vector3(10, 0, 0);
@@ -89,6 +99,7 @@ public class NostalgicConsoleCtrl {
 		MaterialCtrl.setMaterial(screenMiddle, MaterialCtrl.OBJECTS_NOSTALGICCONSOLE_SCREEN);
 
 		GameObject screenRight = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		screenRight.name = "Screen Right";
 		screenRight.transform.parent = nostalgicConsole.transform;
 		screenRight.transform.localPosition = new Vector3(0.65f, 1.4f, 0.27f);
 		screenRight.transform.localEulerAngles = new Vector3(10, 0, 0);

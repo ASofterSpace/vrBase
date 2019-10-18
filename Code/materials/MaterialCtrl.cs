@@ -29,6 +29,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_FIREFIGHTING_OXYGEN_GREEN = 47;
 	public const int OBJECTS_FIREFIGHTING_OXYGEN_YELLOW = 48;
 	public const int OBJECTS_LOGOS_ASOFTERSPACE = 50;
+	public const int OBJECTS_LOGOS_ASOFTERSPACE_DARK = 51;
 	public const int OBJECTS_MATERIALS_PARTICLEBOARD = 30;
 	public const int OBJECTS_MATERIALS_METAL_DARK = 31;
 	public const int OBJECTS_MATERIALS_METAL_SHINY = 49;
@@ -67,7 +68,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 51;
+	public const int MATERIAL_AMOUNT = 52;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -86,6 +87,7 @@ public class MaterialCtrl {
 		textures[BUILDING_FLOOR_WOOD] = "Building/Floor/woodenLengthwiseFloor";
 		textures[INTERACTION_TELEPORT_TARGET] = "Interaction/teleportTarget";
 		textures[OBJECTS_LOGOS_ASOFTERSPACE] = "Objects/Logos/asofterspace";
+		textures[OBJECTS_LOGOS_ASOFTERSPACE_DARK] = "Objects/Logos/asofterspace_dark";
 		textures[OBJECTS_MATERIALS_PARTICLEBOARD] = "Objects/Materials/particleboard_1_continuous_small";
 		textures[OBJECTS_NOSTALGICCONSOLE_GREEN] = "Building/Wall/wallpaper_1_azure_continuous";
 		textures[OBJECTS_NOSTALGICCONSOLE_SCREEN] = "Objects/Screens/legacy_screen_on_wallpaper_1_azure_continuous";
@@ -141,6 +143,7 @@ public class MaterialCtrl {
 					break;
 				case INTERACTION_TELEPORT_TARGET:
 				case OBJECTS_LOGOS_ASOFTERSPACE:
+				case OBJECTS_LOGOS_ASOFTERSPACE_DARK:
 					result = new Material(unlitTransparent);
 					break;
 				case FADEABLE_BLACK:
