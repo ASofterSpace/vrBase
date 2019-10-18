@@ -17,6 +17,8 @@ public class ButtonCtrl {
 	// all buttons' names need to start with "btn-", such that the TriggerCtrl can target them
 	public const string BTN_FLIPPERQND_START = "btn-fqnd-start";
 	public const string BTN_FLIPPERQND_TRIGGER = "btn-fqnd-trigger";
+	public const string BTN_FIREFIGHTING_BA_CHECK = "btn-ff-ba-check";
+	public const string BTN_FIREFIGHTING_BA_CROSS = "btn-ff-ba-cross";
 	public const string BTN_NOSTALGICCONSOLE_BIG_RED = "btn-nc-red";
 	public const string BTN_NOSTALGICCONSOLE_BIG_WHITE = "btn-nc-white";
 	public const string BTN_NOSTALGICCONSOLE_UP = "btn-nc-up";

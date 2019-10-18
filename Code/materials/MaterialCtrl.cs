@@ -26,6 +26,8 @@ public class MaterialCtrl {
 	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
 	public const int OBJECTS_BOWLING_PIN_RED = 18;
 	public const int OBJECTS_BLOBFLYER_BLACK = 19;
+	public const int OBJECTS_FIREFIGHTING_BTN_GREEN = 52;
+	public const int OBJECTS_FIREFIGHTING_BTN_RED = 53;
 	public const int OBJECTS_FIREFIGHTING_OXYGEN_GREEN = 47;
 	public const int OBJECTS_FIREFIGHTING_OXYGEN_YELLOW = 48;
 	public const int OBJECTS_LOGOS_ASOFTERSPACE = 50;
@@ -68,7 +70,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 52;
+	public const int MATERIAL_AMOUNT = 54;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -205,6 +207,12 @@ public class MaterialCtrl {
 					result.color = new Color(0.8f, 0.8f, 0.8f, 1);
 					result.SetFloat("_Metallic", 0.3f);
 					result.SetFloat("_Glossiness", 0.3f);
+					break;
+				case OBJECTS_FIREFIGHTING_BTN_GREEN:
+					result.color = new Color(0, 0.9f, 0, 1);
+					break;
+				case OBJECTS_FIREFIGHTING_BTN_RED:
+					result.color = new Color(0.9f, 0, 0, 1);
 					break;
 				case OBJECTS_FIREFIGHTING_OXYGEN_GREEN:
 					result.color = new Color(0, 0.8f, 0, 1);

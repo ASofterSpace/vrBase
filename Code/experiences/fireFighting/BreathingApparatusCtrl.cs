@@ -16,6 +16,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 	private int state;
 
 	private GameObject apparatus;
+	private GameObject console;
 	private GameObject oxygenBottle;
 	private GameObject backHolder;
 	private GameObject oxygenBottleHolderStrapClosed;
@@ -360,6 +361,93 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
+		console = new GameObject("Console");
+		console.transform.parent = quickTester.transform;
+		console.transform.localPosition = new Vector3(-0.398f, 0, 0.503f);
+		console.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Console Leg";
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.45f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.4f, 0.45f, 0.2f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Console Top";
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.89f, -0.1f);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.4f, 0.02f, 0.2f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Console Front";
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.823f, -0.266f);
+		curObj.transform.localEulerAngles = new Vector3(45, 0, 0);
+		curObj.transform.localScale = new Vector3(0.4f, 0.2f, 0.02f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		GameObject[] btnParts = new GameObject[2];
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(-0.131f, 0.813f, -0.302f);
+		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
+		curObj.transform.localScale = new Vector3(0.02f, 0.02f, 0.06f);
+		btnParts[0] = curObj;
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_GREEN);
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(-0.09f, 0.8325f, -0.2818001f);
+		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
+		curObj.transform.localScale = new Vector3(0.02f, 0.11f, 0.02f);
+		btnParts[1] = curObj;
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_GREEN);
+		Button curBtn = new DefaultMultiButton(
+			btnParts,
+			ButtonCtrl.BTN_FIREFIGHTING_BA_CHECK,
+			() => {
+				if (state == 0) {
+					// SUCCESS!
+				} else {
+					// FAILURE...
+				}
+				setRandomState();
+			}
+		);
+		ButtonCtrl.add(curBtn);
+
+		GameObject[] crossBtnParts = new GameObject[2];
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818001f);
+		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
+		curObj.transform.localScale = new Vector3(0.02f, 0.02f, 0.11f);
+		crossBtnParts[0] = curObj;
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_RED);
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818001f);
+		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
+		curObj.transform.localScale = new Vector3(0.02f, 0.11f, 0.02f);
+		crossBtnParts[1] = curObj;
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_RED);
+		curBtn = new DefaultMultiButton(
+			crossBtnParts,
+			ButtonCtrl.BTN_FIREFIGHTING_BA_CROSS,
+			() => {
+				if (state != 0) {
+					// SUCCESS!
+				} else {
+					// FAILURE...
+				}
+				setRandomState();
+			}
+		);
+		ButtonCtrl.add(curBtn);
+
 		makeEverythingAlright();
 	}
 
@@ -369,6 +457,13 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		closeStrap();
 	}
 
+	/**
+	 * State 0 is a-okay,
+	 * State 1 is back holder missing,
+	 * State 2 is oxygen bottle missing,
+	 * State 3 is strap being open,
+	 * Higher states exist during randomization to get a-okay more often, but are mapped to 0
+	 */
 	private void setRandomState() {
 
 		state = Random.Range(0, 6);
@@ -376,15 +471,18 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		makeEverythingAlright();
 
 		switch (state) {
-			case 0:
-				openStrap();
-				break;
 			case 1:
 				backHolder.SetActive(false);
 				break;
 			case 2:
 				oxygenBottle.SetActive(false);
 				openStrap();
+				break;
+			case 3:
+				openStrap();
+				break;
+			default:
+				state = 0;
 				break;
 		}
 	}
