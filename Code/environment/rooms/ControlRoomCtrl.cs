@@ -50,10 +50,10 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-4.45f, 0, -5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
 	}
 
 	protected override int getAdditionalWallVertexAmount() {

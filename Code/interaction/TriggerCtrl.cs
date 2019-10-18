@@ -71,7 +71,7 @@ public class TriggerCtrl {
 
 		if (targetMarker.activeSelf) {
 			// slowly rotate the transport target point, because... well... it looks fun! :D
-			targetMarker.transform.eulerAngles = new Vector3(90, 0, 20 * Time.time);
+			targetMarker.transform.localEulerAngles = new Vector3(90, 0, 20 * Time.time);
 		}
 
 		if (teleportInProgress) {
@@ -214,7 +214,7 @@ public class TriggerCtrl {
 
 		ray.transform.LookAt(target.point);
 		Vector3 ang = ray.transform.eulerAngles;
-		ray.transform.eulerAngles = new Vector3(ang.x - 90, ang.y, ang.z);
+		ray.transform.localEulerAngles = new Vector3(ang.x - 90, ang.y, ang.z);
 
 		ray.transform.localScale = new Vector3(
 			0.01f,

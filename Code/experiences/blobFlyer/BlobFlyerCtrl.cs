@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 using System;
@@ -31,21 +32,21 @@ public class BlobFlyerCtrl {
 		GameObject cushion = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		cushion.transform.parent = seat.transform;
 		cushion.transform.localPosition = new Vector3(0, 0.3f, 0);
-		cushion.transform.eulerAngles = new Vector3(0, 0, 0);
+		cushion.transform.localEulerAngles = new Vector3(0, 0, 0);
 		cushion.transform.localScale = new Vector3(0.5f, 0.05f, 0.4f);
 		MaterialCtrl.setMaterial(cushion, MaterialCtrl.OBJECTS_BLOBFLYER_BLACK);
 
 		GameObject back = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		back.transform.parent = seat.transform;
 		back.transform.localPosition = new Vector3(0, 0.5f, 0.22f);
-		back.transform.eulerAngles = new Vector3(10, 0, 0);
+		back.transform.localEulerAngles = new Vector3(10, 0, 0);
 		back.transform.localScale = new Vector3(0.5f, 0.5f, 0.05f);
 		MaterialCtrl.setMaterial(back, MaterialCtrl.OBJECTS_BLOBFLYER_BLACK);
 
 		GameObject stand = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		stand.transform.parent = seat.transform;
 		stand.transform.localPosition = new Vector3(0, 0.1f, 0);
-		stand.transform.eulerAngles = new Vector3(0, 0, 0);
+		stand.transform.localEulerAngles = new Vector3(0, 0, 0);
 		stand.transform.localScale = new Vector3(0.4f, 0.18f, 0.4f);
 		MaterialCtrl.setMaterial(stand, MaterialCtrl.OBJECTS_BLOBFLYER_BLACK);
 
@@ -56,7 +57,7 @@ public class BlobFlyerCtrl {
 		GameObject mainKeyboard = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		mainKeyboard.transform.parent = console.transform;
 		mainKeyboard.transform.localPosition = new Vector3(0, 0.5f, 0);
-		mainKeyboard.transform.eulerAngles = new Vector3(60, 0, 0);
+		mainKeyboard.transform.localEulerAngles = new Vector3(60, 0, 0);
 		mainKeyboard.transform.localScale = new Vector3(0.8f, 0.1f, 0.8f);
 		MaterialCtrl.setMaterial(mainKeyboard, MaterialCtrl.OBJECTS_BLOBFLYER_BLACK);
 
@@ -65,6 +66,6 @@ public class BlobFlyerCtrl {
 		chassis.transform.localPosition = new Vector3(0, 0, 0);
 
 		blobFlyer.transform.localPosition = position;
-		blobFlyer.transform.eulerAngles = angles;
+		blobFlyer.transform.localEulerAngles = angles;
 	}
 }

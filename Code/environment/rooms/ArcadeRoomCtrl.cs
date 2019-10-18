@@ -49,10 +49,10 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(2.5f, 0, 5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(4.45f, 0, 5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
 	}
 
 	protected override int getAdditionalWallVertexAmount() {
@@ -139,7 +139,7 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_FLIPPERQND);
 		poster.name = "FlipperQnD Poster";
 		poster.transform.localPosition = new Vector3(-1.052f, 0.893f, -5.67f);
-		poster.transform.eulerAngles = new Vector3(-13.834f, -135.159f, -2.95f);
+		poster.transform.localEulerAngles = new Vector3(-13.834f, -135.159f, -2.95f);
 	}
 
 }

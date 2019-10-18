@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -263,17 +264,17 @@ public class ObjectFactory {
 		}
 
 		objs[0].transform.localPosition = new Vector3(0, 0, radius);
-		objs[0].transform.eulerAngles = new Vector3(0, 0, 0);
+		objs[0].transform.localEulerAngles = new Vector3(0, 0, 0);
 		objs[1].transform.localPosition = new Vector3(0, -radius, 0);
-		objs[1].transform.eulerAngles = new Vector3(90, 0, 0);
+		objs[1].transform.localEulerAngles = new Vector3(90, 0, 0);
 		objs[2].transform.localPosition = new Vector3(0, 0, -radius);
-		objs[2].transform.eulerAngles = new Vector3(180, 0, 0);
+		objs[2].transform.localEulerAngles = new Vector3(180, 0, 0);
 		objs[3].transform.localPosition = new Vector3(0, radius, 0);
-		objs[3].transform.eulerAngles = new Vector3(270, 0, 0);
+		objs[3].transform.localEulerAngles = new Vector3(270, 0, 0);
 		objs[4].transform.localPosition = new Vector3(-radius, 0, 0);
-		objs[4].transform.eulerAngles = new Vector3(0, -90, 0);
+		objs[4].transform.localEulerAngles = new Vector3(0, -90, 0);
 		objs[5].transform.localPosition = new Vector3(radius, 0, 0);
-		objs[5].transform.eulerAngles = new Vector3(0, 90, 0);
+		objs[5].transform.localEulerAngles = new Vector3(0, 90, 0);
 	}
 
 }

@@ -59,7 +59,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		GameObject ticTacToe = new GameObject("TicTacToe");
 		ticTacToe.transform.parent = hostRoom.transform;
 		ticTacToe.transform.localPosition = position;
-		ticTacToe.transform.eulerAngles = angles;
+		ticTacToe.transform.localEulerAngles = angles;
 
 		GameObject[][] fields = new GameObject[3][];
 		buttons = new TicTacToeButton[3][];

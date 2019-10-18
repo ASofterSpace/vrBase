@@ -47,7 +47,7 @@ public class FarAwayCtrl {
 		moonFloor.name = "moonFloor";
 		moonFloor.transform.parent = moon.transform;
 		moonFloor.transform.localPosition = new Vector3(0, -0.03f, 0);
-		moonFloor.transform.eulerAngles = new Vector3(90, 0, 0);
+		moonFloor.transform.localEulerAngles = new Vector3(90, 0, 0);
 		moonFloor.transform.localScale = new Vector3(4000, 4000, 1);
 		MaterialCtrl.setMaterial(moonFloor, MaterialCtrl.SPACE_MOON_FLOOR);
 
@@ -72,7 +72,7 @@ public class FarAwayCtrl {
 
 		moonWall.transform.parent = moon.transform;
 
-		moonWall.transform.eulerAngles = new Vector3(0, 180 + (curIterator * 90), 0);
+		moonWall.transform.localEulerAngles = new Vector3(0, 180 + (curIterator * 90), 0);
 
 		moonWall.transform.localScale = new Vector3(4000, 2283, 1);
 
@@ -89,7 +89,7 @@ public class FarAwayCtrl {
 		earth.name = "Earth";
 		earth.transform.parent = skybox.transform;
 		earth.transform.localPosition = new Vector3(-3000, 500, 0);
-		earth.transform.eulerAngles = new Vector3(180, 90, 180);
+		earth.transform.localEulerAngles = new Vector3(180, 90, 180);
 		earth.transform.localScale = new Vector3(800, 800, 1);
 		MaterialCtrl.setMaterial(earth, MaterialCtrl.SPACE_EARTH);
 	}
@@ -104,7 +104,7 @@ public class FarAwayCtrl {
 		sunImage.name = "sunImage";
 		sunImage.transform.parent = sun.transform;
 		sunImage.transform.localPosition = new Vector3(0, 0, 0);
-		sunImage.transform.eulerAngles = new Vector3(275, 0, 0);
+		sunImage.transform.localEulerAngles = new Vector3(275, 0, 0);
 		sunImage.transform.localScale = new Vector3(500, 500, 1);
 		MaterialCtrl.setMaterial(sunImage, MaterialCtrl.SPACE_SUN);
 
@@ -112,7 +112,7 @@ public class FarAwayCtrl {
 		sunLight.name = "sunLight";
 		sunLight.transform.parent = sun.transform;
 		sunLight.transform.localPosition = new Vector3(0, 0, 0);
-		sunLight.transform.eulerAngles = new Vector3(60, -100, 0);
+		sunLight.transform.localEulerAngles = new Vector3(60, -100, 0);
 		Light sunLightLight = sunLight.AddComponent<Light>();
 		sunLightLight.color = new Color(1.0f, 0.9568f, 0.8392f, 1.0f);
 		sunLightLight.type = LightType.Directional;
@@ -132,7 +132,7 @@ public class FarAwayCtrl {
 			GameObject star = GameObject.CreatePrimitive(PrimitiveType.Quad);
 			star.transform.parent = stars.transform;
 			star.transform.localPosition = new Vector3(20000 * Random.value - 10000, 0, 20000 * Random.value - 10000);
-			star.transform.eulerAngles = new Vector3(270, 0, 0);
+			star.transform.localEulerAngles = new Vector3(270, 0, 0);
 			float size = 10 + (20 * Random.value);
 			star.transform.localScale = new Vector3(size, size, 1);
 			MaterialCtrl.setMaterial(star, MaterialCtrl.SPACE_STAR);

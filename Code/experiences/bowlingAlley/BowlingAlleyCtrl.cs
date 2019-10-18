@@ -29,7 +29,7 @@ public class BowlingAlleyCtrl {
 		bowlingFloor.name = TriggerCtrl.FLOOR_NAME;
 		bowlingFloor.transform.parent = bowlingAlley.transform;
 		bowlingFloor.transform.localPosition = new Vector3(0, 0.001f, 0);
-		bowlingFloor.transform.eulerAngles = new Vector3(90, 0, 0);
+		bowlingFloor.transform.localEulerAngles = new Vector3(90, 0, 0);
 		bowlingFloor.transform.localScale = new Vector3(1, 6, 1);
 		MaterialCtrl.setMaterial(bowlingFloor, MaterialCtrl.BUILDING_FLOOR_WOOD);
 
@@ -57,7 +57,7 @@ public class BowlingAlleyCtrl {
 		pins[9].transform.localPosition = new Vector3(0.36f, 0, 2.75f);
 
 		bowlingAlley.transform.localPosition = position;
-		bowlingAlley.transform.eulerAngles = angles;
+		bowlingAlley.transform.localEulerAngles = angles;
 	}
 
 	private GameObject createBowlingPin() {
