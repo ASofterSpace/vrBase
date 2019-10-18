@@ -194,6 +194,7 @@ public class TriggerCtrl {
 				}
 			}
 
+/*
 			// show a ray even if the floor is not target to show people that they CAN do something
 			drawRayFromTo(origin, target);
 		}
@@ -201,26 +202,48 @@ public class TriggerCtrl {
 		ray.SetActive(targetingTeleportableArea || targetingSomething);
 
 		targetMarker.SetActive(targetingTeleportableArea);
+*/
+
+			// show a ray even if the floor is not target to show people that they CAN do something
+			drawRayFromTo(origin, target.point);
+
+		} else {
+
+			// show a ray even if literally nothing at all was hit
+			drawRayFromAlong(origin, direction);
+		}
+
+		targetMarker.SetActive(targetingTeleportableArea);
 	}
 
 	/**
 	 * Draw the ray between our controller and the floor (or wall, or whereever we are pointing)
 	 */
-	private void drawRayFromTo(Vector3 origin, RaycastHit target) {
+	private void drawRayFromTo(Vector3 origin, Vector3 target) {
 
 		ray.SetActive(true);
 
-		ray.transform.position = Vector3.Lerp(origin, target.point, 0.5f);
+		ray.transform.position = Vector3.Lerp(origin, target, 0.5f);
 
-		ray.transform.LookAt(target.point);
+		ray.transform.LookAt(target);
 		Vector3 ang = ray.transform.eulerAngles;
 		ray.transform.localEulerAngles = new Vector3(ang.x - 90, ang.y, ang.z);
 
 		ray.transform.localScale = new Vector3(
 			0.01f,
-			target.distance / 2,
+			Vector3.Distance(origin, target),
 			0.01f
 		);
+	}
+
+	/**
+	 * Draw the ray between our controller and INFINITYYYY! :D
+	 */
+	private void drawRayFromAlong(Vector3 origin, Vector3 direction) {
+
+		Vector3 target = origin + 1000 * direction.normalized;
+
+		drawRayFromTo(origin, target);
 	}
 
 	/**
