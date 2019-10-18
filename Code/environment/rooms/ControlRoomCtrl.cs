@@ -138,7 +138,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		blobFlyerCtrl.createBlobFlyer(new Vector3(0, 0, -4), new Vector3(0, 0, 0));
 
 		breathingApparatusCtrl = new BreathingApparatusCtrl(mainCtrl, thisRoom);
-		breathingApparatusCtrl.createQuickTester(new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+		breathingApparatusCtrl.createQuickTester(new Vector3(3, 0, 2), new Vector3(0, 0, 0));
 	}
 
 }

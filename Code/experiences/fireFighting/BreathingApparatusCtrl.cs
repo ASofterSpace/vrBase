@@ -26,12 +26,32 @@ public class BreathingApparatusCtrl {
 		quickTester.transform.localPosition = position;
 		quickTester.transform.localEulerAngles = angles;
 
-		GameObject oxygenBottle = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-		oxygenBottle.name = "Oxygen Bottle";
-		oxygenBottle.transform.parent = quickTester.transform;
-		oxygenBottle.transform.localPosition = new Vector3(0, 0.1f, -2.8f);
-		oxygenBottle.transform.localEulerAngles = new Vector3(0, 0, 0);
-		oxygenBottle.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-		MaterialCtrl.setMaterial(oxygenBottle, MaterialCtrl.OBJECTS_FIREFIGHTING_OXYGEN_YELLOW);
+		GameObject apparatus = new GameObject("apparatus");
+		apparatus.transform.parent = quickTester.transform;
+		apparatus.transform.localPosition = new Vector3(0, 1, 0);
+
+		GameObject oxygenBottleMain = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		oxygenBottleMain.name = "Oxygen Bottle Main";
+		oxygenBottleMain.transform.parent = apparatus.transform;
+		oxygenBottleMain.transform.localPosition = new Vector3(0, 0, 0);
+		oxygenBottleMain.transform.localEulerAngles = new Vector3(0, 0, 0);
+		oxygenBottleMain.transform.localScale = new Vector3(0.15f, 0.192f, 0.15f);
+		MaterialCtrl.setMaterial(oxygenBottleMain, MaterialCtrl.OBJECTS_FIREFIGHTING_OXYGEN_YELLOW);
+
+		GameObject oxygenBottleTop = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		oxygenBottleTop.name = "Oxygen Bottle Top";
+		oxygenBottleTop.transform.parent = apparatus.transform;
+		oxygenBottleTop.transform.localPosition = new Vector3(0, 0.1965f, 0);
+		oxygenBottleTop.transform.localEulerAngles = new Vector3(0, 0, 0);
+		oxygenBottleTop.transform.localScale = new Vector3(0.15f, 0.1f, 0.15f);
+		MaterialCtrl.setMaterial(oxygenBottleTop, MaterialCtrl.OBJECTS_FIREFIGHTING_OXYGEN_YELLOW);
+
+		GameObject oxygenBottleBottom = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		oxygenBottleBottom.name = "Oxygen Bottle Bottom";
+		oxygenBottleBottom.transform.parent = apparatus.transform;
+		oxygenBottleBottom.transform.localPosition = new Vector3(0, -0.1965f, 0);
+		oxygenBottleBottom.transform.localEulerAngles = new Vector3(0, 0, 0);
+		oxygenBottleBottom.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+		MaterialCtrl.setMaterial(oxygenBottleBottom, MaterialCtrl.OBJECTS_FIREFIGHTING_OXYGEN_YELLOW);
 	}
 }
