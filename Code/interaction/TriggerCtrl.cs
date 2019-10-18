@@ -231,7 +231,7 @@ public class TriggerCtrl {
 
 		ray.transform.localScale = new Vector3(
 			0.01f,
-			Vector3.Distance(origin, target),
+			Vector3.Distance(origin, target) / 2,
 			0.01f
 		);
 	}
