@@ -334,7 +334,7 @@ public class FlipperQnDCtrl {
 		scoresDigitBar.transform.localPosition = new Vector3(-0.26f, 1.023f, 0.36f);
 		scoresDigitBar.transform.localEulerAngles = new Vector3(90, 0, 90);
 		scoresDigitBar.transform.localScale = new Vector3(0.01f, 0.06f, 0.01f);
-		MaterialCtrl.setMaterial(scoresDigitBar, MaterialCtrl.OBJECTS_DARK_METAL);
+		MaterialCtrl.setMaterial(scoresDigitBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
 		ballsDigit1 = createDigitWheel(top);
 		ballsDigit1.name = "ballsDigit1";
 		ballsDigit1.transform.localPosition = new Vector3(0.265f, 1.025f, 0.36f);
@@ -347,7 +347,7 @@ public class FlipperQnDCtrl {
 		ballsDigitBar.transform.localPosition = new Vector3(0.323f, 1.023f, 0.36f);
 		ballsDigitBar.transform.localEulerAngles = new Vector3(90, 0, 90);
 		ballsDigitBar.transform.localScale = new Vector3(0.01f, 0.075f, 0.01f);
-		MaterialCtrl.setMaterial(ballsDigitBar, MaterialCtrl.OBJECTS_DARK_METAL);
+		MaterialCtrl.setMaterial(ballsDigitBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
 		GameObject shellTop = createLog(top);
 		shellTop.name = "shellTop";
 		shellTop.transform.localPosition = new Vector3(0, 0.9659258f, -0.908819f);
@@ -375,7 +375,7 @@ public class FlipperQnDCtrl {
 		targetRotatorBar.transform.localPosition = new Vector3(0.3f, 1.044f, -0.205f);
 		targetRotatorBar.transform.localEulerAngles = new Vector3(90, -25, 0);
 		targetRotatorBar.transform.localScale = new Vector3(0.01f, 0.07f, 0.01f);
-		MaterialCtrl.setMaterial(targetRotatorBar, MaterialCtrl.OBJECTS_DARK_METAL);
+		MaterialCtrl.setMaterial(targetRotatorBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
 		GameObject targetRotator = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		targetRotator.name = "targetRotator";
 		targetRotator.transform.parent = top.transform;
@@ -411,14 +411,14 @@ public class FlipperQnDCtrl {
 		flipperLeftBar.transform.localPosition = new Vector3(0.166f, 1.005f, 0.25f);
 		flipperLeftBar.transform.localEulerAngles = new Vector3(0, -25, 0);
 		flipperLeftBar.transform.localScale = new Vector3(0.01f, 0.035f, 0.01f);
-		MaterialCtrl.setMaterial(flipperLeftBar, MaterialCtrl.OBJECTS_DARK_METAL);
+		MaterialCtrl.setMaterial(flipperLeftBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
 		GameObject flipperRightBar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		flipperRightBar.name = "flipperRightBar";
 		flipperRightBar.transform.parent = top.transform;
 		flipperRightBar.transform.localPosition = new Vector3(-0.0845f, 1.005f, 0.25f);
 		flipperRightBar.transform.localEulerAngles = new Vector3(0, -25, 0);
 		flipperRightBar.transform.localScale = new Vector3(0.01f, 0.035f, 0.01f);
-		MaterialCtrl.setMaterial(flipperRightBar, MaterialCtrl.OBJECTS_DARK_METAL);
+		MaterialCtrl.setMaterial(flipperRightBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
 		barrierLeft = createBarrier(top, "barrierBottomLeft");
 		barrierRight = createBarrier(top, "barrierBottomRight");
 		curLog = createLog(top);
@@ -531,7 +531,7 @@ public class FlipperQnDCtrl {
 	private GameObject createDigitHolder(GameObject parent) {
 		GameObject digitHolder = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		digitHolder.transform.parent = parent.transform;
-		MaterialCtrl.setMaterial(digitHolder, MaterialCtrl.OBJECTS_DARK_METAL);
+		MaterialCtrl.setMaterial(digitHolder, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
 		return digitHolder;
 	}
 

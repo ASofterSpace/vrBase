@@ -22,13 +22,16 @@ public class MaterialCtrl {
 	public const int INTERACTION_TELEPORT_RAY = 13;
 	public const int INTERACTION_BUTTON_HOVER = 23;
 	public const int FADEABLE_BLACK = 14;
-	public const int OBJECTS_DARK_METAL = 31;
 	public const int OBJECTS_BOWLING_BALL_RED = 16;
 	public const int OBJECTS_BOWLING_PIN_WHITE = 17;
 	public const int OBJECTS_BOWLING_PIN_RED = 18;
 	public const int OBJECTS_BLOBFLYER_BLACK = 19;
-	public const int OBJECTS_FIREFIGHTING_OXYGEN_YELLOW = 47;
+	public const int OBJECTS_FIREFIGHTING_OXYGEN_GREEN = 47;
+	public const int OBJECTS_FIREFIGHTING_OXYGEN_YELLOW = 48;
+	public const int OBJECTS_LOGOS_ASOFTERSPACE = 50;
 	public const int OBJECTS_MATERIALS_PARTICLEBOARD = 30;
+	public const int OBJECTS_MATERIALS_METAL_DARK = 31;
+	public const int OBJECTS_MATERIALS_METAL_SHINY = 49;
 	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
 	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
 	public const int OBJECTS_POSTERS_FLIPPERQND = 35;
@@ -64,7 +67,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 48;
+	public const int MATERIAL_AMOUNT = 51;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -82,6 +85,7 @@ public class MaterialCtrl {
 		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concrete";
 		textures[BUILDING_FLOOR_WOOD] = "Building/Floor/woodenLengthwiseFloor";
 		textures[INTERACTION_TELEPORT_TARGET] = "Interaction/teleportTarget";
+		textures[OBJECTS_LOGOS_ASOFTERSPACE] = "Objects/Logos/asofterspace";
 		textures[OBJECTS_MATERIALS_PARTICLEBOARD] = "Objects/Materials/particleboard_1_continuous_small";
 		textures[OBJECTS_NOSTALGICCONSOLE_GREEN] = "Building/Wall/wallpaper_1_azure_continuous";
 		textures[OBJECTS_NOSTALGICCONSOLE_SCREEN] = "Objects/Screens/legacy_screen_on_wallpaper_1_azure_continuous";
@@ -136,6 +140,7 @@ public class MaterialCtrl {
 					result = new Material(unlitColor);
 					break;
 				case INTERACTION_TELEPORT_TARGET:
+				case OBJECTS_LOGOS_ASOFTERSPACE:
 					result = new Material(unlitTransparent);
 					break;
 				case FADEABLE_BLACK:
@@ -188,9 +193,18 @@ public class MaterialCtrl {
 				case OBJECTS_BLOBFLYER_BLACK:
 					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 					break;
-				case OBJECTS_DARK_METAL:
+				case OBJECTS_MATERIALS_METAL_DARK:
 					result.color = new Color(0.2f, 0.2f, 0.2f, 1);
-					// TODO :: set metallic to somesuch
+					result.SetFloat("_Metallic", 0.3f);
+					result.SetFloat("_Glossiness", 0.3f);
+					break;
+				case OBJECTS_MATERIALS_METAL_SHINY:
+					result.color = new Color(0.8f, 0.8f, 0.8f, 1);
+					result.SetFloat("_Metallic", 0.3f);
+					result.SetFloat("_Glossiness", 0.3f);
+					break;
+				case OBJECTS_FIREFIGHTING_OXYGEN_GREEN:
+					result.color = new Color(0, 0.8f, 0, 1);
 					break;
 				case OBJECTS_FIREFIGHTING_OXYGEN_YELLOW:
 					result.color = new Color(0.8f, 0.9f, 0, 1);
