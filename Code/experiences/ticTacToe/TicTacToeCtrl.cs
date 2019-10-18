@@ -352,6 +352,8 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		humansTurn = false;
 
 		if (checkForGameOver()) {
+			// human won!
+			SoundCtrl.playMainCamSound(SoundCtrl.KLACK_KLACK_METAL_2);
 			return;
 		}
 
@@ -561,6 +563,11 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			// the robot is still on its way back - only while the game
 			// is still going on!
 			humansTurn = !checkForGameOver();
+
+			if (!humansTurn) {
+				// robo won!
+				SoundCtrl.playSound(roboArm, SoundCtrl.KLACK_KLACK_METAL_2);
+			}
 
 			moveRobotBack();
 		};

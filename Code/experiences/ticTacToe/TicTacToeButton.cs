@@ -37,14 +37,12 @@ public class TicTacToeButton : Button {
 		if (ctrl.isHumansTurn() && (state == 0)) {
 
 			// ... then press it!
-			state = 2;
+			setHuman();
 
 			// and tell the controller that it is the robot's turn now!
 			ctrl.makeRoboMove();
-		}
 
-		// recolorize this button... in any case, just in case, you never know ;)
-		recolorize();
+		}
 	}
 
 	public override void hover() {
@@ -58,7 +56,20 @@ public class TicTacToeButton : Button {
 	}
 
 	public void setRobo() {
+
+		SoundCtrl.playSound(gameObject, SoundCtrl.KLACK_9);
+
 		state = 1;
+
+		recolorize();
+	}
+
+	public void setHuman() {
+
+		SoundCtrl.playSound(gameObject, SoundCtrl.KLACK_9);
+
+		state = 2;
+
 		recolorize();
 	}
 

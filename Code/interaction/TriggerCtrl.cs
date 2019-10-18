@@ -126,6 +126,7 @@ public class TriggerCtrl {
 			if (input.someTriggerReleased) {
 				// ... and if we are pointing somewhere teleport-y, then actually teleport!
 				if (input.someTriggerReleased && targetingTeleportableArea) {
+					SoundCtrl.playMainCamSound(SoundCtrl.WHOOSH_1);
 					startTeleportation();
 				}
 				// ... and if we are targeting a button, push it!

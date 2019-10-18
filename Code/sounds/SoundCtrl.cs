@@ -12,12 +12,16 @@ using UnityEngine;
 
 public class SoundCtrl {
 
+	private static AudioSource mainCameraSoundSource;
+
 	private static AudioClip[] sounds;
 	private static string[] soundLocations;
 
 	public const int DING_DING_METAL_1 = 1;
 	public const int KLACK_1 = 2;
+	public const int KLACK_9 = 17;
 	public const int KLACK_11 = 3;
+	public const int KLACK_KLACK_METAL_2 = 18;
 	public const int KLACK_WOOD_2 = 4;
 	public const int KLACK_WOOD_3 = 5;
 	public const int KLACK_WOOD_4 = 6;
@@ -29,19 +33,24 @@ public class SoundCtrl {
 	public const int THUMP_METAL_3 = 12;
 	public const int THUMP_METAL_4 = 13;
 	public const int THUMP_METAL_5 = 14;
-	public const int WHOOSH_5 = 15;
+	public const int WHOOSH_1 = 15;
+	public const int WHOOSH_5 = 16;
 	// do not add anything after the amount ;)
-	public const int SOUND_AMOUNT = 46;
+	public const int SOUND_AMOUNT = 19;
 
 
-	public static void init() {
+	public static void init(GameObject mainCamera) {
+
+		mainCameraSoundSource = mainCamera.AddComponent<AudioSource>();
 
 		sounds = new AudioClip[SOUND_AMOUNT];
 		soundLocations = new string[SOUND_AMOUNT];
 
 		soundLocations[DING_DING_METAL_1] = "ding_ding_metal_1";
 		soundLocations[KLACK_1] = "klack_1";
+		soundLocations[KLACK_9] = "klack_9";
 		soundLocations[KLACK_11] = "klack_11";
+		soundLocations[KLACK_KLACK_METAL_2] = "klack_klack_metal_2";
 		soundLocations[KLACK_WOOD_2] = "klack_wood_2";
 		soundLocations[KLACK_WOOD_3] = "klack_wood_3";
 		soundLocations[KLACK_WOOD_4] = "klack_wood_4";
@@ -53,6 +62,7 @@ public class SoundCtrl {
 		soundLocations[THUMP_METAL_3] = "thump_metal_3";
 		soundLocations[THUMP_METAL_4] = "thump_metal_4";
 		soundLocations[THUMP_METAL_5] = "thump_metal_5";
+		soundLocations[WHOOSH_1] = "whoosh_1";
 		soundLocations[WHOOSH_5] = "whoosh_5";
 	}
 
@@ -69,5 +79,27 @@ public class SoundCtrl {
 		}
 
 		return result;
+	}
+
+	/**
+	 * Play a sound at a certain game object...
+	 * It might be a bit faster to cache the AudioSource, but this is quicker
+	 * to use and we can do so until we actually run into speed problems, THEN
+	 * optimize - not do so prematurely ;)
+	 */
+	public static void playSound(GameObject origin, int soundNum) {
+		AudioSource source = origin.GetComponent<AudioSource>();
+		if (source == null) {
+			source = origin.AddComponent<AudioSource>();
+		}
+		source.PlayOneShot(getSound(soundNum), 1.0f);
+	}
+
+	/**
+	 * I am hearing voices in my head!
+	 * ... just like when I am being teleported ;)
+	 */
+	public static void playMainCamSound(int soundNum) {
+		mainCameraSoundSource.PlayOneShot(getSound(soundNum), 1.0f);
 	}
 }

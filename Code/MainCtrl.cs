@@ -55,7 +55,7 @@ public class MainCtrl : MonoBehaviour {
 
 		// static helpers
 		MaterialCtrl.init();
-		SoundCtrl.init();
+		SoundCtrl.init(mainCamera);
 		ButtonCtrl.init();
 
 		// faraway things / skybox
