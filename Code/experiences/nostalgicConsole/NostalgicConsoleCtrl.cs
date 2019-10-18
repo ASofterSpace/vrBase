@@ -85,9 +85,9 @@ public class NostalgicConsoleCtrl {
 		GameObject screenLeftLogo = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		screenLeftLogo.name = "Screen Left Logo";
 		screenLeftLogo.transform.parent = nostalgicConsole.transform;
-		screenLeftLogo.transform.localPosition = new Vector3(-0.65f, 1.4f, 0.269f);
+		screenLeftLogo.transform.localPosition = new Vector3(-0.76f, 1.592f, 0.303f);
 		screenLeftLogo.transform.localEulerAngles = new Vector3(10, 0, 0);
-		screenLeftLogo.transform.localScale = new Vector3(0.5f, 0.14f, 1);
+		screenLeftLogo.transform.localScale = new Vector3(0.25f, 0.07f, 1);
 		MaterialCtrl.setMaterial(screenLeftLogo, MaterialCtrl.OBJECTS_LOGOS_ASOFTERSPACE_DARK);
 
 		GameObject screenMiddle = GameObject.CreatePrimitive(PrimitiveType.Quad);
