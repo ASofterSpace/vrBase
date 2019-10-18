@@ -152,7 +152,7 @@ public class MaterialCtrl {
 					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 					break;
 				case PLASTIC_WHITE:
-					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					result.color = new Color(0.99f, 0.97f, 0.99f, 1.0f);
 					break;
 				case PLASTIC_PURPLE:
 					result.color = new Color(0.3542f, 0.0654f, 0.6603f, 1.0f);

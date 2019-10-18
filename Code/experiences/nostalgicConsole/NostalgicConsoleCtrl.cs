@@ -95,11 +95,13 @@ public class NostalgicConsoleCtrl {
 		screenRight.transform.localScale = new Vector3(0.55f, 0.55f, 1);
 		MaterialCtrl.setMaterial(screenRight, MaterialCtrl.OBJECTS_NOSTALGICCONSOLE_SCREEN);
 
+		// create buttons
 		GameObject buttons = new GameObject("buttons");
 		buttons.transform.parent = nostalgicConsole.transform;
 		buttons.transform.localPosition = new Vector3(0, 0, 0);
 		buttons.transform.localEulerAngles = new Vector3(0, 0, 0);
 
+		// create red button
 		GameObject buttonRedAlert = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		buttonRedAlert.transform.parent = buttons.transform;
 		buttonRedAlert.transform.localPosition = new Vector3(0.8f, 1.05f, 0);
@@ -120,6 +122,7 @@ public class NostalgicConsoleCtrl {
 		buttonRedAlertFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
 		MaterialCtrl.setMaterial(buttonRedAlertFrame, MaterialCtrl.PLASTIC_WHITE);
 
+		// create white button
 		GameObject buttonColorizeWhite = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		buttonColorizeWhite.transform.parent = buttons.transform;
 		buttonColorizeWhite.transform.localPosition = new Vector3(0.6f, 1.05f, 0);
@@ -140,72 +143,106 @@ public class NostalgicConsoleCtrl {
 		buttonColorizeWhiteFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
 		MaterialCtrl.setMaterial(buttonColorizeWhiteFrame, MaterialCtrl.PLASTIC_WHITE);
 
-		GameObject buttonUpArrow = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonUpArrow.transform.parent = buttons.transform;
-		buttonUpArrow.transform.localPosition = new Vector3(-0.8f, 1.05f, 0);
-		buttonUpArrow.transform.localEulerAngles = new Vector3(-10, 45, -10);
-		buttonUpArrow.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
-		MaterialCtrl.setMaterial(buttonUpArrow, MaterialCtrl.PLASTIC_BLACK);
+		// create up arrow button
+		GameObject buttonUpArrowLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		buttonUpArrowLeft.transform.parent = buttons.transform;
+		buttonUpArrowLeft.transform.localPosition = new Vector3(-0.8176f, 1.0542f, 0.0166f);
+		buttonUpArrowLeft.transform.localEulerAngles = new Vector3(-10, 45, -10);
+		buttonUpArrowLeft.transform.localScale = new Vector3(0.03f, 0.03f, 0.08f);
+		MaterialCtrl.setMaterial(buttonUpArrowLeft, MaterialCtrl.PLASTIC_BLACK);
+		GameObject buttonUpArrowRight = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		buttonUpArrowRight.transform.parent = buttons.transform;
+		buttonUpArrowRight.transform.localPosition = new Vector3(-0.7827f, 1.0543f, 0.0173f);
+		buttonUpArrowRight.transform.localEulerAngles = new Vector3(-10, 45, -10);
+		buttonUpArrowRight.transform.localScale = new Vector3(0.08f, 0.03f, 0.03f);
+		MaterialCtrl.setMaterial(buttonUpArrowRight, MaterialCtrl.PLASTIC_BLACK);
 		GameObject buttonUpNeck = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		buttonUpNeck.transform.parent = buttons.transform;
-		buttonUpNeck.transform.localPosition = new Vector3(-0.8f, 1.03175f, -0.07f);
+		buttonUpNeck.transform.localPosition = new Vector3(-0.8f, 1.0386f, -0.0446f);
 		buttonUpNeck.transform.localEulerAngles = new Vector3(-15, 0, 0);
-		buttonUpNeck.transform.localScale = new Vector3(0.04f, 0.03f, 0.08f);
+		buttonUpNeck.transform.localScale = new Vector3(0.03f, 0.03f, 0.1307552f);
 		MaterialCtrl.setMaterial(buttonUpNeck, MaterialCtrl.PLASTIC_BLACK);
-		Button btnUp = new UpDownButton(
-			buttonUpArrow,
-			buttonUpNeck,
+		GameObject[] objs = new GameObject[] {buttonUpArrowLeft, buttonUpArrowRight, buttonUpNeck};
+		Button btnUp = new DefaultMultiButton(
+			objs,
 			ButtonCtrl.BTN_NOSTALGICCONSOLE_UP,
-			mainCtrl,
-			0.1f
+			() => {
+				VrSpecificCtrl vrSpecificCtrl = mainCtrl.getVrSpecificCtrl();
+				if (vrSpecificCtrl != null) {
+					vrSpecificCtrl.adjustCameraHeightBy(0.1f);
+				}
+			}
 		);
 		ButtonCtrl.add(btnUp);
 
-		GameObject buttonUpArrowFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonUpArrowFrame.transform.parent = buttons.transform;
-		buttonUpArrowFrame.transform.localPosition = new Vector3(-0.8f, 1.03f, 0.006f);
-		buttonUpArrowFrame.transform.localEulerAngles = new Vector3(-10, 45, -10);
-		buttonUpArrowFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
-		MaterialCtrl.setMaterial(buttonUpArrowFrame, MaterialCtrl.PLASTIC_WHITE);
+		GameObject buttonUpArrowLeftFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		buttonUpArrowLeftFrame.transform.parent = buttons.transform;
+		buttonUpArrowLeftFrame.transform.localPosition = new Vector3(-0.8177f, 1.0342f, 0.0226f);
+		buttonUpArrowLeftFrame.transform.localEulerAngles = new Vector3(-10, 45, -10);
+		buttonUpArrowLeftFrame.transform.localScale = new Vector3(0.05f, 0.005f, 0.1f);
+		MaterialCtrl.setMaterial(buttonUpArrowLeftFrame, MaterialCtrl.PLASTIC_WHITE);
+		GameObject buttonUpArrowRightFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		buttonUpArrowRightFrame.transform.parent = buttons.transform;
+		buttonUpArrowRightFrame.transform.localPosition = new Vector3(-0.7829f, 1.0342f, 0.0231f);
+		buttonUpArrowRightFrame.transform.localEulerAngles = new Vector3(-10, 45, -10);
+		buttonUpArrowRightFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.05f);
+		MaterialCtrl.setMaterial(buttonUpArrowRightFrame, MaterialCtrl.PLASTIC_WHITE);
 		GameObject buttonUpNeckFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		buttonUpNeckFrame.transform.parent = buttons.transform;
-		buttonUpNeckFrame.transform.localPosition = new Vector3(-0.8f, 1.0125f, -0.064f);
+		buttonUpNeckFrame.transform.localPosition = new Vector3(-0.8f, 1.0155f, -0.0527f);
 		buttonUpNeckFrame.transform.localEulerAngles = new Vector3(-15, 0, 0);
-		buttonUpNeckFrame.transform.localScale = new Vector3(0.06f, 0.005f, 0.1f);
+		buttonUpNeckFrame.transform.localScale = new Vector3(0.05f, 0.005f, 0.12386f);
 		MaterialCtrl.setMaterial(buttonUpNeckFrame, MaterialCtrl.PLASTIC_WHITE);
 
-		GameObject buttonDownArrow = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonDownArrow.transform.parent = buttons.transform;
-		buttonDownArrow.transform.localPosition = new Vector3(-0.6493f, 1.0342f, -0.0633f);
-		buttonDownArrow.transform.localEulerAngles = new Vector3(-10, 45, -10);
-		buttonDownArrow.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
-		MaterialCtrl.setMaterial(buttonDownArrow, MaterialCtrl.PLASTIC_BLACK);
+		// create down arrow button
+		GameObject buttonDownArrowLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		buttonDownArrowLeft.transform.parent = buttons.transform;
+		buttonDownArrowLeft.transform.localPosition = new Vector3(-0.6667f, 1.0299f, -0.0807f);
+		buttonDownArrowLeft.transform.localEulerAngles = new Vector3(-10, 45, -10);
+		buttonDownArrowLeft.transform.localScale = new Vector3(0.08f, 0.03f, 0.03f);
+		MaterialCtrl.setMaterial(buttonDownArrowLeft, MaterialCtrl.PLASTIC_BLACK);
+		GameObject buttonDownArrowRight = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		buttonDownArrowRight.transform.parent = buttons.transform;
+		buttonDownArrowRight.transform.localPosition = new Vector3(-0.6309f, 1.0298f, -0.0806f);
+		buttonDownArrowRight.transform.localEulerAngles = new Vector3(-10, 45, -10);
+		buttonDownArrowRight.transform.localScale = new Vector3(0.03f, 0.03f, 0.08f);
+		MaterialCtrl.setMaterial(buttonDownArrowRight, MaterialCtrl.PLASTIC_BLACK);
 		GameObject buttonDownNeck = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		buttonDownNeck.transform.parent = buttons.transform;
-		buttonDownNeck.transform.localPosition = new Vector3(-0.65f, 1.049f, -0.004f);
+		buttonDownNeck.transform.localPosition = new Vector3(-0.65f, 1.0433f, -0.0254f);
 		buttonDownNeck.transform.localEulerAngles = new Vector3(-15, 0, 0);
-		buttonDownNeck.transform.localScale = new Vector3(0.04f, 0.03f, 0.08f);
+		buttonDownNeck.transform.localScale = new Vector3(0.03f, 0.03f, 0.126144f);
 		MaterialCtrl.setMaterial(buttonDownNeck, MaterialCtrl.PLASTIC_BLACK);
-		Button btnDown = new UpDownButton(
-			buttonDownArrow,
-			buttonDownNeck,
+		objs = new GameObject[] {buttonDownArrowLeft, buttonDownArrowRight, buttonDownNeck};
+		Button btnDown = new DefaultMultiButton(
+			objs,
 			ButtonCtrl.BTN_NOSTALGICCONSOLE_DOWN,
-			mainCtrl,
-			-0.1f
+			() => {
+				VrSpecificCtrl vrSpecificCtrl = mainCtrl.getVrSpecificCtrl();
+				if (vrSpecificCtrl != null) {
+					vrSpecificCtrl.adjustCameraHeightBy(-0.1f);
+				}
+			}
 		);
 		ButtonCtrl.add(btnDown);
 
-		GameObject buttonDownArrowFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonDownArrowFrame.transform.parent = buttons.transform;
-		buttonDownArrowFrame.transform.localPosition = new Vector3(-0.6496f, 1.0145f, -0.0555f);
-		buttonDownArrowFrame.transform.localEulerAngles = new Vector3(-10, 45, -10);
-		buttonDownArrowFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
-		MaterialCtrl.setMaterial(buttonDownArrowFrame, MaterialCtrl.PLASTIC_WHITE);
+		GameObject buttonDownArrowLeftFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		buttonDownArrowLeftFrame.transform.parent = buttons.transform;
+		buttonDownArrowLeftFrame.transform.localPosition = new Vector3(-0.6668f, 1.0103f, -0.0727f);
+		buttonDownArrowLeftFrame.transform.localEulerAngles = new Vector3(-10, 45, -10);
+		buttonDownArrowLeftFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.05f);
+		MaterialCtrl.setMaterial(buttonDownArrowLeftFrame, MaterialCtrl.PLASTIC_WHITE);
+		GameObject buttonDownArrowRightFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		buttonDownArrowRightFrame.transform.parent = buttons.transform;
+		buttonDownArrowRightFrame.transform.localPosition = new Vector3(-0.6314f, 1.0101f, -0.0726f);
+		buttonDownArrowRightFrame.transform.localEulerAngles = new Vector3(-10, 45, -10);
+		buttonDownArrowRightFrame.transform.localScale = new Vector3(0.05f, 0.005f, 0.1f);
+		MaterialCtrl.setMaterial(buttonDownArrowRightFrame, MaterialCtrl.PLASTIC_WHITE);
 		GameObject buttonDownNeckFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		buttonDownNeckFrame.transform.parent = buttons.transform;
-		buttonDownNeckFrame.transform.localPosition = new Vector3(-0.65f, 1.0318f, 0.0083f);
+		buttonDownNeckFrame.transform.localPosition = new Vector3(-0.65f, 1.0271f, -0.0093f);
 		buttonDownNeckFrame.transform.localEulerAngles = new Vector3(-15, 0, 0);
-		buttonDownNeckFrame.transform.localScale = new Vector3(0.06f, 0.005f, 0.1f);
+		buttonDownNeckFrame.transform.localScale = new Vector3(0.05f, 0.005f, 0.13366f);
 		MaterialCtrl.setMaterial(buttonDownNeckFrame, MaterialCtrl.PLASTIC_WHITE);
 
 		nostalgicConsole.transform.localPosition = position;
