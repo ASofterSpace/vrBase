@@ -354,8 +354,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		humansTurn = false;
 
 		if (checkForGameOver()) {
-			// human won!
-			SoundCtrl.playMainCamSound(SoundCtrl.KLACK_KLACK_METAL_2);
 			return;
 		}
 
@@ -566,11 +564,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			// is still going on!
 			humansTurn = !checkForGameOver();
 
-			if (!humansTurn) {
-				// robo won!
-				SoundCtrl.playSound(roboArm, SoundCtrl.KLACK_KLACK_METAL_2);
-			}
-
 			moveRobotBack();
 		};
 	}
@@ -585,10 +578,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		callAfterReachingTarget = null;
 	}
 
-	/**
-	 * Returns true if any one player won, or all fields are taken up
-	 */
-	private bool checkForGameOver() {
+	private bool checkForHumanWon() {
 
 		// check if human won
 		for (int y = 0; y < 3; y++) {
@@ -608,6 +598,9 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		if (buttons[0][2].isHuman() && buttons[1][1].isHuman() && buttons[2][0].isHuman()) {
 			return true;
 		}
+	}
+
+	private bool checkForRoboWon() {
 
 		// check if robo won
 		for (int y = 0; y < 3; y++) {
@@ -625,6 +618,22 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			return true;
 		}
 		if (buttons[0][2].isRobo() && buttons[1][1].isRobo() && buttons[2][0].isRobo()) {
+			return true;
+		}
+	}
+
+	/**
+	 * Returns true if any one player won, or all fields are taken up
+	 */
+	private bool checkForGameOver() {
+
+		if (checkForHumanWon()) {
+			SoundCtrl.playMainCamSound(SoundCtrl.KLACK_KLACK_METAL_2);
+			return true;
+		}
+
+		if (checkForRoboWon()) {
+			SoundCtrl.playMainCamSound(SoundCtrl.KLACK_KLACK_METAL_2);
 			return true;
 		}
 
