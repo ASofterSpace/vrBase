@@ -218,7 +218,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		}
 
 		float threshold = 0.001f;
-		float speed = 10;
+		float speed = 20;
 
 		bool moved = false;
 

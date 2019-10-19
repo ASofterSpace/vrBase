@@ -116,7 +116,7 @@ public class BridgeCtrl : GenericRoomCtrl {
 
 		GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_VR);
 		poster.name = "VR Poster";
-		poster.transform.localPosition = new Vector3(-0.749f, 1.2f, 0.3f);
+		poster.transform.localPosition = new Vector3(-0.749f, 1.4f, 0.3f);
 		poster.transform.localEulerAngles = new Vector3(0, -90, -2.95f);
 		poster.transform.localScale = new Vector3(0.45f, 0.6f, 1);
 	}
