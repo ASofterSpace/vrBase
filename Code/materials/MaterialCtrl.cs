@@ -62,6 +62,7 @@ public class MaterialCtrl {
 	public const int PLASTIC_GRAY = 11;
 	public const int PLASTIC_RED = 21;
 	public const int SPACE_MOON_FLOOR = 1;
+	public const int SPACE_MOON_FLOOR_INNER = 54;
 	public const int SPACE_MOON_SOUTH = 2;
 	public const int SPACE_MOON_WEST = 3;
 	public const int SPACE_MOON_NORTH = 4;
@@ -70,7 +71,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 54;
+	public const int MATERIAL_AMOUNT = 55;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -106,6 +107,7 @@ public class MaterialCtrl {
 		textures[OBJECTS_VRCADE_LABELS_SCORE] = "Objects/vrCade/Labels/score";
 		textures[OBJECTS_VRCADE_LABELS_START] = "Objects/vrCade/Labels/start";
 		textures[SPACE_MOON_FLOOR] = "Space/moonFloor";
+		textures[SPACE_MOON_FLOOR_INNER] = "Space/moonFloorInner";
 		textures[SPACE_MOON_SOUTH] = "Space/moonNorth";
 		textures[SPACE_MOON_WEST] = "Space/moonNorthMirrored";
 		textures[SPACE_MOON_NORTH] = "Space/moonNorth";
@@ -130,6 +132,7 @@ public class MaterialCtrl {
 		if (result == null) {
 			switch (materialNum) {
 				case SPACE_MOON_FLOOR:
+				case SPACE_MOON_FLOOR_INNER:
 				case SPACE_MOON_SOUTH:
 				case SPACE_MOON_WEST:
 				case SPACE_MOON_NORTH:
