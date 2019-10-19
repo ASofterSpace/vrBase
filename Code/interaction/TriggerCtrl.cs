@@ -227,7 +227,7 @@ public class TriggerCtrl {
 
 		ray.transform.LookAt(target);
 		Vector3 ang = ray.transform.eulerAngles;
-		ray.transform.localEulerAngles = new Vector3(ang.x - 90, ang.y, ang.z);
+		ray.transform.eulerAngles = new Vector3(ang.x - 90, ang.y, ang.z);
 
 		ray.transform.localScale = new Vector3(
 			0.01f,

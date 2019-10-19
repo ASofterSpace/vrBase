@@ -240,8 +240,8 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		bool moved = false;
 
-		float x = Utils.clampRot(roboArm.transform.eulerAngles.x);
-		float y = Utils.clampRot(roboArm.transform.eulerAngles.y);
+		float x = Utils.clampRot(roboArm.transform.localEulerAngles.x);
+		float y = Utils.clampRot(roboArm.transform.localEulerAngles.y);
 		float z = 0;
 
 		if ((robotTargetRotY < 0) || (y < 0)) {

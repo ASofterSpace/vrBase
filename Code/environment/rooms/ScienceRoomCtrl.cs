@@ -5,24 +5,19 @@
 
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 using UnityEngine;
 
 
-public class ArcadeRoomCtrl : GenericRoomCtrl {
-
-	private FlipperQnDCtrl flipperQnDCtrl;
-
-	private BowlingAlleyCtrl bowlingAlleyCtrl;
-
-	private TicTacToeCtrl ticTacToeCtrl;
-
-	private BlobFlyerCtrl blobFlyerCtrl;
+public class ScienceRoomCtrl : GenericRoomCtrl {
 
 
-	public ArcadeRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
+	public ScienceRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
 		createRoom();
+
+		thisRoom.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 	}
 
 	protected override void createRoom() {
@@ -45,17 +40,19 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		GameObject curBeam;
 		int curAngle = 90;
 
-		// make room for the door to the control room
-		GameObject.Destroy(beams[23]); // remove cross beam
-		GameObject.Destroy(beams[39]); // remove floor beam
-		GameObject.Destroy(beams[67]); // remove head beam
+		// make room for the purple door
+		GameObject.Destroy(beams[31]); // remove cross beam
+		GameObject.Destroy(beams[47]); // remove floor beam
+		GameObject.Destroy(beams[71]); // remove head beam
+/*
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
-		curBeam.transform.localPosition = new Vector3(2.5f, 0, 5);
+		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
 		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
 		curBeam = createBeam(0.5f);
-		curBeam.transform.localPosition = new Vector3(4.45f, 0, 5);
+		curBeam.transform.localPosition = new Vector3(-4.45f, 0, -5);
 		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
+*/
 	}
 
 	protected override int getAdditionalWallVertexAmount() {
@@ -68,20 +65,20 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		float z = thisRoom.transform.position.z;
 
 		// create the wall around the door - to the left of the door...
-		vertices[i++] = new Vector3(x+2.05f, y, z+5);
-		vertices[i++] = new Vector3(x+1.85f, y+0.825f, z+4.88f);
-		vertices[i++] = new Vector3(x-0.74f+3.5f, y+1.15f, z+5);
-		vertices[i++] = new Vector3(x-0.74f+3.5f, y, z+5);
-		vertices[i++] = new Vector3(x-0.74f+3.5f, y+0.3f, z+5);
-		vertices[i++] = new Vector3(x-0.4f+3.5f, y, z+5);
+		vertices[i++] = new Vector3(x-2.05f, y, z-5);
+		vertices[i++] = new Vector3(x-1.85f, y+0.825f, z-4.88f);
+		vertices[i++] = new Vector3(x+0.74f-3.5f, y+1.15f, z-5);
+		vertices[i++] = new Vector3(x+0.74f-3.5f, y, z-5);
+		vertices[i++] = new Vector3(x+0.74f-3.5f, y+0.3f, z-5);
+		vertices[i++] = new Vector3(x+0.4f-3.5f, y, z-5);
 
 		// ... and to the right of the door
-		vertices[i++] = new Vector3(x+0.74f+3.5f, y+1.65f, z+5);
-		vertices[i++] = new Vector3(x+4.6f, y+1.85f, z+4.6f);
-		vertices[i++] = new Vector3(x+5f, y, z+5);
-		vertices[i++] = new Vector3(x+0.74f+3.5f, y, z+5);
-		vertices[i++] = new Vector3(x+0.74f+3.5f, y+0.3f, z+5);
-		vertices[i++] = new Vector3(x+0.4f+3.5f, y, z+5);
+		vertices[i++] = new Vector3(x-0.74f-3.5f, y+1.65f, z-5);
+		vertices[i++] = new Vector3(x-4.6f, y+1.85f, z-4.6f);
+		vertices[i++] = new Vector3(x-5f, y, z-5);
+		vertices[i++] = new Vector3(x-0.74f-3.5f, y, z-5);
+		vertices[i++] = new Vector3(x-0.74f-3.5f, y+0.3f, z-5);
+		vertices[i++] = new Vector3(x-0.4f-3.5f, y, z-5);
 	}
 
 	protected override int[] createMeshedWallTriangles() {
@@ -102,10 +99,10 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		// block 4 - West
 		i = addTriangleWallBlock(triangles, i, 18);
 		// block 5 - North-East
-		i = addTriangleWallBlock(triangles, i, 24);
+		i = addTriangle(triangles, i, 24, 24 + 1, 24 + 4);
+		i = addTriangle(triangles, i, 24, 24 + 4, 24 + 5);
 		// block 6 - South-East
-		i = addTriangle(triangles, i, 30, 30 + 1, 30 + 4);
-		i = addTriangle(triangles, i, 30, 30 + 4, 30 + 5);
+		i = addTriangleWallBlock(triangles, i, 30);
 		// block 7 - South-West
 		i = addTriangleWallBlock(triangles, i, 36);
 		// block 8 - North-West
@@ -125,30 +122,13 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 
 	private void createDoors() {
 
-		createDoor(3.5f, 5.0f);
+		GameObject door = createDoor(-5, 3.39f);
+		door.transform.localEulerAngles = new Vector3(0, 90, 0);
+		door.transform.localScale = new Vector3(1.25f, 1.25f, 1.25f);
 	}
 
 	private void createObjects() {
 
-		flipperQnDCtrl = new FlipperQnDCtrl(
-			mainCtrl, thisRoom, new Vector3(-2.5f, 0, -2), new Vector3(0, 55, 0)
-		);
-
-		bowlingAlleyCtrl = new BowlingAlleyCtrl(
-			mainCtrl, thisRoom, new Vector3(-1.5f, 0, 3.5f), new Vector3(0, -90, 0)
-		);
-
-		ticTacToeCtrl = new TicTacToeCtrl(
-			mainCtrl, thisRoom, new Vector3(3, 0, -2.5f), new Vector3(0, 0, 0)
-		);
-
-		blobFlyerCtrl = new BlobFlyerCtrl(
-			mainCtrl, thisRoom, new Vector3(-4, 0, 1), new Vector3(0, 100, 0));
-
-		GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_FLIPPERQND);
-		poster.name = "FlipperQnD Poster";
-		poster.transform.localPosition = new Vector3(-1.052f, 0.893f, -5.67f);
-		poster.transform.localEulerAngles = new Vector3(-13.834f, -135.159f, -2.95f);
 	}
 
 }

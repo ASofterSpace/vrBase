@@ -31,8 +31,6 @@ public abstract class GenericRoomCtrl {
 		// we create 48 for a standard room here, but special rooms
 		// (such as the control room) add extra beams afterwards
 		this.beams = new GameObject[200];
-
-		createRoom();
 	}
 
 	protected abstract void createRoom();
@@ -421,7 +419,7 @@ public abstract class GenericRoomCtrl {
 		return result;
 	}
 
-	protected void createTank(String name, int x, int z) {
+	protected void createTank(String name, float x, float z) {
 
 		GameObject tank = new GameObject(name);
 		tank.transform.parent = thisRoom.transform;

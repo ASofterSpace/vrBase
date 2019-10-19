@@ -14,8 +14,6 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private NostalgicConsoleCtrl nostalgicConsoleCtrl;
 
-	private BlobFlyerCtrl blobFlyerCtrl;
-
 	private BreathingApparatusCtrl breathingApparatusCtrl;
 
 	private DioramaCtrl dioramaCtrl;
@@ -23,6 +21,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
+		createRoom();
 	}
 
 	protected override void createRoom() {
@@ -43,8 +42,8 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		base.createBeams();
 
 		GameObject curBeam;
-		int curAngle = 90;
 
+		// to Arcade Room:
 		// make room for the purple door
 		GameObject.Destroy(beams[21]); // remove cross beam
 		GameObject.Destroy(beams[37]); // remove floor beam
@@ -52,10 +51,16 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
-		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, 90);
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-4.45f, 0, -5);
-		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, 90);
+
+		// to Science Room:
+		// make room for the purple door
+		GameObject.Destroy(beams[29]); // remove cross beam
+		GameObject.Destroy(beams[45]); // remove floor beam
+		GameObject.Destroy(beams[69]); // remove head beam
 	}
 
 	protected override int getAdditionalWallVertexAmount() {
@@ -86,11 +91,11 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	protected override int[] createMeshedWallTriangles() {
 
-		// 7 full wall blocks (each 6*4),
-		// one half wall block (so 6*4/2),
+		// 6 full wall blocks (each 6*4),
+		// two half wall blocks (each 6*4/2),
 		// one wall around the door
 		// (each call to addTriangle requires 6 points, each call to addTriangleWallBlock four times that many)
-		int[] triangles = new int[6*4*7 + 6*2 + 6*6];
+		int[] triangles = new int[6*4*6 + 6*2*2 + 6*6];
 		int i = 0;
 
 		// block 1 - North
@@ -106,7 +111,9 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		// block 6 - South-East
 		i = addTriangleWallBlock(triangles, i, 30);
 		// block 7 - South-West
-		i = addTriangleWallBlock(triangles, i, 36);
+//		i = addTriangleWallBlock(triangles, i, 36);
+		i = addTriangle(triangles, i, 36, 36 + 1, 36 + 4);
+		i = addTriangle(triangles, i, 36, 36 + 4, 36 + 5);
 		// block 8 - North-West
 		i = addTriangle(triangles, i, 42, 42 + 1, 42 + 4);
 		i = addTriangle(triangles, i, 42, 42 + 4, 42 + 5);
@@ -125,19 +132,19 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private void createDoors() {
 
-		createDoor(-3.5f, -5.0f);
+		GameObject doorToArcadeRoom = createDoor(-3.5f, -5.0f);
+
+		GameObject doorToScienceRoom = createDoor(5, -3.5f);
+		doorToScienceRoom.transform.localEulerAngles = new Vector3(0, 90, 0);
 	}
 
 	private void createObjects() {
 
-		createTank("waterTank", 7, -6);
-		createTank("heliumTank", 8, -5);
+		createTank("waterTank", 7, 6);
+		createTank("heliumTank", 8, 4.2f);
 
 		nostalgicConsoleCtrl = new NostalgicConsoleCtrl(
 			mainCtrl, thisRoom, new Vector3(-2, 0, 3), new Vector3(0, -36, 0));
-
-		blobFlyerCtrl = new BlobFlyerCtrl(
-			mainCtrl, thisRoom, new Vector3(2, 0, -2.3f), new Vector3(0, -52, 0));
 
 		breathingApparatusCtrl = new BreathingApparatusCtrl(
 			mainCtrl, thisRoom, new Vector3(3, 0, 2), new Vector3(0, 45, 0));
