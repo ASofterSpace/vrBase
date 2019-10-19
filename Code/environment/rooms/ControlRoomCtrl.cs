@@ -137,13 +137,13 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 			mainCtrl, thisRoom, new Vector3(-2, 0, 3), new Vector3(0, -36, 0));
 
 		blobFlyerCtrl = new BlobFlyerCtrl(
-			mainCtrl, thisRoom, new Vector3(0, 0, -4), new Vector3(0, 0, 0));
+			mainCtrl, thisRoom, new Vector3(2, 0, -2.3f), new Vector3(0, -52, 0));
 
 		breathingApparatusCtrl = new BreathingApparatusCtrl(
 			mainCtrl, thisRoom, new Vector3(3, 0, 2), new Vector3(0, 45, 0));
 
 		dioramaCtrl = new DioramaCtrl(
-			mainCtrl, thisRoom, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+			mainCtrl, thisRoom, new Vector3(0, 0, -3), new Vector3(0, 0, 0));
 	}
 
 }

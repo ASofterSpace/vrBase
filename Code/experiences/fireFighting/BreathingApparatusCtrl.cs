@@ -41,7 +41,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 	}
 
 	void UpdateableCtrl.update(VrInput input) {
-		apparatus.transform.localEulerAngles = new Vector3(20, Time.time, 0);
+		apparatus.transform.localEulerAngles = new Vector3(20, Time.time * 2, 0);
 	}
 
 	private void createQuickTester(Vector3 position, Vector3 angles) {
