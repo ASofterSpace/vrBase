@@ -18,6 +18,8 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private DioramaCtrl dioramaCtrl;
 
+	private RocketLaunchCtrl rocketLaunchCtrl;
+
 
 	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -151,6 +153,9 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 		dioramaCtrl = new DioramaCtrl(
 			mainCtrl, thisRoom, new Vector3(0, 0, -3), new Vector3(0, 0, 0));
+
+		rocketLaunchCtrl = new RocketLaunchCtrl(
+			mainCtrl, thisRoom, new Vector3(-10, 0, 10), new Vector3(0, 0, 0));
 	}
 
 }
