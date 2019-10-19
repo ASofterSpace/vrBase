@@ -55,8 +55,18 @@ public class TicTacToeButton : Button {
 	}
 
 	public void reset() {
+
 		state = 0;
+
+		// we set active in case we were blinking before as we were one of the buttons
+		// that won the game, and now we are being reset... so that we want to stay visible
+		gameObject.SetActive(true);
+
 		recolorize();
+	}
+
+	public void setActive(bool visible) {
+		gameObject.SetActive(visible);
 	}
 
 	public override void trigger() {

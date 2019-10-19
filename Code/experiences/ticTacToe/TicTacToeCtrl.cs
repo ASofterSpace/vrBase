@@ -22,6 +22,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	private GameObject roboLowerArm;
 
 	private TicTacToeButton[][] buttons;
+	private TicTacToeButton[] buttonsThatWon;
 
 	private bool humansTurn;
 
@@ -48,14 +49,16 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		this.humansTurn = true;
 
-		// start moving such that the robot comes to its natural rest position
-		// and such that we have the internal robo state initialized to useful
-		// values
-		moveRobotBack();
+		this.buttonsThatWon = new TicTacToeButton[3];
 
 		createPlayingField(position, angles);
 
 		mainCtrl.addUpdateableCtrl(this);
+
+		// start moving such that the robot comes to its natural rest position
+		// and such that we have the internal robo state initialized to useful
+		// values, and overall just start the entire game from a fresh state :)
+		restartGame();
 	}
 
 	private void createPlayingField(Vector3 position, Vector3 angles) {
@@ -202,6 +205,14 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 		moveRobotBack();
 
+		// do this...
+		buttonsThatWon[0] = null;
+		buttonsThatWon[1] = null;
+		buttonsThatWon[2] = null;
+
+		// ... before this (as the reset will set visible, and
+		// while buttonsThatWon are still assigned, buttons might
+		// still be blinked into invisibility)
 		for (int x = 0; x < 3; x++) {
 			for (int y = 0; y < 3; y++) {
 				buttons[x][y].reset();
@@ -212,6 +223,13 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	}
 
 	void UpdateableCtrl.update(VrInput input) {
+
+		if ((buttonsThatWon[0] != null) && (buttonsThatWon[1] != null) && (buttonsThatWon[2] != null)) {
+			bool visible = (Mathf.RoundToInt(Time.time / 2) % 2) == 0;
+			buttonsThatWon[0].setActive(visible);
+			buttonsThatWon[1].setActive(visible);
+			buttonsThatWon[2].setActive(visible);
+		}
 
 		if (!robotMoving) {
 			return;
@@ -580,46 +598,76 @@ public class TicTacToeCtrl : UpdateableCtrl {
 
 	private bool checkForHumanWon() {
 
-		// check if human won
+		// horizontals and verticals
 		for (int y = 0; y < 3; y++) {
 			if (buttons[0][y].isHuman() && buttons[1][y].isHuman() && buttons[2][y].isHuman()) {
+				buttonsThatWon[0] = buttons[0][y];
+				buttonsThatWon[1] = buttons[1][y];
+				buttonsThatWon[2] = buttons[2][y];
 				return true;
 			}
 		}
 		for (int x = 0; x < 3; x++) {
 			if (buttons[x][0].isHuman() && buttons[x][1].isHuman() && buttons[x][2].isHuman()) {
+				buttonsThatWon[0] = buttons[x][0];
+				buttonsThatWon[1] = buttons[x][1];
+				buttonsThatWon[2] = buttons[x][2];
 				return true;
 			}
 		}
+
 		// diagonals
 		if (buttons[0][0].isHuman() && buttons[1][1].isHuman() && buttons[2][2].isHuman()) {
+			buttonsThatWon[0] = buttons[0][0];
+			buttonsThatWon[1] = buttons[1][1];
+			buttonsThatWon[2] = buttons[2][2];
 			return true;
 		}
 		if (buttons[0][2].isHuman() && buttons[1][1].isHuman() && buttons[2][0].isHuman()) {
+			buttonsThatWon[0] = buttons[0][2];
+			buttonsThatWon[1] = buttons[1][1];
+			buttonsThatWon[2] = buttons[2][0];
 			return true;
 		}
+
+		return false;
 	}
 
 	private bool checkForRoboWon() {
 
-		// check if robo won
+		// horizontals and verticals
 		for (int y = 0; y < 3; y++) {
 			if (buttons[0][y].isRobo() && buttons[1][y].isRobo() && buttons[2][y].isRobo()) {
+				buttonsThatWon[0] = buttons[0][y];
+				buttonsThatWon[1] = buttons[1][y];
+				buttonsThatWon[2] = buttons[2][y];
 				return true;
 			}
 		}
 		for (int x = 0; x < 3; x++) {
 			if (buttons[x][0].isRobo() && buttons[x][1].isRobo() && buttons[x][2].isRobo()) {
+				buttonsThatWon[0] = buttons[x][0];
+				buttonsThatWon[1] = buttons[x][1];
+				buttonsThatWon[2] = buttons[x][2];
 				return true;
 			}
 		}
+
 		// diagonals
 		if (buttons[0][0].isRobo() && buttons[1][1].isRobo() && buttons[2][2].isRobo()) {
+			buttonsThatWon[0] = buttons[0][0];
+			buttonsThatWon[1] = buttons[1][1];
+			buttonsThatWon[2] = buttons[2][2];
 			return true;
 		}
 		if (buttons[0][2].isRobo() && buttons[1][1].isRobo() && buttons[2][0].isRobo()) {
+			buttonsThatWon[0] = buttons[0][2];
+			buttonsThatWon[1] = buttons[1][1];
+			buttonsThatWon[2] = buttons[2][0];
 			return true;
 		}
+
+		return false;
 	}
 
 	/**
