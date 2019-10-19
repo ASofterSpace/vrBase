@@ -15,12 +15,14 @@ public class BowlingAlleyCtrl {
 	private GameObject hostRoom;
 
 
-	public BowlingAlleyCtrl(MainCtrl mainCtrl, GameObject hostRoom) {
+	public BowlingAlleyCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
 		this.hostRoom = hostRoom;
+
+		createBowlingAlley(position, angles);
 	}
 
-	public void createBowlingAlley(Vector3 position, Vector3 angles) {
+	private void createBowlingAlley(Vector3 position, Vector3 angles) {
 
 		GameObject bowlingAlley = new GameObject("Bowling Alley");
 		bowlingAlley.transform.parent = hostRoom.transform;

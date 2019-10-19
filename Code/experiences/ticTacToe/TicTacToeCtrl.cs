@@ -40,7 +40,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	private bool robotMoving;
 
 
-	public TicTacToeCtrl(MainCtrl mainCtrl, GameObject hostRoom) {
+	public TicTacToeCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
 		this.mainCtrl = mainCtrl;
 
@@ -52,9 +52,13 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		// and such that we have the internal robo state initialized to useful
 		// values
 		moveRobotBack();
+
+		createPlayingField(position, angles);
+
+		mainCtrl.addUpdateableCtrl(this);
 	}
 
-	public void createPlayingField(Vector3 position, Vector3 angles) {
+	private void createPlayingField(Vector3 position, Vector3 angles) {
 
 		GameObject ticTacToe = new GameObject("TicTacToe");
 		ticTacToe.transform.parent = hostRoom.transform;
@@ -192,8 +196,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		restartConsoleSign.transform.localEulerAngles = new Vector3(45, 90, 0);
 		restartConsoleSign.transform.localScale = new Vector3(0.1921978f, 0.065866f, 1);
 		MaterialCtrl.setMaterial(restartConsoleSign, MaterialCtrl.OBJECTS_TICTACTOE_LABELS_RESTART);
-
-		mainCtrl.addUpdateableCtrl(this);
 	}
 
 	public void restartGame() {

@@ -12,7 +12,7 @@ using UnityEngine;
 /**
  * Controls the quick-and-dirty flipper - our fist flipper ever \o/
  */
-public class FlipperQnDCtrl {
+public class FlipperQnDCtrl : UpdateableCtrl {
 
 	private MainCtrl mainCtrl;
 
@@ -76,13 +76,19 @@ public class FlipperQnDCtrl {
 	private int lastPositionIndex = 0;
 
 
-	public FlipperQnDCtrl(MainCtrl mainCtrl, GameObject hostRoom) {
+	public FlipperQnDCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
 		this.mainCtrl = mainCtrl;
 		this.hostRoom = hostRoom;
+
+		buildModel(position, angles);
+
+		initGame();
+
+		mainCtrl.addUpdateableCtrl(this);
 	}
 
-	public void update(VrInput input) {
+	void UpdateableCtrl.update(VrInput input) {
 
 		pinballCollisionScript.update(input);
 
@@ -181,13 +187,6 @@ public class FlipperQnDCtrl {
 				*/
 			}
 		}
-	}
-
-	public void createFlipperQnD(Vector3 position, Vector3 angles) {
-
-		buildModel(position, angles);
-
-		initGame();
 	}
 
 	private void initGame() {

@@ -127,14 +127,17 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 
 	private void createObjects() {
 
-		flipperQnDCtrl = new FlipperQnDCtrl(mainCtrl, thisRoom);
-		flipperQnDCtrl.createFlipperQnD(new Vector3(-2.5f, 0, -2), new Vector3(0, 55, 0));
+		flipperQnDCtrl = new FlipperQnDCtrl(
+			mainCtrl, thisRoom, new Vector3(-2.5f, 0, -2), new Vector3(0, 55, 0)
+		);
 
-		bowlingAlleyCtrl = new BowlingAlleyCtrl(mainCtrl, thisRoom);
-		bowlingAlleyCtrl.createBowlingAlley(new Vector3(-1.5f, 0, 3.5f), new Vector3(0, -90, 0));
+		bowlingAlleyCtrl = new BowlingAlleyCtrl(
+			mainCtrl, thisRoom, new Vector3(-1.5f, 0, 3.5f), new Vector3(0, -90, 0)
+		);
 
-		ticTacToeCtrl = new TicTacToeCtrl(mainCtrl, thisRoom);
-		ticTacToeCtrl.createPlayingField(new Vector3(3, 0, -2.5f), new Vector3(0, 0, 0));
+		ticTacToeCtrl = new TicTacToeCtrl(
+			mainCtrl, thisRoom, new Vector3(3, 0, -2.5f), new Vector3(0, 0, 0)
+		);
 
 		GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_FLIPPERQND);
 		poster.name = "FlipperQnD Poster";
