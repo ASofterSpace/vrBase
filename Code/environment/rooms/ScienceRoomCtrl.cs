@@ -38,7 +38,6 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 		base.createBeams();
 
 		GameObject curBeam;
-		int curAngle = 90;
 
 		// make room for the purple door
 		GameObject.Destroy(beams[31]); // remove cross beam

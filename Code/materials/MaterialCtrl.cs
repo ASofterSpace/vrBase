@@ -42,6 +42,8 @@ public class MaterialCtrl {
 	public const int OBJECTS_POSTERS_MARS = 37;
 	public const int OBJECTS_POSTERS_VR = 38;
 	public const int OBJECTS_POSTERS_PROCESS = 39;
+	public const int OBJECTS_ROCKETLAUNCH_LAUNCHPAD = 55;
+	public const int OBJECTS_ROCKETLAUNCH_YELLOW = 56;
 	public const int OBJECTS_TICTACTOE_BLUE = 42;
 	public const int OBJECTS_TICTACTOE_RED = 41;
 	public const int OBJECTS_TICTACTOE_GRAY = 40;
@@ -71,7 +73,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 55;
+	public const int MATERIAL_AMOUNT = 57;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -99,6 +101,7 @@ public class MaterialCtrl {
 		textures[OBJECTS_POSTERS_MARS] = "Objects/Posters/flyer_mars_en";
 		textures[OBJECTS_POSTERS_VR] = "Objects/Posters/flyer_vr_en";
 		textures[OBJECTS_POSTERS_PROCESS] = "Objects/Posters/flyer_process_en";
+		textures[OBJECTS_ROCKETLAUNCH_LAUNCHPAD] = "Objects/rocketLaunch/launchpad";
 		textures[OBJECTS_TICTACTOE_ROBOT] = "Objects/Materials/bee_tape";
 		textures[OBJECTS_TICTACTOE_LABELS_RESTART] = "Objects/TicTacToe/Labels/restart_dark";
 		textures[OBJECTS_VRCADE_DIGITWHEEL] = "Objects/vrCade/digits";
@@ -221,6 +224,9 @@ public class MaterialCtrl {
 					result.color = new Color(0, 0.8f, 0, 1);
 					break;
 				case OBJECTS_FIREFIGHTING_OXYGEN_YELLOW:
+					result.color = new Color(0.8f, 0.9f, 0, 1);
+					break;
+				case OBJECTS_ROCKETLAUNCH_YELLOW:
 					result.color = new Color(0.8f, 0.9f, 0, 1);
 					break;
 				case OBJECTS_TICTACTOE_BLUE:

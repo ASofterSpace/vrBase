@@ -38,16 +38,16 @@ public class ObjectFactory {
 		float x = first.transform.localPosition.x;
 		float z = first.transform.localPosition.z;
 		float y = first.transform.localPosition.y;
-		Quaternion rot = first.transform.rotation;
+		Quaternion rot = first.transform.localRotation;
 
 		objs[0].transform.localPosition = new Vector3(z, y, -x);
-		objs[0].transform.rotation = Quaternion.Euler(Vector3.up * 90) * rot;
+		objs[0].transform.localRotation = Quaternion.Euler(Vector3.up * 90) * rot;
 
 		objs[1].transform.localPosition = new Vector3(-x, y, -z);
-		objs[1].transform.rotation = Quaternion.Euler(Vector3.up * 180) * rot;
+		objs[1].transform.localRotation = Quaternion.Euler(Vector3.up * 180) * rot;
 
 		objs[2].transform.localPosition = new Vector3(-z, y, x);
-		objs[2].transform.rotation = Quaternion.Euler(Vector3.up * 270) * rot;
+		objs[2].transform.localRotation = Quaternion.Euler(Vector3.up * 270) * rot;
 
 		return objs;
 	}
@@ -74,20 +74,20 @@ public class ObjectFactory {
 		float x = first.transform.localPosition.x;
 		float z = first.transform.localPosition.z;
 		float y = first.transform.localPosition.y;
-		Quaternion rot = first.transform.rotation;
+		Quaternion rot = first.transform.localRotation;
 		float qx = rot.x;
 		float qy = rot.y;
 		float qz = rot.z;
 		float qw = rot.w;
 
 		objs[0].transform.localPosition = new Vector3(x, y, -z);
-		objs[0].transform.rotation = new Quaternion(qw, qz, qy, qx);
+		objs[0].transform.localRotation = new Quaternion(qw, qz, qy, qx);
 
 		objs[1].transform.localPosition = new Vector3(-x, y, -z);
-		objs[1].transform.rotation = new Quaternion(qy, qx, qw, qz);
+		objs[1].transform.localRotation = new Quaternion(qy, qx, qw, qz);
 
 		objs[2].transform.localPosition = new Vector3(-x, y, z);
-		objs[2].transform.rotation = new Quaternion(qz, qw, qx, qy);
+		objs[2].transform.localRotation = new Quaternion(qz, qw, qx, qy);
 
 		return objs;
 	}
@@ -112,28 +112,28 @@ public class ObjectFactory {
 			objs[i] = Object.Instantiate(first, first.transform.parent);
 		}
 
-		Quaternion rot = first.transform.rotation;
+		Quaternion rot = first.transform.localRotation;
 
 		objs[0].transform.localPosition = Quaternion.Euler(Vector3.up * 45) * first.transform.localPosition;
-		objs[0].transform.rotation = Quaternion.Euler(Vector3.up * 45) * rot;
+		objs[0].transform.localRotation = Quaternion.Euler(Vector3.up * 45) * rot;
 
 		objs[1].transform.localPosition = Quaternion.Euler(Vector3.up * 90) * first.transform.localPosition;
-		objs[1].transform.rotation = Quaternion.Euler(Vector3.up * 90) * rot;
+		objs[1].transform.localRotation = Quaternion.Euler(Vector3.up * 90) * rot;
 
 		objs[2].transform.localPosition = Quaternion.Euler(Vector3.up * 135) * first.transform.localPosition;
-		objs[2].transform.rotation = Quaternion.Euler(Vector3.up * 135) * rot;
+		objs[2].transform.localRotation = Quaternion.Euler(Vector3.up * 135) * rot;
 
 		objs[3].transform.localPosition = Quaternion.Euler(Vector3.up * 180) * first.transform.localPosition;
-		objs[3].transform.rotation = Quaternion.Euler(Vector3.up * 180) * rot;
+		objs[3].transform.localRotation = Quaternion.Euler(Vector3.up * 180) * rot;
 
 		objs[4].transform.localPosition = Quaternion.Euler(Vector3.up * 225) * first.transform.localPosition;
-		objs[4].transform.rotation = Quaternion.Euler(Vector3.up * 225) * rot;
+		objs[4].transform.localRotation = Quaternion.Euler(Vector3.up * 225) * rot;
 
 		objs[5].transform.localPosition = Quaternion.Euler(Vector3.up * 270) * first.transform.localPosition;
-		objs[5].transform.rotation = Quaternion.Euler(Vector3.up * 270) * rot;
+		objs[5].transform.localRotation = Quaternion.Euler(Vector3.up * 270) * rot;
 
 		objs[6].transform.localPosition = Quaternion.Euler(Vector3.up * 315) * first.transform.localPosition;
-		objs[6].transform.rotation = Quaternion.Euler(Vector3.up * 315) * rot;
+		objs[6].transform.localRotation = Quaternion.Euler(Vector3.up * 315) * rot;
 
 		return objs;
 	}
@@ -164,7 +164,7 @@ public class ObjectFactory {
 			 first.transform.localPosition.y,
 			-first.transform.localPosition.x
 		);
-		obj3.transform.rotation = Quaternion.Euler(Vector3.up * 90) * first.transform.rotation;
+		obj3.transform.localRotation = Quaternion.Euler(Vector3.up * 90) * first.transform.localRotation;
 
 		// ... and quadruplize again! Wheee! \o/
 		GameObject[] objs456 = axisQuadruplize(obj3);
@@ -202,7 +202,7 @@ public class ObjectFactory {
 		// ... then copy the input object and rotate the copy by 45 degrees...
 		GameObject obj3 = Object.Instantiate(first, first.transform.parent);
 		obj3.transform.localPosition = Quaternion.Euler(Vector3.up * 45) * first.transform.localPosition;
-		obj3.transform.rotation = Quaternion.Euler(Vector3.up * 45) * first.transform.rotation;
+		obj3.transform.localRotation = Quaternion.Euler(Vector3.up * 45) * first.transform.localRotation;
 
 		// ... and quadruplize again...
 		GameObject[] objs456 = axisQuadruplize(obj3);
@@ -214,7 +214,7 @@ public class ObjectFactory {
 			 first.transform.localPosition.y,
 			-first.transform.localPosition.x
 		);
-		obj7.transform.rotation = Quaternion.Euler(Vector3.up * 90) * first.transform.rotation;
+		obj7.transform.localRotation = Quaternion.Euler(Vector3.up * 90) * first.transform.localRotation;
 
 		// ... and quadruplize again...
 		GameObject[] objs8910 = axisQuadruplize(obj7);
@@ -222,7 +222,7 @@ public class ObjectFactory {
 		// ... then copy the input object and rotate the copy by 135 degrees...
 		GameObject obj11 = Object.Instantiate(first, first.transform.parent);
 		obj11.transform.localPosition = Quaternion.Euler(Vector3.up * 135) * first.transform.localPosition;
-		obj11.transform.rotation = Quaternion.Euler(Vector3.up * 135) * first.transform.rotation;
+		obj11.transform.localRotation = Quaternion.Euler(Vector3.up * 135) * first.transform.localRotation;
 
 		// ... and quadruplize again! Wheee! \o/
 		GameObject[] objs121314 = axisQuadruplize(obj11);
@@ -244,6 +244,17 @@ public class ObjectFactory {
 		objs[14] = objs121314[2];
 
 		return objs;
+	}
+
+	public static void axisTetraduplize(GameObject first) {
+
+		axisHexadeciplize(first);
+
+		GameObject obj = Object.Instantiate(first, first.transform.parent);
+		obj.transform.localPosition = Quaternion.Euler(Vector3.up * 22.5f) * first.transform.localPosition;
+		obj.transform.localRotation = Quaternion.Euler(Vector3.up * 22.5f) * first.transform.localRotation;
+
+		axisHexadeciplize(obj);
 	}
 
 	/**
