@@ -31,18 +31,20 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 	private GameObject oxygenBottleHolderStrapOpenedPart8;
 
 
-	public BreathingApparatusCtrl(MainCtrl mainCtrl, GameObject hostRoom) {
+	public BreathingApparatusCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
 		this.hostRoom = hostRoom;
 
 		mainCtrl.addUpdateableCtrl(this);
+
+		createQuickTester(position, angles);
 	}
 
 	void UpdateableCtrl.update(VrInput input) {
 		apparatus.transform.localEulerAngles = new Vector3(20, Time.time, 0);
 	}
 
-	public void createQuickTester(Vector3 position, Vector3 angles) {
+	private void createQuickTester(Vector3 position, Vector3 angles) {
 
 		GameObject quickTester = new GameObject("BreathingApparatusQuickTester");
 		quickTester.transform.parent = hostRoom.transform;

@@ -15,12 +15,14 @@ public class BlobFlyerCtrl {
 	private GameObject hostRoom;
 
 
-	public BlobFlyerCtrl(MainCtrl mainCtrl, GameObject hostRoom) {
+	public BlobFlyerCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
 		this.hostRoom = hostRoom;
+
+		createBlobFlyer(position, angles);
 	}
 
-	public void createBlobFlyer(Vector3 position, Vector3 angles) {
+	private void createBlobFlyer(Vector3 position, Vector3 angles) {
 
 		GameObject blobFlyer = new GameObject("BlobFlyer");
 		blobFlyer.transform.parent = hostRoom.transform;

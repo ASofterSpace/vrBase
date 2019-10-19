@@ -18,6 +18,8 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private BreathingApparatusCtrl breathingApparatusCtrl;
 
+	private DioramaCtrl dioramaCtrl;
+
 
 	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -131,14 +133,17 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		createTank("waterTank", 7, -6);
 		createTank("heliumTank", 8, -5);
 
-		nostalgicConsoleCtrl = new NostalgicConsoleCtrl(mainCtrl, thisRoom);
-		nostalgicConsoleCtrl.createNostalgicConsole(new Vector3(-2, 0, 3), new Vector3(0, -36, 0));
+		nostalgicConsoleCtrl = new NostalgicConsoleCtrl(
+			mainCtrl, thisRoom, new Vector3(-2, 0, 3), new Vector3(0, -36, 0));
 
-		blobFlyerCtrl = new BlobFlyerCtrl(mainCtrl, thisRoom);
-		blobFlyerCtrl.createBlobFlyer(new Vector3(0, 0, -4), new Vector3(0, 0, 0));
+		blobFlyerCtrl = new BlobFlyerCtrl(
+			mainCtrl, thisRoom, new Vector3(0, 0, -4), new Vector3(0, 0, 0));
 
-		breathingApparatusCtrl = new BreathingApparatusCtrl(mainCtrl, thisRoom);
-		breathingApparatusCtrl.createQuickTester(new Vector3(3, 0, 2), new Vector3(0, 45, 0));
+		breathingApparatusCtrl = new BreathingApparatusCtrl(
+			mainCtrl, thisRoom, new Vector3(3, 0, 2), new Vector3(0, 45, 0));
+
+		dioramaCtrl = new DioramaCtrl(
+			mainCtrl, thisRoom, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
 	}
 
 }

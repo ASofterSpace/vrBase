@@ -17,14 +17,16 @@ public class NostalgicConsoleCtrl {
 	private GameObject hostRoom;
 
 
-	public NostalgicConsoleCtrl(MainCtrl mainCtrl, GameObject hostRoom) {
+	public NostalgicConsoleCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
 		this.mainCtrl = mainCtrl;
 
 		this.hostRoom = hostRoom;
+
+		createNostalgicConsole(position, angles);
 	}
 
-	public void createNostalgicConsole(Vector3 position, Vector3 angles) {
+	private void createNostalgicConsole(Vector3 position, Vector3 angles) {
 
 		GameObject nostalgicConsole = new GameObject("Nostalgic Console");
 		nostalgicConsole.transform.parent = hostRoom.transform;
