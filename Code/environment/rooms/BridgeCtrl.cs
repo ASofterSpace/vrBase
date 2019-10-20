@@ -13,15 +13,15 @@ public class BridgeCtrl : GenericRoomCtrl {
 
 	private float bridgeLength;
 
-	private bool createPoster;
+	private bool doCreatePoster;
 
 
-	public BridgeCtrl(MainCtrl mainCtrl, GameObject thisRoom, float bridgeLength, bool createPoster) :
+	public BridgeCtrl(MainCtrl mainCtrl, GameObject thisRoom, float bridgeLength, bool doCreatePoster) :
 		base(mainCtrl, thisRoom) {
 
 		this.bridgeLength = bridgeLength;
 
-		this.createPoster = createPoster;
+		this.doCreatePoster = doCreatePoster;
 
 		createRoom();
 	}
@@ -125,7 +125,7 @@ public class BridgeCtrl : GenericRoomCtrl {
 
 	private void createObjects() {
 
-		if (createPoster) {
+		if (doCreatePoster) {
 			GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_VR);
 			poster.name = "VR Poster";
 			poster.transform.localPosition = new Vector3(-0.749f, 1.4f, 0.3f);

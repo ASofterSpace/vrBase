@@ -30,9 +30,6 @@ public class NostalgicConsoleCtrl {
 
 	private void createNostalgicConsole(Vector3 position, Vector3 angles) {
 
-		GameObject curObj;
-		Button curBtn;
-
 		GameObject nostalgicConsole = new GameObject("Nostalgic Console");
 		nostalgicConsole.transform.parent = hostRoom.transform;
 

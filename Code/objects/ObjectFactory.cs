@@ -288,4 +288,102 @@ public class ObjectFactory {
 		objs[5].transform.localEulerAngles = new Vector3(0, 90, 0);
 	}
 
+	/**
+	 * Create a cone with as many sides as you want (16 is useful if you want it to fit snugly
+	 * on a cylinder), and optionally with or without a bottom, and with or without the interior
+	 * also rendering
+	 * Btw., the resulting size of the gameobject will correspond exactly to the side of a
+	 * cylinder with the same measure
+	 */
+	public static GameObject createCone(int sides, bool hasBottom, bool renderInterior) {
+
+		GameObject cone = new GameObject("Cone");
+
+		// create the mesh
+		cone.AddComponent<MeshFilter>();
+		cone.AddComponent<MeshRenderer>();
+		Mesh mesh = cone.GetComponent<MeshFilter>().mesh;
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		// (we want to have 16 sides, needing 16 base points plus one top point)
+		Vector3[] vertices = new Vector3[sides + 1];
+
+		// base vertices
+		for (int i = 0; i < sides; i++) {
+			vertices[i] = new Vector3(Mathf.Sin(2 * Mathf.PI * i / sides) / 2, -1, Mathf.Cos(2 * Mathf.PI * i / sides) / 2);
+		}
+
+		// top vertex
+		vertices[sides] = new Vector3(0, 1, 0);
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles;
+		int renderInteriorMultiplier = 1;
+		if (renderInterior) {
+			renderInteriorMultiplier = 2;
+		}
+
+		if (hasBottom) {
+			// if we have a bottom, we need sides - 2 triangles at the bottom additionally
+			triangles = new int[renderInteriorMultiplier * (sides*3 + (sides - 1)*3)];
+		} else {
+			triangles = new int[renderInteriorMultiplier * (sides*3)];
+		}
+
+		int offset = 0;
+
+		for (int i = 0; i < sides; i++) {
+			triangles[(i*3)  ] = i;
+			if (i == sides-1) {
+				triangles[(i*3)+1] = 0;
+			} else {
+				triangles[(i*3)+1] = i+1;
+			}
+			triangles[(i*3)+2] = sides;
+		}
+		offset += sides * 3;
+
+		if (hasBottom) {
+			for (int i = 0; i < sides - 2; i++) {
+				triangles[offset+(i*3)  ] = i;
+				triangles[offset+(i*3)+1] = sides-1;
+				triangles[offset+(i*3)+2] = i+1;
+			}
+			offset += (sides - 1) * 3;
+		}
+
+		if (renderInterior) {
+			for (int i = 0; i < sides; i++) {
+				triangles[offset+(i*3)  ] = i;
+				if (i == sides-1) {
+					triangles[offset+(i*3)+2] = 0;
+				} else {
+					triangles[offset+(i*3)+2] = i+1;
+				}
+				triangles[offset+(i*3)+1] = sides;
+			}
+			offset += sides * 3;
+
+			if (hasBottom) {
+				for (int i = 0; i < sides - 2; i++) {
+					triangles[offset+(i*3)  ] = i;
+					triangles[offset+(i*3)+2] = sides-1;
+					triangles[offset+(i*3)+1] = i+1;
+				}
+				offset += (sides - 1) * 3;
+			}
+		}
+
+		mesh.triangles = triangles;
+
+		// assign our resulting results
+		mesh.RecalculateNormals();
+		mesh.RecalculateBounds();
+
+		return cone;
+	}
+
 }

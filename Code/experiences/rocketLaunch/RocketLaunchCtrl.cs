@@ -84,6 +84,30 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(6, 8, 6);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 
+		curObj = ObjectFactory.createCone(16, false, false);
+		curObj.name = "Rocket White Cone";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, 36.4f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(6, 3, 6);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Rocket Red Cone Base";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, 36.35f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(4, 1, 4);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_RED);
+
+		curObj = ObjectFactory.createCone(16, false, false);
+		curObj.name = "Rocket Red Cone";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, 39.36f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(4, 2, 4);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_RED);
+
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Strut";
 		curObj.transform.parent = rocket.transform;
@@ -110,12 +134,12 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_ROCKETLAUNCH_YELLOW);
 		ObjectFactory.pointOctuplize(curObj);
 
-		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj = ObjectFactory.createCone(16, false, true);
 		curObj.name = "Engine";
 		curObj.transform.parent = rocket.transform;
-		curObj.transform.localPosition = new Vector3(1.1f, -15.95f, 1.1f);
+		curObj.transform.localPosition = new Vector3(1.1f, -14.88f, 1.1f);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
-		curObj.transform.localScale = new Vector3(2, 0.95f, 2);
+		curObj.transform.localScale = new Vector3(2, 2, 2);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_BLACK);
 		ObjectFactory.pointQuadruplize(curObj);
 

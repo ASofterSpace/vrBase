@@ -217,7 +217,6 @@ public abstract class GenericRoomCtrl {
 		meshWall.AddComponent<MeshFilter>();
 		meshWall.AddComponent<MeshRenderer>();
 		Mesh mesh = meshWall.GetComponent<MeshFilter>().mesh;
-		MaterialCtrl.setMaterial(meshWall, MaterialCtrl.PLASTIC_WHITE);
 		mesh.Clear();
 
 		// create vertices that are available to create the mesh
@@ -269,6 +268,9 @@ public abstract class GenericRoomCtrl {
 
 		// assign our resulting results
 		mesh.RecalculateNormals();
+		mesh.RecalculateBounds();
+
+		MaterialCtrl.setMaterial(meshWall, MaterialCtrl.PLASTIC_WHITE);
 	}
 
 	protected virtual int getAdditionalWallVertexAmount() {
