@@ -9,7 +9,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class PinballCollisionScript {
+public class PinballCollisionScript : MonoBehaviour, UpdateableCtrl {
 
 	private FlipperQnDCtrl flipperCtrl;
 
@@ -36,7 +36,9 @@ public class PinballCollisionScript {
 	private AudioSource pinballAudioSource;
 
 
-	public PinballCollisionScript(GameObject pinball, FlipperQnDCtrl flipperCtrl) {
+	public void init(MainCtrl mainCtrl, GameObject pinball, FlipperQnDCtrl flipperCtrl) {
+
+		mainCtrl.addUpdateableCtrl(this);
 
 		this.flipperCtrl = flipperCtrl;
 
@@ -60,7 +62,7 @@ public class PinballCollisionScript {
 		this.thump_metal_5 = SoundCtrl.getSound(SoundCtrl.THUMP_METAL_5);
 	}
 
-	public void update(VrInput input) {
+	void UpdateableCtrl.update(VrInput input) {
 
 		if (speedUpNextFrame) {
 			speedUpNextFrame = false;

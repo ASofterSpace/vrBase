@@ -36,8 +36,6 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 	private GameObject ballsDigit1;
 	private GameObject ballsDigit10;
 
-	private PinballCollisionScript pinballCollisionScript;
-
 	private bool gameRunning = false;
 
 	private bool pullingTrigger = false;
@@ -89,8 +87,6 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 	}
 
 	void UpdateableCtrl.update(VrInput input) {
-
-		pinballCollisionScript.update(input);
 
 		if (pullingTrigger) {
 			setTriggerTo(curTriggerSpeed());
@@ -165,7 +161,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 			accumulatedDiff += (lastPositions[i] - lastPositions[i+1]).magnitude;
 		}
 
-		// if we have no really moved anywhere lately...
+		// if we have not really moved anywhere lately...
 		if (accumulatedDiff < 0.01f) {
 
 			// ... and we are not in the starting position...
@@ -191,14 +187,15 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 
 	private void initGame() {
 
-		// create scripts
-		pinballCollisionScript = new PinballCollisionScript(pinball, this);
-
 		// init audio
 		pinball.AddComponent<AudioSource>();
 		triggerAudioSource = trigger.AddComponent<AudioSource>();
 		flipperLeftAudioSource = flipperLeft.AddComponent<AudioSource>();
 		flipperRightAudioSource = flipperRight.AddComponent<AudioSource>();
+
+		// create scripts
+		PinballCollisionScript pinballCollisionScript = pinball.AddComponent<PinballCollisionScript>();
+		pinballCollisionScript.init(mainCtrl, pinball, this);
 
 		// move flippers to rest position
 		unflipLeft();
@@ -361,19 +358,16 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		shellRight.transform.localPosition = new Vector3(-0.4f, 0.9659259f, -0.258819f);
 		shellRight.transform.localEulerAngles = new Vector3(0, 90, 0);
 		shellRight.transform.localScale = new Vector3(1.3f, 0.15f, 0.008f);
+
+		// shroom targets
 		GameObject targetTopLeft = createShroomTarget(top);
 		targetTopLeft.transform.localPosition = new Vector3(0.16f, 0.9909258f, -0.5188189f);
 		GameObject targetTopRight = createShroomTarget(top);
 		targetTopRight.transform.localPosition = new Vector3(-0.16f, 0.9909258f, -0.5188189f);
 		GameObject targetTopMiddle = createShroomTarget(top);
 		targetTopMiddle.transform.localPosition = new Vector3(0, 0.9909257f, -0.583819f);
-		GameObject targetRotatorBar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-		targetRotatorBar.name = "targetRotatorBar";
-		targetRotatorBar.transform.parent = top.transform;
-		targetRotatorBar.transform.localPosition = new Vector3(0.3f, 1.044f, -0.205f);
-		targetRotatorBar.transform.localEulerAngles = new Vector3(90, -25, 0);
-		targetRotatorBar.transform.localScale = new Vector3(0.01f, 0.07f, 0.01f);
-		MaterialCtrl.setMaterial(targetRotatorBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
+
+		// rotator target
 		GameObject targetRotator = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		targetRotator.name = "targetRotator";
 		targetRotator.transform.parent = top.transform;
@@ -381,6 +375,39 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		targetRotator.transform.localEulerAngles = new Vector3(0, 64, 0);
 		targetRotator.transform.localScale = new Vector3(0.05f, 0.05f, 0.01f);
 		MaterialCtrl.setMaterial(targetRotator, MaterialCtrl.OBJECTS_VRCADE_TARGET_WHITE);
+		Rigidbody rb = targetRotator.AddComponent<Rigidbody>();
+		rb.mass = 0.01f;
+		rb.drag = 0;
+		rb.angularDrag = 0;
+		rb.useGravity = true;
+		rb.constraints = RigidbodyConstraints.None;
+
+		GameObject targetRotatorBar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		targetRotatorBar.name = "targetRotatorBar";
+		targetRotatorBar.transform.parent = top.transform;
+		targetRotatorBar.transform.localPosition = new Vector3(0.3f, 1.044f, -0.205f);
+		targetRotatorBar.transform.localEulerAngles = new Vector3(90, -25, 0);
+		targetRotatorBar.transform.localScale = new Vector3(0.01f, 0.07f, 0.01f);
+		MaterialCtrl.setMaterial(targetRotatorBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
+		rb = targetRotatorBar.AddComponent<Rigidbody>();
+		rb.mass = 1000;
+		rb.drag = 0;
+		rb.angularDrag = 0.05f;
+		rb.useGravity = false;
+		rb.constraints = RigidbodyConstraints.FreezeAll;
+		HingeJoint hingeJoint = targetRotatorBar.AddComponent<HingeJoint>();
+		hingeJoint.connectedBody = targetRotator.GetComponent<Rigidbody>();
+		hingeJoint.anchor = new Vector3(0, 0, 0);
+		hingeJoint.axis = new Vector3(0, 1, 0);
+		hingeJoint.autoConfigureConnectedAnchor = false;
+		hingeJoint.connectedAnchor = new Vector3(0, 0.5f, 0);
+		hingeJoint.breakForce = Mathf.Infinity;
+		hingeJoint.breakTorque = Mathf.Infinity;
+		hingeJoint.enableCollision = false;
+		hingeJoint.enablePreprocessing = true;
+		hingeJoint.massScale = 1;
+		hingeJoint.connectedMassScale = 1;
+
 		GameObject curLog;
 		curLog = createLog(top);
 		curLog.name = "barrierStart";
@@ -469,7 +496,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		pinball.transform.localEulerAngles = new Vector3(0, 0, 0);
 		pinball.transform.localScale = new Vector3(0.035f, 0.035f, 0.035f);
 		MaterialCtrl.setMaterial(pinball, MaterialCtrl.OBJECTS_VRCADE_PINBALL_SILVER);
-		Rigidbody rb = pinball.AddComponent<Rigidbody>();
+		rb = pinball.AddComponent<Rigidbody>();
 		rb.mass = 1;
 		rb.drag = 0;
 		rb.angularDrag = 0;
@@ -601,11 +628,6 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		HingeJoint hingeJoint = barrier.AddComponent<HingeJoint>();
 		hingeJoint.anchor = new Vector3(0, 0, 0.5f);
 		hingeJoint.autoConfigureConnectedAnchor = false;
-		if (leftBarrier) {
-			hingeJoint.connectedAnchor = new Vector3(0.55f, 0, 0);
-		} else {
-			hingeJoint.connectedAnchor = new Vector3(-0.55f, 0, 0);
-		}
 		var motor = hingeJoint.motor;
 		motor.targetVelocity = 2000;
 		motor.force = 10000;
@@ -626,7 +648,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		hingeJoint.massScale = 1;
 		hingeJoint.connectedMassScale = 1;
 
-		if (name.EndsWith("Left")) {
+		if (leftBarrier) {
 			barrier.transform.localPosition = new Vector3(0.28f, 1.000926f, 0.196181f);
 			barrier.transform.localEulerAngles = new Vector3(0, -65, 0);
 			barrier.transform.localScale = new Vector3(0.01266507f, 0.075f, 0.2500482f);
