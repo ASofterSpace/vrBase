@@ -572,7 +572,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 
 		// we hide the labels (and the caller will probably show a new one),
 		// so let's show a hologram flash for a second!
-		hideHologramFlashAt = Time.time + 0.5f;
+		hideHologramFlashAt = Time.time + 0.3f;
 		hologramFlash.SetActive(true);
 	}
 

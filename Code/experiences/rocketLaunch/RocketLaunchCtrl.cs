@@ -84,9 +84,9 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Rocket Body";
 		curObj.transform.parent = rocket.transform;
-		curObj.transform.localPosition = new Vector3(0, 0, 0);
+		curObj.transform.localPosition = new Vector3(0, 1, 0);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
-		curObj.transform.localScale = new Vector3(6, 15, 6);
+		curObj.transform.localScale = new Vector3(6, 14, 6);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -96,6 +96,13 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj.transform.localScale = new Vector3(6, 8, 6);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
+
+		curObj = ObjectFactory.createCone(16, false, true, MaterialCtrl.PLASTIC_BLACK);
+		curObj.name = "Upper Engine";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, 17.41f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(2, 2, 2);
 
 		curObj = ObjectFactory.createCone(16, false, false, MaterialCtrl.PLASTIC_WHITE);
 		curObj.name = "Rocket White Cone";
@@ -145,18 +152,42 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_ROCKETLAUNCH_YELLOW);
 		ObjectFactory.pointOctuplize(curObj);
 
-		curObj = ObjectFactory.createCone(16, false, true, MaterialCtrl.PLASTIC_BLACK);
-		curObj.name = "Engine";
+		curObj = ObjectFactory.createCone(16, true, false, MaterialCtrl.PLASTIC_WHITE);
+		curObj.name = "Wing";
 		curObj.transform.parent = rocket.transform;
-		curObj.transform.localPosition = new Vector3(1.1f, -14.88f, 1.1f);
+		curObj.transform.localPosition = new Vector3(0, -4.61f, 0);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
-		curObj.transform.localScale = new Vector3(2, 2, 2);
+		curObj.transform.localScale = new Vector3(1, 8, 16);
+		ObjectFactory.pointDuplize90(curObj);
+
+		curObj = ObjectFactory.createCone(16, false, true, MaterialCtrl.PLASTIC_WHITE);
+		curObj.name = "Side Engine";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, -11, -3.31f);
+		curObj.transform.localEulerAngles = new Vector3(13, 0, 0);
+		curObj.transform.localScale = new Vector3(3, 3, 3);
+		ObjectFactory.pointQuadruplize(curObj);
+
+		curObj = ObjectFactory.createCone(16, false, true, MaterialCtrl.PLASTIC_WHITE);
+		curObj.name = "Main Engine";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(1.74f, -12.8f, 1.74f);
+		curObj.transform.localEulerAngles = new Vector3(5, 180, -5);
+		curObj.transform.localScale = new Vector3(4, 4, 4);
+		ObjectFactory.pointQuadruplize(curObj);
+
+		curObj = ObjectFactory.createCone(16, false, false, MaterialCtrl.PLASTIC_RED);
+		curObj.name = "Main Engine Stripe";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(1.87f, -14.3f, 1.87f);
+		curObj.transform.localEulerAngles = new Vector3(5, 180, -5);
+		curObj.transform.localScale = new Vector3(4.1f, 2.5f, 4.1f);
 		ObjectFactory.pointQuadruplize(curObj);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		curObj.name = "A Softer Space Logo";
 		curObj.transform.parent = rocket.transform;
-		curObj.transform.localPosition = new Vector3(0, 0, -3);
+		curObj.transform.localPosition = new Vector3(0, 5.5f, -3);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 90);
 		curObj.transform.localScale = new Vector3(6.4f, 1.6f, 1);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_LOGOS_ASOFTERSPACE);

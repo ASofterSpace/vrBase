@@ -21,6 +21,70 @@ public class ObjectFactory {
 	 * WELL LUCKY YOU! I take one object, and make it into four! :D
 	 *
 	 * so this:    turns into:
+	 *
+	 *      /              /
+	 *   O              O
+	 *
+	 *                   \
+	 */
+	public static GameObject[] pointDuplize90(GameObject first) {
+
+		GameObject[] objs = new GameObject[1];
+
+		for (int i = 0; i < objs.Length; i++) {
+			objs[i] = Object.Instantiate(first, first.transform.parent);
+			objs[i].name = first.name + (i+2);
+		}
+
+		float x = first.transform.localPosition.x;
+		float z = first.transform.localPosition.z;
+		float y = first.transform.localPosition.y;
+		Quaternion rot = first.transform.localRotation;
+
+		objs[0].transform.localPosition = new Vector3(z, y, -x);
+		objs[0].transform.localRotation = Quaternion.Euler(Vector3.up * 90) * rot;
+
+		return objs;
+	}
+
+	/**
+	 * You have created the first object, and realize that you want three more just like that,
+	 * arranged in a point-symmetrical(!) shape in the X-Z-axis around their parent?
+	 * WELL LUCKY YOU! I take one object, and make it into four! :D
+	 *
+	 * so this:    turns into:
+	 *
+	 *      /              /
+	 *   O              O
+	 *               /
+	 *
+	 */
+	public static GameObject[] pointDuplize180(GameObject first) {
+
+		GameObject[] objs = new GameObject[1];
+
+		for (int i = 0; i < objs.Length; i++) {
+			objs[i] = Object.Instantiate(first, first.transform.parent);
+			objs[i].name = first.name + (i+2);
+		}
+
+		float x = first.transform.localPosition.x;
+		float z = first.transform.localPosition.z;
+		float y = first.transform.localPosition.y;
+		Quaternion rot = first.transform.localRotation;
+
+		objs[0].transform.localPosition = new Vector3(-x, y, -z);
+		objs[0].transform.localRotation = Quaternion.Euler(Vector3.up * 180) * rot;
+
+		return objs;
+	}
+
+	/**
+	 * You have created the first object, and realize that you want three more just like that,
+	 * arranged in a point-symmetrical(!) shape in the X-Z-axis around their parent?
+	 * WELL LUCKY YOU! I take one object, and make it into four! :D
+	 *
+	 * so this:    turns into:
 	 *                 \
 	 *      /              /
 	 *   O              O
@@ -33,6 +97,7 @@ public class ObjectFactory {
 
 		for (int i = 0; i < objs.Length; i++) {
 			objs[i] = Object.Instantiate(first, first.transform.parent);
+			objs[i].name = first.name + (i+2);
 		}
 
 		float x = first.transform.localPosition.x;
@@ -69,6 +134,7 @@ public class ObjectFactory {
 
 		for (int i = 0; i < objs.Length; i++) {
 			objs[i] = Object.Instantiate(first, first.transform.parent);
+			objs[i].name = first.name + (i+2);
 		}
 
 		float x = first.transform.localPosition.x;
@@ -110,6 +176,7 @@ public class ObjectFactory {
 
 		for (int i = 0; i < objs.Length; i++) {
 			objs[i] = Object.Instantiate(first, first.transform.parent);
+			objs[i].name = first.name + (i+2);
 		}
 
 		Quaternion rot = first.transform.localRotation;
