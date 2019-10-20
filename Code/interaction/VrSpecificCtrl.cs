@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using System.Collections;
-using System;
 
 using UnityEngine.XR;
 using UnityEngine;
@@ -30,6 +29,8 @@ public class VrSpecificCtrl {
 
 	private GameObject leftController;
 	private GameObject rightController;
+	private ControllerBehaviour leftBehaviour;
+	private ControllerBehaviour rightBehaviour;
 
 	public const int VIVE = 0;
 	public const int VIVE_COSMOS = 1;
@@ -59,14 +60,40 @@ public class VrSpecificCtrl {
 		// we create the controller objects but we do NOT have them visible at first, as we
 		// do not want to show them at the wrong place - only show them somewhere when we
 		// get an update telling us where they are :)
-		leftController = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		leftController.name = "Left Controller";
-		leftController.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-		leftController.transform.localPosition = new Vector3(0, -1000, 0);
-		rightController = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		rightController.name = "Right Controller";
-		rightController.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-		rightController.transform.localPosition = new Vector3(0, -1000, 0);
+		leftController = constructController("Left Controller", VrInput.LEFT);
+		leftController.transform.localPosition = new Vector3(10, -1000, 0);
+
+		rightController = constructController("Right Controller", VrInput.RIGHT);
+		rightController.transform.localPosition = new Vector3(0, -1000, 10);
+	}
+
+	private GameObject constructController(string name, int leftOrRight) {
+
+		GameObject controller = new GameObject(name);
+
+		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		curObj.transform.parent = controller.transform;
+		curObj.name = "Controller Main Part";
+		curObj.transform.localScale = new Vector3(0.06f, 0.06f, 0.12f);
+		curObj.GetComponent<Collider>().isTrigger = true;
+
+		if (leftOrRight == VrInput.LEFT) {
+			leftBehaviour = curObj.AddComponent<ControllerBehaviour>();
+			leftBehaviour.init(controller);
+		} else {
+			rightBehaviour = curObj.AddComponent<ControllerBehaviour>();
+			rightBehaviour.init(controller);
+		}
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		curObj.transform.parent = controller.transform;
+		curObj.name = "Controller Holder Part";
+		curObj.transform.localPosition = new Vector3(0, -0.03f, -0.03f);
+		curObj.transform.localEulerAngles = new Vector3(-55, 0, 0);
+		curObj.transform.localScale = new Vector3(0.04f, 0.04f, 0.08f);
+		Object.Destroy(curObj.GetComponent<Collider>());
+
+		return controller;
 	}
 
 	/**
@@ -99,6 +126,7 @@ public class VrSpecificCtrl {
 			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.leftPosition);
 			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.leftRotation);
 			leftController.transform.position = result.leftPosition;
+			leftController.transform.rotation = result.leftRotation;
 			adjustRoomForPlausibility(result.leftPosition);
 		}
 		foreach (InputDevice inputDevice in rightInputDevices) {
@@ -107,8 +135,12 @@ public class VrSpecificCtrl {
 			inputDevice.TryGetFeatureValue(CommonUsages.devicePosition, out result.rightPosition);
 			inputDevice.TryGetFeatureValue(CommonUsages.deviceRotation, out result.rightRotation);
 			rightController.transform.position = result.rightPosition;
+			rightController.transform.rotation = result.rightRotation;
 			adjustRoomForPlausibility(result.rightPosition);
 		}
+
+		result.leftLastHoveredObject = leftBehaviour.getLastHoveredObject();
+		result.rightLastHoveredObject = rightBehaviour.getLastHoveredObject();
 
 		/* test code /
 		result.leftTrigger = 1.0f;

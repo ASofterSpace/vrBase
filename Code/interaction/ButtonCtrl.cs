@@ -14,6 +14,8 @@ using UnityEngine;
  */
 public class ButtonCtrl {
 
+	public const string BUTTON_IDENTIFIER = "btn-";
+
 	private static int nextBtn = 0;
 
 	private static Dictionary<string, Button> buttons;
@@ -28,7 +30,7 @@ public class ButtonCtrl {
 
 		nextBtn++;
 
-		button.setName("btn-" + nextBtn);
+		button.setName(BUTTON_IDENTIFIER + nextBtn);
 
 		buttons.Add(button.getName(), button);
 	}

@@ -143,7 +143,7 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		);
 
 		blobFlyerCtrl = new BlobFlyerCtrl(
-			mainCtrl, thisRoom, new Vector3(-4, 0, 1), new Vector3(0, 100, 0));
+			mainCtrl, thisRoom, new Vector3(-3.2f, 0, 1), new Vector3(0, 100, 0));
 
 		GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_FLIPPERQND);
 		poster.name = "FlipperQnD Poster";

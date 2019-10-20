@@ -9,7 +9,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class FarAwayCtrl {
+public class FarAwayCtrl : UpdateableCtrl {
 
 	private MainCtrl mainCtrl;
 	private GameObject skybox;
@@ -22,6 +22,8 @@ public class FarAwayCtrl {
 		this.mainCtrl = mainCtrl;
 		this.skybox = mainCtrl.getSkybox();
 
+		mainCtrl.addUpdateableCtrl(this);
+
 		createMoon();
 
 		createEarth();
@@ -31,7 +33,7 @@ public class FarAwayCtrl {
 		createStars();
 	}
 
-	public void update(VrInput input) {
+	void UpdateableCtrl.update(VrInput input) {
 
 		// let the Earth rise, but slowly, unnoticeably! :)
 		// (up to 500+3600/5=1220 after one hour...)

@@ -10,9 +10,9 @@ using UnityEngine;
 
 
 /**
- * This corresponds to a single button
+ * This corresponds to a single object that the user can take with their controller
  */
-public class Button {
+public class TakeableObject {
 
 	protected GameObject gameObject;
 
@@ -21,17 +21,19 @@ public class Button {
 	protected bool enabled;
 
 
-	public Button(GameObject obj) {
+	public TakeableObject(GameObject obj) {
 
 		this.gameObject = obj;
 
 		this.defaultMaterial = obj.GetComponent<Renderer>().material;
 
 		this.enabled = true;
+
+		obj.AddComponent<Rigidbody>();
 	}
 
 	/**
-	 * Some controller is hovering over this button...
+	 * Some controller is hovering close to this object...
 	 */
 	public virtual void hover() {
 		if (enabled) {
@@ -48,9 +50,16 @@ public class Button {
 	}
 
 	/**
-	 * This button is being pressed - whoop whoop!
+	 * This object is being taken - whoop whoop!
 	 */
-	public virtual void trigger() {
+	public virtual void take() {
+		// actually do something!
+	}
+
+	/**
+	 * This object is being dropped again - whoopsie!
+	 */
+	public virtual void drop() {
 		// actually do something!
 	}
 
@@ -63,14 +72,14 @@ public class Button {
 	}
 
 	/**
-	 * Register clicks and light up on hover again!
+	 * Register being taken and light up on hover again!
 	 */
 	public virtual void enable() {
 		enabled = true;
 	}
 
 	/**
-	 * Do not register clicks and do not light up on hover anymore!
+	 * Do not register being taken and do not light up on hover anymore!
 	 */
 	public virtual void disable() {
 		enabled = false;

@@ -56,6 +56,7 @@ public class MainCtrl : MonoBehaviour {
 		// static helpers
 		MaterialCtrl.init();
 		SoundCtrl.init(mainCamera);
+		ObjectCtrl.init();
 		ButtonCtrl.init();
 
 		// faraway things / skybox
@@ -100,8 +101,6 @@ public class MainCtrl : MonoBehaviour {
 		VrInput input = vrSpecificCtrl.update();
 
 		triggerCtrl.update(input);
-
-		farAwayCtrl.update(input);
 
 		foreach (UpdateableCtrl ctrl in updateableCtrls) {
 			ctrl.update(input);

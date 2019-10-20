@@ -36,11 +36,13 @@ public class BowlingAlleyCtrl {
 		MaterialCtrl.setMaterial(bowlingFloor, MaterialCtrl.BUILDING_FLOOR_WOOD);
 
 		GameObject bowlingBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		bowlingBall.name = "redBowlingBall";
 		bowlingBall.transform.parent = bowlingAlley.transform;
 		bowlingBall.transform.localPosition = new Vector3(0, 0.1f, -2.8f);
 		bowlingBall.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 		MaterialCtrl.setMaterial(bowlingBall, MaterialCtrl.OBJECTS_BOWLING_BALL_RED);
+
+		ThrowableObject curThrowable = new ThrowableObject(bowlingBall);
+		ObjectCtrl.add(curThrowable);
 
 		GameObject[] pins = new GameObject[10];
 		for (int i = 0; i < pins.Length; i++) {

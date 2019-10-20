@@ -19,6 +19,9 @@ using UnityEngine;
  */
 public class VrInput {
 
+	public const int LEFT = 0;
+	public const int RIGHT = 1;
+
 	public Vector3 camPosition;
 	public Quaternion camRotation;
 
@@ -45,6 +48,10 @@ public class VrInput {
 	public bool leftGripReleased = false;
 	public bool rightGripReleased = false;
 	public bool someGripReleased = false;
+
+	public TakeableObject leftLastHoveredObject;
+	public TakeableObject rightLastHoveredObject;
+	public TakeableObject[] lastHoveredObject;
 
 	public Vector3 leftPosition;
 	public Vector3 rightPosition;
@@ -109,5 +116,47 @@ public class VrInput {
 		if (previous.someGripPressed && !someGripPressed) {
 			someGripReleased = true;
 		}
+	}
+
+	public TakeableObject getLastHoveredObject(int leftOrRight) {
+		if (leftOrRight == LEFT) {
+			return leftLastHoveredObject;
+		}
+		return rightLastHoveredObject;
+	}
+
+	public bool getTriggerClicked(int leftOrRight) {
+		if (leftOrRight == LEFT) {
+			return leftTriggerClicked;
+		}
+		return rightTriggerClicked;
+	}
+
+	public bool getTriggerPressed(int leftOrRight) {
+		if (leftOrRight == LEFT) {
+			return leftTriggerPressed;
+		}
+		return rightTriggerPressed;
+	}
+
+	public bool getTriggerReleased(int leftOrRight) {
+		if (leftOrRight == LEFT) {
+			return leftTriggerReleased;
+		}
+		return rightTriggerReleased;
+	}
+
+	public Vector3 getPosition(int leftOrRight) {
+		if (leftOrRight == LEFT) {
+			return leftPosition;
+		}
+		return rightPosition;
+	}
+
+	public Quaternion getRotation(int leftOrRight) {
+		if (leftOrRight == LEFT) {
+			return leftRotation;
+		}
+		return rightRotation;
 	}
 }
