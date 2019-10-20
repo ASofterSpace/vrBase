@@ -40,6 +40,24 @@ public class DioramaCtrl : UpdateableCtrl {
 			// I heard you like diorama's... so let's put a diorama inside your diorama! :D
 			GameObject innerDioramaHolder = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ControlRoom/Diorama/Diorama Holder");
 			GameObject innerDioramaSurface = Object.Instantiate(dioramaSurface, innerDioramaHolder.transform, false);
+
+			// destroy everything we don't need in the copy
+			Joint[] joints = dioramaSurface.GetComponentsInChildren<Joint>();
+			foreach (Joint joint in joints) {
+				Object.Destroy(joint);
+			}
+			Rigidbody[] rigidbodies = dioramaSurface.GetComponentsInChildren<Rigidbody>();
+			foreach (Rigidbody rb in rigidbodies) {
+				Object.Destroy(rb);
+			}
+			AudioSource[] audiosources = dioramaSurface.GetComponentsInChildren<AudioSource>();
+			foreach (AudioSource audioSource in audiosources) {
+				Object.Destroy(audioSource);
+			}
+			Collider[] colliders = dioramaSurface.GetComponentsInChildren<Collider>();
+			foreach (Collider collider in colliders) {
+				Object.Destroy(collider);
+			}
 		}
 
 		diorama.transform.localEulerAngles = new Vector3(0, Time.time * 1.5f, 0);

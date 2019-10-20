@@ -816,7 +816,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 			// automaton, we rotate the velocity along the rotation of the flipper machine ^^
 			newVelocity = flipperMachine.transform.rotation * newVelocity;
 
-			// ... aaaand assign the result, now licely localized
+			// ... aaaand assign the result, now nicely localized
 			// (tested for flipper machine rotation 180° and -90°)
 			pinball.GetComponent<Rigidbody>().velocity = newVelocity;
 
