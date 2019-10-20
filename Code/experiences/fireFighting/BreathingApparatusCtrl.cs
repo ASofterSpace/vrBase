@@ -401,12 +401,26 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		btnParts[0] = curObj;
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_GREEN);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Checkmark Button Frame";
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.09f, 0.8325f, -0.2818001f);
+		curObj.transform.localPosition = new Vector3(-0.131f, 0.8084f, -0.2976f);
+		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
+		curObj.transform.localScale = new Vector3(0.005f, 0.035f, 0.075f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(-0.09f, 0.8325f, -0.2818f);
 		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
 		curObj.transform.localScale = new Vector3(0.02f, 0.11f, 0.02f);
 		btnParts[1] = curObj;
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_GREEN);
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Checkmark Button Frame";
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(-0.09f, 0.8278f, -0.2773f);
+		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
+		curObj.transform.localScale = new Vector3(0.005f, 0.125f, 0.035f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 		Button curBtn = new DefaultMultiButton(
 			btnParts,
 			() => {
@@ -423,18 +437,32 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		GameObject[] crossBtnParts = new GameObject[2];
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818001f);
+		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818f);
 		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
 		curObj.transform.localScale = new Vector3(0.02f, 0.02f, 0.11f);
 		crossBtnParts[0] = curObj;
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_RED);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Cross Button Frame";
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818001f);
+		curObj.transform.localPosition = new Vector3(0.095f, 0.8298f, -0.279f);
+		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
+		curObj.transform.localScale = new Vector3(0.005f, 0.035f, 0.125f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818f);
 		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
 		curObj.transform.localScale = new Vector3(0.02f, 0.11f, 0.02f);
 		crossBtnParts[1] = curObj;
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_RED);
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Cross Button Frame";
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0.095f, 0.8298f, -0.279f);
+		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
+		curObj.transform.localScale = new Vector3(0.005f, 0.125f, 0.035f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 		curBtn = new DefaultMultiButton(
 			crossBtnParts,
 			() => {
