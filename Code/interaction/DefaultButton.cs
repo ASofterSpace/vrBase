@@ -27,7 +27,9 @@ public class DefaultButton : Button {
 	 * This button is being pressed - whoop whoop!
 	 */
 	public override void trigger() {
-		onTriggerFunction();
+		if (enabled) {
+			onTriggerFunction();
+		}
 	}
 
 }

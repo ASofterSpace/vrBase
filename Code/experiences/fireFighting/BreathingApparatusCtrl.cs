@@ -39,6 +39,9 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 	private GameObject labelWrongReady;
 	private GameObject labelWrongNotReady;
 
+	private Button checkmarkButton;
+	private Button crossButton;
+
 	private float oscillateBetweenStart;
 	private bool oscillateBetweenStates;
 	private int oscillateTarget;
@@ -77,6 +80,9 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 			if (Time.time - oscillateBetweenStart > 4.5f) {
 				oscillateBetweenStates = false;
 				setRandomState();
+
+				checkmarkButton.enable();
+				crossButton.enable();
 			}
 		}
 
@@ -462,7 +468,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
 		curObj.transform.localScale = new Vector3(0.005f, 0.125f, 0.035f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
-		Button curBtn = new DefaultMultiButton(
+		checkmarkButton = new DefaultMultiButton(
 			btnParts,
 			() => {
 				hideAllLabels();
@@ -471,12 +477,10 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 				} else {
 					labelWrongNotReady.SetActive(true);
 				}
-				oscillateTarget = state;
-				oscillateBetweenStart = Time.time;
-				oscillateBetweenStates = true;
+				startOscillating();
 			}
 		);
-		ButtonCtrl.add(curBtn);
+		ButtonCtrl.add(checkmarkButton);
 
 		GameObject[] crossBtnParts = new GameObject[2];
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -507,7 +511,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
 		curObj.transform.localScale = new Vector3(0.005f, 0.125f, 0.035f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
-		curBtn = new DefaultMultiButton(
+		crossButton = new DefaultMultiButton(
 			crossBtnParts,
 			() => {
 				hideAllLabels();
@@ -516,12 +520,10 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 				} else {
 					labelWrongReady.SetActive(true);
 				}
-				oscillateTarget = state;
-				oscillateBetweenStart = Time.time;
-				oscillateBetweenStates = true;
+				startOscillating();
 			}
 		);
-		ButtonCtrl.add(curBtn);
+		ButtonCtrl.add(crossButton);
 
 		// add label-hologram-making-device
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -561,6 +563,16 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(curObj, material);
 
 		return curObj;
+	}
+
+	private void startOscillating() {
+
+		oscillateTarget = state;
+		oscillateBetweenStart = Time.time;
+		oscillateBetweenStates = true;
+
+		checkmarkButton.disable();
+		crossButton.disable();
 	}
 
 	private void hideAllLabels() {

@@ -18,6 +18,8 @@ public class Button {
 
 	protected Material defaultMaterial;
 
+	protected bool enabled;
+
 
 	public Button(GameObject obj) {
 
@@ -30,7 +32,9 @@ public class Button {
 	 * Some controller is hovering over this button...
 	 */
 	public virtual void hover() {
-		MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
+		if (enabled) {
+			MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
+		}
 	}
 
 	/**
@@ -54,6 +58,21 @@ public class Button {
 
 	public virtual string getName() {
 		return gameObject.name;
+	}
+
+	/**
+	 * Register clicks and light up on hover again!
+	 */
+	public virtual void enable() {
+		enabled = true;
+	}
+
+	/**
+	 * Do not register clicks and do not light up on hover anymore!
+	 */
+	public virtual void disable() {
+		enabled = false;
+		blur();
 	}
 
 }

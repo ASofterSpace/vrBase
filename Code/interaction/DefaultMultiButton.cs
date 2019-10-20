@@ -30,8 +30,10 @@ public class DefaultMultiButton : Button {
 
 	public override void hover() {
 
-		foreach (GameObject gameObject in gameObjects) {
-			MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
+		if (enabled) {
+			foreach (GameObject gameObject in gameObjects) {
+				MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
+			}
 		}
 	}
 
@@ -43,7 +45,10 @@ public class DefaultMultiButton : Button {
 	}
 
 	public override void trigger() {
-		onTriggerFunction();
+
+		if (enabled) {
+			onTriggerFunction();
+		}
 	}
 
 	public override void setName(string newName) {
@@ -52,4 +57,12 @@ public class DefaultMultiButton : Button {
 		}
 	}
 
+	// ensure that we call our blur function, not just the blur of the base class :)
+	// (no idea if this is truly necessary - at some point we could check if this blur
+	// is also called from the base disable, in which case the disable here could be
+	// removed...)
+	public override void disable() {
+		enabled = false;
+		blur();
+	}
 }
