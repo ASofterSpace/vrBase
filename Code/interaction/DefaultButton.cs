@@ -18,7 +18,7 @@ public class DefaultButton : Button {
 	protected Action onTriggerFunction;
 
 
-	public DefaultButton(GameObject obj, string buttonName, Action onTriggerFunction) : base(obj, buttonName) {
+	public DefaultButton(GameObject obj, Action onTriggerFunction) : base(obj) {
 
 		this.onTriggerFunction = onTriggerFunction;
 	}

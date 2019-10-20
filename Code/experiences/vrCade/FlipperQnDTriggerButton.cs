@@ -14,7 +14,7 @@ public class FlipperQnDTriggerButton : Button {
 	private FlipperQnDCtrl ctrl;
 
 
-	public FlipperQnDTriggerButton(GameObject obj, string buttonName, FlipperQnDCtrl ctrl) : base(obj, buttonName) {
+	public FlipperQnDTriggerButton(GameObject obj, FlipperQnDCtrl ctrl) : base(obj) {
 
 		this.ctrl = ctrl;
 	}

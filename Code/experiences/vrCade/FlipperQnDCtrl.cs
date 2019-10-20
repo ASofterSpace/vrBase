@@ -241,7 +241,6 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(startButton, MaterialCtrl.PLASTIC_PURPLE);
 		Button btnStart = new DefaultButton(
 			startButton,
-			ButtonCtrl.BTN_FLIPPERQND_START,
 			() => {
 				startGame();
 			}
@@ -455,7 +454,6 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(trigger, MaterialCtrl.OBJECTS_VRCADE_TRIGGER_SILVER);
 		btnTrigger = new FlipperQnDTriggerButton(
 			trigger,
-			ButtonCtrl.BTN_FLIPPERQND_TRIGGER,
 			this
 		);
 		ButtonCtrl.add(btnTrigger);

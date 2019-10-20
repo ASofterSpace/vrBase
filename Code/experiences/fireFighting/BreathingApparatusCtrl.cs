@@ -409,7 +409,6 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_GREEN);
 		Button curBtn = new DefaultMultiButton(
 			btnParts,
-			ButtonCtrl.BTN_FIREFIGHTING_BA_CHECK,
 			() => {
 				if (state == 0) {
 					// SUCCESS!
@@ -438,7 +437,6 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_RED);
 		curBtn = new DefaultMultiButton(
 			crossBtnParts,
-			ButtonCtrl.BTN_FIREFIGHTING_BA_CROSS,
 			() => {
 				if (state != 0) {
 					// SUCCESS!

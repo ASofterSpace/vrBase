@@ -155,7 +155,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 			mainCtrl, thisRoom, new Vector3(0, 0, -3), new Vector3(0, 0, 0));
 
 		rocketLaunchCtrl = new RocketLaunchCtrl(
-			mainCtrl, thisRoom, new Vector3(-12.5f, 0, 5), new Vector3(0, 0, 0));
+			mainCtrl, thisRoom, nostalgicConsoleCtrl, new Vector3(-12.5f, 0, 5), new Vector3(0, 0, 0));
 	}
 
 }

@@ -24,7 +24,7 @@ public class TicTacToeButton : Button {
 	private GameObject[] oParts;
 
 
-	public TicTacToeButton(GameObject obj, string buttonName, TicTacToeCtrl ctrl) : base(obj, buttonName) {
+	public TicTacToeButton(GameObject obj, TicTacToeCtrl ctrl) : base(obj) {
 
 		this.ctrl = ctrl;
 

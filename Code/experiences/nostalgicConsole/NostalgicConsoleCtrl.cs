@@ -16,6 +16,8 @@ public class NostalgicConsoleCtrl {
 
 	private GameObject hostRoom;
 
+	private RocketLaunchCtrl rocketLaunchCtrl;
+
 
 	public NostalgicConsoleCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
@@ -27,6 +29,9 @@ public class NostalgicConsoleCtrl {
 	}
 
 	private void createNostalgicConsole(Vector3 position, Vector3 angles) {
+
+		GameObject curObj;
+		Button curBtn;
 
 		GameObject nostalgicConsole = new GameObject("Nostalgic Console");
 		nostalgicConsole.transform.parent = hostRoom.transform;
@@ -121,10 +126,13 @@ public class NostalgicConsoleCtrl {
 		buttonRedAlert.transform.localEulerAngles = new Vector3(-15, 0, 0);
 		buttonRedAlert.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
 		MaterialCtrl.setMaterial(buttonRedAlert, MaterialCtrl.PLASTIC_RED);
-		Button btnRedAlert = new ColorizeButton(
+		Button btnRedAlert = new DefaultButton(
 			buttonRedAlert,
-			ButtonCtrl.BTN_NOSTALGICCONSOLE_BIG_RED,
-			new Color(1.0f, 0.0f, 0.0f, 1.0f)
+			() => {
+				if (rocketLaunchCtrl != null) {
+					rocketLaunchCtrl.startCountdown();
+				}
+			}
 		);
 		ButtonCtrl.add(btnRedAlert);
 
@@ -135,26 +143,11 @@ public class NostalgicConsoleCtrl {
 		buttonRedAlertFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
 		MaterialCtrl.setMaterial(buttonRedAlertFrame, MaterialCtrl.PLASTIC_WHITE);
 
-		// create white button
-		GameObject buttonColorizeWhite = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-		buttonColorizeWhite.transform.parent = buttons.transform;
-		buttonColorizeWhite.transform.localPosition = new Vector3(0.6f, 1.05f, 0);
-		buttonColorizeWhite.transform.localEulerAngles = new Vector3(-15, 0, 0);
-		buttonColorizeWhite.transform.localScale = new Vector3(0.08f, 0.03f, 0.08f);
-		MaterialCtrl.setMaterial(buttonColorizeWhite, MaterialCtrl.PLASTIC_WHITE);
-		Button btnWhite = new ColorizeButton(
-			buttonColorizeWhite,
-			ButtonCtrl.BTN_NOSTALGICCONSOLE_BIG_WHITE,
-			new Color(1.0f, 1.0f, 1.0f, 1.0f)
-		);
-		ButtonCtrl.add(btnWhite);
-
-		GameObject buttonColorizeWhiteFrame = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-		buttonColorizeWhiteFrame.transform.parent = buttons.transform;
-		buttonColorizeWhiteFrame.transform.localPosition = new Vector3(0.6f, 1.03f, 0.006f);
-		buttonColorizeWhiteFrame.transform.localEulerAngles = new Vector3(-15, 0, 0);
-		buttonColorizeWhiteFrame.transform.localScale = new Vector3(0.1f, 0.005f, 0.1f);
-		MaterialCtrl.setMaterial(buttonColorizeWhiteFrame, MaterialCtrl.PLASTIC_WHITE);
+		// create color buttons
+		createMidColorButton(buttons, -0.2779f, new Color(1.0f, 1.0f, 1.0f, 1.0f));
+		createMidColorButton(buttons, -0.1779f, new Color(1.0f, 0.0f, 0.0f, 1.0f));
+		createMidColorButton(buttons, -0.0779f, new Color(0.6f, 0.0f, 0.7f, 1.0f));
+		createMidColorButton(buttons,  0.0221f, new Color(0.0f, 0.0f, 0.0f, 1.0f));
 
 		// create up arrow button
 		GameObject buttonUpArrowLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -178,7 +171,6 @@ public class NostalgicConsoleCtrl {
 		GameObject[] objs = new GameObject[] {buttonUpArrowLeft, buttonUpArrowRight, buttonUpNeck};
 		Button btnUp = new DefaultMultiButton(
 			objs,
-			ButtonCtrl.BTN_NOSTALGICCONSOLE_UP,
 			() => {
 				VrSpecificCtrl vrSpecificCtrl = mainCtrl.getVrSpecificCtrl();
 				if (vrSpecificCtrl != null) {
@@ -229,7 +221,6 @@ public class NostalgicConsoleCtrl {
 		objs = new GameObject[] {buttonDownArrowLeft, buttonDownArrowRight, buttonDownNeck};
 		Button btnDown = new DefaultMultiButton(
 			objs,
-			ButtonCtrl.BTN_NOSTALGICCONSOLE_DOWN,
 			() => {
 				VrSpecificCtrl vrSpecificCtrl = mainCtrl.getVrSpecificCtrl();
 				if (vrSpecificCtrl != null) {
@@ -260,6 +251,25 @@ public class NostalgicConsoleCtrl {
 
 		nostalgicConsole.transform.localPosition = position;
 		nostalgicConsole.transform.localEulerAngles = angles;
+	}
+
+	private void createMidColorButton(GameObject parent, float x, Color color) {
+
+		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = parent.transform;
+		curObj.transform.localPosition = new Vector3(x, 1.0433f, -0.02540011f);
+		curObj.transform.localEulerAngles = new Vector3(-15, 0, 0);
+		curObj.transform.localScale = new Vector3(0.08f, 0.03f, 0.04f);
+		MaterialCtrl.setColor(curObj, color);
+		ButtonCtrl.add(new ColorizeButton(curObj, color));
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Button Frame";
+		curObj.transform.parent = parent.transform;
+		curObj.transform.localPosition = new Vector3(x, 1.0235f, -0.0201f);
+		curObj.transform.localEulerAngles = new Vector3(-15, 0, 0);
+		curObj.transform.localScale = new Vector3(0.1f, 0.005f, 0.06f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 	}
 
 	private GameObject createNostalgicConsoleWallSide(GameObject wallParent, string wallSideName) {
@@ -306,6 +316,10 @@ public class NostalgicConsoleCtrl {
 		wallPanel.transform.parent = wallParent.transform;
 		MaterialCtrl.setMaterial(wallPanel, MaterialCtrl.OBJECTS_NOSTALGICCONSOLE_GREEN);
 		return wallPanel;
+	}
+
+	public void setRocketLaunchCtrl(RocketLaunchCtrl rocketLaunchCtrl) {
+		this.rocketLaunchCtrl = rocketLaunchCtrl;
 	}
 
 }

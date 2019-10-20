@@ -82,7 +82,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 				fields[x][y].transform.localScale = new Vector3(0.55f, 0.025f, 0.55f);
 				buttons[x][y] = new TicTacToeButton(
 					fields[x][y],
-					ButtonCtrl.BTN_TICTACTOE_FIELD + x + "-" + y,
 					this
 				);
 				ButtonCtrl.add(buttons[x][y]);
@@ -179,7 +178,6 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(restartConsoleBtn, MaterialCtrl.PLASTIC_RED);
 		Button btnRestart = new TicTacToeButtonRestart(
 			restartConsoleBtn,
-			ButtonCtrl.BTN_TICTACTOE_RESTART,
 			this
 		);
 		ButtonCtrl.add(btnRestart);

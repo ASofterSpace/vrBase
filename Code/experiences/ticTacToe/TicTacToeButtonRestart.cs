@@ -17,7 +17,7 @@ public class TicTacToeButtonRestart : Button {
 	private TicTacToeCtrl ctrl;
 
 
-	public TicTacToeButtonRestart(GameObject obj, string buttonName, TicTacToeCtrl ctrl) : base(obj, buttonName) {
+	public TicTacToeButtonRestart(GameObject obj, TicTacToeCtrl ctrl) : base(obj) {
 
 		this.ctrl = ctrl;
 	}

@@ -19,9 +19,7 @@ public class Button {
 	protected Material defaultMaterial;
 
 
-	public Button(GameObject obj, string buttonName) {
-
-		obj.name = buttonName;
+	public Button(GameObject obj) {
 
 		this.gameObject = obj;
 
@@ -50,7 +48,11 @@ public class Button {
 		// actually do something!
 	}
 
-	public string getName() {
+	public virtual void setName(string newName) {
+		gameObject.name = newName;
+	}
+
+	public virtual string getName() {
 		return gameObject.name;
 	}
 

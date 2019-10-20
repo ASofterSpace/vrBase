@@ -20,12 +20,8 @@ public class DefaultMultiButton : Button {
 	protected Action onTriggerFunction;
 
 
-	public DefaultMultiButton(GameObject[] objs, string buttonName, Action onTriggerFunction) :
-		base(objs[0], buttonName) {
-
-		foreach (GameObject obj in objs) {
-			obj.name = buttonName;
-		}
+	public DefaultMultiButton(GameObject[] objs, Action onTriggerFunction) :
+		base(objs[0]) {
 
 		this.gameObjects = objs;
 
@@ -48,6 +44,12 @@ public class DefaultMultiButton : Button {
 
 	public override void trigger() {
 		onTriggerFunction();
+	}
+
+	public override void setName(string newName) {
+		foreach (GameObject gameObject in gameObjects) {
+			gameObject.name = newName;
+		}
 	}
 
 }

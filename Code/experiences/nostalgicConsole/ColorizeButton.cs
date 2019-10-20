@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -16,7 +17,7 @@ public class ColorizeButton : Button {
 	private Color targetColor;
 
 
-	public ColorizeButton(GameObject obj, string buttonName, Color targetColor) : base(obj, buttonName) {
+	public ColorizeButton(GameObject obj, Color targetColor) : base(obj) {
 
 		this.targetColor = targetColor;
 	}

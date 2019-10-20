@@ -267,8 +267,22 @@ public class MaterialCtrl {
 		obj.GetComponent<Renderer>().material = getMaterial(materialNum);
 	}
 
+	/**
+	 * Set the color of a material, immediately changing the appearance of all
+	 * game objects that use this material
+	 */
 	public static void setColor(int materialNum, Color newColor) {
 		Material material = getMaterial(materialNum);
 		material.color = newColor;
+	}
+
+	/**
+	 * Set the color of a game object - and only of that one - by creating a
+	 * new material
+	 */
+	public static void setColor(GameObject obj, Color newColor) {
+		Material material = new Material(standard);
+		material.color = newColor;
+		obj.GetComponent<Renderer>().material = material;
 	}
 }

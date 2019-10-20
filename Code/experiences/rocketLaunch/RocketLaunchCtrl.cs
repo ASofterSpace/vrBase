@@ -10,16 +10,33 @@ using System;
 using UnityEngine;
 
 
-public class RocketLaunchCtrl {
+public class RocketLaunchCtrl : UpdateableCtrl {
 
 	private GameObject hostRoom;
+	private GameObject rocket;
+
+	private bool startingRocket;
+	private float startTime;
 
 
-	public RocketLaunchCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
+	public RocketLaunchCtrl(MainCtrl mainCtrl, GameObject hostRoom,
+		NostalgicConsoleCtrl nostalgicConsoleCtrl, Vector3 position, Vector3 angles) {
 
 		this.hostRoom = hostRoom;
 
+		nostalgicConsoleCtrl.setRocketLaunchCtrl(this);
+
+		mainCtrl.addUpdateableCtrl(this);
+
 		createRocket(position, angles);
+	}
+
+	void UpdateableCtrl.update(VrInput input) {
+		if (startingRocket) {
+			rocket.transform.localPosition = new Vector3(0, 17 + Time.time - startTime, 0);
+		} else {
+			startCountdown(); // DEBUG
+		}
 	}
 
 	private void createRocket(Vector3 position, Vector3 angles) {
@@ -39,7 +56,7 @@ public class RocketLaunchCtrl {
 		curObj.transform.localScale = new Vector3(13, 0.05f, 13);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_ROCKETLAUNCH_LAUNCHPAD);
 
-		GameObject rocket = new GameObject("Rocket");
+		rocket = new GameObject("Rocket");
 		rocket.transform.parent = rocketLauncher.transform;
 		rocket.transform.localPosition = new Vector3(0, 17, 0);
 		rocket.transform.localEulerAngles = new Vector3(0, -45, 0);
@@ -102,5 +119,13 @@ public class RocketLaunchCtrl {
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 90);
 		curObj.transform.localScale = new Vector3(6.4f, 1.6f, 1);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_LOGOS_ASOFTERSPACE);
+	}
+
+	public void startCountdown() {
+		// TODO :: actually call a countdown from 10 to lift-off
+
+		startTime = Time.time;
+
+		startingRocket = true;
 	}
 }
