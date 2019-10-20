@@ -593,8 +593,6 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 
 		state = Random.Range(0, 6);
 
-		makeEverythingAlright();
-
 		hideAllLabels();
 		labelQuestion.SetActive(true);
 
@@ -602,6 +600,8 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 	}
 
 	private void renderState() {
+
+		makeEverythingAlright();
 
 		switch (state) {
 			case 1:

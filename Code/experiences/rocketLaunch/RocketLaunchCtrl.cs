@@ -164,7 +164,7 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 
 	public void startCountdown() {
 
-		if (!rocketGone) {
+		if (!rocketGone && !startingRocket) {
 			// TODO :: actually call a countdown from 10 to lift-off
 
 			startTime = Time.time;
