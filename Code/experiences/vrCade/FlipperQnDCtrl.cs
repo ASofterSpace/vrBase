@@ -300,12 +300,12 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		scoreHolderTop.transform.localScale = new Vector3(0.11f, 0.3f, 1);
 		GameObject ballHolderBottom = createDigitHolder(shellBottomPanel);
 		ballHolderBottom.name = "ballHolderBottom";
-		ballHolderBottom.transform.localPosition = new Vector3(0.325f, 0.25f, -0.6f);
+		ballHolderBottom.transform.localPosition = new Vector3(0.315f, 0.25f, -0.6f);
 		ballHolderBottom.transform.localEulerAngles = new Vector3(45, 0, 0);
 		ballHolderBottom.transform.localScale = new Vector3(0.06f, 0.3f, 1);
 		GameObject ballHolderTop = createDigitHolder(shellBottomPanel);
 		ballHolderTop.name = "ballHolderTop";
-		ballHolderTop.transform.localPosition = new Vector3(0.325f, -0.22f, -0.6f);
+		ballHolderTop.transform.localPosition = new Vector3(0.315f, -0.22f, -0.6f);
 		ballHolderTop.transform.localEulerAngles = new Vector3(-135, 180, 0);
 		ballHolderTop.transform.localScale = new Vector3(0.06f, 0.3f, 1);
 
@@ -409,6 +409,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		flipperLeftBar.transform.localPosition = new Vector3(0.166f, 1.005f, 0.25f);
 		flipperLeftBar.transform.localEulerAngles = new Vector3(0, -25, 0);
 		flipperLeftBar.transform.localScale = new Vector3(0.01f, 0.035f, 0.01f);
+		flipperLeftBar.GetComponent<Collider>().enabled = false;
 		MaterialCtrl.setMaterial(flipperLeftBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
 		GameObject flipperRightBar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		flipperRightBar.name = "flipperRightBar";
@@ -416,9 +417,10 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		flipperRightBar.transform.localPosition = new Vector3(-0.0845f, 1.005f, 0.25f);
 		flipperRightBar.transform.localEulerAngles = new Vector3(0, -25, 0);
 		flipperRightBar.transform.localScale = new Vector3(0.01f, 0.035f, 0.01f);
+		flipperRightBar.GetComponent<Collider>().enabled = false;
 		MaterialCtrl.setMaterial(flipperRightBar, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
-		barrierLeft = createBarrier(top, "barrierBottomLeft");
-		barrierRight = createBarrier(top, "barrierBottomRight");
+		barrierLeft = createBarrier(top, "barrierBottomLeft", true);
+		barrierRight = createBarrier(top, "barrierBottomRight", false);
 		curLog = createLog(top);
 		curLog.name = "barrierMiddleLeftTT";
 		curLog.transform.localPosition = new Vector3(0.34f, 1.000926f, -0.38f);
@@ -576,7 +578,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		return flipper;
 	}
 
-	private GameObject createBarrier(GameObject parent, string name) {
+	private GameObject createBarrier(GameObject parent, string name, bool leftBarrier) {
 
 		GameObject barrier = createLog(parent);
 		barrier.name = name;
@@ -591,6 +593,12 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 
 		HingeJoint hingeJoint = barrier.AddComponent<HingeJoint>();
 		hingeJoint.anchor = new Vector3(0, 0, 0.5f);
+		hingeJoint.autoConfigureConnectedAnchor = false;
+		if (leftBarrier) {
+			hingeJoint.connectedAnchor = new Vector3(0.55f, 0, 0);
+		} else {
+			hingeJoint.connectedAnchor = new Vector3(-0.55f, 0, 0);
+		}
 		var motor = hingeJoint.motor;
 		motor.targetVelocity = 2000;
 		motor.force = 10000;
