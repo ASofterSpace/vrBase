@@ -74,7 +74,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 			}
 			renderState();
 
-			if (Time.time - oscillateBetweenStart > 5) {
+			if (Time.time - oscillateBetweenStart > 4.5f) {
 				oscillateBetweenStates = false;
 				setRandomState();
 			}
@@ -572,7 +572,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 
 		// we hide the labels (and the caller will probably show a new one),
 		// so let's show a hologram flash for a second!
-		hideHologramFlashAt = Time.time + 0.3f;
+		hideHologramFlashAt = Time.time + 0.2f;
 		hologramFlash.SetActive(true);
 	}
 
