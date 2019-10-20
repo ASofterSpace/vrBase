@@ -146,7 +146,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		createTank("heliumTank", 8, 4.2f);
 
 		nostalgicConsoleCtrl = new NostalgicConsoleCtrl(
-			mainCtrl, thisRoom, new Vector3(-2, 0, 3), new Vector3(0, -36, 0));
+			mainCtrl, thisRoom, new Vector3(-2.57f, 0, 2.73f), new Vector3(0, -50, 0));
 
 		breathingApparatusCtrl = new BreathingApparatusCtrl(
 			mainCtrl, thisRoom, new Vector3(3, 0, 2), new Vector3(0, 45, 0));
@@ -155,7 +155,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 			mainCtrl, thisRoom, new Vector3(0, 0, -3), new Vector3(0, 0, 0));
 
 		rocketLaunchCtrl = new RocketLaunchCtrl(
-			mainCtrl, thisRoom, nostalgicConsoleCtrl, new Vector3(-12.5f, 0, 5), new Vector3(0, 0, 0));
+			mainCtrl, thisRoom, nostalgicConsoleCtrl, new Vector3(-3, 0, 13.6f), new Vector3(0, 170, 0));
 	}
 
 }

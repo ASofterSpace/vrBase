@@ -35,7 +35,7 @@ public class FarAwayCtrl {
 
 		// let the Earth rise, but slowly, unnoticeably! :)
 		// (up to 500+3600/5=1220 after one hour...)
-		earth.transform.localPosition = new Vector3(3000, 500 + (Time.time / 5), 0);
+		earth.transform.localPosition = new Vector3(-3000, 500 + (Time.time / 5), 0);
 	}
 
 	private void createMoon() {
@@ -88,8 +88,8 @@ public class FarAwayCtrl {
 		earth = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		earth.name = "Earth";
 		earth.transform.parent = skybox.transform;
-		earth.transform.localPosition = new Vector3(3000, 500, 0);
-		earth.transform.localEulerAngles = new Vector3(180, -90, 180);
+		earth.transform.localPosition = new Vector3(-3000, 500, 0);
+		earth.transform.localEulerAngles = new Vector3(180, 90, 180);
 		earth.transform.localScale = new Vector3(800, 800, 1);
 		MaterialCtrl.setMaterial(earth, MaterialCtrl.SPACE_EARTH);
 	}

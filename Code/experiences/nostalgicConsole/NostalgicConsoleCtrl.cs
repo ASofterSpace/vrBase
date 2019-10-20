@@ -145,9 +145,13 @@ public class NostalgicConsoleCtrl {
 
 		// create color buttons
 		createMidColorButton(buttons, -0.2779f, new Color(1.0f, 1.0f, 1.0f, 1.0f));
-		createMidColorButton(buttons, -0.1779f, new Color(1.0f, 0.0f, 0.0f, 1.0f));
-		createMidColorButton(buttons, -0.0779f, new Color(0.6f, 0.0f, 0.7f, 1.0f));
-		createMidColorButton(buttons,  0.0221f, new Color(0.0f, 0.0f, 0.0f, 1.0f));
+		createMidColorButton(buttons, -0.1679f, new Color(1.0f, 0.0f, 0.0f, 1.0f));
+		createMidColorButton(buttons, -0.0579f, new Color(0.6f, 0.0f, 0.7f, 1.0f));
+		createMidColorButton(buttons,  0.0521f, new Color(0.0f, 0.0f, 0.0f, 1.0f));
+		createLowColorButton(buttons, -0.2779f, new Color(0.1f, 0.6f, 0.3f, 1.0f));
+		createLowColorButton(buttons, -0.1679f, new Color(0.0f, 0.2f, 0.9f, 1.0f));
+		createLowColorButton(buttons, -0.0579f, new Color(0.5f, 0.5f, 0.5f, 1.0f));
+		createLowColorButton(buttons,  0.0521f, new Color(0.6f, 0.4f, 0.1f, 1.0f));
 
 		// create up arrow button
 		GameObject buttonUpArrowLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -257,7 +261,7 @@ public class NostalgicConsoleCtrl {
 
 		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.transform.parent = parent.transform;
-		curObj.transform.localPosition = new Vector3(x, 1.0433f, -0.02540011f);
+		curObj.transform.localPosition = new Vector3(x, 1.0433f, -0.0254f);
 		curObj.transform.localEulerAngles = new Vector3(-15, 0, 0);
 		curObj.transform.localScale = new Vector3(0.08f, 0.03f, 0.04f);
 		MaterialCtrl.setColor(curObj, color);
@@ -267,6 +271,25 @@ public class NostalgicConsoleCtrl {
 		curObj.name = "Button Frame";
 		curObj.transform.parent = parent.transform;
 		curObj.transform.localPosition = new Vector3(x, 1.0235f, -0.0201f);
+		curObj.transform.localEulerAngles = new Vector3(-15, 0, 0);
+		curObj.transform.localScale = new Vector3(0.1f, 0.005f, 0.06f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
+	}
+
+	private void createLowColorButton(GameObject parent, float x, Color color) {
+
+		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = parent.transform;
+		curObj.transform.localPosition = new Vector3(x, 1.02f, -0.111f);
+		curObj.transform.localEulerAngles = new Vector3(-15, 0, 0);
+		curObj.transform.localScale = new Vector3(0.08f, 0.03f, 0.04f);
+		MaterialCtrl.setColor(curObj, color);
+		ButtonCtrl.add(new ColorizeButton(curObj, color));
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Button Frame";
+		curObj.transform.parent = parent.transform;
+		curObj.transform.localPosition = new Vector3(x, 1.0002f, -0.1057f);
 		curObj.transform.localEulerAngles = new Vector3(-15, 0, 0);
 		curObj.transform.localScale = new Vector3(0.1f, 0.005f, 0.06f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);

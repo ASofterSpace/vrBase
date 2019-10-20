@@ -66,7 +66,7 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		rocket = new GameObject("Rocket");
 		rocket.transform.parent = rocketLauncher.transform;
 		rocket.transform.localPosition = new Vector3(0, 17, 0);
-		rocket.transform.localEulerAngles = new Vector3(0, -45, 0);
+		rocket.transform.localEulerAngles = new Vector3(0, 180, 0);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Rocket Body";

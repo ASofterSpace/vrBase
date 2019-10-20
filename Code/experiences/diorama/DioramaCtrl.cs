@@ -63,6 +63,23 @@ public class DioramaCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Diorama Pedestol Holder";
+		curObj.transform.parent = diorama.transform;
+		curObj.transform.localPosition = new Vector3(-0.29f, 0.772f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 45);
+		curObj.transform.localScale = new Vector3(0.025f, 0.3f, 0.05f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+		ObjectFactory.pointQuadruplize(curObj);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Diorama Pedestol Holder Base";
+		curObj.transform.parent = diorama.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.596f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, -1.283f, 0);
+		curObj.transform.localScale = new Vector3(0.25f, 0.05f, 0.25f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Diorama Pedestol Top";
 		curObj.transform.parent = diorama.transform;
 		curObj.transform.localPosition = new Vector3(0, 0.98f, 0);
