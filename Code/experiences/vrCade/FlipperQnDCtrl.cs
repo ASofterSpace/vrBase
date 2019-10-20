@@ -476,6 +476,13 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		rb.useGravity = true;
 		// set freeze position and freeze rotation to false for all coordinates
 		rb.constraints = RigidbodyConstraints.None;
+		PhysicMaterial pinballPhysicsMat = new PhysicMaterial();
+		pinballPhysicsMat.dynamicFriction = 0.2f;
+		pinballPhysicsMat.staticFriction = 0;
+		pinballPhysicsMat.bounciness = 0.5f;
+		pinballPhysicsMat.frictionCombine = PhysicMaterialCombine.Minimum;
+		pinballPhysicsMat.bounceCombine = PhysicMaterialCombine.Average;
+		pinball.GetComponent<Collider>().material = pinballPhysicsMat;
 
 		GameObject legs = new GameObject("legs");
 		legs.transform.parent = flipperMachine.transform;
