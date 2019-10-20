@@ -16,6 +16,7 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 	private GameObject rocket;
 
 	private bool startingRocket;
+	private bool rocketGone;
 	private float startTime;
 
 
@@ -28,14 +29,20 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 
 		mainCtrl.addUpdateableCtrl(this);
 
+		rocketGone = false;
+
 		createRocket(position, angles);
 	}
 
 	void UpdateableCtrl.update(VrInput input) {
 		if (startingRocket) {
-			rocket.transform.localPosition = new Vector3(0, 17 + Time.time - startTime, 0);
-		} else {
-			startCountdown(); // DEBUG
+			float t = (Time.time - startTime);
+			rocket.transform.localPosition = new Vector3(0, 17 + (t * t), 0);
+			if (t * t > 3000) {
+				rocket.SetActive(false);
+				rocketGone = true;
+				startingRocket = false;
+			}
 		}
 	}
 
@@ -122,10 +129,13 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 	}
 
 	public void startCountdown() {
-		// TODO :: actually call a countdown from 10 to lift-off
 
-		startTime = Time.time;
+		if (!rocketGone) {
+			// TODO :: actually call a countdown from 10 to lift-off
 
-		startingRocket = true;
+			startTime = Time.time;
+
+			startingRocket = true;
+		}
 	}
 }
