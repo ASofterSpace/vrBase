@@ -17,10 +17,13 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 
 	private GameObject apparatus;
 	private GameObject console;
+	private GameObject hologramFlash;
 	private GameObject oxygenBottle;
 	private GameObject backHolder;
+
 	private GameObject oxygenBottleHolderStrapClosed;
 	private GameObject oxygenBottleHolderStrapClosedWraparound;
+
 	private GameObject oxygenBottleHolderStrapOpenedPart1;
 	private GameObject oxygenBottleHolderStrapOpenedPart2;
 	private GameObject oxygenBottleHolderStrapOpenedPart3;
@@ -30,6 +33,17 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 	private GameObject oxygenBottleHolderStrapOpenedPart7;
 	private GameObject oxygenBottleHolderStrapOpenedPart8;
 
+	private GameObject labelQuestion;
+	private GameObject labelCorrectReady;
+	private GameObject labelCorrectNotReady;
+	private GameObject labelWrongReady;
+	private GameObject labelWrongNotReady;
+
+	private float oscillateBetweenStart;
+	private bool oscillateBetweenStates;
+	private int oscillateTarget;
+	private float hideHologramFlashAt = 0;
+
 
 	public BreathingApparatusCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
@@ -37,11 +51,34 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 
 		mainCtrl.addUpdateableCtrl(this);
 
+		oscillateBetweenStates = false;
+
 		createQuickTester(position, angles);
+
+		setRandomState();
 	}
 
 	void UpdateableCtrl.update(VrInput input) {
+
 		apparatus.transform.localEulerAngles = new Vector3(20, Time.time * 2, 0);
+
+		if (oscillateBetweenStates) {
+			if (Mathf.RoundToInt(Time.time) % 2 == 0) {
+				state = 0;
+			} else {
+				state = oscillateTarget;
+			}
+			renderState();
+
+			if (Time.time - oscillateBetweenStart > 5) {
+				oscillateBetweenStates = false;
+				setRandomState();
+			}
+		}
+
+		if (hideHologramFlashAt < Time.time) {
+			hologramFlash.SetActive(false);
+		}
 	}
 
 	private void createQuickTester(Vector3 position, Vector3 angles) {
@@ -424,12 +461,15 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		Button curBtn = new DefaultMultiButton(
 			btnParts,
 			() => {
+				hideAllLabels();
 				if (state == 0) {
-					// SUCCESS!
+					labelCorrectReady.SetActive(false);
 				} else {
-					// FAILURE...
+					labelWrongNotReady.SetActive(false);
 				}
-				setRandomState();
+				oscillateTarget = state;
+				oscillateBetweenStart = Time.time;
+				oscillateBetweenStates = true;
 			}
 		);
 		ButtonCtrl.add(curBtn);
@@ -466,17 +506,71 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curBtn = new DefaultMultiButton(
 			crossBtnParts,
 			() => {
+				hideAllLabels();
 				if (state != 0) {
-					// SUCCESS!
+					labelCorrectNotReady.SetActive(false);
 				} else {
-					// FAILURE...
+					labelWrongReady.SetActive(false);
 				}
-				setRandomState();
+				oscillateTarget = state;
+				oscillateBetweenStart = Time.time;
+				oscillateBetweenStates = true;
 			}
 		);
 		ButtonCtrl.add(curBtn);
 
-		makeEverythingAlright();
+		// add label-hologram-making-device
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		curObj.name = "Label Hologram Maker";
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.895f, -0.186f);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = ObjectFactory.createCone(24, false, false, MaterialCtrl.PLASTIC_BLUE);
+		hologramFlash = curObj;
+		curObj.name = "Label Hologram Flash";
+		curObj.transform.parent = console.transform;
+		curObj.transform.localPosition = new Vector3(0, 1.007f, -0.085f);
+		curObj.transform.localEulerAngles = new Vector3(-130, 0, 0);
+		curObj.transform.localScale = new Vector3(0.8f, 0.15f, 0.5f);
+		hologramFlash.SetActive(false);
+
+		// add labels
+		labelQuestion = createLabel(MaterialCtrl.OBJECTS_FIREFIGHTING_LABEL_QUESTION);
+		labelCorrectReady = createLabel(MaterialCtrl.OBJECTS_FIREFIGHTING_LABEL_CORRECT_READY);
+		labelCorrectNotReady = createLabel(MaterialCtrl.OBJECTS_FIREFIGHTING_LABEL_CORRECT_NOT_READY);
+		labelWrongReady = createLabel(MaterialCtrl.OBJECTS_FIREFIGHTING_LABEL_WRONG_READY);
+		labelWrongNotReady = createLabel(MaterialCtrl.OBJECTS_FIREFIGHTING_LABEL_WRONG_NOT_READY);
+	}
+
+	private GameObject createLabel(int material) {
+
+		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+
+		curObj.transform.parent = console.transform;
+
+		curObj.transform.localPosition = new Vector3(0, 1.126f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.8f, 0.35f, 0);
+
+		MaterialCtrl.setMaterial(curObj, material);
+
+		return curObj;
+	}
+
+	private void hideAllLabels() {
+		labelQuestion.SetActive(false);
+		labelCorrectReady.SetActive(false);
+		labelCorrectNotReady.SetActive(false);
+		labelWrongReady.SetActive(false);
+		labelWrongNotReady.SetActive(false);
+
+		// we hide the labels (and the caller will probably show a new one),
+		// so let's show a hologram flash for a second!
+		hideHologramFlashAt = Time.time + 0.5f;
+		hologramFlash.SetActive(true);
 	}
 
 	private void makeEverythingAlright() {
@@ -497,6 +591,14 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		state = Random.Range(0, 6);
 
 		makeEverythingAlright();
+
+		hideAllLabels();
+		labelQuestion.SetActive(true);
+
+		renderState();
+	}
+
+	private void renderState() {
 
 		switch (state) {
 			case 1:

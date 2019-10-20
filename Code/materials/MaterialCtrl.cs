@@ -29,6 +29,11 @@ public class MaterialCtrl {
 	public const int OBJECTS_BLOBFLYER_BLACK = 19;
 	public const int OBJECTS_FIREFIGHTING_BTN_GREEN = 52;
 	public const int OBJECTS_FIREFIGHTING_BTN_RED = 53;
+	public const int OBJECTS_FIREFIGHTING_LABEL_QUESTION = 58;
+	public const int OBJECTS_FIREFIGHTING_LABEL_CORRECT_READY = 59;
+	public const int OBJECTS_FIREFIGHTING_LABEL_CORRECT_NOT_READY = 60;
+	public const int OBJECTS_FIREFIGHTING_LABEL_WRONG_READY = 61;
+	public const int OBJECTS_FIREFIGHTING_LABEL_WRONG_NOT_READY = 62;
 	public const int OBJECTS_FIREFIGHTING_OXYGEN_GREEN = 47;
 	public const int OBJECTS_FIREFIGHTING_OXYGEN_YELLOW = 48;
 	public const int OBJECTS_LOGOS_ASOFTERSPACE = 50;
@@ -60,6 +65,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_VRCADE_TARGET_WHITE = 32;
 	public const int OBJECTS_VRCADE_TRIGGER_SILVER = 33;
 	public const int PLASTIC_BLACK = 46;
+	public const int PLASTIC_BLUE = 63;
 	public const int PLASTIC_PURPLE = 9;
 	public const int PLASTIC_WHITE = 10;
 	public const int PLASTIC_GRAY = 11;
@@ -74,7 +80,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 58;
+	public const int MATERIAL_AMOUNT = 64;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -92,6 +98,11 @@ public class MaterialCtrl {
 		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concrete";
 		textures[BUILDING_FLOOR_WOOD] = "Building/Floor/woodenLengthwiseFloor";
 		textures[INTERACTION_TELEPORT_TARGET] = "Interaction/teleportTarget";
+		textures[OBJECTS_FIREFIGHTING_LABEL_QUESTION] = "Objects/fireFighting/Labels/question";
+		textures[OBJECTS_FIREFIGHTING_LABEL_CORRECT_READY] = "Objects/fireFighting/Labels/correct_ready";
+		textures[OBJECTS_FIREFIGHTING_LABEL_CORRECT_NOT_READY] = "Objects/fireFighting/Labels/correct_not_ready";
+		textures[OBJECTS_FIREFIGHTING_LABEL_WRONG_READY] = "Objects/fireFighting/Labels/wrong_ready";
+		textures[OBJECTS_FIREFIGHTING_LABEL_WRONG_NOT_READY] = "Objects/fireFighting/Labels/wrong_not_ready";
 		textures[OBJECTS_LOGOS_ASOFTERSPACE] = "Objects/Logos/asofterspace";
 		textures[OBJECTS_LOGOS_ASOFTERSPACE_DARK] = "Objects/Logos/asofterspace_dark";
 		textures[OBJECTS_MATERIALS_PARTICLEBOARD] = "Objects/Materials/particleboard_1_continuous_small";
@@ -151,6 +162,11 @@ public class MaterialCtrl {
 					result = new Material(unlitColor);
 					break;
 				case INTERACTION_TELEPORT_TARGET:
+				case OBJECTS_FIREFIGHTING_LABEL_QUESTION:
+				case OBJECTS_FIREFIGHTING_LABEL_CORRECT_READY:
+				case OBJECTS_FIREFIGHTING_LABEL_CORRECT_NOT_READY:
+				case OBJECTS_FIREFIGHTING_LABEL_WRONG_READY:
+				case OBJECTS_FIREFIGHTING_LABEL_WRONG_NOT_READY:
 				case OBJECTS_LOGOS_ASOFTERSPACE:
 				case OBJECTS_LOGOS_ASOFTERSPACE_DARK:
 					result = new Material(unlitTransparent);
@@ -164,49 +180,52 @@ public class MaterialCtrl {
 			}
 			switch (materialNum) {
 				case BUILDING_BEAM_WHITE:
-					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					result.color = new Color(1.0f, 1.0f, 1.0f, 1);
 					break;
 				case BUILDING_WALL:
-					result.color = new Color(0.6771f, 0.5327f, 0.83015f, 1.0f);
+					result.color = new Color(0.6771f, 0.5327f, 0.83015f, 1);
 					break;
 				case PLASTIC_BLACK:
-					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+					result.color = new Color(0.0f, 0.0f, 0.0f, 1);
 					break;
 				case PLASTIC_WHITE:
-					result.color = new Color(0.99f, 0.97f, 0.99f, 1.0f);
+					result.color = new Color(0.99f, 0.97f, 0.99f, 1);
+					break;
+				case PLASTIC_BLUE:
+					result.color = new Color(0, 0, 1, 1);
 					break;
 				case PLASTIC_PURPLE:
-					result.color = new Color(0.3542f, 0.0654f, 0.6603f, 1.0f);
+					result.color = new Color(0.3542f, 0.0654f, 0.6603f, 1);
 					break;
 				case PLASTIC_GRAY:
-					result.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+					result.color = new Color(0.5f, 0.5f, 0.5f, 1);
 					break;
 				case PLASTIC_RED:
-					result.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+					result.color = new Color(1.0f, 0.0f, 0.0f, 1);
 					break;
 				case SPACE_STAR:
-					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					result.color = new Color(1.0f, 1.0f, 1.0f, 1);
 					break;
 				case INTERACTION_TELEPORT_RAY:
-					result.color = new Color(0.8f, 0.1f, 0.9f, 1.0f);
+					result.color = new Color(0.8f, 0.1f, 0.9f, 1);
 					break;
 				case INTERACTION_BUTTON_HOVER:
-					result.color = new Color(1.0f, 0.9f, 1.0f, 1.0f);
+					result.color = new Color(1.0f, 0.9f, 1.0f, 1);
 					break;
 				case FADEABLE_BLACK:
-					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+					result.color = new Color(0.0f, 0.0f, 0.0f, 1);
 					break;
 				case OBJECTS_BOWLING_BALL_RED:
-					result.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+					result.color = new Color(1.0f, 0.0f, 0.0f, 1);
 					break;
 				case OBJECTS_BOWLING_PIN_WHITE:
-					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					result.color = new Color(1.0f, 1.0f, 1.0f, 1);
 					break;
 				case OBJECTS_BOWLING_PIN_RED:
-					result.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+					result.color = new Color(1.0f, 0.0f, 0.0f, 1);
 					break;
 				case OBJECTS_BLOBFLYER_BLACK:
-					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+					result.color = new Color(0.0f, 0.0f, 0.0f, 1);
 					break;
 				case OBJECTS_MATERIALS_METAL_DARK:
 					result.color = new Color(0.2f, 0.2f, 0.2f, 1);
