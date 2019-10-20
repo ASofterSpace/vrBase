@@ -114,11 +114,11 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		i = addTriangleWallBlock(triangles, i, 30);
 		// block 7 - South-West
 //		i = addTriangleWallBlock(triangles, i, 36);
-		i = addTriangle(triangles, i, 36, 36 + 1, 36 + 4);
-		i = addTriangle(triangles, i, 36, 36 + 4, 36 + 5);
+		i = addTriangle(triangles, i, 36, 36 + 1, 36 + 2);
+		i = addTriangle(triangles, i, 36, 36 + 2, 36 + 3);
 		// block 8 - North-West
-		i = addTriangle(triangles, i, 42, 42 + 1, 42 + 4);
-		i = addTriangle(triangles, i, 42, 42 + 4, 42 + 5);
+		i = addTriangle(triangles, i, 42, 42 + 1, 42 + 2);
+		i = addTriangle(triangles, i, 42, 42 + 2, 42 + 3);
 
 		// block 9 - wall around the door
 		i = addTriangle(triangles, i, 48, 48 + 1, 48 + 2);
@@ -127,7 +127,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 		i = addTriangle(triangles, i, 54, 54 + 1, 54 + 2);
 		i = addTriangle(triangles, i, 54, 54 + 2, 54 + 3);
-		i = addTriangle(triangles, i, 54 + 3, 54 + 4, 54 + 5);
+		i = addTriangle(triangles, i, 54 + 4, 54 + 3, 54 + 5);
 
 		return triangles;
 	}

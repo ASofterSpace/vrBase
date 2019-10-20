@@ -14,16 +14,23 @@ using UnityEngine;
  */
 public class ColorizeButton : Button {
 
-	private Color targetColor;
+	private Color beamColor;
+
+	private Color wallColor;
 
 
-	public ColorizeButton(GameObject obj, Color targetColor) : base(obj) {
+	public ColorizeButton(GameObject obj, Color beamColor, Color wallColor) : base(obj) {
 
-		this.targetColor = targetColor;
+		this.beamColor = beamColor;
+
+		this.wallColor = wallColor;
 	}
 
 	public override void trigger() {
-		MaterialCtrl.setColor(MaterialCtrl.BUILDING_BEAM_WHITE, targetColor);
+
+		MaterialCtrl.setColor(MaterialCtrl.BUILDING_BEAM_WHITE, beamColor);
+
+		MaterialCtrl.setColor(MaterialCtrl.BUILDING_WALL, wallColor);
 	}
 
 }

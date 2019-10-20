@@ -16,7 +16,10 @@ public abstract class GenericRoomCtrl {
 	protected string roomName;
 	protected GameObject thisRoom;
 	protected GameObject[] beams;
+
 	private int curBeamNum;
+
+	private bool insideOutWallMesh = false;
 
 
 	public GenericRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) {
@@ -203,6 +206,22 @@ public abstract class GenericRoomCtrl {
 
 	protected void createMeshedWall() {
 
+		insideOutWallMesh = false;
+		GameObject meshWall = createMeshedWallSide();
+
+		insideOutWallMesh = true;
+		GameObject meshWallInside = createMeshedWallSide();
+		meshWallInside.name = "meshWall (Inside)";
+
+		meshWallInside.transform.parent = meshWall.transform;
+		meshWall.transform.parent = thisRoom.transform;
+
+		MaterialCtrl.setMaterial(meshWall, MaterialCtrl.BUILDING_WALL);
+		MaterialCtrl.setMaterial(meshWallInside, MaterialCtrl.BUILDING_WALL);
+	}
+
+	protected GameObject createMeshedWallSide() {
+
 		// get the position of the parent explicitly, to add it to all points,
 		// as we seem to specify the mesh in world coordinates...
 		// TODO :: in case we want to rotate the parent object, actually figure
@@ -213,10 +232,9 @@ public abstract class GenericRoomCtrl {
 
 		// create the mesh
 		GameObject meshWall = new GameObject("meshWall");
-		meshWall.transform.parent = thisRoom.transform;
-		meshWall.AddComponent<MeshFilter>();
+		MeshFilter meshFilter = meshWall.AddComponent<MeshFilter>();
 		meshWall.AddComponent<MeshRenderer>();
-		Mesh mesh = meshWall.GetComponent<MeshFilter>().mesh;
+		Mesh mesh = meshFilter.mesh;
 		mesh.Clear();
 
 		// create vertices that are available to create the mesh
@@ -238,10 +256,10 @@ public abstract class GenericRoomCtrl {
 		// block 5 - North-East
 		vertices[i++] = new Vector3(-4.96f, 0, 4.96f);
 		vertices[i++] = new Vector3(-4.5f, 1.82f, 4.5f);
-		vertices[i++] = new Vector3(-4.8f, 0.8f, 1.95f);
-		vertices[i++] = new Vector3(-5, 0, 2);
 		vertices[i++] = new Vector3(-1.95f, 0.8f, 4.8f);
 		vertices[i++] = new Vector3(-2, 0, 5);
+		vertices[i++] = new Vector3(-4.8f, 0.8f, 1.95f);
+		vertices[i++] = new Vector3(-5, 0, 2);
 
 		// blocks 6, 7, 8 - South-East, South-West, North-West
 		i = createWallBlockVertices45(vertices, 6, i, x, y, z);
@@ -249,17 +267,6 @@ public abstract class GenericRoomCtrl {
 		createAdditionalWallVertices(vertices, i);
 
 		mesh.vertices = vertices;
-
-		/*
-		// add some color!
-		Vector2[] uv = new Vector2[vertices.Length];
-		for (i = 0; i < vertices.Length;) {
-			uv[i++] = new Vector2(0, 0);
-			uv[i++] = new Vector2(0, 1);
-			uv[i++] = new Vector2(1, 1);
-		}
-		mesh.uv = uv;
-		*/
 
 		// create triangles using the previously set vertices
 		int[] triangles = createMeshedWallTriangles();
@@ -270,7 +277,7 @@ public abstract class GenericRoomCtrl {
 		mesh.RecalculateNormals();
 		mesh.RecalculateBounds();
 
-		MaterialCtrl.setMaterial(meshWall, MaterialCtrl.PLASTIC_WHITE);
+		return meshWall;
 	}
 
 	protected virtual int getAdditionalWallVertexAmount() {
@@ -282,7 +289,7 @@ public abstract class GenericRoomCtrl {
 
 	protected virtual int[] createMeshedWallTriangles() {
 
-		int[] triangles = new int[6*4*8];
+		int[] triangles = new int[3*4*8];
 		int i = 0;
 
 		// block 1 - North
@@ -307,13 +314,16 @@ public abstract class GenericRoomCtrl {
 
 	// we add each triangle twice, once inwards facing, once outwards facing
 	protected int addTriangle(int[] triangles, int i, int a, int b, int c) {
-		triangles[i]   = a;
-		triangles[i+1] = b;
-		triangles[i+2] = c;
-		triangles[i+3] = a;
-		triangles[i+4] = c;
-		triangles[i+5] = b;
-		return i + 6;
+		if (insideOutWallMesh) {
+			triangles[i]   = a;
+			triangles[i+1] = b;
+			triangles[i+2] = c;
+		} else {
+			triangles[i]   = a;
+			triangles[i+1] = c;
+			triangles[i+2] = b;
+		}
+		return i + 3;
 	}
 
 	/**
@@ -323,8 +333,8 @@ public abstract class GenericRoomCtrl {
 	protected int addTriangleWallBlock(int[] triangles, int i, int start) {
 		i = addTriangle(triangles, i, start, start + 1, start + 2);
 		i = addTriangle(triangles, i, start, start + 2, start + 3);
-		i = addTriangle(triangles, i, start, start + 1, start + 4);
-		i = addTriangle(triangles, i, start, start + 4, start + 5);
+		i = addTriangle(triangles, i, start, start + 4, start + 1);
+		i = addTriangle(triangles, i, start, start + 5, start + 4);
 		return i;
 	}
 
@@ -333,11 +343,11 @@ public abstract class GenericRoomCtrl {
 
 		for (int j = 0; j < howManyVertices; j++) {
 			Vector3 orig = vertices[j + startI - howManyVertices];
-			vertices[i++] = new Vector3(x - orig.x, y + orig.y, z + orig.z);
+			vertices[i++] = new Vector3(x - orig.x, y + orig.y, z - orig.z);
 		}
 		for (int j = 0; j < howManyVertices; j++) {
 			Vector3 orig = vertices[j + startI - howManyVertices];
-			vertices[i++] = new Vector3(x + orig.z, y + orig.y, z + orig.x);
+			vertices[i++] = new Vector3(x - orig.z, y + orig.y, z + orig.x);
 		}
 		for (int j = 0; j < howManyVertices; j++) {
 			Vector3 orig = vertices[j + startI - howManyVertices];

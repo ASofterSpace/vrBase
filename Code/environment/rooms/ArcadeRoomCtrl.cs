@@ -104,8 +104,8 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		// block 5 - North-East
 		i = addTriangleWallBlock(triangles, i, 24);
 		// block 6 - South-East
-		i = addTriangle(triangles, i, 30, 30 + 1, 30 + 4);
-		i = addTriangle(triangles, i, 30, 30 + 4, 30 + 5);
+		i = addTriangle(triangles, i, 30, 30 + 1, 30 + 2);
+		i = addTriangle(triangles, i, 30, 30 + 2, 30 + 3);
 		// block 7 - South-West
 		i = addTriangleWallBlock(triangles, i, 36);
 		// block 8 - North-West
@@ -118,7 +118,7 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 
 		i = addTriangle(triangles, i, 54, 54 + 1, 54 + 2);
 		i = addTriangle(triangles, i, 54, 54 + 2, 54 + 3);
-		i = addTriangle(triangles, i, 54 + 3, 54 + 4, 54 + 5);
+		i = addTriangle(triangles, i, 54 + 4, 54 + 3, 54 + 5);
 
 		return triangles;
 	}

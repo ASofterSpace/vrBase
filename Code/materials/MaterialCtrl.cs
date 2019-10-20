@@ -18,6 +18,7 @@ public class MaterialCtrl {
 	public const int BUILDING_FLOOR_CONCRETE = 0;
 	public const int BUILDING_FLOOR_WOOD = 15;
 	public const int BUILDING_BEAM_WHITE = 24;
+	public const int BUILDING_WALL = 57;
 	public const int INTERACTION_TELEPORT_TARGET = 12;
 	public const int INTERACTION_TELEPORT_RAY = 13;
 	public const int INTERACTION_BUTTON_HOVER = 23;
@@ -73,7 +74,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 57;
+	public const int MATERIAL_AMOUNT = 58;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -164,6 +165,9 @@ public class MaterialCtrl {
 			switch (materialNum) {
 				case BUILDING_BEAM_WHITE:
 					result.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+					break;
+				case BUILDING_WALL:
+					result.color = new Color(0.6771f, 0.5327f, 0.83015f, 1.0f);
 					break;
 				case PLASTIC_BLACK:
 					result.color = new Color(0.0f, 0.0f, 0.0f, 1.0f);

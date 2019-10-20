@@ -98,8 +98,8 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 		// block 4 - West
 		i = addTriangleWallBlock(triangles, i, 18);
 		// block 5 - North-East
-		i = addTriangle(triangles, i, 24, 24 + 1, 24 + 4);
-		i = addTriangle(triangles, i, 24, 24 + 4, 24 + 5);
+		i = addTriangle(triangles, i, 24, 24 + 1, 24 + 2);
+		i = addTriangle(triangles, i, 24, 24 + 2, 24 + 3);
 		// block 6 - South-East
 		i = addTriangleWallBlock(triangles, i, 30);
 		// block 7 - South-West
@@ -114,7 +114,7 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 
 		i = addTriangle(triangles, i, 54, 54 + 1, 54 + 2);
 		i = addTriangle(triangles, i, 54, 54 + 2, 54 + 3);
-		i = addTriangle(triangles, i, 54 + 3, 54 + 4, 54 + 5);
+		i = addTriangle(triangles, i, 54 + 4, 54 + 3, 54 + 5);
 
 		return triangles;
 	}

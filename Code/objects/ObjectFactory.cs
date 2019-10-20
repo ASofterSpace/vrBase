@@ -295,14 +295,27 @@ public class ObjectFactory {
 	 * Btw., the resulting size of the gameobject will correspond exactly to the side of a
 	 * cylinder with the same measure
 	 */
-	public static GameObject createCone(int sides, bool hasBottom, bool renderInterior) {
+	public static GameObject createCone(int sides, bool hasBottom, bool renderInterior, int material) {
+
+		GameObject outsideCone = _createCone(sides, hasBottom, false);
+		if (renderInterior) {
+			GameObject insideCone = _createCone(sides, hasBottom, true);
+			insideCone.name = "Cone (Interior)";
+			insideCone.transform.parent = outsideCone.transform;
+			MaterialCtrl.setMaterial(insideCone, material);
+		}
+		MaterialCtrl.setMaterial(outsideCone, material);
+		return outsideCone;
+	}
+
+	private static GameObject _createCone(int sides, bool hasBottom, bool insideOut) {
 
 		GameObject cone = new GameObject("Cone");
 
 		// create the mesh
-		cone.AddComponent<MeshFilter>();
+		MeshFilter meshFilter = cone.AddComponent<MeshFilter>();
 		cone.AddComponent<MeshRenderer>();
-		Mesh mesh = cone.GetComponent<MeshFilter>().mesh;
+		Mesh mesh = meshFilter.mesh;
 		mesh.Clear();
 
 		// create vertices that are available to create the mesh
@@ -321,49 +334,25 @@ public class ObjectFactory {
 
 		// create triangles using the previously set vertices
 		int[] triangles;
-		int renderInteriorMultiplier = 1;
-		if (renderInterior) {
-			renderInteriorMultiplier = 2;
-		}
 
 		if (hasBottom) {
 			// if we have a bottom, we need sides - 2 triangles at the bottom additionally
-			triangles = new int[renderInteriorMultiplier * (sides*3 + (sides - 1)*3)];
+			triangles = new int[(sides*3 + (sides - 1)*3)];
 		} else {
-			triangles = new int[renderInteriorMultiplier * (sides*3)];
+			triangles = new int[(sides*3)];
 		}
 
 		int offset = 0;
 
-		for (int i = 0; i < sides; i++) {
-			triangles[(i*3)  ] = i;
-			if (i == sides-1) {
-				triangles[(i*3)+1] = 0;
-			} else {
-				triangles[(i*3)+1] = i+1;
-			}
-			triangles[(i*3)+2] = sides;
-		}
-		offset += sides * 3;
-
-		if (hasBottom) {
-			for (int i = 0; i < sides - 2; i++) {
-				triangles[offset+(i*3)  ] = i;
-				triangles[offset+(i*3)+1] = sides-1;
-				triangles[offset+(i*3)+2] = i+1;
-			}
-			offset += (sides - 1) * 3;
-		}
-
-		if (renderInterior) {
+		if (insideOut) {
 			for (int i = 0; i < sides; i++) {
-				triangles[offset+(i*3)  ] = i;
+				triangles[(i*3)  ] = i;
 				if (i == sides-1) {
-					triangles[offset+(i*3)+2] = 0;
+					triangles[(i*3)+2] = 0;
 				} else {
-					triangles[offset+(i*3)+2] = i+1;
+					triangles[(i*3)+2] = i+1;
 				}
-				triangles[offset+(i*3)+1] = sides;
+				triangles[(i*3)+1] = sides;
 			}
 			offset += sides * 3;
 
@@ -372,6 +361,26 @@ public class ObjectFactory {
 					triangles[offset+(i*3)  ] = i;
 					triangles[offset+(i*3)+2] = sides-1;
 					triangles[offset+(i*3)+1] = i+1;
+				}
+				offset += (sides - 1) * 3;
+			}
+		} else {
+			for (int i = 0; i < sides; i++) {
+				triangles[(i*3)  ] = i;
+				if (i == sides-1) {
+					triangles[(i*3)+1] = 0;
+				} else {
+					triangles[(i*3)+1] = i+1;
+				}
+				triangles[(i*3)+2] = sides;
+			}
+			offset += sides * 3;
+
+			if (hasBottom) {
+				for (int i = 0; i < sides - 2; i++) {
+					triangles[offset+(i*3)  ] = i;
+					triangles[offset+(i*3)+1] = sides-1;
+					triangles[offset+(i*3)+2] = i+1;
 				}
 				offset += (sides - 1) * 3;
 			}

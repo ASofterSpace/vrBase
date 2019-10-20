@@ -141,14 +141,14 @@ public class NostalgicConsoleCtrl {
 		MaterialCtrl.setMaterial(buttonRedAlertFrame, MaterialCtrl.PLASTIC_WHITE);
 
 		// create color buttons
-		createMidColorButton(buttons, -0.2779f, new Color(1.0f, 1.0f, 1.0f, 1.0f));
-		createMidColorButton(buttons, -0.1679f, new Color(1.0f, 0.0f, 0.0f, 1.0f));
-		createMidColorButton(buttons, -0.0579f, new Color(0.6f, 0.0f, 0.7f, 1.0f));
-		createMidColorButton(buttons,  0.0521f, new Color(0.0f, 0.0f, 0.0f, 1.0f));
-		createLowColorButton(buttons, -0.2779f, new Color(0.1f, 0.6f, 0.3f, 1.0f));
-		createLowColorButton(buttons, -0.1679f, new Color(0.0f, 0.2f, 0.9f, 1.0f));
-		createLowColorButton(buttons, -0.0579f, new Color(0.5f, 0.5f, 0.5f, 1.0f));
-		createLowColorButton(buttons,  0.0521f, new Color(0.6f, 0.4f, 0.1f, 1.0f));
+		createMidColorButton(buttons, -0.2779f, new Color(1.0f, 1.0f, 1.0f, 1.0f), new Color(0.6771f, 0.5327f, 0.83015f, 1.0f));
+		createMidColorButton(buttons, -0.1679f, new Color(1.0f, 0.0f, 0.0f, 1.0f), new Color(0.3542f, 0.0654f, 0.6603f, 1.0f));
+		createMidColorButton(buttons, -0.0579f, new Color(0.6f, 0.0f, 0.7f, 1.0f), new Color(0.6771f, 0.5327f, 0.83015f, 1.0f));
+		createMidColorButton(buttons,  0.0521f, new Color(0.0f, 0.0f, 0.0f, 1.0f), new Color(0.3542f, 0.0654f, 0.6603f, 1.0f));
+		createLowColorButton(buttons, -0.2779f, new Color(0.1f, 0.6f, 0.3f, 1.0f), new Color(0.6771f, 0.5327f, 0.83015f, 1.0f));
+		createLowColorButton(buttons, -0.1679f, new Color(0.0f, 0.2f, 0.9f, 1.0f), new Color(0.3542f, 0.0654f, 0.6603f, 1.0f));
+		createLowColorButton(buttons, -0.0579f, new Color(0.5f, 0.5f, 0.5f, 1.0f), new Color(0.6771f, 0.5327f, 0.83015f, 1.0f));
+		createLowColorButton(buttons,  0.0521f, new Color(0.6f, 0.4f, 0.1f, 1.0f), new Color(0.3542f, 0.0654f, 0.6603f, 1.0f));
 
 		// create up arrow button
 		GameObject buttonUpArrowLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -254,15 +254,15 @@ public class NostalgicConsoleCtrl {
 		nostalgicConsole.transform.localEulerAngles = angles;
 	}
 
-	private void createMidColorButton(GameObject parent, float x, Color color) {
+	private void createMidColorButton(GameObject parent, float x, Color beamColor, Color wallColor) {
 
 		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.transform.parent = parent.transform;
 		curObj.transform.localPosition = new Vector3(x, 1.0433f, -0.0254f);
 		curObj.transform.localEulerAngles = new Vector3(-15, 0, 0);
 		curObj.transform.localScale = new Vector3(0.08f, 0.03f, 0.04f);
-		MaterialCtrl.setColor(curObj, color);
-		ButtonCtrl.add(new ColorizeButton(curObj, color));
+		MaterialCtrl.setColor(curObj, beamColor);
+		ButtonCtrl.add(new ColorizeButton(curObj, beamColor, wallColor));
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.name = "Button Frame";
@@ -273,15 +273,15 @@ public class NostalgicConsoleCtrl {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 	}
 
-	private void createLowColorButton(GameObject parent, float x, Color color) {
+	private void createLowColorButton(GameObject parent, float x, Color beamColor, Color wallColor) {
 
 		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.transform.parent = parent.transform;
 		curObj.transform.localPosition = new Vector3(x, 1.02f, -0.111f);
 		curObj.transform.localEulerAngles = new Vector3(-15, 0, 0);
 		curObj.transform.localScale = new Vector3(0.08f, 0.03f, 0.04f);
-		MaterialCtrl.setColor(curObj, color);
-		ButtonCtrl.add(new ColorizeButton(curObj, color));
+		MaterialCtrl.setColor(curObj, beamColor);
+		ButtonCtrl.add(new ColorizeButton(curObj, beamColor, wallColor));
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.name = "Button Frame";
