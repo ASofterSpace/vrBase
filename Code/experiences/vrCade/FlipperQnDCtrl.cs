@@ -472,7 +472,8 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		rb.drag = 0;
 		rb.angularDrag = 0;
 		rb.useGravity = true;
-		// TODO :: set freeze position and freeze rotation to false for all coordinates
+		// set freeze position and freeze rotation to false for all coordinates
+		rb.constraints = RigidbodyConstraints.None;
 
 		GameObject legs = new GameObject("legs");
 		legs.transform.parent = flipperMachine.transform;
@@ -569,7 +570,8 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		rb.drag = 0;
 		rb.angularDrag = 0.05f;
 		rb.useGravity = true;
-		// TODO :: set freezeposition and freezerotation all false
+		// set freezeposition and freezerotation all false
+		rb.constraints = RigidbodyConstraints.None;
 		MaterialCtrl.setMaterial(flipper, MaterialCtrl.OBJECTS_VRCADE_TARGET_WHITE);
 		return flipper;
 	}
@@ -584,23 +586,26 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		rigidBody.drag = 0;
 		rigidBody.angularDrag = 0;
 		rigidBody.useGravity = false;
-		// TODO :: set freeze position x, y, z true and freeze rotation x, y, z true
+		// set freeze position x, y, z true and freeze rotation x, y, z true
+		rigidBody.constraints = RigidbodyConstraints.FreezeAll;
 
 		HingeJoint hingeJoint = barrier.AddComponent<HingeJoint>();
 		hingeJoint.anchor = new Vector3(0, 0, 0.5f);
-		/* TODO ::
-		hingeJoint.motor.targetVelocity = 2000;
-		hingeJoint.motor.force = 10000;
-		hingeJoint.motor.freeSpin = false;
-		hingeJoint.motor.useLimits = true;
-		hingeJoint.limits.min = 0;
-		hingeJoint.limits.max = 60;
-		hingeJoint.limits.bounciness = 0;
-		hingeJoint.limits.bounceMinVelocity = 0;
-		hingeJoint.limits.contactDistance = 0;
-		hingeJoint.breakForce = Infinity;
-		hingeJoint.breakTorque = Infinity;
-		*/
+		var motor = hingeJoint.motor;
+		motor.targetVelocity = 2000;
+		motor.force = 10000;
+		motor.freeSpin = false;
+		hingeJoint.motor = motor;
+		hingeJoint.useLimits = true;
+		JointLimits limits = hingeJoint.limits;
+		limits.min = 0;
+		limits.max = 60;
+		limits.bounciness = 0;
+		limits.bounceMinVelocity = 0;
+		limits.contactDistance = 0;
+		hingeJoint.limits = limits;
+		hingeJoint.breakForce = Mathf.Infinity;
+		hingeJoint.breakTorque = Mathf.Infinity;
 		hingeJoint.enableCollision = false;
 		hingeJoint.enablePreprocessing = true;
 		hingeJoint.massScale = 1;
