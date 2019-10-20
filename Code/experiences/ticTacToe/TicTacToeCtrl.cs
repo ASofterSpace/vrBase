@@ -223,7 +223,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 	void UpdateableCtrl.update(VrInput input) {
 
 		if ((buttonsThatWon[0] != null) && (buttonsThatWon[1] != null) && (buttonsThatWon[2] != null)) {
-			bool visible = (Mathf.RoundToInt(Time.time / 2) % 2) == 0;
+			bool visible = (Mathf.RoundToInt(Time.time * 3) % 2) == 0;
 			buttonsThatWon[0].setActive(visible);
 			buttonsThatWon[1].setActive(visible);
 			buttonsThatWon[2].setActive(visible);

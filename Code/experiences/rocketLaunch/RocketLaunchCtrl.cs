@@ -53,6 +53,7 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 			if (y < 17) {
 				y = 17;
 				landingRocket = false;
+				rocketGone = false;
 			}
 			rocket.transform.localPosition = new Vector3(0, y, 0);
 		}
@@ -174,7 +175,6 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		} else {
 
 			// get the rocket back!
-			rocketGone = false;
 			rocket.SetActive(true);
 
 			startTime = Time.time;

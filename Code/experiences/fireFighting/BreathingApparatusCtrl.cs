@@ -56,6 +56,10 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		createQuickTester(position, angles);
 
 		setRandomState();
+
+		// we do not want the hologram to flash up right at the start of the game,
+		// as the flash will otherwise be copied into the diorama
+		hologramFlash.SetActive(false);
 	}
 
 	void UpdateableCtrl.update(VrInput input) {
@@ -63,7 +67,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		apparatus.transform.localEulerAngles = new Vector3(20, Time.time * 2, 0);
 
 		if (oscillateBetweenStates) {
-			if (Mathf.RoundToInt(Time.time) % 2 == 0) {
+			if (Mathf.RoundToInt(Time.time * 3) % 2 == 0) {
 				state = 0;
 			} else {
 				state = oscillateTarget;
@@ -463,9 +467,9 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 			() => {
 				hideAllLabels();
 				if (state == 0) {
-					labelCorrectReady.SetActive(false);
+					labelCorrectReady.SetActive(true);
 				} else {
-					labelWrongNotReady.SetActive(false);
+					labelWrongNotReady.SetActive(true);
 				}
 				oscillateTarget = state;
 				oscillateBetweenStart = Time.time;
@@ -508,9 +512,9 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 			() => {
 				hideAllLabels();
 				if (state != 0) {
-					labelCorrectNotReady.SetActive(false);
+					labelCorrectNotReady.SetActive(true);
 				} else {
-					labelWrongReady.SetActive(false);
+					labelWrongReady.SetActive(true);
 				}
 				oscillateTarget = state;
 				oscillateBetweenStart = Time.time;
@@ -535,7 +539,6 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localPosition = new Vector3(0, 1.007f, -0.085f);
 		curObj.transform.localEulerAngles = new Vector3(-130, 0, 0);
 		curObj.transform.localScale = new Vector3(0.8f, 0.15f, 0.5f);
-		hologramFlash.SetActive(false);
 
 		// add labels
 		labelQuestion = createLabel(MaterialCtrl.OBJECTS_FIREFIGHTING_LABEL_QUESTION);
