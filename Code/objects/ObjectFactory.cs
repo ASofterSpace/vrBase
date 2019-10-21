@@ -510,6 +510,95 @@ public class ObjectFactory {
 		return obj;
 	}
 
+	public static GameObject createCube(int material) {
+
+		GameObject outsideCube = _createCube(false);
+		MaterialCtrl.setMaterial(outsideCube, material);
+		return outsideCube;
+	}
+
+	private static GameObject _createCube(bool insideOut) {
+
+		GameObject obj = new GameObject("Cube");
+
+		// create the mesh
+		MeshFilter meshFilter = obj.AddComponent<MeshFilter>();
+		obj.AddComponent<MeshRenderer>();
+		Mesh mesh = meshFilter.mesh;
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		Vector3[] vertices = new Vector3[8];
+
+		vertices[0] = new Vector3(0.5f, -0.5f, 0.5f);
+		vertices[1] = new Vector3(0.5f, -0.5f, -0.5f);
+		vertices[2] = new Vector3(-0.5f, -0.5f, -0.5f);
+		vertices[3] = new Vector3(-0.5f, -0.5f, 0.5f);
+		vertices[4] = new Vector3(0.5f, 0.5f, 0.5f);
+		vertices[5] = new Vector3(0.5f, 0.5f, -0.5f);
+		vertices[6] = new Vector3(-0.5f, 0.5f, -0.5f);
+		vertices[7] = new Vector3(-0.5f, 0.5f, 0.5f);
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles = new int[6*2*3];
+
+		// bottom
+		triangles[0] = 0;
+		triangles[1] = 2;
+		triangles[2] = 1;
+		triangles[3] = 2;
+		triangles[4] = 0;
+		triangles[5] = 3;
+
+		// side 1
+		triangles[6] = 3;
+		triangles[7] = 6;
+		triangles[8] = 2;
+		triangles[9] = 6;
+		triangles[10] = 3;
+		triangles[11] = 7;
+
+		// side 2
+		triangles[12] = 2;
+		triangles[13] = 5;
+		triangles[14] = 1;
+		triangles[15] = 5;
+		triangles[16] = 2;
+		triangles[17] = 6;
+
+		// side 3
+		triangles[18] = 1;
+		triangles[19] = 4;
+		triangles[20] = 0;
+		triangles[21] = 4;
+		triangles[22] = 1;
+		triangles[23] = 5;
+
+		// side 4
+		triangles[24] = 0;
+		triangles[25] = 7;
+		triangles[26] = 3;
+		triangles[27] = 7;
+		triangles[28] = 0;
+		triangles[29] = 4;
+
+		// top
+		triangles[30] = 4;
+		triangles[31] = 5;
+		triangles[32] = 6;
+		triangles[33] = 6;
+		triangles[34] = 7;
+		triangles[35] = 4;
+
+		mesh.triangles = triangles;
+
+		finalizeMesh(mesh);
+
+		return obj;
+	}
+
 	public static GameObject createOctahedron(int material) {
 
 		GameObject outsideOcta = _createOctahedron(false);
@@ -520,6 +609,73 @@ public class ObjectFactory {
 	private static GameObject _createOctahedron(bool insideOut) {
 
 		GameObject obj = new GameObject("Octahedron");
+
+		// create the mesh
+		MeshFilter meshFilter = obj.AddComponent<MeshFilter>();
+		obj.AddComponent<MeshRenderer>();
+		Mesh mesh = meshFilter.mesh;
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		Vector3[] vertices = new Vector3[6];
+
+		vertices[0] = new Vector3(0, -Mathf.Sqrt(2)/2, 0);
+		vertices[1] = new Vector3(0.5f, 0, 0.5f);
+		vertices[2] = new Vector3(0.5f, 0, -0.5f);
+		vertices[3] = new Vector3(-0.5f, 0, -0.5f);
+		vertices[4] = new Vector3(-0.5f, 0, 0.5f);
+		vertices[5] = new Vector3(0, Mathf.Sqrt(2)/2, 0);
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles = new int[8*3];
+
+		// bottom half
+		triangles[0] = 0;
+		triangles[1] = 2;
+		triangles[2] = 1;
+		triangles[3] = 0;
+		triangles[4] = 3;
+		triangles[5] = 2;
+		triangles[6] = 0;
+		triangles[7] = 4;
+		triangles[8] = 3;
+		triangles[9] = 0;
+		triangles[10] = 1;
+		triangles[11] = 4;
+
+		// top half
+		triangles[12] = 5;
+		triangles[13] = 1;
+		triangles[14] = 2;
+		triangles[15] = 5;
+		triangles[16] = 2;
+		triangles[17] = 3;
+		triangles[18] = 5;
+		triangles[19] = 3;
+		triangles[20] = 4;
+		triangles[21] = 5;
+		triangles[22] = 4;
+		triangles[23] = 1;
+
+		mesh.triangles = triangles;
+
+		finalizeMesh(mesh);
+
+		return obj;
+	}
+
+	public static GameObject createIcosahedron(int material) {
+
+		GameObject outsideIco = _createIcosahedron(false);
+		MaterialCtrl.setMaterial(outsideIco, material);
+		return outsideIco;
+	}
+
+	private static GameObject _createIcosahedron(bool insideOut) {
+
+		GameObject obj = new GameObject("Icosahedron");
 
 		// create the mesh
 		MeshFilter meshFilter = obj.AddComponent<MeshFilter>();

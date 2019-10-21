@@ -43,6 +43,10 @@ public class MathWorldCtrl: ResetteableCtrl {
 		solids[2].transform.localEulerAngles = new Vector3(0, 0, 0);
 		solids[2].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
+		solids[3].transform.localPosition = new Vector3(-0.2f, 1.1f, -0.055f);
+		solids[3].transform.localEulerAngles = new Vector3(0, 0, 0);
+		solids[3].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+
 /*
 		foreach (GameObject bowlingBall in bowlingBalls) {
 			bowlingBall.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
@@ -113,16 +117,27 @@ public class MathWorldCtrl: ResetteableCtrl {
 		meshCol.convex = true;
 		ObjectCtrl.add(new ThrowableObject(curObj));
 
-		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj = ObjectFactory.createCube(MaterialCtrl.PLASTIC_PURPLE);
 		solids[1] = curObj;
 		curObj.name = "Platonic Cube";
 		curObj.transform.parent = platonicSolidShelf.transform;
-		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_PURPLE);
+		col = curObj.AddComponent<BoxCollider>();
+		col.center = new Vector3(0, 0, 0);
+		col.size = new Vector3(1, 1, 1);
 		ObjectCtrl.add(new ThrowableObject(curObj));
 
 		curObj = ObjectFactory.createOctahedron(MaterialCtrl.PLASTIC_PURPLE);
 		solids[2] = curObj;
 		curObj.name = "Platonic Octahedron";
+		curObj.transform.parent = platonicSolidShelf.transform;
+		col = curObj.AddComponent<BoxCollider>();
+		col.center = new Vector3(0, 0, 0);
+		col.size = new Vector3(1, 1.4f, 1);
+		ObjectCtrl.add(new ThrowableObject(curObj));
+
+		curObj = ObjectFactory.createIcosahedron(MaterialCtrl.PLASTIC_PURPLE);
+		solids[3] = curObj;
+		curObj.name = "Platonic Icosahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
 		col = curObj.AddComponent<BoxCollider>();
 		col.center = new Vector3(0, 0, 0);
