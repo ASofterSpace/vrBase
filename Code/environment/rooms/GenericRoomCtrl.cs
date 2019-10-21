@@ -273,9 +273,7 @@ public abstract class GenericRoomCtrl {
 
 		mesh.triangles = triangles;
 
-		// assign our resulting results
-		mesh.RecalculateNormals();
-		mesh.RecalculateBounds();
+		ObjectFactory.finalizeMesh(mesh);
 
 		return meshWall;
 	}

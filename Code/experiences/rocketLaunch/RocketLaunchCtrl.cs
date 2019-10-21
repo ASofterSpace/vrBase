@@ -104,7 +104,7 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj.transform.localScale = new Vector3(2, 2, 2);
 
-		curObj = ObjectFactory.createCone(16, false, false, MaterialCtrl.PLASTIC_WHITE);
+		curObj = ObjectFactory.createCone(20, false, false, MaterialCtrl.PLASTIC_WHITE);
 		curObj.name = "Rocket White Cone";
 		curObj.transform.parent = rocket.transform;
 		curObj.transform.localPosition = new Vector3(0, 36.4f, 0);
@@ -119,10 +119,10 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(4, 1, 4);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_RED);
 
-		curObj = ObjectFactory.createCone(16, false, false, MaterialCtrl.PLASTIC_RED);
+		curObj = ObjectFactory.createCone(20, false, false, MaterialCtrl.PLASTIC_RED);
 		curObj.name = "Rocket Red Cone";
 		curObj.transform.parent = rocket.transform;
-		curObj.transform.localPosition = new Vector3(0, 39.36f, 0);
+		curObj.transform.localPosition = new Vector3(0, 39.3f, 0);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj.transform.localScale = new Vector3(4, 2, 4);
 

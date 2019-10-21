@@ -356,7 +356,7 @@ public class ObjectFactory {
 	}
 
 	/**
-	 * Create a cone with as many sides as you want (16 is useful if you want it to fit snugly
+	 * Create a cone with as many sides as you want (20 is useful if you want it to fit snugly
 	 * on a cylinder), and optionally with or without a bottom, and with or without the interior
 	 * also rendering
 	 * Btw., the resulting size of the gameobject will correspond exactly to the side of a
@@ -386,7 +386,7 @@ public class ObjectFactory {
 		mesh.Clear();
 
 		// create vertices that are available to create the mesh
-		// (we want to have 16 sides, needing 16 base points plus one top point)
+		// (e.g. if we want to have 20 sides, we need 20 base points plus one top point)
 		Vector3[] vertices = new Vector3[sides + 1];
 
 		// base vertices
@@ -455,11 +455,165 @@ public class ObjectFactory {
 
 		mesh.triangles = triangles;
 
-		// assign our resulting results
-		mesh.RecalculateNormals();
-		mesh.RecalculateBounds();
+		finalizeMesh(mesh);
 
 		return cone;
+	}
+
+	/**
+	 * Create a cylinder with as many sides as you want (20 is the amount that in-built unity
+	 * cylinders use), optionally with a MeshCollider attached (this is a bit more expensive
+	 * than the CapsuleCollider that Unity uses, but works much more accurately) - to get one,
+	 * set meshColliderSides to a value above 1 (for a value of 0, no mesh collider will be
+	 * created)
+	 */
+	public static GameObject createCylinder(int sides, int meshColliderSides, bool renderInterior, int material) {
+
+		GameObject outsideCylinder = _createCylinder(sides, false);
+		if (renderInterior) {
+			GameObject insideCylinder = _createCylinder(sides, true);
+			insideCylinder.name = "Cylinder (Interior)";
+			insideCylinder.transform.parent = outsideCylinder.transform;
+			MaterialCtrl.setMaterial(insideCylinder, material);
+		}
+		MaterialCtrl.setMaterial(outsideCylinder, material);
+		if (meshColliderSides > 1) {
+			MeshCollider col = outsideCylinder.AddComponent<MeshCollider>();
+			Mesh colMesh = new Mesh();
+			_createCylinderMesh(colMesh, meshColliderSides, false, false);
+			col.sharedMesh = colMesh;
+			col.convex = true;
+		}
+		return outsideCylinder;
+	}
+
+	private static GameObject _createCylinder(int sides, bool insideOut) {
+
+		GameObject cylinder = new GameObject("Cylinder");
+
+		// create the mesh
+		MeshFilter meshFilter = cylinder.AddComponent<MeshFilter>();
+		cylinder.AddComponent<MeshRenderer>();
+		Mesh mesh = meshFilter.mesh;
+		_createCylinderMesh(mesh, sides, insideOut, true);
+
+		return cylinder;
+	}
+
+	private static void _createCylinderMesh(Mesh mesh, int sides, bool insideOut, bool createUV) {
+
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		Vector3[] vertices = new Vector3[sides * 2];
+
+		for (int i = 0; i < sides; i++) {
+			// base vertices
+			vertices[i      ] = new Vector3(Mathf.Sin(2 * Mathf.PI * i / sides) / 2, -1, Mathf.Cos(2 * Mathf.PI * i / sides) / 2);
+			// top vertices
+			vertices[i+sides] = new Vector3(Mathf.Sin(2 * Mathf.PI * i / sides) / 2,  1, Mathf.Cos(2 * Mathf.PI * i / sides) / 2);
+		}
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles;
+
+		triangles = new int[(sides*6) + (2*(sides-1)*3)];
+
+		int offset = 0;
+
+		if (insideOut) {
+			// sides
+			for (int i = 0; i < sides; i++) {
+				triangles[(i*6)  ] = i;
+				if (i == sides-1) {
+					triangles[(i*6)+2] = 0;
+				} else {
+					triangles[(i*6)+2] = i+1;
+				}
+				triangles[(i*6)+1] = sides+i;
+				triangles[(i*6)+3] = sides+i;
+				if (i == sides-1) {
+					triangles[(i*6)+5] = 0;
+					triangles[(i*6)+4] = sides;
+				} else {
+					triangles[(i*6)+5] = i+1;
+					triangles[(i*6)+4] = sides+i+1;
+				}
+			}
+			offset += sides * 6;
+
+			// bottom
+			for (int i = 0; i < sides - 2; i++) {
+				triangles[offset+(i*3)  ] = i;
+				triangles[offset+(i*3)+2] = sides-1;
+				triangles[offset+(i*3)+1] = i+1;
+			}
+			offset += (sides - 1) * 3;
+
+			// top
+			for (int i = 0; i < sides - 2; i++) {
+				triangles[offset+(i*3)  ] = sides+i;
+				triangles[offset+(i*3)+1] = sides+sides-1;
+				triangles[offset+(i*3)+2] = sides+i+1;
+			}
+			offset += (sides - 1) * 3;
+		} else {
+			// sides
+			for (int i = 0; i < sides; i++) {
+				triangles[(i*6)  ] = i;
+				if (i == sides-1) {
+					triangles[(i*6)+1] = 0;
+				} else {
+					triangles[(i*6)+1] = i+1;
+				}
+				triangles[(i*6)+2] = sides+i;
+				triangles[(i*6)+3] = sides+i;
+				if (i == sides-1) {
+					triangles[(i*6)+4] = 0;
+					triangles[(i*6)+5] = sides;
+				} else {
+					triangles[(i*6)+4] = i+1;
+					triangles[(i*6)+5] = sides+i+1;
+				}
+			}
+			offset += sides * 6;
+
+			// bottom
+			for (int i = 0; i < sides - 2; i++) {
+				triangles[offset+(i*3)  ] = i;
+				triangles[offset+(i*3)+1] = sides-1;
+				triangles[offset+(i*3)+2] = i+1;
+			}
+			offset += (sides - 1) * 3;
+
+			// top
+			for (int i = 0; i < sides - 2; i++) {
+				triangles[offset+(i*3)  ] = sides+i;
+				triangles[offset+(i*3)+2] = sides+sides-1;
+				triangles[offset+(i*3)+1] = sides+i+1;
+			}
+			offset += (sides - 1) * 3;
+		}
+
+		mesh.triangles = triangles;
+
+		// if wanted: create the UV Vector2 array to be able to also display textures on this mesh
+		Vector2[] uv = new Vector2[vertices.Length];
+		for (int i = 0; i < vertices.Length; i++) {
+			uv[i] = new Vector2(vertices[i].x, vertices[i].z);
+		}
+		mesh.uv = uv;
+
+		// assign our resulting results
+		finalizeMesh(mesh);
+	}
+
+	public static void finalizeMesh(Mesh mesh) {
+		mesh.Optimize();
+		mesh.RecalculateNormals();
+		mesh.RecalculateBounds();
 	}
 
 }

@@ -75,10 +75,10 @@ public class TicTacToeCtrl : UpdateableCtrl {
 			fields[x] = new GameObject[3];
 			buttons[x] = new TicTacToeButton[3];
 			for (int y = 0; y < 3; y++) {
-				fields[x][y] = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+				fields[x][y] = ObjectFactory.createCylinder(40, 10, false, MaterialCtrl.OBJECTS_TICTACTOE_GRAY);
 				fields[x][y].transform.parent = ticTacToe.transform;
 				fields[x][y].transform.localPosition = new Vector3((x - 1) * 0.7f, 0.025f, (y - 1) * 0.7f);
-				fields[x][y].transform.localEulerAngles = new Vector3(0, 0, 0);
+				fields[x][y].transform.localEulerAngles = new Vector3(0, 135, 0);
 				fields[x][y].transform.localScale = new Vector3(0.55f, 0.025f, 0.55f);
 				buttons[x][y] = new TicTacToeButton(
 					fields[x][y],
