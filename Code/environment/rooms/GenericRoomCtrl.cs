@@ -46,6 +46,7 @@ public abstract class GenericRoomCtrl {
 
 	protected virtual void createFloor() {
 
+		// create floor from the top
 		GameObject floor = createPrimitive(PrimitiveType.Quad);
 		floor.name = TriggerCtrl.FLOOR_NAME;
 		floor.transform.localPosition = new Vector3(0, 0, 0);
@@ -59,6 +60,20 @@ public abstract class GenericRoomCtrl {
 		floor2.transform.localEulerAngles = new Vector3(90, 45, 0);
 		floor2.transform.localScale = new Vector3(10, 10, 1);
 		MaterialCtrl.setMaterial(floor2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
+
+		// create floor from the bottom
+		// (such that we can look at it from the bottom when we grab it in the diorama)
+		GameObject floorBtm = createPrimitive(PrimitiveType.Quad);
+		floorBtm.transform.localPosition = new Vector3(0, -0.01f, 0);
+		floorBtm.transform.localEulerAngles = new Vector3(-90, 0, 0);
+		floorBtm.transform.localScale = new Vector3(10, 10, 1);
+		MaterialCtrl.setMaterial(floorBtm, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
+
+		GameObject floorBtm2 = createPrimitive(PrimitiveType.Quad);
+		floorBtm2.transform.localPosition = new Vector3(0, -0.011f, 0);
+		floorBtm2.transform.localEulerAngles = new Vector3(-90, 45, 0);
+		floorBtm2.transform.localScale = new Vector3(10, 10, 1);
+		MaterialCtrl.setMaterial(floorBtm2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
 	}
 
 	protected virtual void createBeams() {
