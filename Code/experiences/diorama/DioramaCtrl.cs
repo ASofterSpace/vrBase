@@ -59,20 +59,73 @@ public class DioramaCtrl : UpdateableCtrl {
 				Object.Destroy(collider);
 			}
 
+			BoxCollider col;
+			PhysicMaterial physicsMat;
+			Rigidbody rby;
+			ThrowableObject curThrowable;
+
 			GameObject dioramaRocket = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/Rocket Launcher/RocketHolder");
-			BoxCollider col = dioramaRocket.AddComponent<BoxCollider>();
+			col = dioramaRocket.AddComponent<BoxCollider>();
 			col.center = new Vector3(0, 27.6f, 0);
 			col.size = new Vector3(6, 55, 6);
-			PhysicMaterial physicsMat = new PhysicMaterial();
+			physicsMat = new PhysicMaterial();
 			physicsMat.dynamicFriction = 1;
 			physicsMat.staticFriction = 0.6f;
 			physicsMat.bounciness = 0.05f;
 			physicsMat.frictionCombine = PhysicMaterialCombine.Average;
 			physicsMat.bounceCombine = PhysicMaterialCombine.Average;
 			col.material = physicsMat;
-			Rigidbody rby = dioramaRocket.AddComponent<Rigidbody>();
+			rby = dioramaRocket.AddComponent<Rigidbody>();
+			rby.mass = 5;
+			curThrowable = new ThrowableBoundObject(dioramaRocket);
+			ObjectCtrl.add(curThrowable);
+
+			GameObject dioramaControlRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ControlRoom");
+			col = dioramaControlRoom.AddComponent<BoxCollider>();
+			col.center = new Vector3(0, 2.5f, 0);
+			col.size = new Vector3(10.5f, 5, 10.5f);
+			physicsMat = new PhysicMaterial();
+			physicsMat.dynamicFriction = 1;
+			physicsMat.staticFriction = 0.6f;
+			physicsMat.bounciness = 0.05f;
+			physicsMat.frictionCombine = PhysicMaterialCombine.Average;
+			physicsMat.bounceCombine = PhysicMaterialCombine.Average;
+			col.material = physicsMat;
+			rby = dioramaControlRoom.AddComponent<Rigidbody>();
 			rby.mass = 2;
-			ThrowableObject curThrowable = new ThrowableBoundObject(dioramaRocket);
+			curThrowable = new ThrowableBoundObject(dioramaControlRoom);
+			ObjectCtrl.add(curThrowable);
+
+			GameObject dioramaArcadeRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ArcadeRoom");
+			col = dioramaArcadeRoom.AddComponent<BoxCollider>();
+			col.center = new Vector3(0, 2.5f, 0);
+			col.size = new Vector3(10.5f, 5, 10.5f);
+			physicsMat = new PhysicMaterial();
+			physicsMat.dynamicFriction = 1;
+			physicsMat.staticFriction = 0.6f;
+			physicsMat.bounciness = 0.05f;
+			physicsMat.frictionCombine = PhysicMaterialCombine.Average;
+			physicsMat.bounceCombine = PhysicMaterialCombine.Average;
+			col.material = physicsMat;
+			rby = dioramaArcadeRoom.AddComponent<Rigidbody>();
+			rby.mass = 2;
+			curThrowable = new ThrowableBoundObject(dioramaArcadeRoom);
+			ObjectCtrl.add(curThrowable);
+
+			GameObject dioramaScienceRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ScienceRoom");
+			col = dioramaScienceRoom.AddComponent<BoxCollider>();
+			col.center = new Vector3(0, 2, 0);
+			col.size = new Vector3(9.5f, 4, 9.5f);
+			physicsMat = new PhysicMaterial();
+			physicsMat.dynamicFriction = 1;
+			physicsMat.staticFriction = 0.6f;
+			physicsMat.bounciness = 0.05f;
+			physicsMat.frictionCombine = PhysicMaterialCombine.Average;
+			physicsMat.bounceCombine = PhysicMaterialCombine.Average;
+			col.material = physicsMat;
+			rby = dioramaScienceRoom.AddComponent<Rigidbody>();
+			rby.mass = 1.8f;
+			curThrowable = new ThrowableBoundObject(dioramaScienceRoom);
 			ObjectCtrl.add(curThrowable);
 		}
 
