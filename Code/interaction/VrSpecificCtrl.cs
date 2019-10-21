@@ -96,6 +96,15 @@ public class VrSpecificCtrl {
 		return controller;
 	}
 
+	public GameObject getController(int leftOrRight) {
+
+		if (leftOrRight == VrInput.LEFT) {
+			return leftController;
+		}
+
+		return rightController;
+	}
+
 	/**
 	 * The heavyUpdate() function is called less often, such that more resource-
 	 * hungry things can be done here

@@ -23,9 +23,9 @@ public class ControllerBehaviour : MonoBehaviour {
 		this.controller = controller;
 	}
 
-	void OnCollisionEnter(Collision collision) {
+	void OnTriggerEnter(Collider collider) {
 
-		string colName = collision.gameObject.name;
+		string colName = collider.gameObject.name;
 
 		if (colName != null) {
 			if (colName.StartsWith(ObjectCtrl.OBJECT_IDENTIFIER)) {
@@ -34,7 +34,7 @@ public class ControllerBehaviour : MonoBehaviour {
 					lastHoveredObject.blur();
 				}
 
-				TakeableObject obj = ObjectCtrl.get(collision.gameObject.name);
+				TakeableObject obj = ObjectCtrl.get(collider.gameObject.name);
 				obj.hover();
 
 				lastHoveredObject = obj;

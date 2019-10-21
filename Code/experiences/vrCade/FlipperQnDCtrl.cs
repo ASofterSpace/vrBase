@@ -788,13 +788,13 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 
 	private float curTriggerSpeed() {
 
-		// maximum triggering reached after three seconds
+		// maximum triggering reached after three-ish seconds
 		// TODO :: add sound effects to show this more properly!
-		float triggerSpeed = (Time.time - triggerStartTime) / 3;
+		float triggerSpeed = (Time.time - triggerStartTime) / 6;
 
 		// no more triggering after maximum is reached
-		if (triggerSpeed > 1.0f) {
-			triggerSpeed = 1.0f;
+		if (triggerSpeed > 0.4f) {
+			triggerSpeed = 0.4f;
 		}
 
 		return triggerSpeed;
@@ -837,9 +837,9 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 
 	private void setTriggerTo(float triggerSpeed) {
 
-		trigger.transform.localScale = new Vector3(0.08f, 0.01f + (triggerSpeed / 20), 0.08f);
+		trigger.transform.localScale = new Vector3(0.08f, 0.01f + (triggerSpeed / 10), 0.08f);
 
-		trigger.transform.localPosition = new Vector3(-0.36f, 0.98f, 0.405f + (triggerSpeed / 20));
+		trigger.transform.localPosition = new Vector3(-0.36f, 0.98f, 0.405f + (triggerSpeed / 10));
 	}
 
 	private void resetGame() {

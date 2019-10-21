@@ -29,6 +29,7 @@ public class TriggerCtrl {
 	private bool teleportInProgress;
 	private bool[] targetingTeleportableArea;
 	private Button[] targetingButton;
+	private TakeableObject[] holdingObject;
 
 	private float fade;
 	private float fadeStartTime;
@@ -52,6 +53,7 @@ public class TriggerCtrl {
 
 		this.targetPoint = new Vector3[2];
 		this.potentialTeleportVector = new Vector3[2];
+		this.holdingObject = new TakeableObject[2];
 
 		ray = new GameObject[2];
 		ray[VrInput.LEFT] = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -139,31 +141,47 @@ public class TriggerCtrl {
 		targetingTeleportableArea[leftOrRight] = false;
 		targetingButton[leftOrRight] = null;
 
-		// check if we are close to a takeable object - as taking objects with the
-		// trigger key has precedence over pressing buttons and performing teleports
-		if (input.getLastHoveredObject(leftOrRight) != null) {
-			if (input.getTriggerClicked(leftOrRight)) {
-				// TODO actually take the object
+		// check if we are holding a takeable object
+		if (holdingObject[leftOrRight] != null) {
+			if (input.getTriggerReleased(leftOrRight)) {
+				holdingObject[leftOrRight].drop(input.getVelocity(leftOrRight));
+				holdingObject[leftOrRight] = null;
+			} else {
+				holdingObject[leftOrRight].stillGrabbing();
 			}
 		} else {
-			// if the trigger is being pressed, check the direction in which we are pointing
-			if (input.getTriggerPressed(leftOrRight) || input.getTriggerReleased(leftOrRight)) {
-				checkTriggeringDirection(input, leftOrRight);
-				rayActive = true;
-			}
-
-			// if the trigger has been released now...
-			if (input.getTriggerReleased(leftOrRight)) {
-				// ... and if we are pointing somewhere teleport-y, then actually teleport!
-				if (targetingTeleportableArea[leftOrRight]) {
-					SoundCtrl.playMainCamSound(SoundCtrl.WHOOSH_1);
-					teleportVector = potentialTeleportVector[leftOrRight];
-					startTeleportation();
+			// check if we are close to a takeable object - as taking objects with the
+			// trigger key has precedence over pressing buttons and performing teleports
+			if (input.getLastHoveredObject(leftOrRight) != null) {
+				if (input.getTriggerClicked(leftOrRight)) {
+					input.getLastHoveredObject(leftOrRight).grab(
+						mainCtrl.getVrSpecificCtrl().getController(leftOrRight)
+					);
+					if (holdingObject[leftOrRight] != null) {
+						holdingObject[leftOrRight].drop(5 * input.getVelocity(leftOrRight));
+					}
+					holdingObject[leftOrRight] = input.getLastHoveredObject(leftOrRight);
 				}
-				// ... and if we are targeting a button, push it!
-				if (targetingButton[leftOrRight] != null) {
-					targetingButton[leftOrRight].trigger();
-					targetingButton[leftOrRight].blur();
+			} else {
+				// if the trigger is being pressed, check the direction in which we are pointing
+				if (input.getTriggerPressed(leftOrRight) || input.getTriggerReleased(leftOrRight)) {
+					checkTriggeringDirection(input, leftOrRight);
+					rayActive = true;
+				}
+
+				// if the trigger has been released now...
+				if (input.getTriggerReleased(leftOrRight)) {
+					// ... and if we are pointing somewhere teleport-y, then actually teleport!
+					if (targetingTeleportableArea[leftOrRight]) {
+						SoundCtrl.playMainCamSound(SoundCtrl.WHOOSH_1);
+						teleportVector = potentialTeleportVector[leftOrRight];
+						startTeleportation();
+					}
+					// ... and if we are targeting a button, push it!
+					if (targetingButton[leftOrRight] != null) {
+						targetingButton[leftOrRight].trigger();
+						targetingButton[leftOrRight].blur();
+					}
 				}
 			}
 		}

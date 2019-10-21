@@ -18,4 +18,13 @@ public class ThrowableObject : TakeableObject {
 
 	}
 
+	public override void drop(Vector3 velocity) {
+
+		gameObject.transform.parent = originalParent.transform;
+
+		gameObject.GetComponent<Rigidbody>().useGravity = true;
+
+		gameObject.GetComponent<Rigidbody>().velocity = velocity;
+	}
+
 }

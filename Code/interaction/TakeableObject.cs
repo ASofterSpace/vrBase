@@ -16,7 +16,11 @@ public class TakeableObject {
 
 	protected GameObject gameObject;
 
-	protected Material defaultMaterial;
+	protected Renderer[] renderers;
+
+	protected Material[] defaultMaterials;
+
+	protected GameObject originalParent;
 
 	protected bool enabled;
 
@@ -25,11 +29,20 @@ public class TakeableObject {
 
 		this.gameObject = obj;
 
-		this.defaultMaterial = obj.GetComponent<Renderer>().material;
+		this.renderers = obj.GetComponentsInChildren<Renderer>();
+
+		this.defaultMaterials = new Material[this.renderers.Length];
+		for (int i = 0; i < this.renderers.Length; i++) {
+			defaultMaterials[i] = renderers[i].material;
+		}
 
 		this.enabled = true;
 
-		obj.AddComponent<Rigidbody>();
+		Rigidbody rb = obj.GetComponent<Rigidbody>();
+		if (rb == null) {
+			rb = obj.AddComponent<Rigidbody>();
+		}
+		rb.useGravity = true;
 	}
 
 	/**
@@ -37,7 +50,10 @@ public class TakeableObject {
 	 */
 	public virtual void hover() {
 		if (enabled) {
-			MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
+			Material hoverMaterial = MaterialCtrl.getMaterial(MaterialCtrl.INTERACTION_BUTTON_HOVER);
+			for (int i = 0; i < this.renderers.Length; i++) {
+				renderers[i].material = hoverMaterial;
+			}
 		}
 	}
 
@@ -46,25 +62,51 @@ public class TakeableObject {
 	 * no longer hovering...
 	 */
 	public virtual void blur() {
-		gameObject.GetComponent<Renderer>().material = defaultMaterial;
+		Material hoverMaterial = MaterialCtrl.getMaterial(MaterialCtrl.INTERACTION_BUTTON_HOVER);
+		for (int i = 0; i < this.renderers.Length; i++) {
+			renderers[i].material = defaultMaterials[i];
+		}
 	}
 
 	/**
-	 * This object is being taken - whoop whoop!
+	 * This object is being grabbed - whoop whoop!
 	 */
-	public virtual void take() {
-		// actually do something!
+	public virtual void grab(GameObject controller) {
+
+		gameObject.GetComponent<Rigidbody>().useGravity = false;
+
+		stillGrabbing();
+
+		if (originalParent == null) {
+			originalParent = gameObject.transform.parent.gameObject;
+		}
+		gameObject.transform.parent = controller.transform;
+	}
+
+	/**
+	 * The object is still being grabbed, every grabby frame!
+	 */
+	public virtual void stillGrabbing() {
+
+		gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 	}
 
 	/**
 	 * This object is being dropped again - whoopsie!
 	 */
-	public virtual void drop() {
+	public virtual void drop(Vector3 veloctiy) {
 		// actually do something!
 	}
 
 	public virtual void setName(string newName) {
 		gameObject.name = newName;
+
+		// we also set the name of all children, such that controller collisions with
+		// children get reported to us
+		Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+		foreach (Transform child in children) {
+			child.gameObject.name = newName;
+		}
 	}
 
 	public virtual string getName() {

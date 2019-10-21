@@ -22,6 +22,8 @@ public class VrInput {
 	public const int LEFT = 0;
 	public const int RIGHT = 1;
 
+	public float generatedAt;
+
 	public Vector3 camPosition;
 	public Quaternion camRotation;
 
@@ -58,6 +60,14 @@ public class VrInput {
 	public Quaternion leftRotation;
 	public Quaternion rightRotation;
 
+	private float prevGeneratedAt;
+	private Vector3 prevLeftPosition;
+	private Vector3 prevRightPosition;
+
+
+	public VrInput() {
+		generatedAt = Time.time;
+	}
 
 	public void consolidate(VrInput previous) {
 
@@ -116,6 +126,10 @@ public class VrInput {
 		if (previous.someGripPressed && !someGripPressed) {
 			someGripReleased = true;
 		}
+
+		prevGeneratedAt = previous.generatedAt;
+		prevLeftPosition = previous.leftPosition;
+		prevRightPosition = previous.rightPosition;
 	}
 
 	public TakeableObject getLastHoveredObject(int leftOrRight) {
@@ -158,5 +172,19 @@ public class VrInput {
 			return leftRotation;
 		}
 		return rightRotation;
+	}
+
+	public Vector3 getVelocity(int leftOrRight) {
+
+		float divi = (generatedAt - prevGeneratedAt);
+
+		if (divi <= 0) {
+			divi = 0.01f;
+		}
+
+		if (leftOrRight == LEFT) {
+			return (leftPosition - prevLeftPosition) / divi;
+		}
+		return (rightPosition - prevRightPosition) / divi;
 	}
 }

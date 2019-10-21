@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using System.Collections;
-using System;
 
 using UnityEngine;
 
@@ -13,6 +12,8 @@ using UnityEngine;
 public class BowlingAlleyCtrl {
 
 	private GameObject hostRoom;
+
+	private GameObject bowlingAlley;
 
 
 	public BowlingAlleyCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
@@ -24,7 +25,7 @@ public class BowlingAlleyCtrl {
 
 	private void createBowlingAlley(Vector3 position, Vector3 angles) {
 
-		GameObject bowlingAlley = new GameObject("Bowling Alley");
+		bowlingAlley = new GameObject("Bowling Alley");
 		bowlingAlley.transform.parent = hostRoom.transform;
 
 		GameObject bowlingFloor = GameObject.CreatePrimitive(PrimitiveType.Quad);
@@ -35,14 +36,15 @@ public class BowlingAlleyCtrl {
 		bowlingFloor.transform.localScale = new Vector3(1, 6, 1);
 		MaterialCtrl.setMaterial(bowlingFloor, MaterialCtrl.BUILDING_FLOOR_WOOD);
 
-		GameObject bowlingBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		bowlingBall.transform.parent = bowlingAlley.transform;
+		GameObject bowlingBall = createBowlingBall();
 		bowlingBall.transform.localPosition = new Vector3(0, 0.1f, -2.8f);
-		bowlingBall.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 		MaterialCtrl.setMaterial(bowlingBall, MaterialCtrl.OBJECTS_BOWLING_BALL_RED);
-
-		ThrowableObject curThrowable = new ThrowableObject(bowlingBall);
-		ObjectCtrl.add(curThrowable);
+		bowlingBall = createBowlingBall();
+		bowlingBall.transform.localPosition = new Vector3(0.75f, 0.1f, -2.8f);
+		MaterialCtrl.setMaterial(bowlingBall, MaterialCtrl.PLASTIC_PURPLE);
+		bowlingBall = createBowlingBall();
+		bowlingBall.transform.localPosition = new Vector3(0.75f, 0.1f, -3.2f);
+		MaterialCtrl.setMaterial(bowlingBall, MaterialCtrl.PLASTIC_BLUE);
 
 		GameObject[] pins = new GameObject[10];
 		for (int i = 0; i < pins.Length; i++) {
@@ -64,33 +66,59 @@ public class BowlingAlleyCtrl {
 		bowlingAlley.transform.localEulerAngles = angles;
 	}
 
+	private GameObject createBowlingBall() {
+
+		GameObject bowlingBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		bowlingBall.transform.parent = bowlingAlley.transform;
+		bowlingBall.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
+		ThrowableObject curThrowable = new ThrowableObject(bowlingBall);
+		ObjectCtrl.add(curThrowable);
+
+		Rigidbody rb = bowlingBall.GetComponent<Rigidbody>();
+		rb.mass = 10;
+
+		return bowlingBall;
+	}
+
 	private GameObject createBowlingPin() {
 
 		GameObject pin = new GameObject("bowlingPin");
+		BoxCollider col = pin.AddComponent<BoxCollider>();
+		col.center = new Vector3(0, 0.105f, 0);
+		col.size = new Vector3(0.04f, 0.21f, 0.04f);
 
 		GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
 		capsule.transform.parent = pin.transform;
-		capsule.transform.localPosition = new Vector3(0, 0.0719f, 0);
+		capsule.transform.localPosition = new Vector3(0, 0.08f, 0);
 		capsule.transform.localScale = new Vector3(0.05f, 0.08f, 0.05f);
+		Object.Destroy(capsule.GetComponent<Collider>());
 		MaterialCtrl.setMaterial(capsule, MaterialCtrl.OBJECTS_BOWLING_PIN_WHITE);
 
 		GameObject neck = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		neck.transform.parent = pin.transform;
 		neck.transform.localPosition = new Vector3(0, 0.1631f, 0);
 		neck.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+		Object.Destroy(neck.GetComponent<Collider>());
 		MaterialCtrl.setMaterial(neck, MaterialCtrl.OBJECTS_BOWLING_PIN_WHITE);
 
 		GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		head.transform.parent = pin.transform;
 		head.transform.localPosition = new Vector3(0, 0.1961f, 0);
 		head.transform.localScale = new Vector3(0.04f, 0.04f, 0.04f);
+		Object.Destroy(head.GetComponent<Collider>());
 		MaterialCtrl.setMaterial(head, MaterialCtrl.OBJECTS_BOWLING_PIN_WHITE);
 
 		GameObject redBand = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		redBand.transform.parent = pin.transform;
-		redBand.transform.localPosition = new Vector3(0, 0.1009f, 0);
+		redBand.transform.localPosition = new Vector3(0, 0.1f, 0);
 		redBand.transform.localScale = new Vector3(0.051f, 0.01f, 0.051f);
+		Object.Destroy(redBand.GetComponent<Collider>());
 		MaterialCtrl.setMaterial(redBand, MaterialCtrl.OBJECTS_BOWLING_PIN_RED);
+
+		// if we want to, we can also take a pin and throw it around ^^
+		ThrowableObject curThrowable = new ThrowableObject(pin);
+		ObjectCtrl.add(curThrowable);
 
 		return pin;
 	}
