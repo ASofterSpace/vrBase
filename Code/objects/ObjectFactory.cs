@@ -460,6 +460,123 @@ public class ObjectFactory {
 		return cone;
 	}
 
+	public static GameObject createTetrahedron(int material) {
+
+		GameObject outsideTetra = _createTetrahedron(false);
+		MaterialCtrl.setMaterial(outsideTetra, material);
+		return outsideTetra;
+	}
+
+	private static GameObject _createTetrahedron(bool insideOut) {
+
+		GameObject obj = new GameObject("Tetrahedron");
+
+		// create the mesh
+		MeshFilter meshFilter = obj.AddComponent<MeshFilter>();
+		obj.AddComponent<MeshRenderer>();
+		Mesh mesh = meshFilter.mesh;
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		Vector3[] vertices = new Vector3[4];
+
+		vertices[0] = new Vector3( Mathf.Sqrt(8f/9), -1f/3,                0);
+		vertices[1] = new Vector3(-Mathf.Sqrt(2f/9), -1f/3,  Mathf.Sqrt(2f/3));
+		vertices[2] = new Vector3(-Mathf.Sqrt(2f/9), -1f/3, -Mathf.Sqrt(2f/3));
+		vertices[3] = new Vector3(                0,    1,                 0);
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles = new int[4*3];
+
+		triangles[0] = 0;
+		triangles[1] = 1;
+		triangles[2] = 2;
+		triangles[3] = 1;
+		triangles[4] = 3;
+		triangles[5] = 2;
+		triangles[6] = 0;
+		triangles[7] = 2;
+		triangles[8] = 3;
+		triangles[9] = 0;
+		triangles[10] = 3;
+		triangles[11] = 1;
+
+		mesh.triangles = triangles;
+
+		finalizeMesh(mesh);
+
+		return obj;
+	}
+
+	public static GameObject createOctahedron(int material) {
+
+		GameObject outsideOcta = _createOctahedron(false);
+		MaterialCtrl.setMaterial(outsideOcta, material);
+		return outsideOcta;
+	}
+
+	private static GameObject _createOctahedron(bool insideOut) {
+
+		GameObject obj = new GameObject("Octahedron");
+
+		// create the mesh
+		MeshFilter meshFilter = obj.AddComponent<MeshFilter>();
+		obj.AddComponent<MeshRenderer>();
+		Mesh mesh = meshFilter.mesh;
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		Vector3[] vertices = new Vector3[6];
+
+		vertices[0] = new Vector3(0, -Mathf.Sqrt(2)/2, 0);
+		vertices[1] = new Vector3(0.5f, 0, 0.5f);
+		vertices[2] = new Vector3(0.5f, 0, -0.5f);
+		vertices[3] = new Vector3(-0.5f, 0, -0.5f);
+		vertices[4] = new Vector3(-0.5f, 0, 0.5f);
+		vertices[5] = new Vector3(0, Mathf.Sqrt(2)/2, 0);
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles = new int[8*3];
+
+		// bottom half
+		triangles[0] = 0;
+		triangles[1] = 2;
+		triangles[2] = 1;
+		triangles[3] = 0;
+		triangles[4] = 3;
+		triangles[5] = 2;
+		triangles[6] = 0;
+		triangles[7] = 4;
+		triangles[8] = 3;
+		triangles[9] = 0;
+		triangles[10] = 1;
+		triangles[11] = 4;
+
+		// top half
+		triangles[12] = 5;
+		triangles[13] = 1;
+		triangles[14] = 2;
+		triangles[15] = 5;
+		triangles[16] = 2;
+		triangles[17] = 3;
+		triangles[18] = 5;
+		triangles[19] = 3;
+		triangles[20] = 4;
+		triangles[21] = 5;
+		triangles[22] = 4;
+		triangles[23] = 1;
+
+		mesh.triangles = triangles;
+
+		finalizeMesh(mesh);
+
+		return obj;
+	}
+
 	/**
 	 * Create a cylinder with as many sides as you want (20 is the amount that in-built unity
 	 * cylinders use), optionally with a MeshCollider attached (this is a bit more expensive

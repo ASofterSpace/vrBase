@@ -82,7 +82,7 @@ public class DioramaCtrl : UpdateableCtrl {
 
 			GameObject dioramaControlRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ControlRoom");
 			col = dioramaControlRoom.AddComponent<BoxCollider>();
-			col.center = new Vector3(0, 2.5f, 0);
+			col.center = new Vector3(0, 2.475f, 0);
 			col.size = new Vector3(10.5f, 5, 10.5f);
 			physicsMat = new PhysicMaterial();
 			physicsMat.dynamicFriction = 1;
@@ -98,7 +98,7 @@ public class DioramaCtrl : UpdateableCtrl {
 
 			GameObject dioramaArcadeRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ArcadeRoom");
 			col = dioramaArcadeRoom.AddComponent<BoxCollider>();
-			col.center = new Vector3(0, 2.5f, 0);
+			col.center = new Vector3(0, 2.475f, 0);
 			col.size = new Vector3(10.5f, 5, 10.5f);
 			physicsMat = new PhysicMaterial();
 			physicsMat.dynamicFriction = 1;
@@ -114,7 +114,7 @@ public class DioramaCtrl : UpdateableCtrl {
 
 			GameObject dioramaScienceRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ScienceRoom");
 			col = dioramaScienceRoom.AddComponent<BoxCollider>();
-			col.center = new Vector3(0, 2, 0);
+			col.center = new Vector3(0, 1.975f, 0);
 			col.size = new Vector3(9.5f, 4, 9.5f);
 			physicsMat = new PhysicMaterial();
 			physicsMat.dynamicFriction = 1;

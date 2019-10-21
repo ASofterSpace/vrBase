@@ -12,12 +12,26 @@ using UnityEngine;
 
 public class ScienceRoomCtrl : GenericRoomCtrl {
 
+	private GameObject thisRoomInterior;
+
+	private MathWorldCtrl mathWorldCtrl;
+
 
 	public ScienceRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
+		thisRoomInterior = new GameObject("Science Room Interior");
+		thisRoomInterior.transform.parent = thisRoom.transform;
+
 		createRoom();
 
-		thisRoom.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+		float minify = 0.8f;
+		float normalify = 1 / minify;
+
+		thisRoom.transform.localScale = new Vector3(minify, minify, minify);
+
+		thisRoomInterior.transform.localPosition = new Vector3(0, 0, 0);
+		thisRoomInterior.transform.localEulerAngles = new Vector3(0, 0, 0);
+		thisRoomInterior.transform.localScale = new Vector3(normalify, normalify, normalify);
 	}
 
 	protected override void createRoom() {
@@ -128,6 +142,9 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 
 	private void createObjects() {
 
+		mathWorldCtrl = new MathWorldCtrl(
+			mainCtrl, thisRoomInterior, new Vector3(2.3f, 0, -2.5f), new Vector3(0, -50, 0)
+		);
 	}
 
 }
