@@ -684,47 +684,88 @@ public class ObjectFactory {
 		mesh.Clear();
 
 		// create vertices that are available to create the mesh
-		Vector3[] vertices = new Vector3[6];
+		Vector3[] vertices = new Vector3[12];
 
-		vertices[0] = new Vector3(0, -Mathf.Sqrt(2)/2, 0);
-		vertices[1] = new Vector3(0.5f, 0, 0.5f);
-		vertices[2] = new Vector3(0.5f, 0, -0.5f);
-		vertices[3] = new Vector3(-0.5f, 0, -0.5f);
-		vertices[4] = new Vector3(-0.5f, 0, 0.5f);
-		vertices[5] = new Vector3(0, Mathf.Sqrt(2)/2, 0);
+		float phi = (1f + Mathf.Sqrt(5)) / 4;
+
+		vertices[0] = new Vector3(0.5f, phi, 0);
+		vertices[1] = new Vector3(-0.5f, phi, 0);
+		vertices[2] = new Vector3(0,  0.5f, -phi);
+		vertices[3] = new Vector3(0,  0.5f, phi);
+		vertices[4] = new Vector3(phi, 0, -0.5f);
+		vertices[5] = new Vector3(phi, 0, 0.5f);
+		vertices[6] = new Vector3(-phi, 0, 0.5f);
+		vertices[7] = new Vector3(-phi, 0, -0.5f);
+		vertices[8] = new Vector3(0,  -0.5f, -phi);
+		vertices[9] = new Vector3(0,  -0.5f, phi);
+		vertices[10] = new Vector3(0.5f, -phi, 0);
+		vertices[11] = new Vector3(-0.5f, -phi, 0);
 
 		mesh.vertices = vertices;
 
 		// create triangles using the previously set vertices
-		int[] triangles = new int[8*3];
+		int[] triangles = new int[5*4*3];
 
-		// bottom half
 		triangles[0] = 0;
 		triangles[1] = 2;
 		triangles[2] = 1;
-		triangles[3] = 0;
+		triangles[3] = 1;
 		triangles[4] = 3;
-		triangles[5] = 2;
-		triangles[6] = 0;
-		triangles[7] = 4;
-		triangles[8] = 3;
-		triangles[9] = 0;
+		triangles[5] = 0;
+		triangles[6] = 3;
+		triangles[7] = 1;
+		triangles[8] = 6;
+		triangles[9] = 6;
 		triangles[10] = 1;
-		triangles[11] = 4;
-
-		// top half
-		triangles[12] = 5;
+		triangles[11] = 7;
+		triangles[12] = 7;
 		triangles[13] = 1;
 		triangles[14] = 2;
-		triangles[15] = 5;
+		triangles[15] = 7;
 		triangles[16] = 2;
-		triangles[17] = 3;
-		triangles[18] = 5;
-		triangles[19] = 3;
-		triangles[20] = 4;
-		triangles[21] = 5;
-		triangles[22] = 4;
-		triangles[23] = 1;
+		triangles[17] = 8;
+		triangles[18] = 7;
+		triangles[19] = 8;
+		triangles[20] = 11;
+		triangles[21] = 7;
+		triangles[22] = 11;
+		triangles[23] = 6;
+		triangles[24] = 6;
+		triangles[25] = 11;
+		triangles[26] = 9;
+		triangles[27] = 6;
+		triangles[28] = 9;
+		triangles[29] = 3;
+		triangles[30] = 3;
+		triangles[31] = 9;
+		triangles[32] = 5;
+		triangles[33] = 3;
+		triangles[34] = 5;
+		triangles[35] = 0;
+		triangles[36] = 0;
+		triangles[37] = 5;
+		triangles[38] = 4;
+		triangles[39] = 0;
+		triangles[40] = 4;
+		triangles[41] = 2;
+		triangles[42] = 4;
+		triangles[43] = 5;
+		triangles[44] = 10;
+		triangles[45] = 10;
+		triangles[46] = 5;
+		triangles[47] = 9;
+		triangles[48] = 10;
+		triangles[49] = 9;
+		triangles[50] = 11;
+		triangles[51] = 10;
+		triangles[52] = 11;
+		triangles[53] = 8;
+		triangles[54] = 10;
+		triangles[55] = 8;
+		triangles[56] = 4;
+		triangles[57] = 4;
+		triangles[58] = 8;
+		triangles[59] = 2;
 
 		mesh.triangles = triangles;
 

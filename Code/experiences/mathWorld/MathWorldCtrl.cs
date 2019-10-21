@@ -45,7 +45,7 @@ public class MathWorldCtrl: ResetteableCtrl {
 
 		solids[3].transform.localPosition = new Vector3(-0.2f, 1.1f, -0.055f);
 		solids[3].transform.localEulerAngles = new Vector3(0, 0, 0);
-		solids[3].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		solids[3].transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
 
 /*
 		foreach (GameObject bowlingBall in bowlingBalls) {
@@ -141,7 +141,7 @@ public class MathWorldCtrl: ResetteableCtrl {
 		curObj.transform.parent = platonicSolidShelf.transform;
 		col = curObj.AddComponent<BoxCollider>();
 		col.center = new Vector3(0, 0, 0);
-		col.size = new Vector3(1, 1.4f, 1);
+		col.size = new Vector3(1.55f, 1.55f, 1.55f);
 		ObjectCtrl.add(new ThrowableObject(curObj));
 
 		platonicSolidShelf.transform.localPosition = position;
