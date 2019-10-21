@@ -29,11 +29,12 @@ public class TriggerCtrl {
 	private bool teleportInProgress;
 	private bool[] targetingTeleportableArea;
 	private Button[] targetingButton;
-	private TakeableObject[] holdingObject;
 
 	private float fade;
 	private float fadeStartTime;
 	private bool fadingOut;
+
+	private ControllerBehaviour[] controllers;
 
 	public const string FLOOR_NAME = "floor";
 
@@ -53,7 +54,6 @@ public class TriggerCtrl {
 
 		this.targetPoint = new Vector3[2];
 		this.potentialTeleportVector = new Vector3[2];
-		this.holdingObject = new TakeableObject[2];
 
 		ray = new GameObject[2];
 		ray[VrInput.LEFT] = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -130,6 +130,8 @@ public class TriggerCtrl {
 
 	private void checkInput(VrInput input, int leftOrRight) {
 
+		ControllerBehaviour ctrl = controllers[leftOrRight];
+
 		// keep track of the last targeted button, such that we can send an on blur
 		// event in case the button is no longer targeted
 		Button unhighlightButton = null;
@@ -142,25 +144,19 @@ public class TriggerCtrl {
 		targetingButton[leftOrRight] = null;
 
 		// check if we are holding a takeable object
-		if (holdingObject[leftOrRight] != null) {
+		if (ctrl.isGrabbingObject()) {
 			if (input.getTriggerReleased(leftOrRight)) {
-				holdingObject[leftOrRight].drop(input.getVelocity(leftOrRight));
-				holdingObject[leftOrRight] = null;
+				ctrl.drop(input.getVelocity(leftOrRight));
 			} else {
-				holdingObject[leftOrRight].stillGrabbing();
+				ctrl.stillGrabbing();
 			}
 		} else {
 			// check if we are close to a takeable object - as taking objects with the
 			// trigger key has precedence over pressing buttons and performing teleports
 			if (input.getLastHoveredObject(leftOrRight) != null) {
 				if (input.getTriggerClicked(leftOrRight)) {
-					input.getLastHoveredObject(leftOrRight).grab(
-						mainCtrl.getVrSpecificCtrl().getController(leftOrRight)
-					);
-					if (holdingObject[leftOrRight] != null) {
-						holdingObject[leftOrRight].drop(5 * input.getVelocity(leftOrRight));
-					}
-					holdingObject[leftOrRight] = input.getLastHoveredObject(leftOrRight);
+					ctrl.drop(input.getVelocity(leftOrRight));
+					ctrl.grab(input.getLastHoveredObject(leftOrRight));
 				}
 			} else {
 				// if the trigger is being pressed, check the direction in which we are pointing
@@ -333,6 +329,16 @@ public class TriggerCtrl {
 		teleportInProgress = false;
 
 		faderHolder.SetActive(false);
+	}
+
+	public void setControllers(ControllerBehaviour[] controllers) {
+		this.controllers = controllers;
+	}
+
+	public void reset() {
+		// on reset, drop everything - such that it can go back to where it belongs!
+		controllers[VrInput.LEFT].drop(new Vector3(0, 0, 0));
+		controllers[VrInput.RIGHT].drop(new Vector3(0, 0, 0));
 	}
 
 }

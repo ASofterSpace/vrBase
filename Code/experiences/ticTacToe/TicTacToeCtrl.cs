@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 
 
-public class TicTacToeCtrl : UpdateableCtrl {
+public class TicTacToeCtrl : UpdateableCtrl, ResetteableCtrl {
 
 	private MainCtrl mainCtrl;
 
@@ -54,11 +54,12 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		createPlayingField(position, angles);
 
 		mainCtrl.addUpdateableCtrl(this);
+		mainCtrl.addResetteableCtrl(this);
 
 		// start moving such that the robot comes to its natural rest position
 		// and such that we have the internal robo state initialized to useful
 		// values, and overall just start the entire game from a fresh state :)
-		restartGame();
+		reset();
 	}
 
 	private void createPlayingField(Vector3 position, Vector3 angles) {
@@ -199,7 +200,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		MaterialCtrl.setMaterial(restartConsoleSign, MaterialCtrl.OBJECTS_TICTACTOE_LABELS_RESTART);
 	}
 
-	public void restartGame() {
+	public void reset() {
 
 		moveRobotBack();
 
@@ -220,7 +221,7 @@ public class TicTacToeCtrl : UpdateableCtrl {
 		humansTurn = true;
 	}
 
-	void UpdateableCtrl.update(VrInput input) {
+	public void update(VrInput input) {
 
 		if ((buttonsThatWon[0] != null) && (buttonsThatWon[1] != null) && (buttonsThatWon[2] != null)) {
 			bool visible = (Mathf.RoundToInt(Time.time * 3) % 2) == 0;

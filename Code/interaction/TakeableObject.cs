@@ -14,7 +14,9 @@ using UnityEngine;
  */
 public class TakeableObject {
 
-	protected GameObject gameObject;
+	public GameObject gameObject;
+
+	public Transform transform;
 
 	protected Renderer[] renderers;
 
@@ -28,6 +30,7 @@ public class TakeableObject {
 	public TakeableObject(GameObject obj) {
 
 		this.gameObject = obj;
+		this.transform = obj.transform;
 
 		this.renderers = obj.GetComponentsInChildren<Renderer>();
 
@@ -62,7 +65,6 @@ public class TakeableObject {
 	 * no longer hovering...
 	 */
 	public virtual void blur() {
-		Material hoverMaterial = MaterialCtrl.getMaterial(MaterialCtrl.INTERACTION_BUTTON_HOVER);
 		for (int i = 0; i < this.renderers.Length; i++) {
 			renderers[i].material = defaultMaterials[i];
 		}
@@ -74,21 +76,12 @@ public class TakeableObject {
 	public virtual void grab(GameObject controller) {
 
 		gameObject.GetComponent<Rigidbody>().useGravity = false;
-
-		stillGrabbing();
+		gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
 		if (originalParent == null) {
 			originalParent = gameObject.transform.parent.gameObject;
 		}
 		gameObject.transform.parent = controller.transform;
-	}
-
-	/**
-	 * The object is still being grabbed, every grabby frame!
-	 */
-	public virtual void stillGrabbing() {
-
-		gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 	}
 
 	/**

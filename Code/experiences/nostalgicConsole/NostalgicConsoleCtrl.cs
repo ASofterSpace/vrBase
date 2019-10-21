@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 
 
-public class NostalgicConsoleCtrl {
+public class NostalgicConsoleCtrl : ResetteableCtrl {
 
 	private MainCtrl mainCtrl;
 
@@ -24,6 +24,8 @@ public class NostalgicConsoleCtrl {
 		this.mainCtrl = mainCtrl;
 
 		this.hostRoom = hostRoom;
+
+		mainCtrl.addResetteableCtrl(this);
 
 		createNostalgicConsole(position, angles);
 	}
@@ -250,6 +252,29 @@ public class NostalgicConsoleCtrl {
 		buttonDownNeckFrame.transform.localScale = new Vector3(0.05f, 0.005f, 0.13366f);
 		MaterialCtrl.setMaterial(buttonDownNeckFrame, MaterialCtrl.PLASTIC_WHITE);
 
+		// create reset button - hidden inside the console
+		GameObject resetButton = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		resetButton.transform.parent = buttons.transform;
+		resetButton.transform.localPosition = new Vector3(0, 0, 0.59f);
+		resetButton.transform.localEulerAngles = new Vector3(0, 0, 0);
+		resetButton.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		MaterialCtrl.setMaterial(resetButton, MaterialCtrl.PLASTIC_RED);
+		Button btnReset = new DefaultButton(
+			resetButton,
+			() => {
+				mainCtrl.reset();
+			}
+		);
+		ButtonCtrl.add(btnReset);
+
+		GameObject resetButtonFrame = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		resetButtonFrame.transform.parent = buttons.transform;
+		resetButtonFrame.transform.localPosition = new Vector3(0, 0, 0.59f);
+		resetButtonFrame.transform.localEulerAngles = new Vector3(0, 0, 0);
+		resetButtonFrame.transform.localScale = new Vector3(0.12f, 0.01f, 0.12f);
+		MaterialCtrl.setMaterial(resetButtonFrame, MaterialCtrl.PLASTIC_WHITE);
+
+
 		nostalgicConsole.transform.localPosition = position;
 		nostalgicConsole.transform.localEulerAngles = angles;
 	}
@@ -340,6 +365,13 @@ public class NostalgicConsoleCtrl {
 
 	public void setRocketLaunchCtrl(RocketLaunchCtrl rocketLaunchCtrl) {
 		this.rocketLaunchCtrl = rocketLaunchCtrl;
+	}
+
+	public void reset() {
+
+		MaterialCtrl.setColor(MaterialCtrl.BUILDING_BEAM_WHITE, new Color(1.0f, 1.0f, 1.0f, 1.0f));
+
+		MaterialCtrl.setColor(MaterialCtrl.BUILDING_WALL, new Color(0.6771f, 0.5327f, 0.83015f, 1.0f));
 	}
 
 }

@@ -38,6 +38,7 @@ public class MainCtrl : MonoBehaviour {
 	private float lastFullUpdateTime;
 
 	private List<UpdateableCtrl> updateableCtrls;
+	private List<ResetteableCtrl> resetteableCtrls;
 
 
 	/**
@@ -49,6 +50,7 @@ public class MainCtrl : MonoBehaviour {
 		// mainCtrl internal setup
 		lastFullUpdateTime = -100.0f;
 		updateableCtrls = new List<UpdateableCtrl>();
+		resetteableCtrls = new List<ResetteableCtrl>();
 
 		// main objects
 		initMainGameObjects();
@@ -107,6 +109,18 @@ public class MainCtrl : MonoBehaviour {
 		}
 	}
 
+	/**
+	 * Reset the entire game - wheee! :D
+	 */
+	public void reset() {
+
+		triggerCtrl.reset();
+
+		foreach (ResetteableCtrl ctrl in resetteableCtrls) {
+			ctrl.reset();
+		}
+	}
+
 	private void initMainGameObjects() {
 
 		world = GameObject.Find("/World");
@@ -145,11 +159,19 @@ public class MainCtrl : MonoBehaviour {
 		return mainCameraHolder;
 	}
 
+	public TriggerCtrl getTriggerCtrl() {
+		return triggerCtrl;
+	}
+
 	public VrSpecificCtrl getVrSpecificCtrl() {
 		return vrSpecificCtrl;
 	}
 
 	public void addUpdateableCtrl(UpdateableCtrl updateableCtrl) {
 		updateableCtrls.Add(updateableCtrl);
+	}
+
+	public void addResetteableCtrl(ResetteableCtrl resetteableCtrl) {
+		resetteableCtrls.Add(resetteableCtrl);
 	}
 }

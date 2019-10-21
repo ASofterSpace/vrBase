@@ -33,7 +33,7 @@ public class FarAwayCtrl : UpdateableCtrl {
 		createStars();
 	}
 
-	void UpdateableCtrl.update(VrInput input) {
+	public void update(VrInput input) {
 
 		// let the Earth rise, but slowly, unnoticeably! :)
 		// (up to 500+3600/5=1220 after one hour...)

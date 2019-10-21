@@ -65,7 +65,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		hologramFlash.SetActive(false);
 	}
 
-	void UpdateableCtrl.update(VrInput input) {
+	public void update(VrInput input) {
 
 		apparatus.transform.localEulerAngles = new Vector3(20, Time.time * 2, 0);
 

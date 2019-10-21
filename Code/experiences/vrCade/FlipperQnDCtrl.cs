@@ -12,7 +12,7 @@ using UnityEngine;
 /**
  * Controls the quick-and-dirty flipper - our fist flipper ever \o/
  */
-public class FlipperQnDCtrl : UpdateableCtrl {
+public class FlipperQnDCtrl : UpdateableCtrl, ResetteableCtrl {
 
 	private MainCtrl mainCtrl;
 
@@ -84,9 +84,10 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		initGame();
 
 		mainCtrl.addUpdateableCtrl(this);
+		mainCtrl.addResetteableCtrl(this);
 	}
 
-	void UpdateableCtrl.update(VrInput input) {
+	public void update(VrInput input) {
 
 		if (pullingTrigger) {
 			setTriggerTo(curTriggerSpeed());
@@ -207,7 +208,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		// rest trigger to rest position
 		resetTriggerPosition();
 
-		resetGame();
+		reset();
 
 		stopGame();
 
@@ -842,7 +843,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 		trigger.transform.localPosition = new Vector3(-0.36f, 0.98f, 0.405f + (triggerSpeed / 10));
 	}
 
-	private void resetGame() {
+	public void reset() {
 
 		// reset score counter
 		setScore(0);
@@ -860,7 +861,7 @@ public class FlipperQnDCtrl : UpdateableCtrl {
 
 		pinball.GetComponent<Renderer>().enabled = true;
 
-		resetGame();
+		reset();
 	}
 
 	public void stopGame() {

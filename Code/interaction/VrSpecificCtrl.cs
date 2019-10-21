@@ -65,6 +65,11 @@ public class VrSpecificCtrl {
 
 		rightController = constructController("Right Controller", VrInput.RIGHT);
 		rightController.transform.localPosition = new Vector3(0, -1000, 10);
+
+		ControllerBehaviour[] controllers = new ControllerBehaviour[2];
+		controllers[VrInput.LEFT] = leftBehaviour;
+		controllers[VrInput.RIGHT] = rightBehaviour;
+		mainCtrl.getTriggerCtrl().setControllers(controllers);
 	}
 
 	private GameObject constructController(string name, int leftOrRight) {
@@ -96,13 +101,13 @@ public class VrSpecificCtrl {
 		return controller;
 	}
 
-	public GameObject getController(int leftOrRight) {
+	public ControllerBehaviour getControllerBehaviour(int leftOrRight) {
 
 		if (leftOrRight == VrInput.LEFT) {
-			return leftController;
+			return leftBehaviour;
 		}
 
-		return rightController;
+		return rightBehaviour;
 	}
 
 	/**

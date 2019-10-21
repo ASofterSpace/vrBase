@@ -24,7 +24,7 @@ public class TicTacToeButtonRestart : Button {
 
 	public override void trigger() {
 
-		ctrl.restartGame();
+		ctrl.reset();
 	}
 
 }

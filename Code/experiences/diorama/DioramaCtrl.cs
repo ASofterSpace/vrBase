@@ -31,7 +31,7 @@ public class DioramaCtrl : UpdateableCtrl {
 		createDiorama(position, angles);
 	}
 
-	void UpdateableCtrl.update(VrInput input) {
+	public void update(VrInput input) {
 
 		if (dioramaSurface == null) {
 			// add the diorama itself by copying ALL surface objects

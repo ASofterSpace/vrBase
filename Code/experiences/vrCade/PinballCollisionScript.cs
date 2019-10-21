@@ -62,7 +62,7 @@ public class PinballCollisionScript : MonoBehaviour, UpdateableCtrl {
 		this.thump_metal_5 = SoundCtrl.getSound(SoundCtrl.THUMP_METAL_5);
 	}
 
-	void UpdateableCtrl.update(VrInput input) {
+	public void update(VrInput input) {
 
 		if (speedUpNextFrame) {
 			speedUpNextFrame = false;

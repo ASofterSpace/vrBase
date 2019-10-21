@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 
 
-public class RocketLaunchCtrl : UpdateableCtrl {
+public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 
 	private GameObject hostRoom;
 	private GameObject rocket;
@@ -29,15 +29,24 @@ public class RocketLaunchCtrl : UpdateableCtrl {
 		nostalgicConsoleCtrl.setRocketLaunchCtrl(this);
 
 		mainCtrl.addUpdateableCtrl(this);
+		mainCtrl.addResetteableCtrl(this);
+
+		createRocket(position, angles);
+
+		reset();
+	}
+
+	public void reset() {
 
 		startingRocket = false;
 		landingRocket = false;
 		rocketGone = false;
 
-		createRocket(position, angles);
+		rocket.transform.localPosition = new Vector3(0, 17, 0);
 	}
 
-	void UpdateableCtrl.update(VrInput input) {
+	public void update(VrInput input) {
+
 		if (startingRocket) {
 			float t = (Time.time - startTime);
 			rocket.transform.localPosition = new Vector3(0, 17 + (t * t), 0);
