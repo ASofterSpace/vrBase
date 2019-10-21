@@ -58,6 +58,22 @@ public class DioramaCtrl : UpdateableCtrl {
 			foreach (Collider collider in colliders) {
 				Object.Destroy(collider);
 			}
+
+			GameObject dioramaRocket = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/Rocket Launcher/RocketHolder");
+			BoxCollider col = dioramaRocket.AddComponent<BoxCollider>();
+			col.center = new Vector3(0, 27.6f, 0);
+			col.size = new Vector3(6, 55, 6);
+			PhysicMaterial physicsMat = new PhysicMaterial();
+			physicsMat.dynamicFriction = 1;
+			physicsMat.staticFriction = 0.6f;
+			physicsMat.bounciness = 0.05f;
+			physicsMat.frictionCombine = PhysicMaterialCombine.Average;
+			physicsMat.bounceCombine = PhysicMaterialCombine.Average;
+			col.material = physicsMat;
+			Rigidbody rby = dioramaRocket.AddComponent<Rigidbody>();
+			rby.mass = 2;
+			ThrowableObject curThrowable = new ThrowableBoundObject(dioramaRocket);
+			ObjectCtrl.add(curThrowable);
 		}
 
 		diorama.transform.localEulerAngles = new Vector3(0, Time.time * 1.5f, 0);

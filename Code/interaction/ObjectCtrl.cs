@@ -18,14 +18,18 @@ public class ObjectCtrl {
 
 	public const string OBJECT_IDENTIFIER = "obj-";
 
+	private static MainCtrl mainCtrl;
+
 	private static int nextObj = 0;
 
 	private static Dictionary<string, TakeableObject> objects;
 
 
-	public static void init() {
+	public static void init(MainCtrl mainCtrl) {
 
-		objects = new Dictionary<string, TakeableObject>();
+		ObjectCtrl.mainCtrl = mainCtrl;
+
+		ObjectCtrl.objects = new Dictionary<string, TakeableObject>();
 	}
 
 	public static void add(TakeableObject obj) {
@@ -35,6 +39,13 @@ public class ObjectCtrl {
 		obj.setName(OBJECT_IDENTIFIER + nextObj);
 
 		objects.Add(obj.getName(), obj);
+
+		if (obj is UpdateableCtrl) {
+			mainCtrl.addUpdateableCtrl((UpdateableCtrl) obj);
+		}
+		if (obj is ResetteableCtrl) {
+			mainCtrl.addResetteableCtrl((ResetteableCtrl) obj);
+		}
 	}
 
 	public static TakeableObject get(string objectName) {

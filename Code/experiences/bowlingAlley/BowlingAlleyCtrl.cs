@@ -97,7 +97,7 @@ public class BowlingAlleyCtrl: ResetteableCtrl {
 		ObjectCtrl.add(curThrowable);
 
 		Rigidbody rb = bowlingBall.GetComponent<Rigidbody>();
-		rb.mass = 10;
+		rb.mass = 50;
 
 		PhysicMaterial physicsMat = new PhysicMaterial();
 		physicsMat.dynamicFriction = 0.2f;

@@ -39,8 +39,9 @@ public class SoundCtrl {
 	public const int SOUND_AMOUNT = 19;
 
 
-	public static void init(GameObject mainCamera) {
+	public static void init(MainCtrl mainCtrl) {
 
+		GameObject mainCamera = mainCtrl.getMainCamera();
 		mainCameraSoundSource = mainCamera.AddComponent<AudioSource>();
 
 		sounds = new AudioClip[SOUND_AMOUNT];

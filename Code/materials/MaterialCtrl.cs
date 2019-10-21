@@ -89,7 +89,7 @@ public class MaterialCtrl {
 	private static Material unlitTransparent;
 
 
-	public static void init() {
+	public static void init(MainCtrl mainCtrl) {
 
 		materials = new Material[MATERIAL_AMOUNT];
 

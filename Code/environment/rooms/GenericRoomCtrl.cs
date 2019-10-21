@@ -434,6 +434,7 @@ public abstract class GenericRoomCtrl {
 		GameObject tank = new GameObject(name);
 		tank.transform.parent = thisRoom.transform;
 		tank.transform.localPosition = new Vector3(x, 0, z);
+		tank.transform.parent = thisRoom.transform.parent;
 
 		GameObject tankMain = GameObject.CreatePrimitive(PrimitiveType.Capsule);
 		tankMain.transform.parent = tank.transform;

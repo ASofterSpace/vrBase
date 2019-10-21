@@ -10,7 +10,7 @@ using UnityEngine;
 
 
 /**
- * This corresponds to a single button
+ * This corresponds to a single object that the user can take and throw with their controller
  */
 public class ThrowableObject : TakeableObject {
 

@@ -43,6 +43,7 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 		rocketGone = false;
 
 		rocket.transform.localPosition = new Vector3(0, 17, 0);
+		rocket.SetActive(true);
 	}
 
 	public void update(VrInput input) {
@@ -76,6 +77,7 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 		rocketLauncher.transform.parent = hostRoom.transform;
 		rocketLauncher.transform.localPosition = position;
 		rocketLauncher.transform.localEulerAngles = angles;
+		rocketLauncher.transform.parent = hostRoom.transform.parent;
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Launchpad";
@@ -85,10 +87,15 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 		curObj.transform.localScale = new Vector3(13, 0.05f, 13);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_ROCKETLAUNCH_LAUNCHPAD);
 
+		GameObject rocketHolder = new GameObject("RocketHolder");
+		rocketHolder.transform.parent = rocketLauncher.transform;
+		rocketHolder.transform.localPosition = new Vector3(0, 0, 0);
+		rocketHolder.transform.localEulerAngles = new Vector3(0, 45, 0);
+
 		rocket = new GameObject("Rocket");
-		rocket.transform.parent = rocketLauncher.transform;
+		rocket.transform.parent = rocketHolder.transform;
 		rocket.transform.localPosition = new Vector3(0, 17, 0);
-		rocket.transform.localEulerAngles = new Vector3(0, 180, 0);
+		rocket.transform.localEulerAngles = new Vector3(0, 135, 0);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Rocket Body";

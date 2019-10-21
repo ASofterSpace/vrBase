@@ -56,10 +56,10 @@ public class MainCtrl : MonoBehaviour {
 		initMainGameObjects();
 
 		// static helpers
-		MaterialCtrl.init();
-		SoundCtrl.init(mainCamera);
-		ObjectCtrl.init();
-		ButtonCtrl.init();
+		MaterialCtrl.init(this);
+		SoundCtrl.init(this);
+		ObjectCtrl.init(this);
+		ButtonCtrl.init(this);
 
 		// faraway things / skybox
 		farAwayCtrl = new FarAwayCtrl(this);
