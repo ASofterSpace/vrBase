@@ -15,9 +15,13 @@ public class DioramaCtrl : UpdateableCtrl {
 
 	private GameObject hostRoom;
 
+	private Transform worldTransform;
+	private Transform dioramaHolderTransform;
+
 	private GameObject diorama;
 	private GameObject dioramaHolder;
 	private GameObject dioramaSurface;
+	private GameObject dioramaPedestolTop;
 
 
 	public DioramaCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
@@ -25,6 +29,8 @@ public class DioramaCtrl : UpdateableCtrl {
 		this.mainCtrl = mainCtrl;
 
 		this.hostRoom = hostRoom;
+
+		this.worldTransform = mainCtrl.getWorld().transform;
 
 		mainCtrl.addUpdateableCtrl(this);
 
@@ -129,6 +135,36 @@ public class DioramaCtrl : UpdateableCtrl {
 			ObjectCtrl.add(curThrowable);
 		}
 
+		/*
+		NOPE, this did not work... whoopsie!
+
+		// check all throwables (or even all takeables), and for each calculate the 3D-distance
+		// to the center point of the table... if it is smaller than the radius of the table, and y is
+		// equal or higher, then assume that the thingen is lying on the table, so set the table as
+		// parent - and if not, then set world as parent (unless a controller is actually parent currently)
+
+		Dictionary<string, TakeableObject> objs = ObjectCtrl.getAll();
+		Vector3 dioPos = dioramaPedestolTop.transform.position;
+		float dioY = dioPos.y;
+
+		// keep track of controller being parent!
+		GameObject controllerLeft = mainCtrl.getVrSpecificCtrl().getControllerBehaviour(VrInput.LEFT).getController();
+		GameObject controllerRight = mainCtrl.getVrSpecificCtrl().getControllerBehaviour(VrInput.RIGHT).getController();
+
+		foreach (TakeableObject obj in objs.Values) {
+			Vector3 objPos = obj.transform.position;
+			if ((objPos.y > dioY) && (Vector3.Distance(objPos, dioPos) < 1.1f)) {
+				if ((obj.transform.parent != controllerLeft) && (obj.transform.parent != controllerRight)) {
+					obj.transform.parent = dioramaHolderTransform;
+				}
+			} else {
+				if (obj.transform.parent == dioramaHolderTransform) {
+					obj.transform.parent = worldTransform;
+				}
+			}
+		}
+		*/
+
 		diorama.transform.localEulerAngles = new Vector3(0, Time.time * 1.5f, 0);
 	}
 
@@ -172,6 +208,7 @@ public class DioramaCtrl : UpdateableCtrl {
 		curObj.transform.localPosition = new Vector3(0, 0.9845f, 0);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj.transform.localScale = new Vector3(1.1f, 0.005f, 1.1f);
+		dioramaPedestolTop = curObj;
 
 		curObj = ObjectFactory.createCylinder(40, 10, false, MaterialCtrl.SPACE_MOON_FLOOR_INNER);
 		curObj.name = "Diorama Pedestol Moon Floor";
@@ -185,6 +222,7 @@ public class DioramaCtrl : UpdateableCtrl {
 		dioramaHolder.transform.localPosition = new Vector3(0, 1, 0);
 		dioramaHolder.transform.localEulerAngles = new Vector3(0, 0, 0);
 		dioramaHolder.transform.localScale = new Vector3(0.025f, 0.025f, 0.025f);
+		dioramaHolderTransform = dioramaHolder.transform;
 	}
 
 }

@@ -53,6 +53,18 @@ public class FarAwayCtrl : UpdateableCtrl {
 		moonFloor.transform.localScale = new Vector3(4000, 4000, 1);
 		MaterialCtrl.setMaterial(moonFloor, MaterialCtrl.SPACE_MOON_FLOOR);
 
+		GameObject moonFloorPlate = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		moonFloorPlate.name = "moonFloorPlate";
+		moonFloorPlate.transform.parent = moon.transform;
+		moonFloorPlate.transform.localPosition = new Vector3(0, -5.03f, 0);
+		moonFloorPlate.transform.localEulerAngles = new Vector3(90, 0, 0);
+		moonFloorPlate.transform.localScale = new Vector3(1000, 1000, 10);
+		Object.Destroy(moonFloorPlate.GetComponent<Renderer	>());
+		Object.Destroy(moonFloorPlate.GetComponent<Collider>());
+		BoxCollider bc = moonFloorPlate.AddComponent<BoxCollider>();
+		bc.center = new Vector3(0, 0, 0);
+		bc.size = new Vector3(1, 1, 1);
+
 		curIterator = 0;
 		GameObject moonSouth = createMoonWall(moon);
 		moonSouth.name = "moonSouth";

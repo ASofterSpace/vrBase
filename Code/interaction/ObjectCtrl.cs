@@ -53,4 +53,9 @@ public class ObjectCtrl {
 		return objects[objectName];
 	}
 
+	public static Dictionary<string, TakeableObject> getAll() {
+
+		return objects;
+	}
+
 }
