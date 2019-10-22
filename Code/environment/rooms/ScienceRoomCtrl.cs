@@ -150,10 +150,10 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 			mainCtrl, thisRoomInterior, new Vector3(2.3f, 0, -2.5f), new Vector3(0, -50, 0));
 
 		breathingApparatusCtrl = new BreathingApparatusCtrl(
-			mainCtrl, thisRoom, new Vector3(3, 0, 2), new Vector3(0, 45, 0));
+			mainCtrl, thisRoomInterior, new Vector3(2.5f, 0, 2), new Vector3(0, 45, 0));
 
 		processVisualizationCtrl = new ProcessVisualizationCtrl(
-			mainCtrl, thisRoom, new Vector3(-2.804f, 0, -2.12f), new Vector3(0, -295.383f, 0));
+			mainCtrl, thisRoomInterior, new Vector3(-2, 0, -1.6f), new Vector3(0, -295, 0));
 	}
 
 }
