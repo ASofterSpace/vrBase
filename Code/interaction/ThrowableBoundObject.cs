@@ -53,6 +53,11 @@ public class ThrowableBoundObject : ThrowableObject, ResetteableCtrl {
 
 		gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
+		if (resetParent != null) {
+			originalParent = resetParent;
+			transform.parent = resetParent.transform;
+		}
+
 		gameObject.transform.localPosition = origPosition;
 		gameObject.transform.localRotation = origRotation;
 		gameObject.transform.localScale = origScale;

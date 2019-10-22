@@ -39,4 +39,20 @@ public class MeshFactory {
 
 		MaterialCtrl.setMaterial(ray, MaterialCtrl.PLASTIC_WHITE);
 	}
+
+	public static void drawPoints(GameObject parent, Vector3[] vertices) {
+
+		foreach (Vector3 vertex in vertices) {
+
+			GameObject point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+
+			point.transform.parent = parent.transform;
+
+			point.transform.position = vertex;
+
+			point.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
+
+			MaterialCtrl.setMaterial(point, MaterialCtrl.PLASTIC_WHITE);
+		}
+	}
 }

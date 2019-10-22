@@ -63,6 +63,7 @@ public class PlatonicSolidFactory {
 		MeshFactory.finalizeMesh(mesh);
 
 		if (addLines) {
+			MeshFactory.drawPoints(obj, vertices);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[1]);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[2]);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[3]);
@@ -172,6 +173,7 @@ public class PlatonicSolidFactory {
 		MeshFactory.finalizeMesh(mesh);
 
 		if (addLines) {
+			MeshFactory.drawPoints(obj, vertices);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[1]);
 			MeshFactory.drawRayFromTo(obj, vertices[1], vertices[2]);
 			MeshFactory.drawRayFromTo(obj, vertices[2], vertices[3]);
@@ -254,6 +256,7 @@ public class PlatonicSolidFactory {
 		MeshFactory.finalizeMesh(mesh);
 
 		if (addLines) {
+			MeshFactory.drawPoints(obj, vertices);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[1]);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[2]);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[3]);
@@ -377,6 +380,7 @@ public class PlatonicSolidFactory {
 		MeshFactory.finalizeMesh(mesh);
 
 		if (addLines) {
+			MeshFactory.drawPoints(obj, vertices);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[1]);
 			MeshFactory.drawRayFromTo(obj, vertices[1], vertices[2]);
 			MeshFactory.drawRayFromTo(obj, vertices[2], vertices[0]);
@@ -588,6 +592,7 @@ public class PlatonicSolidFactory {
 		MeshFactory.finalizeMesh(mesh);
 
 		if (addLines) {
+			MeshFactory.drawPoints(obj, vertices);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[1]);
 			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[2]);
 			MeshFactory.drawRayFromTo(obj, vertices[2], vertices[6]);

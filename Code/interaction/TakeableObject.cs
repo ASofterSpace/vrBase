@@ -24,7 +24,11 @@ public class TakeableObject {
 
 	protected Material[] defaultMaterials;
 
+	// which parent should we get after the controller let's go of us?
 	protected GameObject originalParent;
+
+	// which parent did we have originally, so should be be reset to?
+	protected GameObject resetParent;
 
 	protected bool enabled;
 
@@ -86,6 +90,7 @@ public class TakeableObject {
 
 		if (originalParent == null) {
 			originalParent = gameObject.transform.parent.gameObject;
+			resetParent = originalParent;
 		}
 		gameObject.transform.parent = controller.transform;
 	}

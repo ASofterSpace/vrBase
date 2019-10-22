@@ -77,7 +77,7 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		solids[1].transform.localPosition = new Vector3(0.2f, 1.1f, -0.055f);
 		solids[1].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-		solids[2].transform.localPosition = new Vector3(0, 1.12f, -0.055f);
+		solids[2].transform.localPosition = new Vector3(0, 1.123f, -0.055f);
 		solids[2].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
 		solids[3].transform.localPosition = new Vector3(-0.2f, 1.115f, -0.055f);
