@@ -206,7 +206,7 @@ public class DioramaCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(0.25f, 0.05f, 0.25f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
-		curObj = ObjectFactory.createCylinder(40, 0, false, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+		curObj = PrimitiveFactory.createCylinder(40, 0, false, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 		curObj.name = "Diorama Pedestol Top";
 		curObj.transform.parent = diorama.transform;
 		curObj.transform.localPosition = new Vector3(0, 0.9845f, 0);
@@ -214,7 +214,7 @@ public class DioramaCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(1.1f, 0.005f, 1.1f);
 		dioramaPedestolTop = curObj;
 
-		curObj = ObjectFactory.createCylinder(40, 10, false, MaterialCtrl.SPACE_MOON_FLOOR_INNER);
+		curObj = PrimitiveFactory.createCylinder(40, 10, false, MaterialCtrl.SPACE_MOON_FLOOR_INNER);
 		curObj.name = "Diorama Pedestol Moon Floor";
 		curObj.transform.parent = diorama.transform;
 		curObj.transform.localPosition = new Vector3(0, 0.994f, 0);

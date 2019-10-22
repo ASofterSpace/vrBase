@@ -81,7 +81,7 @@ public class TriggerCtrl {
 
 		// create a box made of fader objects
 		faderHolder = new GameObject("faderHolder");
-		ObjectFactory.createInvertedCube(faderHolder, 0.1f, MaterialCtrl.FADEABLE_BLACK);
+		PrimitiveFactory.createInvertedCube(faderHolder, 0.1f, MaterialCtrl.FADEABLE_BLACK);
 		faderHolder.SetActive(false);
 	}
 

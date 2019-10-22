@@ -532,7 +532,7 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
-		curObj = ObjectFactory.createCone(24, false, false, MaterialCtrl.PLASTIC_BLUE);
+		curObj = PrimitiveFactory.createCone(24, false, false, MaterialCtrl.PLASTIC_BLUE);
 		hologramFlash = curObj;
 		curObj.name = "Label Hologram Flash";
 		curObj.transform.parent = console.transform;
