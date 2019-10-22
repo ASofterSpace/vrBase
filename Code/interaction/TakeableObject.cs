@@ -18,6 +18,8 @@ public class TakeableObject {
 
 	public Transform transform;
 
+	protected MainCtrl mainCtrl;
+
 	protected Renderer[] renderers;
 
 	protected Material[] defaultMaterials;
@@ -46,6 +48,10 @@ public class TakeableObject {
 			rb = obj.AddComponent<Rigidbody>();
 		}
 		rb.useGravity = true;
+	}
+
+	public void setMainCtrl(MainCtrl mainCtrl) {
+		this.mainCtrl = mainCtrl;
 	}
 
 	/**

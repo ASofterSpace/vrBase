@@ -36,6 +36,8 @@ public class ObjectCtrl {
 
 		nextObj++;
 
+		obj.setMainCtrl(mainCtrl);
+
 		obj.setName(OBJECT_IDENTIFIER + nextObj);
 
 		objects.Add(obj.getName(), obj);

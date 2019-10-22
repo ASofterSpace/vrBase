@@ -85,6 +85,7 @@ public class DioramaCtrl : UpdateableCtrl {
 			rby.mass = 5;
 			curThrowable = new ThrowableBoundObject(dioramaRocket);
 			ObjectCtrl.add(curThrowable);
+//			dioramaRocket.transform.parent = mainCtrl.getWorld().transform;
 
 			GameObject dioramaControlRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ControlRoom");
 			col = dioramaControlRoom.AddComponent<BoxCollider>();
@@ -101,6 +102,7 @@ public class DioramaCtrl : UpdateableCtrl {
 			rby.mass = 2;
 			curThrowable = new ThrowableBoundObject(dioramaControlRoom);
 			ObjectCtrl.add(curThrowable);
+//			dioramaControlRoom.transform.parent = mainCtrl.getWorld().transform;
 
 			GameObject dioramaArcadeRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ArcadeRoom");
 			col = dioramaArcadeRoom.AddComponent<BoxCollider>();
@@ -117,6 +119,7 @@ public class DioramaCtrl : UpdateableCtrl {
 			rby.mass = 2;
 			curThrowable = new ThrowableBoundObject(dioramaArcadeRoom);
 			ObjectCtrl.add(curThrowable);
+//			dioramaArcadeRoom.transform.parent = mainCtrl.getWorld().transform;
 
 			GameObject dioramaScienceRoom = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/ScienceRoom");
 			col = dioramaScienceRoom.AddComponent<BoxCollider>();
@@ -133,6 +136,7 @@ public class DioramaCtrl : UpdateableCtrl {
 			rby.mass = 1.8f;
 			curThrowable = new ThrowableBoundObject(dioramaScienceRoom);
 			ObjectCtrl.add(curThrowable);
+//			dioramaScienceRoom.transform.parent = mainCtrl.getWorld().transform;
 		}
 
 		/*
@@ -216,13 +220,61 @@ public class DioramaCtrl : UpdateableCtrl {
 		curObj.transform.localPosition = new Vector3(0, 0.994f, 0);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj.transform.localScale = new Vector3(1.05f, 0.005f, 1.05f);
-
+		GameObject dioramaMoonFloor = curObj;
+/*
+		Rigidbody rigidBody = dioramaMoonFloor.AddComponent<Rigidbody>();
+		rigidBody.mass = 1;
+		rigidBody.drag = 0;
+		rigidBody.angularDrag = 0;
+		rigidBody.useGravity = false;
+		rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+*/
 		dioramaHolder = new GameObject("Diorama Holder");
 		dioramaHolder.transform.parent = diorama.transform;
 		dioramaHolder.transform.localPosition = new Vector3(0, 1, 0);
 		dioramaHolder.transform.localEulerAngles = new Vector3(0, 0, 0);
 		dioramaHolder.transform.localScale = new Vector3(0.025f, 0.025f, 0.025f);
 		dioramaHolderTransform = dioramaHolder.transform;
+
+
+		/*
+		Rigidbody rigidBody = barrier.AddComponent<Rigidbody>();
+		rigidBody.mass = 1000;
+		rigidBody.drag = 0;
+		rigidBody.angularDrag = 0;
+		rigidBody.useGravity = false;
+		// set freeze position x, y, z true and freeze rotation x, y, z true
+		rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+*/
+
+/*
+		rigidBody = diorama.AddComponent<Rigidbody>();
+		rigidBody.mass = 1000;
+		rigidBody.drag = 0;
+		rigidBody.angularDrag = 0;
+		rigidBody.useGravity = false;
+		rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+
+		HingeJoint hingeJoint = diorama.AddComponent<HingeJoint>();
+		hingeJoint.anchor = new Vector3(0, 0, 0);
+		hingeJoint.autoConfigureConnectedAnchor = false;
+		var motor = hingeJoint.motor;
+		motor.targetVelocity = 1;
+		motor.force = 1000;
+		motor.freeSpin = false;
+		hingeJoint.motor = motor;
+		hingeJoint.useMotor = true;
+		hingeJoint.useLimits = false;
+		hingeJoint.breakForce = Mathf.Infinity;
+		hingeJoint.breakTorque = Mathf.Infinity;
+		hingeJoint.enableCollision = false;
+		hingeJoint.enablePreprocessing = true;
+		hingeJoint.massScale = 1;
+		hingeJoint.connectedMassScale = 1;
+		hingeJoint.axis = new Vector3(0, 1, 0);
+		hingeJoint.connectedAnchor = new Vector3(0, 0.994f, 0);
+		hingeJoint.connectedBody = dioramaMoonFloor.GetComponent<Rigidbody>();
+*/
 	}
 
 }

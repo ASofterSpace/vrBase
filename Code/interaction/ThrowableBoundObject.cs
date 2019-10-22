@@ -42,6 +42,13 @@ public class ThrowableBoundObject : ThrowableObject, ResetteableCtrl {
 		base.grab(controller);
 	}
 
+	public override void drop(Vector3 velocity) {
+
+		originalParent = mainCtrl.getWorld();
+
+		base.drop(velocity);
+	}
+
 	public void reset() {
 
 		gameObject.GetComponent<Rigidbody>().isKinematic = true;
