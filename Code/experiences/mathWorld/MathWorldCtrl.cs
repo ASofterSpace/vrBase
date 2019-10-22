@@ -32,35 +32,24 @@ public class MathWorldCtrl: ResetteableCtrl {
 	public void reset() {
 
 		solids[0].transform.localPosition = new Vector3(0.4f, 1.084191f, -0.075f);
-		solids[0].transform.localEulerAngles = new Vector3(0, 33, 0);
 		solids[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
 		solids[1].transform.localPosition = new Vector3(0.2f, 1.1f, -0.055f);
-		solids[1].transform.localEulerAngles = new Vector3(0, 0, 0);
 		solids[1].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
 		solids[2].transform.localPosition = new Vector3(0, 1.1f, -0.055f);
-		solids[2].transform.localEulerAngles = new Vector3(0, 0, 0);
 		solids[2].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
 		solids[3].transform.localPosition = new Vector3(-0.2f, 1.1f, -0.055f);
-		solids[3].transform.localEulerAngles = new Vector3(0, 0, 0);
 		solids[3].transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
 
 		solids[4].transform.localPosition = new Vector3(-0.4f, 1.1f, -0.055f);
-		solids[4].transform.localEulerAngles = new Vector3(0, 0, 0);
 		solids[4].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-/*
-		foreach (GameObject bowlingBall in bowlingBalls) {
-			bowlingBall.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-			bowlingBall.transform.localEulerAngles = new Vector3(0, 0, 0);
+		foreach (GameObject solid in solids) {
+//			solid.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+			solid.transform.localEulerAngles = new Vector3(0, 0, 0);
 		}
-
-		bowlingBalls[0].transform.localPosition = new Vector3(0, 0.1f, -2.8f);
-		bowlingBalls[1].transform.localPosition = new Vector3(0.75f, 0.1f, -2.8f);
-		bowlingBalls[2].transform.localPosition = new Vector3(0.75f, 0.1f, -3.2f);
-*/
 	}
 
 	private void createPlatonicSolidShelf(Vector3 position, Vector3 angles) {
@@ -119,7 +108,7 @@ public class MathWorldCtrl: ResetteableCtrl {
 		curObj.transform.parent = platonicSolidShelf.transform;
 		MeshCollider meshCol = curObj.AddComponent<MeshCollider>();
 		meshCol.convex = true;
-		ObjectCtrl.add(new ThrowableObject(curObj));
+		ObjectCtrl.add(new ThrowableBoundObject(curObj));
 
 		curObj = ObjectFactory.createCube(MaterialCtrl.PLASTIC_PURPLE);
 		solids[1] = curObj;
@@ -128,34 +117,31 @@ public class MathWorldCtrl: ResetteableCtrl {
 		col = curObj.AddComponent<BoxCollider>();
 		col.center = new Vector3(0, 0, 0);
 		col.size = new Vector3(1, 1, 1);
-		ObjectCtrl.add(new ThrowableObject(curObj));
+		ObjectCtrl.add(new ThrowableBoundObject(curObj));
 
 		curObj = ObjectFactory.createOctahedron(MaterialCtrl.PLASTIC_PURPLE);
 		solids[2] = curObj;
 		curObj.name = "Platonic Octahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
-		col = curObj.AddComponent<BoxCollider>();
-		col.center = new Vector3(0, 0, 0);
-		col.size = new Vector3(1, 1.4f, 1);
-		ObjectCtrl.add(new ThrowableObject(curObj));
+		meshCol = curObj.AddComponent<MeshCollider>();
+		meshCol.convex = true;
+		ObjectCtrl.add(new ThrowableBoundObject(curObj));
 
 		curObj = ObjectFactory.createIcosahedron(MaterialCtrl.PLASTIC_PURPLE);
 		solids[3] = curObj;
 		curObj.name = "Platonic Icosahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
-		col = curObj.AddComponent<BoxCollider>();
-		col.center = new Vector3(0, 0, 0);
-		col.size = new Vector3(1.55f, 1.55f, 1.55f);
-		ObjectCtrl.add(new ThrowableObject(curObj));
+		meshCol = curObj.AddComponent<MeshCollider>();
+		meshCol.convex = true;
+		ObjectCtrl.add(new ThrowableBoundObject(curObj));
 
 		curObj = ObjectFactory.createDodecahedron(MaterialCtrl.PLASTIC_PURPLE);
 		solids[4] = curObj;
 		curObj.name = "Platonic Dodecahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
-		col = curObj.AddComponent<BoxCollider>();
-		col.center = new Vector3(0, 0, 0);
-		col.size = new Vector3(1.55f, 1.55f, 1.55f);
-		ObjectCtrl.add(new ThrowableObject(curObj));
+		meshCol = curObj.AddComponent<MeshCollider>();
+		meshCol.convex = true;
+		ObjectCtrl.add(new ThrowableBoundObject(curObj));
 
 		platonicSolidShelf.transform.localPosition = position;
 		platonicSolidShelf.transform.localEulerAngles = angles;

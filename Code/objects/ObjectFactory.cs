@@ -903,7 +903,7 @@ public class ObjectFactory {
 		Vector3[] vertices = new Vector3[20];
 
 		float phi = (1f + Mathf.Sqrt(5)) / 4;
-		float invphi = 1 / (2 * (1f + Mathf.Sqrt(5)));
+		float invphi = 1 / (1f + Mathf.Sqrt(5));
 
 		vertices[0]  = new Vector3(0,  phi,  invphi);
 		vertices[1]  = new Vector3(0,  phi, -invphi);
