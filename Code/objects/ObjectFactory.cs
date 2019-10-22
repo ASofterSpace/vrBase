@@ -741,12 +741,12 @@ public class ObjectFactory {
 
 	public static GameObject createIcosahedron(int material) {
 
-		GameObject outsideIco = _createIcosahedron(false);
+		GameObject outsideIco = _createIcosahedron(false, true);
 		MaterialCtrl.setMaterial(outsideIco, material);
 		return outsideIco;
 	}
 
-	private static GameObject _createIcosahedron(bool insideOut) {
+	private static GameObject _createIcosahedron(bool insideOut, bool addLines) {
 
 		GameObject obj = new GameObject("Icosahedron");
 
@@ -843,6 +843,41 @@ public class ObjectFactory {
 		mesh.triangles = triangles;
 
 		finalizeMesh(mesh);
+
+		if (addLines) {
+			drawRayFromTo(obj, vertices[0], vertices[1]);
+			drawRayFromTo(obj, vertices[1], vertices[2]);
+			drawRayFromTo(obj, vertices[2], vertices[0]);
+			drawRayFromTo(obj, vertices[0], vertices[3]);
+			drawRayFromTo(obj, vertices[3], vertices[1]);
+			drawRayFromTo(obj, vertices[1], vertices[6]);
+			drawRayFromTo(obj, vertices[6], vertices[3]);
+			drawRayFromTo(obj, vertices[1], vertices[7]);
+			drawRayFromTo(obj, vertices[7], vertices[2]);
+			drawRayFromTo(obj, vertices[2], vertices[4]);
+			drawRayFromTo(obj, vertices[0], vertices[4]);
+			drawRayFromTo(obj, vertices[3], vertices[5]);
+			drawRayFromTo(obj, vertices[0], vertices[5]);
+			drawRayFromTo(obj, vertices[6], vertices[7]);
+			drawRayFromTo(obj, vertices[4], vertices[5]);
+			drawRayFromTo(obj, vertices[2], vertices[8]);
+			drawRayFromTo(obj, vertices[4], vertices[8]);
+			drawRayFromTo(obj, vertices[7], vertices[8]);
+			drawRayFromTo(obj, vertices[6], vertices[9]);
+			drawRayFromTo(obj, vertices[3], vertices[9]);
+			drawRayFromTo(obj, vertices[5], vertices[9]);
+			drawRayFromTo(obj, vertices[6], vertices[11]);
+			drawRayFromTo(obj, vertices[7], vertices[11]);
+			drawRayFromTo(obj, vertices[8], vertices[11]);
+			drawRayFromTo(obj, vertices[9], vertices[11]);
+			drawRayFromTo(obj, vertices[10], vertices[11]);
+			drawRayFromTo(obj, vertices[5], vertices[10]);
+			drawRayFromTo(obj, vertices[5], vertices[9]);
+			drawRayFromTo(obj, vertices[10], vertices[9]);
+			drawRayFromTo(obj, vertices[4], vertices[8]);
+			drawRayFromTo(obj, vertices[4], vertices[10]);
+			drawRayFromTo(obj, vertices[8], vertices[10]);
+		}
 
 		return obj;
 	}
