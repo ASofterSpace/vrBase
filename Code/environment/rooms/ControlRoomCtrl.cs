@@ -14,8 +14,6 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private NostalgicConsoleCtrl nostalgicConsoleCtrl;
 
-	private BreathingApparatusCtrl breathingApparatusCtrl;
-
 	private DioramaCtrl dioramaCtrl;
 
 	private RocketLaunchCtrl rocketLaunchCtrl;
@@ -147,9 +145,6 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 		nostalgicConsoleCtrl = new NostalgicConsoleCtrl(
 			mainCtrl, thisRoom, new Vector3(-2.57f, 0, 2.73f), new Vector3(0, -50, 0));
-
-		breathingApparatusCtrl = new BreathingApparatusCtrl(
-			mainCtrl, thisRoom, new Vector3(3, 0, 2), new Vector3(0, 45, 0));
 
 		dioramaCtrl = new DioramaCtrl(
 			mainCtrl, thisRoom, new Vector3(0, 0, -3), new Vector3(0, 0, 0));

@@ -16,6 +16,8 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 
 	private MathWorldCtrl mathWorldCtrl;
 
+	private BreathingApparatusCtrl breathingApparatusCtrl;
+
 
 	public ScienceRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -143,8 +145,10 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 	private void createObjects() {
 
 		mathWorldCtrl = new MathWorldCtrl(
-			mainCtrl, thisRoomInterior, new Vector3(2.3f, 0, -2.5f), new Vector3(0, -50, 0)
-		);
+			mainCtrl, thisRoomInterior, new Vector3(2.3f, 0, -2.5f), new Vector3(0, -50, 0));
+
+		breathingApparatusCtrl = new BreathingApparatusCtrl(
+			mainCtrl, thisRoom, new Vector3(3, 0, 2), new Vector3(0, 45, 0));
 	}
 
 }

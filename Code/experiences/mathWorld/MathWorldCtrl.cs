@@ -13,6 +13,12 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 
 	private GameObject hostRoom;
 
+	// used to indicate the teslating-status of our solids, one number for each;
+	// any negative number means that no update is required, with 0 we start and tesselate up
+	private float[] teslator;
+	private int[] teslatedLast;
+	private MeshRenderer[][] teslateRenderers;
+
 	private GameObject platonicSolidShelf;
 
 	private ThrowableBoundObject[] solids;
@@ -21,6 +27,13 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 	public MathWorldCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
 		this.hostRoom = hostRoom;
+
+		this.teslator = new float[5];
+		this.teslatedLast = new int[5];
+		this.teslateRenderers = new MeshRenderer[5][];
+		for (int i = 0; i < 5; i++) {
+			teslator[i] = -1;
+		}
 
 		mainCtrl.addUpdateableCtrl(this);
 		mainCtrl.addResetteableCtrl(this);
@@ -32,9 +45,26 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 
 	public void update(VrInput input) {
 
-		foreach (ThrowableBoundObject solid in solids) {
-			if (solid.isBound()) {
-				solid.transform.localEulerAngles = new Vector3(0, 25 * Time.time, 0);
+		for (int i = 0; i < 5; i++) {
+
+			// rotate as long as it is untouched
+			if (solids[i].isBound()) {
+				solids[i].transform.localEulerAngles = new Vector3(0, 25 * Time.time, 0);
+			}
+
+			if (teslator[i] >= 0) {
+				teslator[i] += Time.deltaTime * 2;
+
+				if (teslator[i] > teslatedLast[i]) {
+					teslatedLast[i] = teslatedLast[i] + 1;
+					if (teslatedLast[i] > teslateRenderers[i].Length) {
+						teslator[i] = -1;
+					} else {
+						for (int j = 0; j < teslatedLast[i]; j++) {
+							teslateRenderers[i][j].enabled = true;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -161,7 +191,66 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		solids[4] = new ThrowableBoundObject(curObj);
 		ObjectCtrl.add(solids[4]);
 
+		createTesselateButton(platonicSolidShelf,  0.35f , 0);
+		createTesselateButton(platonicSolidShelf,  0.175f, 1);
+		createTesselateButton(platonicSolidShelf,  0     , 2);
+		createTesselateButton(platonicSolidShelf, -0.175f, 3);
+		createTesselateButton(platonicSolidShelf, -0.35f , 4);
+
 		platonicSolidShelf.transform.localPosition = position;
 		platonicSolidShelf.transform.localEulerAngles = angles;
 	}
+
+	private void createTesselateButton(GameObject parent, float x, int solidNum) {
+
+		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.transform.parent = parent.transform;
+		curObj.transform.localPosition = new Vector3(x, 0.937f, 0.155f);
+		curObj.transform.localEulerAngles = new Vector3(45, 0, 0);
+		curObj.transform.localScale = new Vector3(0.06f, 0.02f, 0.03f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_PURPLE);
+		ButtonCtrl.add(
+			new DefaultButton(
+				curObj,
+				() => {
+					initTesselation(solidNum);
+				}
+			)
+		);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Button Frame";
+		curObj.transform.parent = parent.transform;
+		curObj.transform.localPosition = new Vector3(x, 0.9329f, 0.1509f);
+		curObj.transform.localEulerAngles = new Vector3(45, 0, 0);
+		curObj.transform.localScale = new Vector3(0.07f, 0.005f, 0.04f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
+	}
+
+	private void initTesselation(int solidNum) {
+
+		teslator[solidNum] = 0.0001f;
+
+		// get the purple parent renderer separately
+		MeshRenderer parentRen = solids[solidNum].gameObject.GetComponent<MeshRenderer>();
+
+		// get all child renderers - including the purple parent renderer again, sadly...
+		MeshRenderer[] allRenderers = solids[solidNum].gameObject.GetComponentsInChildren<MeshRenderer>();
+
+		teslateRenderers[solidNum] = new MeshRenderer[allRenderers.Length];
+		teslatedLast[solidNum] = 0;
+
+		// ... but then filter it out, and only assign the white line renderers...
+		int i = 0;
+		foreach (MeshRenderer renderer in allRenderers) {
+			if (renderer != parentRen) {
+				teslateRenderers[solidNum][i++] = renderer;
+			}
+			renderer.enabled = false;
+		}
+
+		// ... and then explicitly assign it as the last element!
+		teslateRenderers[solidNum][i++] = parentRen;
+	}
+
 }
