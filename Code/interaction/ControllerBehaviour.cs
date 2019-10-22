@@ -31,6 +31,11 @@ public class ControllerBehaviour : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider) {
 
+		// ignore further objects if we actually already grabbed one
+		if (grabbedObject != null) {
+			return;
+		}
+
 		string colName = collider.gameObject.name;
 
 		if (colName != null) {
