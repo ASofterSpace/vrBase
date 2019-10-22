@@ -15,6 +15,8 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 
 	private GameObject processVisualizer;
 
+	private GameObject rocket;
+
 
 	public ProcessVisualizationCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
 
@@ -43,6 +45,11 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		GameObject curObj;
 		BoxCollider col;
+
+		rocket = ObjectFactory.createRocket();
+		rocket.transform.parent = processVisualizer.transform;
+		rocket.transform.localPosition = new Vector3(0, 0.336f, 0);
+		rocket.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
 
 		processVisualizer.transform.localPosition = position;
 		processVisualizer.transform.localEulerAngles = angles;

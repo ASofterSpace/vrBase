@@ -441,6 +441,8 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 
 		GameObject checkBtnHolder = new GameObject();
 		checkBtnHolder.transform.parent = console.transform;
+		checkBtnHolder.transform.localPosition = new Vector3(0, 0, 0);
+		checkBtnHolder.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.transform.parent = checkBtnHolder.transform;
 		curObj.transform.localPosition = new Vector3(-0.131f, 0.813f, -0.302f);
@@ -483,6 +485,8 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 
 		GameObject crossBtnHolder = new GameObject();
 		crossBtnHolder.transform.parent = console.transform;
+		crossBtnHolder.transform.localPosition = new Vector3(0, 0, 0);
+		crossBtnHolder.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.transform.parent = crossBtnHolder.transform;
 		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818f);

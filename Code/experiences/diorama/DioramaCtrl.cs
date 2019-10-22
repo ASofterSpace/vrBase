@@ -72,7 +72,7 @@ public class DioramaCtrl : UpdateableCtrl {
 
 			GameObject dioramaRocket = GameObject.Find("/World/Surface/ControlRoom/Diorama/Diorama Holder/Surface(Clone)/Rocket Launcher/RocketHolder");
 			col = dioramaRocket.AddComponent<BoxCollider>();
-			col.center = new Vector3(0, 27.6f, 0);
+			col.center = new Vector3(0, 10.6f, 0);
 			col.size = new Vector3(6, 55, 6);
 			physicsMat = new PhysicMaterial();
 			physicsMat.dynamicFriction = 1;

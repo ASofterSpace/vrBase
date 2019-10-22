@@ -153,7 +153,7 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 			mainCtrl, thisRoom, new Vector3(3, 0, 2), new Vector3(0, 45, 0));
 
 		processVisualizationCtrl = new ProcessVisualizationCtrl(
-			mainCtrl, thisRoom, new Vector3(-2, 0, 1.5f), new Vector3(0, 0, 0));
+			mainCtrl, thisRoom, new Vector3(-2.804f, 0, -2.12f), new Vector3(0, -295.383f, 0));
 	}
 
 }
