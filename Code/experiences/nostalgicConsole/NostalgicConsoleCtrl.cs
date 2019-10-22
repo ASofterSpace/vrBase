@@ -153,27 +153,28 @@ public class NostalgicConsoleCtrl : ResetteableCtrl {
 		createLowColorButton(buttons,  0.0521f, new Color(0.6f, 0.4f, 0.1f, 1.0f), new Color(0.3542f, 0.0654f, 0.6603f, 1.0f));
 
 		// create up arrow button
+		GameObject buttonUpArrowHolder = new GameObject();
+		buttonUpArrowHolder.transform.parent = buttons.transform;
 		GameObject buttonUpArrowLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonUpArrowLeft.transform.parent = buttons.transform;
+		buttonUpArrowLeft.transform.parent = buttonUpArrowHolder.transform;
 		buttonUpArrowLeft.transform.localPosition = new Vector3(-0.8176f, 1.0542f, 0.0166f);
 		buttonUpArrowLeft.transform.localEulerAngles = new Vector3(-10, 45, -10);
 		buttonUpArrowLeft.transform.localScale = new Vector3(0.03f, 0.03f, 0.08f);
 		MaterialCtrl.setMaterial(buttonUpArrowLeft, MaterialCtrl.PLASTIC_BLACK);
 		GameObject buttonUpArrowRight = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonUpArrowRight.transform.parent = buttons.transform;
+		buttonUpArrowRight.transform.parent = buttonUpArrowHolder.transform;
 		buttonUpArrowRight.transform.localPosition = new Vector3(-0.7827f, 1.0543f, 0.0173f);
 		buttonUpArrowRight.transform.localEulerAngles = new Vector3(-10, 45, -10);
 		buttonUpArrowRight.transform.localScale = new Vector3(0.08f, 0.03f, 0.03f);
 		MaterialCtrl.setMaterial(buttonUpArrowRight, MaterialCtrl.PLASTIC_BLACK);
 		GameObject buttonUpNeck = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonUpNeck.transform.parent = buttons.transform;
+		buttonUpNeck.transform.parent = buttonUpArrowHolder.transform;
 		buttonUpNeck.transform.localPosition = new Vector3(-0.8f, 1.0386f, -0.0446f);
 		buttonUpNeck.transform.localEulerAngles = new Vector3(-15, 0, 0);
 		buttonUpNeck.transform.localScale = new Vector3(0.03f, 0.03f, 0.1307552f);
 		MaterialCtrl.setMaterial(buttonUpNeck, MaterialCtrl.PLASTIC_BLACK);
-		GameObject[] objs = new GameObject[] {buttonUpArrowLeft, buttonUpArrowRight, buttonUpNeck};
-		Button btnUp = new DefaultMultiButton(
-			objs,
+		Button btnUp = new DefaultButton(
+			buttonUpArrowHolder,
 			() => {
 				VrSpecificCtrl vrSpecificCtrl = mainCtrl.getVrSpecificCtrl();
 				if (vrSpecificCtrl != null) {
@@ -203,27 +204,28 @@ public class NostalgicConsoleCtrl : ResetteableCtrl {
 		MaterialCtrl.setMaterial(buttonUpNeckFrame, MaterialCtrl.PLASTIC_WHITE);
 
 		// create down arrow button
+		GameObject buttonDownArrowHolder = new GameObject();
+		buttonDownArrowHolder.transform.parent = buttons.transform;
 		GameObject buttonDownArrowLeft = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonDownArrowLeft.transform.parent = buttons.transform;
+		buttonDownArrowLeft.transform.parent = buttonDownArrowHolder.transform;
 		buttonDownArrowLeft.transform.localPosition = new Vector3(-0.6667f, 1.0299f, -0.0807f);
 		buttonDownArrowLeft.transform.localEulerAngles = new Vector3(-10, 45, -10);
 		buttonDownArrowLeft.transform.localScale = new Vector3(0.08f, 0.03f, 0.03f);
 		MaterialCtrl.setMaterial(buttonDownArrowLeft, MaterialCtrl.PLASTIC_BLACK);
 		GameObject buttonDownArrowRight = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonDownArrowRight.transform.parent = buttons.transform;
+		buttonDownArrowRight.transform.parent = buttonDownArrowHolder.transform;
 		buttonDownArrowRight.transform.localPosition = new Vector3(-0.6309f, 1.0298f, -0.0806f);
 		buttonDownArrowRight.transform.localEulerAngles = new Vector3(-10, 45, -10);
 		buttonDownArrowRight.transform.localScale = new Vector3(0.03f, 0.03f, 0.08f);
 		MaterialCtrl.setMaterial(buttonDownArrowRight, MaterialCtrl.PLASTIC_BLACK);
 		GameObject buttonDownNeck = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		buttonDownNeck.transform.parent = buttons.transform;
+		buttonDownNeck.transform.parent = buttonDownArrowHolder.transform;
 		buttonDownNeck.transform.localPosition = new Vector3(-0.65f, 1.0433f, -0.0254f);
 		buttonDownNeck.transform.localEulerAngles = new Vector3(-15, 0, 0);
 		buttonDownNeck.transform.localScale = new Vector3(0.03f, 0.03f, 0.126144f);
 		MaterialCtrl.setMaterial(buttonDownNeck, MaterialCtrl.PLASTIC_BLACK);
-		objs = new GameObject[] {buttonDownArrowLeft, buttonDownArrowRight, buttonDownNeck};
-		Button btnDown = new DefaultMultiButton(
-			objs,
+		Button btnDown = new DefaultButton(
+			buttonDownArrowHolder,
 			() => {
 				VrSpecificCtrl vrSpecificCtrl = mainCtrl.getVrSpecificCtrl();
 				if (vrSpecificCtrl != null) {

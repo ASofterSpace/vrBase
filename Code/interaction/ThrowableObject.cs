@@ -18,13 +18,28 @@ public class ThrowableObject : TakeableObject {
 
 	}
 
+	public override void grab(GameObject controller) {
+
+		rigidbody.useGravity = false;
+		rigidbody.velocity = new Vector3(0, 0, 0);
+
+		if (originalParent == null) {
+			originalParent = gameObject.transform.parent.gameObject;
+			resetParent = originalParent;
+		}
+		gameObject.transform.parent = controller.transform;
+
+		base.grab(controller);
+	}
+
 	public override void drop(Vector3 velocity) {
 
 		gameObject.transform.parent = originalParent.transform;
 
-		gameObject.GetComponent<Rigidbody>().useGravity = true;
+		rigidbody.useGravity = true;
+		rigidbody.velocity = velocity;
 
-		gameObject.GetComponent<Rigidbody>().velocity = velocity;
+		base.drop(velocity);
 	}
 
 }

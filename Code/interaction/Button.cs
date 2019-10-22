@@ -12,39 +12,12 @@ using UnityEngine;
 /**
  * This corresponds to a single button
  */
-public class Button {
+public class Button: TakeableObject {
 
-	protected GameObject gameObject;
+	public Button(GameObject obj): base(obj) {
 
-	protected Material defaultMaterial;
-
-	protected bool enabled;
-
-
-	public Button(GameObject obj) {
-
-		this.gameObject = obj;
-
-		this.defaultMaterial = obj.GetComponent<Renderer>().material;
-
-		this.enabled = true;
-	}
-
-	/**
-	 * Some controller is hovering over this button...
-	 */
-	public virtual void hover() {
-		if (enabled) {
-			MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
-		}
-	}
-
-	/**
-	 * The controller formerly hovering over this button is moving away again,
-	 * no longer hovering...
-	 */
-	public virtual void blur() {
-		gameObject.GetComponent<Renderer>().material = defaultMaterial;
+		rigidbody.isKinematic = true;
+		rigidbody.useGravity = false;
 	}
 
 	/**
@@ -54,27 +27,18 @@ public class Button {
 		// actually do something!
 	}
 
-	public virtual void setName(string newName) {
-		gameObject.name = newName;
-	}
-
-	public virtual string getName() {
-		return gameObject.name;
+	/**
+	 * This object is being grabbed - whoop whoop!
+	 */
+	public override void grab(GameObject controller) {
+		trigger();
 	}
 
 	/**
-	 * Register clicks and light up on hover again!
+	 * This object is being dropped again - whoopsie!
 	 */
-	public virtual void enable() {
-		enabled = true;
-	}
-
-	/**
-	 * Do not register clicks and do not light up on hover anymore!
-	 */
-	public virtual void disable() {
-		enabled = false;
-		blur();
+	public override void drop(Vector3 veloctiy) {
+		// actually do something!
 	}
 
 }

@@ -439,13 +439,13 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(0.4f, 0.2f, 0.02f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
-		GameObject[] btnParts = new GameObject[2];
+		GameObject checkBtnHolder = new GameObject();
+		checkBtnHolder.transform.parent = console.transform;
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		curObj.transform.parent = console.transform;
+		curObj.transform.parent = checkBtnHolder.transform;
 		curObj.transform.localPosition = new Vector3(-0.131f, 0.813f, -0.302f);
 		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
 		curObj.transform.localScale = new Vector3(0.02f, 0.02f, 0.06f);
-		btnParts[0] = curObj;
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_GREEN);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.name = "Checkmark Button Frame";
@@ -455,11 +455,10 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(0.005f, 0.035f, 0.075f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		curObj.transform.parent = console.transform;
+		curObj.transform.parent = checkBtnHolder.transform;
 		curObj.transform.localPosition = new Vector3(-0.09f, 0.8325f, -0.2818f);
 		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
 		curObj.transform.localScale = new Vector3(0.02f, 0.11f, 0.02f);
-		btnParts[1] = curObj;
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_GREEN);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.name = "Checkmark Button Frame";
@@ -468,8 +467,8 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localEulerAngles = new Vector3(20.703f, 112.717f, 50.274f);
 		curObj.transform.localScale = new Vector3(0.005f, 0.125f, 0.035f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
-		checkmarkButton = new DefaultMultiButton(
-			btnParts,
+		checkmarkButton = new DefaultButton(
+			checkBtnHolder,
 			() => {
 				hideAllLabels();
 				if (state == 0) {
@@ -482,13 +481,13 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		);
 		ButtonCtrl.add(checkmarkButton);
 
-		GameObject[] crossBtnParts = new GameObject[2];
+		GameObject crossBtnHolder = new GameObject();
+		crossBtnHolder.transform.parent = console.transform;
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		curObj.transform.parent = console.transform;
+		curObj.transform.parent = crossBtnHolder.transform;
 		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818f);
 		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
 		curObj.transform.localScale = new Vector3(0.02f, 0.02f, 0.11f);
-		crossBtnParts[0] = curObj;
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_RED);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.name = "Cross Button Frame";
@@ -498,11 +497,10 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localScale = new Vector3(0.005f, 0.035f, 0.125f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		curObj.transform.parent = console.transform;
+		curObj.transform.parent = crossBtnHolder.transform;
 		curObj.transform.localPosition = new Vector3(0.095f, 0.8325f, -0.2818f);
 		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
 		curObj.transform.localScale = new Vector3(0.02f, 0.11f, 0.02f);
-		crossBtnParts[1] = curObj;
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_FIREFIGHTING_BTN_RED);
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.name = "Cross Button Frame";
@@ -511,8 +509,8 @@ public class BreathingApparatusCtrl : UpdateableCtrl {
 		curObj.transform.localEulerAngles = new Vector3(31.309f, 127.299f, 54.434f);
 		curObj.transform.localScale = new Vector3(0.005f, 0.125f, 0.035f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
-		crossButton = new DefaultMultiButton(
-			crossBtnParts,
+		crossButton = new DefaultButton(
+			crossBtnHolder,
 			() => {
 				hideAllLabels();
 				if (state != 0) {

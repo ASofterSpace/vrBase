@@ -794,8 +794,8 @@ public class FlipperQnDCtrl : UpdateableCtrl, ResetteableCtrl {
 		float triggerSpeed = (Time.time - triggerStartTime) / 6;
 
 		// no more triggering after maximum is reached
-		if (triggerSpeed > 0.4f) {
-			triggerSpeed = 0.4f;
+		if (triggerSpeed > 0.35f) {
+			triggerSpeed = 0.35f;
 		}
 
 		return triggerSpeed;

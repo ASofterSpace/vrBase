@@ -38,12 +38,7 @@ public class ButtonCtrl {
 
 		buttons.Add(button.getName(), button);
 
-		if (button is UpdateableCtrl) {
-			mainCtrl.addUpdateableCtrl((UpdateableCtrl) button);
-		}
-		if (button is ResetteableCtrl) {
-			mainCtrl.addResetteableCtrl((ResetteableCtrl) button);
-		}
+		ObjectCtrl.add(button);
 	}
 
 	public static Button get(string buttonName) {

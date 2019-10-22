@@ -18,6 +18,8 @@ public class TakeableObject {
 
 	public Transform transform;
 
+	public Rigidbody rigidbody;
+
 	protected MainCtrl mainCtrl;
 
 	protected Renderer[] renderers;
@@ -47,11 +49,11 @@ public class TakeableObject {
 
 		this.enabled = true;
 
-		Rigidbody rb = obj.GetComponent<Rigidbody>();
-		if (rb == null) {
-			rb = obj.AddComponent<Rigidbody>();
+		rigidbody = obj.GetComponent<Rigidbody>();
+		if (rigidbody == null) {
+			rigidbody = obj.AddComponent<Rigidbody>();
 		}
-		rb.useGravity = true;
+		rigidbody.useGravity = true;
 	}
 
 	public void setMainCtrl(MainCtrl mainCtrl) {
@@ -84,15 +86,7 @@ public class TakeableObject {
 	 * This object is being grabbed - whoop whoop!
 	 */
 	public virtual void grab(GameObject controller) {
-
-		gameObject.GetComponent<Rigidbody>().useGravity = false;
-		gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-
-		if (originalParent == null) {
-			originalParent = gameObject.transform.parent.gameObject;
-			resetParent = originalParent;
-		}
-		gameObject.transform.parent = controller.transform;
+		// actually do something!
 	}
 
 	/**

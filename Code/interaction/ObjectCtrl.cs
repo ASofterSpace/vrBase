@@ -38,7 +38,10 @@ public class ObjectCtrl {
 
 		obj.setMainCtrl(mainCtrl);
 
-		obj.setName(OBJECT_IDENTIFIER + nextObj);
+		// buttons keep their name, as they are a special kind of object, basically
+		if (!obj.getName().StartsWith(ButtonCtrl.BUTTON_IDENTIFIER)) {
+			obj.setName(OBJECT_IDENTIFIER + nextObj);
+		}
 
 		objects.Add(obj.getName(), obj);
 
