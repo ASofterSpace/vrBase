@@ -150,7 +150,7 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		solids = new ThrowableBoundObject[5];
 
-		curObj = ObjectFactory.createTetrahedron(MaterialCtrl.PLASTIC_PURPLE);
+		curObj = PlatonicSolidFactory.createTetrahedron(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Tetrahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
 		MeshCollider meshCol = curObj.AddComponent<MeshCollider>();
@@ -158,7 +158,7 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		solids[0] = new ThrowableBoundObject(curObj);
 		ObjectCtrl.add(solids[0]);
 
-		curObj = ObjectFactory.createCube(MaterialCtrl.PLASTIC_PURPLE);
+		curObj = PlatonicSolidFactory.createCube(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Cube";
 		curObj.transform.parent = platonicSolidShelf.transform;
 		col = curObj.AddComponent<BoxCollider>();
@@ -167,7 +167,7 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		solids[1] = new ThrowableBoundObject(curObj);
 		ObjectCtrl.add(solids[1]);
 
-		curObj = ObjectFactory.createOctahedron(MaterialCtrl.PLASTIC_PURPLE);
+		curObj = PlatonicSolidFactory.createOctahedron(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Octahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
 		meshCol = curObj.AddComponent<MeshCollider>();
@@ -175,7 +175,7 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		solids[2] = new ThrowableBoundObject(curObj);
 		ObjectCtrl.add(solids[2]);
 
-		curObj = ObjectFactory.createIcosahedron(MaterialCtrl.PLASTIC_PURPLE);
+		curObj = PlatonicSolidFactory.createIcosahedron(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Icosahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
 		meshCol = curObj.AddComponent<MeshCollider>();
@@ -183,7 +183,7 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		solids[3] = new ThrowableBoundObject(curObj);
 		ObjectCtrl.add(solids[3]);
 
-		curObj = ObjectFactory.createDodecahedron(MaterialCtrl.PLASTIC_PURPLE);
+		curObj = PlatonicSolidFactory.createDodecahedron(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Dodecahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
 		meshCol = curObj.AddComponent<MeshCollider>();

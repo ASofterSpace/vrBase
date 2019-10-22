@@ -196,7 +196,7 @@ public class DioramaCtrl : UpdateableCtrl {
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 45);
 		curObj.transform.localScale = new Vector3(0.025f, 0.306f, 0.05f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
-		ObjectFactory.pointQuadruplize(curObj);
+		ObjectMultiplier.pointQuadruplize(curObj);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Diorama Pedestol Holder Base";

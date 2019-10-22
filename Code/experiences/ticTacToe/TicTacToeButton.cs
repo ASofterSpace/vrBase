@@ -49,7 +49,7 @@ public class TicTacToeButton : Button {
 		oPart1.transform.localScale = new Vector3(0.1f, 1, 0.14f);
 		MaterialCtrl.setMaterial(oPart1, MaterialCtrl.PLASTIC_BLACK);
 
-		oParts = ObjectFactory.axisHexadeciplize(oPart1);
+		oParts = ObjectMultiplier.axisHexadeciplize(oPart1);
 
 		recolorize();
 	}

@@ -87,113 +87,113 @@ public abstract class GenericRoomCtrl {
 		curBeam = createBeam(1.0f);
 		curBeam.transform.localPosition = new Vector3(-6.7f, 0.9f, 0);
 		curBeam.transform.localEulerAngles = new Vector3(0, 0, -20);
-		addBeams(ObjectFactory.pointOctuplize(curBeam));
+		addBeams(ObjectMultiplier.pointOctuplize(curBeam));
 		curBeam = createBeam(0.425f);
 		curBeam.transform.localPosition = new Vector3(-4.88f, 0.4f, 2);
 		curBeam.transform.localEulerAngles = new Vector3(-5, 0, -15);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// 2) a diagonal-ish crossbeam,
 		curBeam = createBeam(1.37f);
 		curBeam.transform.localPosition = new Vector3(-5.555f, 1.32f, 0.996f);
 		curBeam.transform.localEulerAngles = new Vector3(-68, 50, -10);
-		addBeams(ObjectFactory.axisHexadeciplize(curBeam));
+		addBeams(ObjectMultiplier.axisHexadeciplize(curBeam));
 
 		// 3) and finally a beam on the floor,
 		// all of this done for each of the 16 sides
 		curBeam = createBeam(1.45f);
 		curBeam.transform.localPosition = new Vector3(-5.985f, 0, 1.03f);
 		curBeam.transform.localEulerAngles = new Vector3(90, 0, -45);
-		addBeams(ObjectFactory.axisHexadeciplize(curBeam));
+		addBeams(ObjectMultiplier.axisHexadeciplize(curBeam));
 
 		// create second level:
 		// 2 V-shaped diagonal beams on top of each of the short vertical ones
 		curBeam = createBeam(0.8f);
 		curBeam.transform.localPosition = new Vector3(-4.87f, 1.55f, 1.7f);
 		curBeam.transform.localEulerAngles = new Vector3(-20, 20, 0);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 		curBeam = createBeam(0.8f);
 		curBeam.transform.localPosition = new Vector3(-4.677f, 1.597f, 2.266f);
 		curBeam.transform.localEulerAngles = new Vector3(20, 20, 0);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// 2 very wide V-shaped diagonal beams on top of each other of the long vertical ones
 		curBeam = createBeam(1.019898f);
 		curBeam.transform.localPosition = new Vector3(-3.491f, 2.077f, 4.552f);
 		curBeam.transform.localEulerAngles = new Vector3(-73.006f, -122.638f, 28.424f);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// create third level:
 		// short horizontal beams between the 2V-shaped ones on top of the short vertical ones
 		curBeam = createBeam(0.56f);
 		curBeam.transform.localPosition = new Vector3(4.78f, 2.325f, 1.97f);
 		curBeam.transform.localEulerAngles = new Vector3(0, 72, -92.5f);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// create fourth level:
 		// long beams upwards from the long ones of the 1st level,
 		curBeam = createBeam(1.0f);
 		curBeam.transform.localPosition = new Vector3(5.65f, 2.54f, 0);
 		curBeam.transform.localEulerAngles = new Vector3(0, 0, 45);
-		addBeams(ObjectFactory.pointQuadruplize(curBeam));
+		addBeams(ObjectMultiplier.pointQuadruplize(curBeam));
 
 		// inverted-V-beams upwards from the triangles from the 2nd and 3rd level
 		curBeam = createBeam(0.9f);
 		curBeam.transform.localPosition = new Vector3(0.72f, 2.77f, -4.97f);
 		curBeam.transform.localEulerAngles = new Vector3(-13, 10, 57);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 		curBeam = createBeam(1.46f);
 		curBeam.transform.localPosition = new Vector3(3.63f, 3.6f, 0.46f);
 		curBeam.transform.localEulerAngles = new Vector3(50, 0, 67);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// create mid level:
 		// long beams connecting the 2nd/3rd-level triangles with the 3rd-highest-level long beams
 		curBeam = createBeam(1.28f);
 		curBeam.transform.localPosition = new Vector3(3.76f, 3.27f, 2.7f);
 		curBeam.transform.localEulerAngles = new Vector3(38, -42, 25);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// create third-highest level:
 		// 8 diagonal beams that sprout from 4 points,
 		curBeam = createBeam(0.9f);
 		curBeam.transform.localPosition = new Vector3(-1.85f, 4.62f, -0.45f);
 		curBeam.transform.localEulerAngles = new Vector3(45, 45, 0);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// then 4 horizontal beams that connect always 2 each of these 8 beams,
 		curBeam = createBeam(0.9f);
 		curBeam.transform.localPosition = new Vector3(0, 4, 2.3f);
 		curBeam.transform.localEulerAngles = new Vector3(0, 0, 90);
-		addBeams(ObjectFactory.pointQuadruplize(curBeam));
+		addBeams(ObjectMultiplier.pointQuadruplize(curBeam));
 
 		// then 8 horizontal beams to the left and right of those,
 		curBeam = createBeam(1.0444f);
 		curBeam.transform.localPosition = new Vector3(-1.875f, 4.083f, 2.593f);
 		curBeam.transform.localEulerAngles = new Vector3(81.32201f, -30.069f, 43.058f);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// then 4 long downwards beams between them
 		curBeam = createBeam(1.3f);
 		curBeam.transform.localPosition = new Vector3(2.0f, 4.52f, -2.0f);
 		curBeam.transform.localEulerAngles = new Vector3(75, -45, 0);
-		addBeams(ObjectFactory.axisQuadruplize(curBeam));
+		addBeams(ObjectMultiplier.axisQuadruplize(curBeam));
 
 		// create second-highest level: 8 horizontal beams that form the basis of highest level
 		curBeam = createBeam(0.6f);
 		curBeam.transform.localPosition = new Vector3(0.55f, 5.05f, -1.25f);
 		curBeam.transform.localEulerAngles = new Vector3(-40, 0, 65);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		addBeams(ObjectMultiplier.axisOctuplize(curBeam));
 
 		// create highest level: 8 beams that come together in a single point
 		curBeam = createBeam(0.75f);
 		curBeam.transform.localPosition = new Vector3(0, 5.5f, -0.7f);
 		curBeam.transform.localEulerAngles = new Vector3(70, 0, 0);
-		addBeams(ObjectFactory.pointQuadruplize(curBeam));
+		addBeams(ObjectMultiplier.pointQuadruplize(curBeam));
 		curBeam = createBeam(0.9f);
 		curBeam.transform.localPosition = new Vector3(-0.55f, 5.3f, -0.55f);
 		curBeam.transform.localEulerAngles = new Vector3(60, 45, 0);
-		addBeams(ObjectFactory.axisQuadruplize(curBeam));
+		addBeams(ObjectMultiplier.axisQuadruplize(curBeam));
 	}
 
 	/**
@@ -288,7 +288,7 @@ public abstract class GenericRoomCtrl {
 
 		mesh.triangles = triangles;
 
-		ObjectFactory.finalizeMesh(mesh);
+		MeshFactory.finalizeMesh(mesh);
 
 		return meshWall;
 	}
@@ -463,7 +463,7 @@ public abstract class GenericRoomCtrl {
 		tankFoot.transform.localEulerAngles = new Vector3(0, 0, -30);
 		tankFoot.transform.localScale = new Vector3(0.1f, 0.15f, 0.1f);
 		MaterialCtrl.setMaterial(tankFoot, MaterialCtrl.PLASTIC_WHITE);
-		ObjectFactory.pointQuadruplize(tankFoot);
+		ObjectMultiplier.pointQuadruplize(tankFoot);
 	}
 
 	protected GameObject createPoster(int material) {
