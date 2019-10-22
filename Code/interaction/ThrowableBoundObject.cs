@@ -19,6 +19,7 @@ public class ThrowableBoundObject : ThrowableObject, ResetteableCtrl {
 	private Vector3 origPosition;
 	private Quaternion origRotation;
 	private Vector3 origScale;
+	private bool isStillBound;
 
 
 	public ThrowableBoundObject(GameObject obj) : base(obj) {
@@ -28,9 +29,13 @@ public class ThrowableBoundObject : ThrowableObject, ResetteableCtrl {
 		origPosition = gameObject.transform.localPosition;
 		origRotation = gameObject.transform.localRotation;
 		origScale = gameObject.transform.localScale;
+
+		isStillBound = true;
 	}
 
 	public override void grab(GameObject controller) {
+
+		isStillBound = false;
 
 		gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
@@ -44,6 +49,12 @@ public class ThrowableBoundObject : ThrowableObject, ResetteableCtrl {
 		gameObject.transform.localPosition = origPosition;
 		gameObject.transform.localRotation = origRotation;
 		gameObject.transform.localScale = origScale;
+
+		isStillBound = true;
+	}
+
+	public bool isBound() {
+		return isStillBound;
 	}
 
 }

@@ -41,6 +41,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_MATERIALS_PARTICLEBOARD = 30;
 	public const int OBJECTS_MATERIALS_METAL_DARK = 31;
 	public const int OBJECTS_MATERIALS_METAL_SHINY = 49;
+	public const int OBJECTS_MATHWORLD_LABELS_PLATONICSOLIDS = 64;
 	public const int OBJECTS_NOSTALGICCONSOLE_GREEN = 20;
 	public const int OBJECTS_NOSTALGICCONSOLE_SCREEN = 22;
 	public const int OBJECTS_POSTERS_FLIPPERQND = 35;
@@ -80,7 +81,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 64;
+	public const int MATERIAL_AMOUNT = 65;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -106,6 +107,7 @@ public class MaterialCtrl {
 		textures[OBJECTS_LOGOS_ASOFTERSPACE] = "Objects/Logos/asofterspace";
 		textures[OBJECTS_LOGOS_ASOFTERSPACE_DARK] = "Objects/Logos/asofterspace_dark";
 		textures[OBJECTS_MATERIALS_PARTICLEBOARD] = "Objects/Materials/particleboard_1_continuous_small";
+		textures[OBJECTS_MATHWORLD_LABELS_PLATONICSOLIDS] = "Objects/mathWorld/Labels/PlatonicSolids";
 		textures[OBJECTS_NOSTALGICCONSOLE_GREEN] = "Building/Wall/wallpaper_1_azure_continuous";
 		textures[OBJECTS_NOSTALGICCONSOLE_SCREEN] = "Objects/Screens/legacy_screen_on_wallpaper_1_azure_continuous";
 		textures[OBJECTS_POSTERS_FLIPPERQND] = "Objects/Posters/flipperQnD";
