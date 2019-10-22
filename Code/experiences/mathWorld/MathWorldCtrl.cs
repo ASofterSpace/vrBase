@@ -47,6 +47,10 @@ public class MathWorldCtrl: ResetteableCtrl {
 		solids[3].transform.localEulerAngles = new Vector3(0, 0, 0);
 		solids[3].transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
 
+		solids[4].transform.localPosition = new Vector3(-0.4f, 1.1f, -0.055f);
+		solids[4].transform.localEulerAngles = new Vector3(0, 0, 0);
+		solids[4].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+
 /*
 		foreach (GameObject bowlingBall in bowlingBalls) {
 			bowlingBall.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
@@ -138,6 +142,15 @@ public class MathWorldCtrl: ResetteableCtrl {
 		curObj = ObjectFactory.createIcosahedron(MaterialCtrl.PLASTIC_PURPLE);
 		solids[3] = curObj;
 		curObj.name = "Platonic Icosahedron";
+		curObj.transform.parent = platonicSolidShelf.transform;
+		col = curObj.AddComponent<BoxCollider>();
+		col.center = new Vector3(0, 0, 0);
+		col.size = new Vector3(1.55f, 1.55f, 1.55f);
+		ObjectCtrl.add(new ThrowableObject(curObj));
+
+		curObj = ObjectFactory.createDodecahedron(MaterialCtrl.PLASTIC_PURPLE);
+		solids[4] = curObj;
+		curObj.name = "Platonic Dodecahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
 		col = curObj.AddComponent<BoxCollider>();
 		col.center = new Vector3(0, 0, 0);
