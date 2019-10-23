@@ -29,6 +29,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 	private GameObject timeSelector;
 
 	private bool playing;
+	private bool playingBackwards;
 	private float playTime;
 
 	private static float STOP_TIME = 1.25f;
@@ -44,8 +45,6 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		createProcessVisualizer(position, angles);
 
 		reset();
-
-		play(); // DEBUG
 	}
 
 	public void update(VrInput input) {
@@ -55,6 +54,16 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 			playTime += Time.deltaTime / 20;
 
 			if (playTime >= STOP_TIME) {
+				playing = false;
+			}
+
+			renderTimeStep(playTime);
+
+		} else if (playingBackwards) {
+
+			playTime -= Time.deltaTime / 20;
+
+			if (playTime <= 0) {
 				playing = false;
 			}
 
@@ -87,6 +96,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 			secondStageCone.transform.localEulerAngles = new Vector3(0, 135, 0);
 			satellite.transform.localPosition = new Vector3(0, 0.5f*step, 0);
 			satellite.transform.localEulerAngles = new Vector3(0, 135-10*step, 0);
+			label4.SetActive(false);
 			label3.SetActive(true);
 		} else {
 			secondStage.transform.localPosition = new Vector3(0, 0, 0);
@@ -95,6 +105,8 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 			secondStageCone.transform.localEulerAngles = new Vector3(0, 135, 0);
 			satellite.transform.localPosition = new Vector3(0, 0, 0);
 			satellite.transform.localEulerAngles = new Vector3(0, 135, 0);
+			label4.SetActive(false);
+			label3.SetActive(false);
 		}
 
 		if (playTime > STOP_TIME / 3) {
@@ -110,10 +122,13 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 			firstStage.transform.localEulerAngles = new Vector3(0, 135, 0);
 			struts.transform.localPosition = new Vector3(0, 0, 0);
 			struts.transform.localEulerAngles = new Vector3(0, 135, 0);
+			label2.SetActive(false);
 		}
 
 		if (playTime > STOP_TIME / 48) {
 			label1.SetActive(true);
+		} else {
+			label1.SetActive(false);
 		}
 
 		timeSelector.transform.localPosition = new Vector3(0.45f - ((0.9f * playTime) / STOP_TIME), 0.86f, 0.11f);
@@ -122,6 +137,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 	public void reset() {
 
 		playing = false;
+		playingBackwards = false;
 		playTime = 0;
 
 		label1.SetActive(false);
@@ -130,6 +146,18 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		label4.SetActive(false);
 
 		renderTimeStep(playTime);
+	}
+
+	public void resetToEnd() {
+
+		reset();
+
+		playTime = STOP_TIME;
+
+		label1.SetActive(true);
+		label2.SetActive(true);
+		label3.SetActive(true);
+		label4.SetActive(true);
 	}
 
 	private void createProcessVisualizer(Vector3 position, Vector3 angles) {
@@ -315,6 +343,14 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_PARTICLEBOARD);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Mid Shelf";
+		curObj.transform.parent = timePickShelf.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.4f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 90);
+		curObj.transform.localScale = new Vector3(0.05f, 0.9f, 0.35f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_PARTICLEBOARD);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.name = "Top Front Side";
 		curObj.transform.parent = timePickShelf.transform;
 		curObj.transform.localPosition = new Vector3(0, 0.8f, 0);
@@ -339,10 +375,11 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_PURPLE);
 
+		// play button
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_PURPLE);
 		GameObject playButton = curObj;
 		curObj.transform.parent = timePickShelf.transform;
-		curObj.transform.localPosition = new Vector3(0.1f, 0.94f, 0.06f);
+		curObj.transform.localPosition = new Vector3(0.2f, 0.94f, 0.06f);
 		curObj.transform.localEulerAngles = new Vector3(0, 90, 45);
 		curObj.transform.localScale = new Vector3(0.07f, 0.04f, 0.07f);
 		col = curObj.AddComponent<BoxCollider>();
@@ -351,7 +388,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_WHITE);
 		curObj.transform.parent = timePickShelf.transform;
-		curObj.transform.localPosition = new Vector3(0.1f, 0.927f, 0.047f);
+		curObj.transform.localPosition = new Vector3(0.2f, 0.927f, 0.047f);
 		curObj.transform.localEulerAngles = new Vector3(0, 90, 45);
 		curObj.transform.localScale = new Vector3(0.085f, 0.005f, 0.085f);
 
@@ -361,9 +398,10 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		);
 		ButtonCtrl.add(playBtn);
 
+		// pause button
 		GameObject pauseButton = new GameObject("Pause Button");
 		pauseButton.transform.parent = timePickShelf.transform;
-		pauseButton.transform.localPosition = new Vector3(-0.1f, 0.94f, 0.06f);
+		pauseButton.transform.localPosition = new Vector3(0, 0.94f, 0.06f);
 		pauseButton.transform.localEulerAngles = new Vector3(0, 90, 45);
 		col = pauseButton.AddComponent<BoxCollider>();
 		col.size = new Vector3(0.08f, 0.05f, 0.07f);
@@ -407,13 +445,28 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		);
 		ButtonCtrl.add(pauseBtn);
 
-		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		curObj.name = "Mid Shelf";
+		// play backwards button
+		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_PURPLE);
+		GameObject playBackButton = curObj;
 		curObj.transform.parent = timePickShelf.transform;
-		curObj.transform.localPosition = new Vector3(0, 0.4f, 0);
-		curObj.transform.localEulerAngles = new Vector3(0, 0, 90);
-		curObj.transform.localScale = new Vector3(0.05f, 0.9f, 0.35f);
-		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_PARTICLEBOARD);
+		curObj.transform.localPosition = new Vector3(-0.2f, 0.94f, 0.06f);
+		curObj.transform.localEulerAngles = new Vector3(0, -90, -45);
+		curObj.transform.localScale = new Vector3(0.07f, 0.04f, 0.07f);
+		col = curObj.AddComponent<BoxCollider>();
+		col.size = new Vector3(1, 1, 1);
+		col.center = new Vector3(0, 0, 0);
+
+		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_WHITE);
+		curObj.transform.parent = timePickShelf.transform;
+		curObj.transform.localPosition = new Vector3(-0.2f, 0.927f, 0.047f);
+		curObj.transform.localEulerAngles = new Vector3(0, -90, -45);
+		curObj.transform.localScale = new Vector3(0.085f, 0.005f, 0.085f);
+
+		DefaultButton playBackBtn = new DefaultButton(
+			playBackButton,
+			() => { playBack(); }
+		);
+		ButtonCtrl.add(playBackBtn);
 
 
 		rocket = new GameObject("RocketHolder");
@@ -458,9 +511,19 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		playing = true;
 	}
 
+	private void playBack() {
+
+		if (playTime <= 0) {
+			resetToEnd();
+		}
+
+		playingBackwards = true;
+	}
+
 	private void pause() {
 
 		playing = false;
+		playingBackwards = false;
 	}
 
 }
