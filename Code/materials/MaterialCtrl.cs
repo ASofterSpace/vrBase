@@ -49,6 +49,10 @@ public class MaterialCtrl {
 	public const int OBJECTS_POSTERS_MARS = 37;
 	public const int OBJECTS_POSTERS_VR = 38;
 	public const int OBJECTS_POSTERS_PROCESS = 39;
+	public const int OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_1 = 65;
+	public const int OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_2 = 66;
+	public const int OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_3 = 67;
+	public const int OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_4 = 68;
 	public const int OBJECTS_ROCKETLAUNCH_LAUNCHPAD = 55;
 	public const int OBJECTS_ROCKETLAUNCH_YELLOW = 56;
 	public const int OBJECTS_TICTACTOE_BLUE = 42;
@@ -81,7 +85,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 65;
+	public const int MATERIAL_AMOUNT = 69;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -115,6 +119,10 @@ public class MaterialCtrl {
 		textures[OBJECTS_POSTERS_MARS] = "Objects/Posters/flyer_mars_en";
 		textures[OBJECTS_POSTERS_VR] = "Objects/Posters/flyer_vr_en";
 		textures[OBJECTS_POSTERS_PROCESS] = "Objects/Posters/flyer_process_en";
+		textures[OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_1] = "Objects/processVisualization/Labels/stage_1";
+		textures[OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_2] = "Objects/processVisualization/Labels/stage_2";
+		textures[OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_3] = "Objects/processVisualization/Labels/stage_3";
+		textures[OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_4] = "Objects/processVisualization/Labels/stage_4";
 		textures[OBJECTS_ROCKETLAUNCH_LAUNCHPAD] = "Objects/rocketLaunch/launchpad";
 		textures[OBJECTS_TICTACTOE_ROBOT] = "Objects/Materials/bee_tape";
 		textures[OBJECTS_TICTACTOE_LABELS_RESTART] = "Objects/TicTacToe/Labels/restart_dark";

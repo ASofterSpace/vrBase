@@ -21,6 +21,10 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 	private GameObject secondStage;
 	private GameObject secondStageCone;
 	private GameObject satellite;
+	private GameObject label1;
+	private GameObject label2;
+	private GameObject label3;
+	private GameObject label4;
 
 	private GameObject timeSelector;
 
@@ -54,40 +58,78 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 				playing = false;
 			}
 
-			rocket.transform.localPosition = new Vector3(1.15f - (playTime * playTime), 0.336f + 1.15f*playTime, 0);
-			rocket.transform.localEulerAngles = new Vector3(0, 0, 80 * playTime);
-
-			if (playTime > 2 * STOP_TIME / 3) {
-				// deployment
-				float step = 10 * (playTime - (2 * STOP_TIME / 3));
-				secondStageCone.transform.localPosition = new Vector3(0, 3*step, 0);
-				secondStageCone.transform.localEulerAngles = new Vector3(0, 135, 0);
-			} else {
-				secondStageCone.transform.localPosition = new Vector3(0, 0, 0);
-				secondStageCone.transform.localEulerAngles = new Vector3(0, 135, 0);
-			}
-
-			if (playTime > STOP_TIME / 3) {
-				// stage separation
-				float step = 10 * (playTime - (STOP_TIME / 3));
-				firstStage.transform.localPosition = new Vector3(-1.1f*step*step, -2.2f*step, 0);
-				firstStage.transform.localEulerAngles = new Vector3(0, 135, 0);
-				struts.transform.localPosition = new Vector3(-step*step, -2f*step, 0);
-				struts.transform.localEulerAngles = new Vector3(0, 135, 0);
-			} else {
-				firstStage.transform.localPosition = new Vector3(0, 0, 0);
-				firstStage.transform.localEulerAngles = new Vector3(0, 135, 0);
-				struts.transform.localPosition = new Vector3(0, 0, 0);
-				struts.transform.localEulerAngles = new Vector3(0, 135, 0);
-			}
-
-			timeSelector.transform.localPosition = new Vector3(0.45f - ((0.9f * playTime) / STOP_TIME), 0.87f, 0.1f);
+			renderTimeStep(playTime);
 		}
 	}
 
+	private void renderTimeStep(float playTime) {
+
+		rocket.transform.localPosition = new Vector3(1.15f - (playTime * playTime), 0.336f + 1.15f*playTime, 0);
+		rocket.transform.localEulerAngles = new Vector3(0, 0, 80 * playTime);
+
+		if (playTime > 5 * STOP_TIME / 6) {
+			float step = 10 * (playTime - (2 * STOP_TIME / 3));
+			float step2 = 10 * (playTime - (5 * STOP_TIME / 6));
+			secondStage.transform.localPosition = new Vector3(-10*step2, 0, 0);
+			secondStage.transform.localEulerAngles = new Vector3(0, 135, 0);
+			secondStageCone.transform.localPosition = new Vector3(-10*step2, 3*step, 0);
+			secondStageCone.transform.localEulerAngles = new Vector3(0, 135, 0);
+			satellite.transform.localPosition = new Vector3(0, 0.5f*step, 0);
+			satellite.transform.localEulerAngles = new Vector3(0, 135-10*step, 0);
+			label4.SetActive(true);
+			label3.SetActive(true);
+		} else if (playTime > 2 * STOP_TIME / 3) {
+			// deployment
+			float step = 10 * (playTime - (2 * STOP_TIME / 3));
+			secondStage.transform.localPosition = new Vector3(0, 0, 0);
+			secondStage.transform.localEulerAngles = new Vector3(0, 135, 0);
+			secondStageCone.transform.localPosition = new Vector3(0, 3*step, 0);
+			secondStageCone.transform.localEulerAngles = new Vector3(0, 135, 0);
+			satellite.transform.localPosition = new Vector3(0, 0.5f*step, 0);
+			satellite.transform.localEulerAngles = new Vector3(0, 135-10*step, 0);
+			label3.SetActive(true);
+		} else {
+			secondStage.transform.localPosition = new Vector3(0, 0, 0);
+			secondStage.transform.localEulerAngles = new Vector3(0, 135, 0);
+			secondStageCone.transform.localPosition = new Vector3(0, 0, 0);
+			secondStageCone.transform.localEulerAngles = new Vector3(0, 135, 0);
+			satellite.transform.localPosition = new Vector3(0, 0, 0);
+			satellite.transform.localEulerAngles = new Vector3(0, 135, 0);
+		}
+
+		if (playTime > STOP_TIME / 3) {
+			// stage separation
+			float step = 10 * (playTime - (STOP_TIME / 3));
+			firstStage.transform.localPosition = new Vector3(-1.1f*step*step, -2.2f*step, 0);
+			firstStage.transform.localEulerAngles = new Vector3(0, 135, 0);
+			struts.transform.localPosition = new Vector3(-step*step, -2f*step, 0);
+			struts.transform.localEulerAngles = new Vector3(0, 135, 0);
+			label2.SetActive(true);
+		} else {
+			firstStage.transform.localPosition = new Vector3(0, 0, 0);
+			firstStage.transform.localEulerAngles = new Vector3(0, 135, 0);
+			struts.transform.localPosition = new Vector3(0, 0, 0);
+			struts.transform.localEulerAngles = new Vector3(0, 135, 0);
+		}
+
+		if (playTime > STOP_TIME / 48) {
+			label1.SetActive(true);
+		}
+
+		timeSelector.transform.localPosition = new Vector3(0.45f - ((0.9f * playTime) / STOP_TIME), 0.86f, 0.11f);
+	}
+
 	public void reset() {
+
 		playing = false;
 		playTime = 0;
+
+		label1.SetActive(false);
+		label2.SetActive(false);
+		label3.SetActive(false);
+		label4.SetActive(false);
+
+		renderTimeStep(playTime);
 	}
 
 	private void createProcessVisualizer(Vector3 position, Vector3 angles) {
@@ -199,6 +241,42 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_BLACK);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		label1 = curObj;
+		curObj.name = "Label 1";
+		curObj.transform.parent = frame.transform;
+		curObj.transform.localPosition = new Vector3(1.152f, -0.091f, 0.02f);
+		curObj.transform.localEulerAngles = new Vector3(0, 180, 0);
+		curObj.transform.localScale = new Vector3(0.349f, 0.112f, 1);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_1);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		label2 = curObj;
+		curObj.name = "Label 2";
+		curObj.transform.parent = frame.transform;
+		curObj.transform.localPosition = new Vector3(0.65f, 0.197f, 0.02f);
+		curObj.transform.localEulerAngles = new Vector3(0, 180, 0);
+		curObj.transform.localScale = new Vector3(0.748f, 0.116f, 1);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_2);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		label3 = curObj;
+		curObj.name = "Label 3";
+		curObj.transform.parent = frame.transform;
+		curObj.transform.localPosition = new Vector3(-0.703f, 0.546f, 0.02f);
+		curObj.transform.localEulerAngles = new Vector3(0, 180, 0);
+		curObj.transform.localScale = new Vector3(0.885f, 0.116f, 1);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_3);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		label4 = curObj;
+		curObj.name = "Label 4";
+		curObj.transform.parent = frame.transform;
+		curObj.transform.localPosition = new Vector3(-0.974f, -0.367f, 0.02f);
+		curObj.transform.localEulerAngles = new Vector3(0, 180, 0);
+		curObj.transform.localScale = new Vector3(0.448f, 0.108f, 1);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_4);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
 		curObj.name = "Blackboard Back";
 		curObj.transform.parent = frame.transform;
 		curObj.transform.localPosition = new Vector3(0, 0, -0.01f);
@@ -247,7 +325,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Time Selector Bar";
 		curObj.transform.parent = timePickShelf.transform;
-		curObj.transform.localPosition = new Vector3(0, 0.87f, 0.1f);
+		curObj.transform.localPosition = new Vector3(0, 0.86f, 0.11f);
 		curObj.transform.localEulerAngles = new Vector3(45, 0, 90);
 		curObj.transform.localScale = new Vector3(0.05f, 0.45f, 0.05f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
@@ -256,7 +334,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		timeSelector = curObj;
 		curObj.name = "Time Selector";
 		curObj.transform.parent = timePickShelf.transform;
-		curObj.transform.localPosition = new Vector3(0.45f, 0.87f, 0.1f);
+		curObj.transform.localPosition = new Vector3(0.45f, 0.86f, 0.11f);
 		curObj.transform.localEulerAngles = new Vector3(45, 0, 90);
 		curObj.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_PURPLE);
@@ -363,17 +441,25 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		secondStageCone.transform.localPosition = new Vector3(0, 0, 0);
 		secondStageCone.transform.localEulerAngles = new Vector3(0, 135, 0);
 
+		satellite = ObjectFactory.createRocketSatellitePayload();
+		satellite.transform.parent = rocket.transform;
+		satellite.transform.localPosition = new Vector3(0, 0, 0);
+		satellite.transform.localEulerAngles = new Vector3(0, 135, 0);
+
 		rocket.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
 	}
 
 	private void play() {
-		playing = true;
+
 		if (playTime >= STOP_TIME) {
-			playTime = 0;
+			reset();
 		}
+
+		playing = true;
 	}
 
 	private void pause() {
+
 		playing = false;
 	}
 

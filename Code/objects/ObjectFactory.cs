@@ -164,7 +164,8 @@ public class ObjectFactory {
 
 		GameObject rocket = new GameObject("Rocket");
 
-		curObj = PrimitiveFactory.createCone(20, false, false, MaterialCtrl.PLASTIC_WHITE);
+		// show the interior here for the case of actually separating the cone from the second stage
+		curObj = PrimitiveFactory.createCone(20, false, true, MaterialCtrl.PLASTIC_WHITE);
 		curObj.name = "Rocket White Cone";
 		curObj.transform.parent = rocket.transform;
 		curObj.transform.localPosition = new Vector3(0, 36.4f, 0);
@@ -185,6 +186,55 @@ public class ObjectFactory {
 		curObj.transform.localPosition = new Vector3(0, 39.3f, 0);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj.transform.localScale = new Vector3(4, 2, 4);
+
+		return rocket;
+	}
+
+	public static GameObject createRocketSatellitePayload() {
+
+		GameObject curObj;
+
+		GameObject rocket = new GameObject("Rocket");
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Satellite Body";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, 36.35f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(2, 2, 2);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj.name = "Solar Panels";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, 36.35f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.1f, 2, 3.95f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_BLUE);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		curObj.name = "Round Things";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(-0.074f, 34.232f, -0.914f);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(1, 1, 1);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+		ObjectMultiplier.pointQuadruplize(curObj);
+
+		curObj = PrimitiveFactory.createCone(20, false, false, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+		curObj.name = "Satellite Cone";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, 39.36f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(2, 1, 2);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		curObj.name = "Docking Port";
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(0, 39.87f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(1, 1, 1);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
 		return rocket;
 	}
