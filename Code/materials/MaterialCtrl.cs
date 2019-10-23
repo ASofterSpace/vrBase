@@ -111,7 +111,7 @@ public class MaterialCtrl {
 		textures[OBJECTS_LOGOS_ASOFTERSPACE] = "Objects/Logos/asofterspace";
 		textures[OBJECTS_LOGOS_ASOFTERSPACE_DARK] = "Objects/Logos/asofterspace_dark";
 		textures[OBJECTS_MATERIALS_PARTICLEBOARD] = "Objects/Materials/particleboard_1_continuous_small";
-		textures[OBJECTS_MATHWORLD_LABELS_PLATONICSOLIDS] = "Objects/mathWorld/Labels/PlatonicSolids";
+		textures[OBJECTS_MATHWORLD_LABELS_PLATONICSOLIDS] = "Objects/mathWorld/Labels/PlatonicSolidsUp";
 		textures[OBJECTS_NOSTALGICCONSOLE_GREEN] = "Building/Wall/wallpaper_1_azure_continuous";
 		textures[OBJECTS_NOSTALGICCONSOLE_SCREEN] = "Objects/Screens/legacy_screen_on_wallpaper_1_azure_continuous";
 		textures[OBJECTS_POSTERS_FLIPPERQND] = "Objects/Posters/flipperQnD";
