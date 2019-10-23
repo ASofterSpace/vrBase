@@ -300,4 +300,106 @@ public class PrimitiveFactory {
 		MeshFactory.finalizeMesh(mesh);
 	}
 
+	/**
+	 * Create a prism with a triangular base, with or without the interior also rendering
+	 */
+	public static GameObject createTrianglePrism(bool renderInterior, int material) {
+
+		GameObject outsidePrism = _createTriangularPrism(false);
+		if (renderInterior) {
+			GameObject insidePrism = _createTriangularPrism(true);
+			insidePrism.name = "Triangular Prism (Interior)";
+			insidePrism.transform.parent = outsidePrism.transform;
+			MaterialCtrl.setMaterial(insidePrism, material);
+		}
+		MaterialCtrl.setMaterial(outsidePrism, material);
+		return outsidePrism;
+	}
+
+	private static GameObject _createTriangularPrism(bool insideOut) {
+
+		GameObject cone = new GameObject("Triangular Prism");
+
+		// create the mesh
+		MeshFilter meshFilter = cone.AddComponent<MeshFilter>();
+		cone.AddComponent<MeshRenderer>();
+		Mesh mesh = meshFilter.mesh;
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		Vector3[] vertices = new Vector3[6];
+
+		vertices[0] = new Vector3( 0.5f, -0.5f,  0.5f);
+		vertices[1] = new Vector3(-0.5f, -0.5f,  0.5f);
+		vertices[2] = new Vector3( 0   , -0.5f, -0.5f);
+		vertices[3] = new Vector3( 0.5f,  0.5f,  0.5f);
+		vertices[4] = new Vector3(-0.5f,  0.5f,  0.5f);
+		vertices[5] = new Vector3( 0   ,  0.5f, -0.5f);
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles;
+
+		triangles = new int[3*8];
+
+		if (!insideOut) {
+			triangles[0] = 0;
+			triangles[1] = 1;
+			triangles[2] = 2;
+			triangles[3] = 3;
+			triangles[4] = 5;
+			triangles[5] = 4;
+			triangles[6] = 0;
+			triangles[7] = 3;
+			triangles[8] = 1;
+			triangles[9] = 1;
+			triangles[10] = 3;
+			triangles[11] = 4;
+			triangles[12] = 1;
+			triangles[13] = 4;
+			triangles[14] = 2;
+			triangles[15] = 2;
+			triangles[16] = 4;
+			triangles[17] = 5;
+			triangles[18] = 2;
+			triangles[19] = 5;
+			triangles[20] = 0;
+			triangles[21] = 0;
+			triangles[22] = 5;
+			triangles[23] = 3;
+		} else {
+			triangles[0] = 0;
+			triangles[1] = 2;
+			triangles[2] = 1;
+			triangles[3] = 3;
+			triangles[4] = 4;
+			triangles[5] = 5;
+			triangles[6] = 0;
+			triangles[7] = 1;
+			triangles[8] = 3;
+			triangles[9] = 1;
+			triangles[10] = 4;
+			triangles[11] = 3;
+			triangles[12] = 1;
+			triangles[13] = 2;
+			triangles[14] = 4;
+			triangles[15] = 2;
+			triangles[16] = 5;
+			triangles[17] = 4;
+			triangles[18] = 2;
+			triangles[19] = 0;
+			triangles[20] = 5;
+			triangles[21] = 0;
+			triangles[22] = 3;
+			triangles[23] = 5;
+		}
+
+		mesh.triangles = triangles;
+
+		MeshFactory.finalizeMesh(mesh);
+
+		return cone;
+	}
+
 }

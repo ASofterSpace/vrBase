@@ -89,6 +89,8 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 
 		rocket = ObjectFactory.createRocket();
 		rocket.transform.parent = rocketLauncher.transform;
+		rocket.transform.localPosition = new Vector3(0, 0, 0);
+		rocket.transform.localEulerAngles = new Vector3(0, 45, 0);
 	}
 
 	public void startCountdown() {
