@@ -64,7 +64,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 			playTime -= Time.deltaTime / 20;
 
 			if (playTime <= 0) {
-				playing = false;
+				playingBackwards = false;
 			}
 
 			renderTimeStep(playTime);

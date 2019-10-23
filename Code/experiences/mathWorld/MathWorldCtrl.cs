@@ -234,6 +234,11 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		// get the purple parent renderer separately
 		MeshRenderer parentRen = solids[solidNum].gameObject.GetComponent<MeshRenderer>();
 
+		// TODO :: do not just ensure that the main purple renderer comes last,
+		// but also ensure that the vertices get rendered before the sides!
+		// (unity makes no guarantee, but at least with the current version, this is
+		// already happening by happenstance...)
+
 		// get all child renderers - including the purple parent renderer again, sadly...
 		MeshRenderer[] allRenderers = solids[solidNum].gameObject.GetComponentsInChildren<MeshRenderer>();
 
