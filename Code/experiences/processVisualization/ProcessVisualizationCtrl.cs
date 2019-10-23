@@ -509,6 +509,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		}
 
 		playing = true;
+		playingBackwards = false;
 	}
 
 	private void playBack() {
@@ -517,6 +518,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 			resetToEnd();
 		}
 
+		playing = false;
 		playingBackwards = true;
 	}
 

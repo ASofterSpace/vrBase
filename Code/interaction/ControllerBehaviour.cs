@@ -58,6 +58,13 @@ public class ControllerBehaviour : MonoBehaviour {
 		string colName = collider.gameObject.name;
 
 		if (colName != null) {
+			if (colName == lastHoveredObject.getName()) {
+
+				lastHoveredObject.blur();
+
+				lastHoveredObject = null;
+			}
+			/*
 			if (colName.StartsWith(ObjectCtrl.OBJECT_IDENTIFIER) || colName.StartsWith(ButtonCtrl.BUTTON_IDENTIFIER)) {
 
 				TakeableObject obj = ObjectCtrl.get(collider.gameObject.name);
@@ -65,6 +72,7 @@ public class ControllerBehaviour : MonoBehaviour {
 
 				lastHoveredObject = null;
 			}
+			*/
 		}
 	}
 
