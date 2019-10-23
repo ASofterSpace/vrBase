@@ -37,7 +37,7 @@ public class ThrowableBoundObject : ThrowableObject, ResetteableCtrl {
 
 		isStillBound = false;
 
-		gameObject.GetComponent<Rigidbody>().isKinematic = false;
+		rigidbody.isKinematic = false;
 
 		base.grab(controller);
 	}
@@ -61,6 +61,8 @@ public class ThrowableBoundObject : ThrowableObject, ResetteableCtrl {
 		gameObject.transform.localPosition = origPosition;
 		gameObject.transform.localRotation = origRotation;
 		gameObject.transform.localScale = origScale;
+
+		rigidbody.velocity = new Vector3(0, 0, 0);
 
 		isStillBound = true;
 	}

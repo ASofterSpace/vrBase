@@ -71,24 +71,15 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 
 	public void reset() {
 
-		solids[0].transform.localPosition = new Vector3(0.4f, 1.084191f, -0.075f);
-		solids[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		for (int i = 0; i < 5; i++) {
 
-		solids[1].transform.localPosition = new Vector3(0.2f, 1.1f, -0.055f);
-		solids[1].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+			if (teslator[i] >= 0) {
+				teslator[i] = -1;
 
-		solids[2].transform.localPosition = new Vector3(0, 1.123f, -0.055f);
-		solids[2].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-
-		solids[3].transform.localPosition = new Vector3(-0.2f, 1.115f, -0.055f);
-		solids[3].transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
-
-		solids[4].transform.localPosition = new Vector3(-0.4f, 1.123f, -0.055f);
-		solids[4].transform.localScale = new Vector3(0.09f, 0.09f, 0.09f);
-
-		foreach (ThrowableBoundObject solid in solids) {
-			solid.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-			solid.transform.localEulerAngles = new Vector3(0, 0, 0);
+				for (int j = 0; j < teslateRenderers[i].Length; j++) {
+					teslateRenderers[i][j].enabled = true;
+				}
+			}
 		}
 	}
 
@@ -153,6 +144,8 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj = PlatonicSolidFactory.createTetrahedron(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Tetrahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
+		curObj.transform.localPosition = new Vector3(0.4f, 1.084191f, -0.075f);
+		curObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 		MeshCollider meshCol = curObj.AddComponent<MeshCollider>();
 		meshCol.convex = true;
 		solids[0] = new ThrowableBoundObject(curObj);
@@ -161,6 +154,8 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj = PlatonicSolidFactory.createCube(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Cube";
 		curObj.transform.parent = platonicSolidShelf.transform;
+		curObj.transform.localPosition = new Vector3(0.2f, 1.1f, -0.055f);
+		curObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 		col = curObj.AddComponent<BoxCollider>();
 		col.center = new Vector3(0, 0, 0);
 		col.size = new Vector3(1, 1, 1);
@@ -170,6 +165,8 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj = PlatonicSolidFactory.createOctahedron(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Octahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
+		curObj.transform.localPosition = new Vector3(0, 1.123f, -0.055f);
+		curObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 		meshCol = curObj.AddComponent<MeshCollider>();
 		meshCol.convex = true;
 		solids[2] = new ThrowableBoundObject(curObj);
@@ -178,6 +175,8 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj = PlatonicSolidFactory.createIcosahedron(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Icosahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
+		curObj.transform.localPosition = new Vector3(-0.2f, 1.115f, -0.055f);
+		curObj.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
 		meshCol = curObj.AddComponent<MeshCollider>();
 		meshCol.convex = true;
 		solids[3] = new ThrowableBoundObject(curObj);
@@ -186,6 +185,8 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj = PlatonicSolidFactory.createDodecahedron(MaterialCtrl.PLASTIC_PURPLE);
 		curObj.name = "Platonic Dodecahedron";
 		curObj.transform.parent = platonicSolidShelf.transform;
+		curObj.transform.localPosition = new Vector3(-0.4f, 1.123f, -0.055f);
+		curObj.transform.localScale = new Vector3(0.09f, 0.09f, 0.09f);
 		meshCol = curObj.AddComponent<MeshCollider>();
 		meshCol.convex = true;
 		solids[4] = new ThrowableBoundObject(curObj);
