@@ -16,6 +16,7 @@ public class FarAwayCtrl : UpdateableCtrl {
 	private GameObject earth;
 	private GameObject satellite;
 	private float satDirX;
+	private float satDirZ;
 	private int curIterator;
 
 
@@ -46,16 +47,30 @@ public class FarAwayCtrl : UpdateableCtrl {
 		// let the satellite fly overhead
 		Vector3 prevPos = satellite.transform.localPosition;
 		satellite.transform.localPosition = new Vector3(
-			prevPos.x + satDirX * Time.deltaTime * 10,
+			prevPos.x + satDirX * Time.deltaTime * 15,
 			150,
-			prevPos.z - satDirX * Time.deltaTime * 10);
+			prevPos.z + satDirZ * Time.deltaTime * 15);
 		if ((prevPos.x < -1000) || (prevPos.x > 1000) || (prevPos.z < -1000) || (prevPos.z > 1000)) {
-			satDirX = (2 * Random.value) - 1;
-			satellite.transform.localPosition = new Vector3(
-				-990 * satDirX,
-				150,
-				990 * satDirX);
+			randomizeSatellite();
 		}
+	}
+
+	private void randomizeSatellite() {
+
+		float rand = Random.value;
+		satDirX = rand;
+		satDirZ = 1 - rand;
+		if (Random.value > 0.5f) {
+			satDirX = -satDirX;
+		}
+		if (Random.value > 0.5f) {
+			satDirZ = -satDirZ;
+		}
+
+		satellite.transform.localPosition = new Vector3(
+			-990 * satDirX,
+			150,
+			-990 * satDirZ);
 	}
 
 	private void createMoon() {
@@ -178,6 +193,6 @@ public class FarAwayCtrl : UpdateableCtrl {
 		satellite.transform.localPosition = new Vector3(0, 150, 0);
 		satellite.transform.localEulerAngles = new Vector3(0, 0, 90);
 		satellite.transform.localScale = new Vector3(1, 1, 1);
-		satDirX = (2 * Random.value) - 1;
+		randomizeSatellite();
 	}
 }
