@@ -86,14 +86,14 @@ public class PlatonicSolidFactory {
 		return obj;
 	}
 
-	public static GameObject createCube(int material) {
+	public static GameObject createCube(bool addLines, bool addPoints, int material, int lineMaterial, int pointMaterial) {
 
-		GameObject outsideCube = _createCube(false, true);
+		GameObject outsideCube = _createCube(false, addLines, addPoints, lineMaterial, pointMaterial);
 		MaterialCtrl.setMaterial(outsideCube, material);
 		return outsideCube;
 	}
 
-	private static GameObject _createCube(bool insideOut, bool addLines) {
+	private static GameObject _createCube(bool insideOut, bool addLines, bool addPoints, int lineMaterial, int pointMaterial) {
 
 		GameObject obj = new GameObject("Cube");
 
@@ -172,20 +172,23 @@ public class PlatonicSolidFactory {
 
 		MeshFactory.finalizeMesh(mesh);
 
+		if (addPoints) {
+			MeshFactory.drawPoints(obj, vertices, pointMaterial);
+		}
+
 		if (addLines) {
-			MeshFactory.drawPoints(obj, vertices);
-			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[1]);
-			MeshFactory.drawRayFromTo(obj, vertices[1], vertices[2]);
-			MeshFactory.drawRayFromTo(obj, vertices[2], vertices[3]);
-			MeshFactory.drawRayFromTo(obj, vertices[3], vertices[0]);
-			MeshFactory.drawRayFromTo(obj, vertices[4], vertices[5]);
-			MeshFactory.drawRayFromTo(obj, vertices[5], vertices[6]);
-			MeshFactory.drawRayFromTo(obj, vertices[6], vertices[7]);
-			MeshFactory.drawRayFromTo(obj, vertices[7], vertices[4]);
-			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[4]);
-			MeshFactory.drawRayFromTo(obj, vertices[1], vertices[5]);
-			MeshFactory.drawRayFromTo(obj, vertices[2], vertices[6]);
-			MeshFactory.drawRayFromTo(obj, vertices[3], vertices[7]);
+			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[1], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[1], vertices[2], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[2], vertices[3], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[3], vertices[0], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[4], vertices[5], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[5], vertices[6], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[6], vertices[7], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[7], vertices[4], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[4], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[1], vertices[5], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[2], vertices[6], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[3], vertices[7], lineMaterial);
 		}
 
 		return obj;

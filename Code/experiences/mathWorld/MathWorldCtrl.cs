@@ -151,7 +151,7 @@ public class MathWorldCtrl: UpdateableCtrl, ResetteableCtrl {
 		solids[0] = new ThrowableBoundObject(curObj);
 		ObjectCtrl.add(solids[0]);
 
-		curObj = PlatonicSolidFactory.createCube(MaterialCtrl.PLASTIC_PURPLE);
+		curObj = PlatonicSolidFactory.createCube(true, true, MaterialCtrl.PLASTIC_PURPLE, MaterialCtrl.PLASTIC_WHITE, MaterialCtrl.PLASTIC_WHITE);
 		curObj.name = "Platonic Cube";
 		curObj.transform.parent = platonicSolidShelf.transform;
 		curObj.transform.localPosition = new Vector3(0.2f, 1.1f, -0.055f);

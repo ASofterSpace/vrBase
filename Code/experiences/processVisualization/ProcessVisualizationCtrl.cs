@@ -407,13 +407,11 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		col.size = new Vector3(0.08f, 0.05f, 0.07f);
 		col.center = new Vector3(0, 0, 0);
 
-		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj = PlatonicSolidFactory.createCube(false, false, MaterialCtrl.PLASTIC_PURPLE, 0, 0);
 		curObj.transform.parent = pauseButton.transform;
 		curObj.transform.localPosition = new Vector3(0, 0, 0.02f);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj.transform.localScale = new Vector3(0.075f, 0.03f, 0.02f);
-		Object.Destroy(curObj.GetComponent<BoxCollider>());
-		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_PURPLE);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.transform.parent = pauseButton.transform;
@@ -423,13 +421,11 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		Object.Destroy(curObj.GetComponent<BoxCollider>());
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
 
-		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		curObj = PlatonicSolidFactory.createCube(false, false, MaterialCtrl.PLASTIC_PURPLE, 0, 0);
 		curObj.transform.parent = pauseButton.transform;
 		curObj.transform.localPosition = new Vector3(0, 0, -0.02f);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
 		curObj.transform.localScale = new Vector3(0.075f, 0.03f, 0.02f);
-		Object.Destroy(curObj.GetComponent<BoxCollider>());
-		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_PURPLE);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		curObj.transform.parent = pauseButton.transform;
