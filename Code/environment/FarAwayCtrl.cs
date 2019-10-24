@@ -14,6 +14,8 @@ public class FarAwayCtrl : UpdateableCtrl {
 	private MainCtrl mainCtrl;
 	private GameObject skybox;
 	private GameObject earth;
+	private GameObject satellite;
+	private float satDirX;
 	private int curIterator;
 
 
@@ -31,6 +33,8 @@ public class FarAwayCtrl : UpdateableCtrl {
 		createSun();
 
 		createStars();
+
+		createSatellites();
 	}
 
 	public void update(VrInput input) {
@@ -38,6 +42,20 @@ public class FarAwayCtrl : UpdateableCtrl {
 		// let the Earth rise, but slowly, unnoticeably! :)
 		// (up to 500+3600/5=1220 after one hour...)
 		earth.transform.localPosition = new Vector3(-3000, 500 + (Time.time / 5), 0);
+
+		// let the satellite fly overhead
+		Vector3 prevPos = satellite.transform.localPosition;
+		satellite.transform.localPosition = new Vector3(
+			prevPos.x + satDirX * Time.deltaTime * 10,
+			150,
+			prevPos.z - satDirX * Time.deltaTime * 10);
+		if ((prevPos.x < -1000) || (prevPos.x > 1000) || (prevPos.z < -1000) || (prevPos.z > 1000)) {
+			satDirX = (2 * Random.value) - 1;
+			satellite.transform.localPosition = new Vector3(
+				-990 * satDirX,
+				150,
+				990 * satDirX);
+		}
 	}
 
 	private void createMoon() {
@@ -119,7 +137,7 @@ public class FarAwayCtrl : UpdateableCtrl {
 		sunImage.transform.parent = sun.transform;
 		sunImage.transform.localPosition = new Vector3(0, 0, 0);
 		sunImage.transform.localEulerAngles = new Vector3(275, 0, 0);
-		sunImage.transform.localScale = new Vector3(500, 500, 1);
+		sunImage.transform.localScale = new Vector3(750, 750, 1);
 		MaterialCtrl.setMaterial(sunImage, MaterialCtrl.SPACE_SUN);
 
 		GameObject sunLight = new GameObject();
@@ -151,5 +169,15 @@ public class FarAwayCtrl : UpdateableCtrl {
 			star.transform.localScale = new Vector3(size, size, 1);
 			MaterialCtrl.setMaterial(star, MaterialCtrl.SPACE_STAR);
 		}
+	}
+
+	private void createSatellites() {
+
+		satellite = ObjectFactory.createRocketSatellitePayload();
+		satellite.transform.parent = skybox.transform;
+		satellite.transform.localPosition = new Vector3(0, 150, 0);
+		satellite.transform.localEulerAngles = new Vector3(0, 0, 90);
+		satellite.transform.localScale = new Vector3(1, 1, 1);
+		satDirX = (2 * Random.value) - 1;
 	}
 }

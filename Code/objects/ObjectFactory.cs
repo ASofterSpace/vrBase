@@ -194,7 +194,7 @@ public class ObjectFactory {
 
 		GameObject curObj;
 
-		GameObject rocket = new GameObject("Rocket");
+		GameObject rocket = new GameObject("Satllite");
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Satellite Body";

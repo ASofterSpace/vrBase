@@ -138,7 +138,8 @@ public class MaterialCtrl {
 		textures[SPACE_MOON_NORTH] = "Space/moonNorth";
 		textures[SPACE_MOON_EAST] = "Space/moonNorthMirrored";
 		textures[SPACE_EARTH] = "Space/earth";
-		textures[SPACE_SUN] = "Space/sun";
+		textures[SPACE_SUN] = "Space/sun_superbright";
+		textures[SPACE_STAR] = "Space/star";
 
 		standard = GameObject.Find("/Shaders/standard").GetComponent<Renderer>().material;
 		standardFade = GameObject.Find("/Shaders/standardFade").GetComponent<Renderer>().material;
@@ -164,9 +165,9 @@ public class MaterialCtrl {
 				case SPACE_MOON_EAST:
 				case SPACE_EARTH:
 				case SPACE_SUN:
+				case SPACE_STAR:
 					result = new Material(unlitTexture);
 					break;
-				case SPACE_STAR:
 				case INTERACTION_TELEPORT_RAY:
 				case INTERACTION_BUTTON_HOVER:
 					result = new Material(unlitColor);
