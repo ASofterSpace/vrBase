@@ -18,6 +18,10 @@ public class MeshFactory {
 	}
 
 	public static void drawRayFromTo(GameObject parent, Vector3 origin, Vector3 target) {
+		drawRayFromTo(parent, origin, target, MaterialCtrl.PLASTIC_WHITE);
+	}
+
+	public static void drawRayFromTo(GameObject parent, Vector3 origin, Vector3 target, int rayMaterial) {
 
 		GameObject ray = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 
@@ -37,10 +41,14 @@ public class MeshFactory {
 			0.05f
 		);
 
-		MaterialCtrl.setMaterial(ray, MaterialCtrl.PLASTIC_WHITE);
+		MaterialCtrl.setMaterial(ray, rayMaterial);
 	}
 
 	public static void drawPoints(GameObject parent, Vector3[] vertices) {
+		drawPoints(parent, vertices, MaterialCtrl.PLASTIC_WHITE);
+	}
+
+	public static void drawPoints(GameObject parent, Vector3[] vertices, int pointMaterial) {
 
 		foreach (Vector3 vertex in vertices) {
 
@@ -52,7 +60,7 @@ public class MeshFactory {
 
 			point.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
 
-			MaterialCtrl.setMaterial(point, MaterialCtrl.PLASTIC_WHITE);
+			MaterialCtrl.setMaterial(point, pointMaterial);
 		}
 	}
 }

@@ -402,4 +402,141 @@ public class PrimitiveFactory {
 		return cone;
 	}
 
+	public static GameObject createTaperedCube(bool addLines, bool addPoints, int material, int lineMaterial, int pointMaterial) {
+
+		GameObject outsideCube = _createTaperedCube(false, addLines, addPoints, lineMaterial, pointMaterial);
+		MaterialCtrl.setMaterial(outsideCube, material);
+		return outsideCube;
+	}
+
+	private static GameObject _createTaperedCube(bool insideOut, bool addLines, bool addPoints, int lineMaterial, int pointMaterial) {
+
+		GameObject obj = new GameObject("Tapered Cube");
+
+		// create the mesh
+		MeshFilter meshFilter = obj.AddComponent<MeshFilter>();
+		obj.AddComponent<MeshRenderer>();
+		Mesh mesh = meshFilter.mesh;
+		mesh.Clear();
+
+		// create vertices that are available to create the mesh
+		Vector3[] vertices = new Vector3[16];
+
+		vertices[0] = new Vector3(0.5f, -0.5f, 0.5f);
+		vertices[1] = new Vector3(0.5f, -0.5f, -0.5f);
+		vertices[2] = new Vector3(-0.5f, -0.5f, -0.5f);
+		vertices[3] = new Vector3(-0.5f, -0.5f, 0.5f);
+		vertices[4] = new Vector3(0.5f, 0.5f, 0.5f);
+		vertices[5] = new Vector3(0.5f, 0.5f, -0.5f);
+		vertices[6] = new Vector3(-0.5f, 0.5f, -0.5f);
+		vertices[7] = new Vector3(-0.5f, 0.5f, 0.5f);
+		vertices[8] = new Vector3(0.75f, 0, 0.75f);
+		vertices[9] = new Vector3(0.75f, 0, -0.75f);
+		vertices[10] = new Vector3(-0.75f, 0, -0.75f);
+		vertices[11] = new Vector3(-0.75f, 0, 0.75f);
+		vertices[12] = new Vector3(0.75f, 0, 0.75f);
+		vertices[13] = new Vector3(0.75f, 0, -0.75f);
+		vertices[14] = new Vector3(-0.75f, 0, -0.75f);
+		vertices[15] = new Vector3(-0.75f, 0, 0.75f);
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles = new int[2*2*3 + 2*4*2*3];
+
+		// bottom
+		triangles[0] = 0;
+		triangles[1] = 2;
+		triangles[2] = 1;
+		triangles[3] = 2;
+		triangles[4] = 0;
+		triangles[5] = 3;
+
+		// top
+		triangles[6] = 4;
+		triangles[7] = 5;
+		triangles[8] = 6;
+		triangles[9] = 6;
+		triangles[10] = 7;
+		triangles[11] = 4;
+
+		int i = 12;
+
+		// lower sides
+		for (int j = 0; j < 4; j++) {
+			triangles[i++] = j;
+			if (j == 3) {
+				triangles[i++] = 0;
+			} else {
+				triangles[i++] = 1+j;
+			}
+			triangles[i++] = 8+j;
+			triangles[i++] = 8+j;
+			if (j == 3) {
+				triangles[i++] = 0;
+				triangles[i++] = 8;
+			} else {
+				triangles[i++] = 1+j;
+				triangles[i++] = 9+j;
+			}
+		}
+
+		// upper sides
+		for (int j = 0; j < 4; j++) {
+			if (j == 3) {
+				triangles[i++] = 4;
+			} else {
+				triangles[i++] = 5+j;
+			}
+			triangles[i++] = 4+j;
+			triangles[i++] = 8+j;
+			if (j == 3) {
+				triangles[i++] = 4;
+				triangles[i++] = 8+j;
+				triangles[i++] = 8;
+			} else {
+				triangles[i++] = 5+j;
+				triangles[i++] = 8+j;
+				triangles[i++] = 9+j;
+			}
+		}
+
+
+
+
+		mesh.triangles = triangles;
+
+		MeshFactory.finalizeMesh(mesh);
+
+		if (addPoints) {
+			MeshFactory.drawPoints(obj, vertices, pointMaterial);
+		}
+
+		if (addLines) {
+			MeshFactory.drawRayFromTo(obj, vertices[0], vertices[1], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[1], vertices[2], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[2], vertices[3], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[3], vertices[0], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[4], vertices[5], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[5], vertices[6], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[6], vertices[7], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[7], vertices[4], lineMaterial);
+
+			for (int j = 0; j < 4; j++) {
+				MeshFactory.drawRayFromTo(obj, vertices[j], vertices[8+j], lineMaterial);
+				MeshFactory.drawRayFromTo(obj, vertices[8+j], vertices[4+j], lineMaterial);
+			}
+			MeshFactory.drawRayFromTo(obj, vertices[8], vertices[9], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[9], vertices[10], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[10], vertices[11], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[11], vertices[12], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[12], vertices[13], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[13], vertices[14], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[14], vertices[15], lineMaterial);
+			MeshFactory.drawRayFromTo(obj, vertices[15], vertices[8], lineMaterial);
+		}
+
+		return obj;
+	}
+
 }

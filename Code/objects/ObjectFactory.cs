@@ -239,4 +239,174 @@ public class ObjectFactory {
 		return rocket;
 	}
 
+	public static GameObject createRobot() {
+
+		GameObject curObj;
+
+		GameObject robot = new GameObject("Robot");
+
+		curObj = PrimitiveFactory.createTaperedCube(
+			true,
+			false,
+			MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY,
+			MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK,
+			MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK
+		);
+		curObj.name = "Body";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.5f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.35f, 0.2f, 0.5f);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Front Right Wheel";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(-0.2f, 0.1f, -0.3f);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.2f, 0.05f, 0.2f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Front Left Wheel";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0.2f, 0.1f, -0.3f);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.2f, 0.05f, 0.2f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Mid Right Wheel";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(-0.25f, 0.1f, 0);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.2f, 0.05f, 0.2f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Mid Left Wheel";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0.25f, 0.1f, 0);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.2f, 0.05f, 0.2f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Back Right Wheel";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(-0.2f, 0.1f, 0.3f);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.2f, 0.05f, 0.2f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Back Left Wheel";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0.2f, 0.1f, 0.3f);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.2f, 0.05f, 0.2f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_DARK);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Front Wheel Bar Vert";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.295f, -0.3f);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.04f, 0.2f, 0.04f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Front Wheel Bar Horz";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.095f, -0.3f);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.04f, 0.2f, 0.04f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Mid Wheel Bar Vert";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.295f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.04f, 0.2f, 0.04f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Mid Wheel Bar Horz";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.095f, 0);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.04f, 0.25f, 0.04f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Back Wheel Bar Vert";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.295f, 0.3f);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.04f, 0.2f, 0.04f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Back Wheel Bar Horz";
+		curObj.transform.parent = robot.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.095f, 0.3f);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.04f, 0.2f, 0.04f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		GameObject neckAttachmentPoint = new GameObject("Neck Attachment Point");
+		neckAttachmentPoint.transform.parent = robot.transform;
+		neckAttachmentPoint.transform.localPosition = new Vector3(0, 0.4f, -0.15f);
+		neckAttachmentPoint.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Neck";
+		curObj.transform.parent = neckAttachmentPoint.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.4f, 0);
+		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
+		curObj.transform.localScale = new Vector3(0.08f, 0.2f, 0.08f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Head Horz";
+		curObj.transform.parent = neckAttachmentPoint.transform;
+		curObj.transform.localPosition = new Vector3(0, 0.6f, 0);
+		curObj.transform.localEulerAngles = new Vector3(90, 90, 0);
+		curObj.transform.localScale = new Vector3(0.08f, 0.1f, 0.08f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Head Eyepiece Right";
+		curObj.transform.parent = neckAttachmentPoint.transform;
+		curObj.transform.localPosition = new Vector3(-0.1f, 0.6f, -0.0252f);
+		curObj.transform.localEulerAngles = new Vector3(90, 0, 0);
+		curObj.transform.localScale = new Vector3(0.08f, 0.07f, 0.08f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		curObj.name = "Eye Right";
+		curObj.transform.parent = neckAttachmentPoint.transform;
+		curObj.transform.localPosition = new Vector3(-0.1f, 0.6f, -0.095f);
+		curObj.transform.localEulerAngles = new Vector3(90, 0, 0);
+		curObj.transform.localScale = new Vector3(0.07f, 0.02f, 0.07f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_RED);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		curObj.name = "Head Eyepiece Left";
+		curObj.transform.parent = neckAttachmentPoint.transform;
+		curObj.transform.localPosition = new Vector3(0.1f, 0.6f, -0.0252f);
+		curObj.transform.localEulerAngles = new Vector3(90, 0, 0);
+		curObj.transform.localScale = new Vector3(0.08f, 0.07f, 0.08f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
+
+		curObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		curObj.name = "Eye Left";
+		curObj.transform.parent = neckAttachmentPoint.transform;
+		curObj.transform.localPosition = new Vector3(0.1f, 0.6f, -0.095f);
+		curObj.transform.localEulerAngles = new Vector3(90, 0, 0);
+		curObj.transform.localScale = new Vector3(0.07f, 0.02f, 0.07f);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_RED);
+
+		return robot;
+	}
 }

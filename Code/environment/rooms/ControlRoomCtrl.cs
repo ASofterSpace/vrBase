@@ -18,6 +18,8 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private RocketLaunchCtrl rocketLaunchCtrl;
 
+	private RobotCuddleCtrl robotCuddleCtrl;
+
 
 	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -151,6 +153,9 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 		rocketLaunchCtrl = new RocketLaunchCtrl(
 			mainCtrl, thisRoom, nostalgicConsoleCtrl, new Vector3(-3, 0, 13.6f), new Vector3(0, 170, 0));
+
+		robotCuddleCtrl = new RobotCuddleCtrl(
+			mainCtrl, thisRoom, new Vector3(2.3f, 0, 2.5f), new Vector3(0, 45, 0));
 	}
 
 }
