@@ -149,13 +149,13 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 			mainCtrl, thisRoom, new Vector3(-2.57f, 0, 2.73f), new Vector3(0, -50, 0));
 
 		dioramaCtrl = new DioramaCtrl(
-			mainCtrl, thisRoom, new Vector3(0, 0, -3), new Vector3(0, 0, 0));
+			mainCtrl, thisRoom, new Vector3(2, 0, 2.5f), new Vector3(0, 0, 0));
 
 		rocketLaunchCtrl = new RocketLaunchCtrl(
 			mainCtrl, thisRoom, nostalgicConsoleCtrl, new Vector3(-3, 0, 13.6f), new Vector3(0, 170, 0));
 
 		robotCuddleCtrl = new RobotCuddleCtrl(
-			mainCtrl, thisRoom, new Vector3(2.3f, 0, 2.5f), new Vector3(0, 45, 0));
+			mainCtrl, thisRoom, new Vector3(1.82f, 0, -4.38f), new Vector3(0, 155, 0));
 	}
 
 }

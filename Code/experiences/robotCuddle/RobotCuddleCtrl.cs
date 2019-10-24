@@ -34,7 +34,8 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 	}
 
 	public void reset() {
-
+		robot.transform.localPosition = new Vector3(0, 0, 5);
+		robot.transform.localEulerAngles = new Vector3(0, -110, 0);
 	}
 
 	private void createRobot(Vector3 position, Vector3 angles) {
@@ -47,20 +48,20 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		robot = ObjectFactory.createRobot();
 		robot.transform.parent = robotAndConsoleHolder.transform;
-		robot.transform.localPosition = new Vector3(0, 0, 0);
-		robot.transform.localEulerAngles = new Vector3(0, 0, 0);
+		robot.transform.localPosition = new Vector3(0, 0, 5);
+		robot.transform.localEulerAngles = new Vector3(0, -110, 0);
 
 		GameObject console = new GameObject("Robo Console");
 		console.transform.parent = robotAndConsoleHolder.transform;
-		console.transform.localPosition = new Vector3(-0.786f, 0, -0.109f);
-		console.transform.localEulerAngles = new Vector3(0, -10, 0);
+		console.transform.localPosition = new Vector3(0, 0, 0);
+		console.transform.localEulerAngles = new Vector3(0, 0, 0);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		curObj.name = "Console Leg";
 		curObj.transform.parent = console.transform;
 		curObj.transform.localPosition = new Vector3(0, 0.45f, 0);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
-		curObj.transform.localScale = new Vector3(0.4f, 0.45f, 0.2f);
+		curObj.transform.localScale = new Vector3(0.6f, 0.45f, 0.2f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -68,7 +69,7 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj.transform.parent = console.transform;
 		curObj.transform.localPosition = new Vector3(0, 0.89f, -0.1f);
 		curObj.transform.localEulerAngles = new Vector3(0, 0, 0);
-		curObj.transform.localScale = new Vector3(0.4f, 0.02f, 0.2f);
+		curObj.transform.localScale = new Vector3(0.6f, 0.02f, 0.2f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
 		curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -76,7 +77,7 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj.transform.parent = console.transform;
 		curObj.transform.localPosition = new Vector3(0, 0.823f, -0.266f);
 		curObj.transform.localEulerAngles = new Vector3(45, 0, 0);
-		curObj.transform.localScale = new Vector3(0.4f, 0.2f, 0.02f);
+		curObj.transform.localScale = new Vector3(0.6f, 0.2f, 0.02f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 	}
 
