@@ -69,6 +69,7 @@ public class MaterialCtrl {
 	public const int OBJECTS_VRCADE_PINBALL_SILVER = 25;
 	public const int OBJECTS_VRCADE_TARGET_WHITE = 32;
 	public const int OBJECTS_VRCADE_TRIGGER_SILVER = 33;
+	public const int PARTICLES_FIREBALL = 69;
 	public const int PLASTIC_BLACK = 46;
 	public const int PLASTIC_BLUE = 63;
 	public const int PLASTIC_PURPLE = 9;
@@ -85,7 +86,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 69;
+	public const int MATERIAL_AMOUNT = 70;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -131,6 +132,7 @@ public class MaterialCtrl {
 		textures[OBJECTS_VRCADE_LABELS_BALLS] = "Objects/vrCade/Labels/balls";
 		textures[OBJECTS_VRCADE_LABELS_SCORE] = "Objects/vrCade/Labels/score";
 		textures[OBJECTS_VRCADE_LABELS_START] = "Objects/vrCade/Labels/start";
+		textures[PARTICLES_FIREBALL] = "Particles/fireball_3";
 		textures[SPACE_MOON_FLOOR] = "Space/moonFloor";
 		textures[SPACE_MOON_FLOOR_INNER] = "Space/moonFloorInner";
 		textures[SPACE_MOON_SOUTH] = "Space/moonNorth";
@@ -180,6 +182,7 @@ public class MaterialCtrl {
 				case OBJECTS_FIREFIGHTING_LABEL_WRONG_NOT_READY:
 				case OBJECTS_LOGOS_ASOFTERSPACE:
 				case OBJECTS_LOGOS_ASOFTERSPACE_DARK:
+				case PARTICLES_FIREBALL:
 					result = new Material(unlitTransparent);
 					break;
 				case FADEABLE_BLACK:

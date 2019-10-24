@@ -64,6 +64,10 @@ public class DioramaCtrl : UpdateableCtrl {
 			foreach (Collider collider in colliders) {
 				Object.Destroy(collider);
 			}
+			ParticleSystem[] particleSystems = dioramaSurface.GetComponentsInChildren<ParticleSystem>();
+			foreach (ParticleSystem particleSystem in particleSystems) {
+				Object.Destroy(particleSystem);
+			}
 
 			BoxCollider col;
 			PhysicMaterial physicsMat;

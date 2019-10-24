@@ -14,6 +14,7 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 
 	private GameObject hostRoom;
 	private GameObject rocket;
+	private ParticleSystem[] particleSystems;
 
 	private bool startingRocket;
 	private bool landingRocket;
@@ -44,6 +45,8 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 
 		rocket.transform.localPosition = new Vector3(0, 17, 0);
 		rocket.SetActive(true);
+
+		stopParticles();
 	}
 
 	public void update(VrInput input) {
@@ -55,6 +58,7 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 				rocket.SetActive(false);
 				rocketGone = true;
 				startingRocket = false;
+				stopParticles();
 			}
 		} else if (landingRocket) {
 			float y = rocket.transform.localPosition.y;
@@ -64,6 +68,7 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 				y = 17;
 				landingRocket = false;
 				rocketGone = false;
+				stopParticles();
 			}
 			rocket.transform.localPosition = new Vector3(0, y, 0);
 		}
@@ -87,7 +92,7 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 		curObj.transform.localScale = new Vector3(13, 0.05f, 13);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_ROCKETLAUNCH_LAUNCHPAD);
 
-		rocket = ObjectFactory.createRocket();
+		rocket = ObjectFactory.createRocket(out particleSystems);
 		rocket.transform.parent = rocketLauncher.transform;
 		rocket.transform.localPosition = new Vector3(0, 0, 0);
 		rocket.transform.localEulerAngles = new Vector3(0, 45, 0);
@@ -112,6 +117,26 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 
 			startingRocket = false;
 			landingRocket = true;
+		}
+
+		playParticles();
+	}
+
+	public void playParticles() {
+
+		for (int i = 0; i < 4; i++) {
+			ParticleSystem.ShapeModule psShape = particleSystems[i].shape;
+			psShape.radius = 1.0f;
+			particleSystems[i].Play();
+			particleSystems[i].gameObject.GetComponent<ParticleSystemRenderer>().material =
+				MaterialCtrl.getMaterial(MaterialCtrl.PARTICLES_FIREBALL);
+		}
+	}
+
+	public void stopParticles() {
+
+		for (int i = 0; i < 4; i++) {
+			particleSystems[i].Stop();
 		}
 	}
 }

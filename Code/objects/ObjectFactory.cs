@@ -15,11 +15,11 @@ using UnityEngine;
  */
 public class ObjectFactory {
 
-	public static GameObject createRocket() {
+	public static GameObject createRocket(out ParticleSystem[] firstStageParticleSystems) {
 
 		GameObject rocketHolder = new GameObject("RocketHolder");
 
-		GameObject firstStage = createRocketFirstStage();
+		GameObject firstStage = createRocketFirstStage(out firstStageParticleSystems);
 		firstStage.transform.parent = rocketHolder.transform;
 		firstStage.transform.localPosition = new Vector3(0, 0, 0);
 		firstStage.transform.localEulerAngles = new Vector3(0, 135, 0);
@@ -42,7 +42,7 @@ public class ObjectFactory {
 		return rocketHolder;
 	}
 
-	public static GameObject createRocketFirstStage() {
+	public static GameObject createRocketFirstStage(out ParticleSystem[] particleSystems) {
 
 		GameObject curObj;
 
@@ -80,6 +80,13 @@ public class ObjectFactory {
 		curObj.transform.localScale = new Vector3(4, 4, 4);
 		ObjectMultiplier.pointQuadruplize(curObj);
 
+		particleSystems = new ParticleSystem[4];
+
+		particleSystems[0] = createParticles(rocket, 1.74f, 1.74f);
+		particleSystems[1] = createParticles(rocket, 1.74f, -1.74f);
+		particleSystems[2] = createParticles(rocket, -1.74f, -1.74f);
+		particleSystems[3] = createParticles(rocket, -1.74f, 1.74f);
+
 		curObj = PrimitiveFactory.createCone(16, false, false, MaterialCtrl.PLASTIC_RED);
 		curObj.name = "Main Engine Stripe";
 		curObj.transform.parent = rocket.transform;
@@ -97,6 +104,25 @@ public class ObjectFactory {
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_LOGOS_ASOFTERSPACE);
 
 		return rocket;
+	}
+
+	private static ParticleSystem createParticles(GameObject rocket, float x, float z) {
+
+		GameObject curObj = new GameObject("ps holder");
+		curObj.transform.parent = rocket.transform;
+		curObj.transform.localPosition = new Vector3(x, -16.2f, z);
+		curObj.transform.localEulerAngles = new Vector3(90, 0, 0);
+		curObj.transform.localScale = new Vector3(1, 1, 1);
+		curObj.AddComponent<MeshRenderer>();
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.PLASTIC_WHITE);
+
+		ParticleSystem result = curObj.AddComponent<ParticleSystem>();
+		ParticleSystem.MainModule resultMain = result.main;
+		resultMain.startLifetime = 2.0f;
+		resultMain.startSpeed = 10;
+		result.Stop();
+
+		return result;
 	}
 
 	public static GameObject createRocketStruts() {

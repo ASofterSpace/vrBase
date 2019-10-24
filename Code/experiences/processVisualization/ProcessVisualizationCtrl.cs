@@ -17,6 +17,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 
 	private GameObject rocket;
 	private GameObject firstStage;
+	private ParticleSystem[] firstStageParticleSystems;
 	private GameObject struts;
 	private GameObject secondStage;
 	private GameObject secondStageCone;
@@ -470,7 +471,7 @@ public class ProcessVisualizationCtrl: UpdateableCtrl, ResetteableCtrl {
 		rocket.transform.localPosition = new Vector3(1.15f, 0.336f, 0);
 		rocket.transform.localEulerAngles = new Vector3(0, 0, 0);
 
-		firstStage = ObjectFactory.createRocketFirstStage();
+		firstStage = ObjectFactory.createRocketFirstStage(out firstStageParticleSystems);
 		firstStage.transform.parent = rocket.transform;
 		firstStage.transform.localPosition = new Vector3(0, 0, 0);
 		firstStage.transform.localEulerAngles = new Vector3(0, 135, 0);
