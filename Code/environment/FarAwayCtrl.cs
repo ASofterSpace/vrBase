@@ -14,10 +14,11 @@ public class FarAwayCtrl : UpdateableCtrl {
 	private MainCtrl mainCtrl;
 	private GameObject skybox;
 	private GameObject earth;
-	private GameObject satellite;
-	private float satDirX;
-	private float satDirZ;
+	private GameObject[] satellite;
+	private float[] satDirX;
+	private float[] satDirZ;
 	private int curIterator;
+	private const int SATELLITE_AMOUNT = 3;
 
 
 	public FarAwayCtrl(MainCtrl mainCtrl) {
@@ -44,33 +45,44 @@ public class FarAwayCtrl : UpdateableCtrl {
 		// (up to 500+3600/5=1220 after one hour...)
 		earth.transform.localPosition = new Vector3(-3000, 500 + (Time.time / 5), 0);
 
-		// let the satellite fly overhead
-		Vector3 prevPos = satellite.transform.localPosition;
-		satellite.transform.localPosition = new Vector3(
-			prevPos.x + satDirX * Time.deltaTime * 15,
-			150,
-			prevPos.z + satDirZ * Time.deltaTime * 15);
-		if ((prevPos.x < -1000) || (prevPos.x > 1000) || (prevPos.z < -1000) || (prevPos.z > 1000)) {
-			randomizeSatellite();
+		// let the satellites fly overhead
+		for (int i = 0; i < SATELLITE_AMOUNT; i++) {
+
+			Vector3 prevPos = satellite[i].transform.localPosition;
+			satellite[i].transform.localPosition = new Vector3(
+				prevPos.x + satDirX[i] * Time.deltaTime * 15,
+				250 * (i + 1),
+				prevPos.z + satDirZ[i] * Time.deltaTime * 15);
+			if ((prevPos.x < -1000) || (prevPos.x > 1000) || (prevPos.z < -1000) || (prevPos.z > 1000)) {
+				randomizeSatellite(i);
+			}
 		}
 	}
 
-	private void randomizeSatellite() {
+	private void randomizeSatellites() {
+
+		for (int i = 0; i < SATELLITE_AMOUNT; i++) {
+			randomizeSatellite(i);
+		}
+	}
+
+	private void randomizeSatellite(int i) {
 
 		float rand = Random.value;
-		satDirX = rand;
-		satDirZ = 1 - rand;
+		satDirX[i] = rand;
+		satDirZ[i] = 1 - rand;
 		if (Random.value > 0.5f) {
-			satDirX = -satDirX;
+			satDirX[i] = -satDirX[i];
 		}
 		if (Random.value > 0.5f) {
-			satDirZ = -satDirZ;
+			satDirZ[i] = -satDirZ[i];
 		}
 
-		satellite.transform.localPosition = new Vector3(
-			-990 * satDirX,
-			150,
-			-990 * satDirZ);
+		satellite[i].transform.localPosition = new Vector3(
+			-990 * satDirX[i],
+			250 * (i + 1),
+			-990 * satDirZ[i]
+		);
 	}
 
 	private void createMoon() {
@@ -188,11 +200,18 @@ public class FarAwayCtrl : UpdateableCtrl {
 
 	private void createSatellites() {
 
-		satellite = ObjectFactory.createRocketSatellitePayload();
-		satellite.transform.parent = skybox.transform;
-		satellite.transform.localPosition = new Vector3(0, 150, 0);
-		satellite.transform.localEulerAngles = new Vector3(0, 0, 90);
-		satellite.transform.localScale = new Vector3(1, 1, 1);
-		randomizeSatellite();
+		satellite = new GameObject[SATELLITE_AMOUNT];
+		satDirX = new float[SATELLITE_AMOUNT];
+		satDirZ = new float[SATELLITE_AMOUNT];
+
+		for (int i = 0; i < SATELLITE_AMOUNT; i++) {
+			satellite[i] = ObjectFactory.createRocketSatellitePayload();
+			satellite[i].transform.parent = skybox.transform;
+			satellite[i].transform.localPosition = new Vector3(0, 250 * (i + 1), 0);
+			satellite[i].transform.localEulerAngles = new Vector3(0, 0, 90);
+			satellite[i].transform.localScale = new Vector3(1, 1, 1);
+		}
+
+		randomizeSatellites();
 	}
 }
