@@ -129,10 +129,12 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 		curObj.transform.localScale = new Vector3(0.6f, 0.3f, 0.02f);
 		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_MATERIALS_METAL_SHINY);
 
+		float offset = 0.14f;
+
 		// turn right button
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_PURPLE);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.05f, 0.8152f, -0.3152f);
+		curObj.transform.localPosition = new Vector3(-0.05f + offset, 0.8152f, -0.3152f);
 		curObj.transform.localEulerAngles = new Vector3(180, 90, 45);
 		curObj.transform.localScale = new Vector3(0.07f, 0.04f, 0.07f);
 		col = curObj.AddComponent<BoxCollider>();
@@ -147,14 +149,14 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_WHITE);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.05f, 0.8006f, -0.3006f);
+		curObj.transform.localPosition = new Vector3(-0.05f + offset, 0.8006f, -0.3006f);
 		curObj.transform.localEulerAngles = new Vector3(180, 90, 45);
 		curObj.transform.localScale = new Vector3(0.085f, 0.005f, 0.085f);
 
 		// turn left button
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_PURPLE);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.23f, 0.8152f, -0.3152f);
+		curObj.transform.localPosition = new Vector3(-0.23f + offset, 0.8152f, -0.3152f);
 		curObj.transform.localEulerAngles = new Vector3(0, 90, 135);
 		curObj.transform.localScale = new Vector3(0.07f, 0.04f, 0.07f);
 		col = curObj.AddComponent<BoxCollider>();
@@ -169,14 +171,14 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_WHITE);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.23f, 0.8006f, -0.3006f);
+		curObj.transform.localPosition = new Vector3(-0.23f + offset, 0.8006f, -0.3006f);
 		curObj.transform.localEulerAngles = new Vector3(0, 90, 135);
 		curObj.transform.localScale = new Vector3(0.085f, 0.005f, 0.085f);
 
 		// go forward button
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_PURPLE);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.14f, 0.876f, -0.255f);
+		curObj.transform.localPosition = new Vector3(-0.14f + offset, 0.876f, -0.255f);
 		curObj.transform.localEulerAngles = new Vector3(135, 0, 0);
 		curObj.transform.localScale = new Vector3(0.07f, 0.04f, 0.07f);
 		col = curObj.AddComponent<BoxCollider>();
@@ -191,14 +193,14 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_WHITE);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.14f, 0.864f, -0.237f);
+		curObj.transform.localPosition = new Vector3(-0.14f + offset, 0.864f, -0.237f);
 		curObj.transform.localEulerAngles = new Vector3(135, 0, 0);
 		curObj.transform.localScale = new Vector3(0.085f, 0.005f, 0.085f);
 
 		// go backward button
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_PURPLE);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.14f, 0.7474f, -0.3836f);
+		curObj.transform.localPosition = new Vector3(-0.14f + offset, 0.7474f, -0.3836f);
 		curObj.transform.localEulerAngles = new Vector3(-45, 0, 0);
 		curObj.transform.localScale = new Vector3(0.07f, 0.04f, 0.07f);
 		col = curObj.AddComponent<BoxCollider>();
@@ -213,14 +215,14 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		curObj = PrimitiveFactory.createTrianglePrism(false, MaterialCtrl.PLASTIC_WHITE);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.14f, 0.7316f, -0.3694f);
+		curObj.transform.localPosition = new Vector3(-0.14f + offset, 0.7316f, -0.3694f);
 		curObj.transform.localEulerAngles = new Vector3(-45, 0, 0);
 		curObj.transform.localScale = new Vector3(0.085f, 0.005f, 0.085f);
 
 		// stop button
 		curObj = PlatonicSolidFactory.createCube(false, false, MaterialCtrl.PLASTIC_PURPLE, 0, 0);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.14f, 0.8125f, -0.3185f);
+		curObj.transform.localPosition = new Vector3(-0.14f + offset, 0.8125f, -0.3185f);
 		curObj.transform.localEulerAngles = new Vector3(-45, 0, 0);
 		curObj.transform.localScale = new Vector3(0.05f, 0.04f, 0.05f);
 		col = curObj.AddComponent<BoxCollider>();
@@ -235,7 +237,7 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 
 		curObj = PlatonicSolidFactory.createCube(false, false, MaterialCtrl.PLASTIC_WHITE, 0, 0);
 		curObj.transform.parent = console.transform;
-		curObj.transform.localPosition = new Vector3(-0.14f, 0.7996f, -0.3014f);
+		curObj.transform.localPosition = new Vector3(-0.14f + offset, 0.7996f, -0.3014f);
 		curObj.transform.localEulerAngles = new Vector3(-45, 0, 0);
 		curObj.transform.localScale = new Vector3(0.065f, 0.005f, 0.065f);
 	}
