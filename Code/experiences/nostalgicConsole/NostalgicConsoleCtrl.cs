@@ -10,13 +10,18 @@ using System;
 using UnityEngine;
 
 
-public class NostalgicConsoleCtrl : ResetteableCtrl {
+public class NostalgicConsoleCtrl : UpdateableCtrl, ResetteableCtrl {
 
 	private MainCtrl mainCtrl;
 
 	private GameObject hostRoom;
+	private GameObject[] countdownLabels;
 
 	private RocketLaunchCtrl rocketLaunchCtrl;
+
+	// -2 is no countdown, -1 is countdown soon over, 0 is liftoff, 1 .. 10 are the numbers
+	private int countdown;
+	private float lastCountdownStart;
 
 
 	public NostalgicConsoleCtrl(MainCtrl mainCtrl, GameObject hostRoom, Vector3 position, Vector3 angles) {
@@ -25,12 +30,42 @@ public class NostalgicConsoleCtrl : ResetteableCtrl {
 
 		this.hostRoom = hostRoom;
 
+		mainCtrl.addUpdateableCtrl(this);
 		mainCtrl.addResetteableCtrl(this);
 
 		createNostalgicConsole(position, angles);
+
+		reset();
+	}
+
+	public void update(VrInput input) {
+
+		if (countdown >= -1) {
+
+			if (Time.time - lastCountdownStart > 1) {
+
+				if (countdown + 1 <= 10) {
+					countdownLabels[countdown + 1].SetActive(false);
+				}
+				if (countdown >= 0) {
+					countdownLabels[countdown].SetActive(true);
+				}
+				if (countdown == 0) {
+					if (rocketLaunchCtrl != null) {
+						rocketLaunchCtrl.launchRocket();
+					}
+				}
+
+				countdown--;
+
+				lastCountdownStart += 1;
+			}
+		}
 	}
 
 	private void createNostalgicConsole(Vector3 position, Vector3 angles) {
+
+		GameObject curObj;
 
 		GameObject nostalgicConsole = new GameObject("Nostalgic Console");
 		nostalgicConsole.transform.parent = hostRoom.transform;
@@ -112,6 +147,11 @@ public class NostalgicConsoleCtrl : ResetteableCtrl {
 		screenRight.transform.localScale = new Vector3(0.55f, 0.55f, 1);
 		MaterialCtrl.setMaterial(screenRight, MaterialCtrl.OBJECTS_NOSTALGICCONSOLE_SCREEN);
 
+		countdownLabels = new GameObject[11];
+		for (int i = 0; i < 11; i++) {
+			countdownLabels[i] = createCountdownLabel(nostalgicConsole, i);
+		}
+
 		// create buttons
 		GameObject buttons = new GameObject("buttons");
 		buttons.transform.parent = nostalgicConsole.transform;
@@ -128,9 +168,7 @@ public class NostalgicConsoleCtrl : ResetteableCtrl {
 		Button btnRedAlert = new DefaultButton(
 			buttonRedAlert,
 			() => {
-				if (rocketLaunchCtrl != null) {
-					rocketLaunchCtrl.startCountdown();
-				}
+				startRocketLaunchCountdown();
 			}
 		);
 		ButtonCtrl.add(btnRedAlert);
@@ -281,6 +319,20 @@ public class NostalgicConsoleCtrl : ResetteableCtrl {
 		nostalgicConsole.transform.localEulerAngles = angles;
 	}
 
+	private GameObject createCountdownLabel(GameObject parent, int i) {
+
+		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		curObj.name = "Label " + i;
+		curObj.transform.parent = parent.transform;
+		curObj.transform.localPosition = new Vector3(0.65f, 1.4f, 0.2699f);
+		curObj.transform.localEulerAngles = new Vector3(10, 0, 0);
+		curObj.transform.localScale = new Vector3(0.345f, 0.172f, 1);
+		MaterialCtrl.setMaterial(curObj, MaterialCtrl.OBJECTS_SCREENS_LABELS_LIFTOFF + i);
+		curObj.SetActive(false);
+
+		return curObj;
+	}
+
 	private void createMidColorButton(GameObject parent, float x, Color beamColor, Color wallColor) {
 
 		GameObject curObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -374,6 +426,30 @@ public class NostalgicConsoleCtrl : ResetteableCtrl {
 		MaterialCtrl.setColor(MaterialCtrl.BUILDING_BEAM_WHITE, new Color(1.0f, 1.0f, 1.0f, 1.0f));
 
 		MaterialCtrl.setColor(MaterialCtrl.BUILDING_WALL, new Color(0.6771f, 0.5327f, 0.83015f, 1.0f));
+
+		countdown = -2;
+
+		foreach (GameObject countdownLabel in countdownLabels) {
+			countdownLabel.SetActive(false);
+		}
+	}
+
+	private void startRocketLaunchCountdown() {
+
+		if (rocketLaunchCtrl != null) {
+
+			if (rocketLaunchCtrl.startRocketNext()) {
+
+				lastCountdownStart = Time.time;
+
+				countdown = 10;
+
+			} else {
+
+				// if we are not starting, but instead landing, then just do that without countdown :)
+				rocketLaunchCtrl.launchRocket();
+			}
+		}
 	}
 
 }

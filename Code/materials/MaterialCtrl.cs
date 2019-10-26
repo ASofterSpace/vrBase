@@ -55,6 +55,18 @@ public class MaterialCtrl {
 	public const int OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_4 = 68;
 	public const int OBJECTS_ROCKETLAUNCH_LAUNCHPAD = 55;
 	public const int OBJECTS_ROCKETLAUNCH_YELLOW = 56;
+	// keep the next 11 always aligned, so that we can do OBJECTS_SCREENS_LABELS_LIFTOFF + 2 to get _2, etc. :)
+	public const int OBJECTS_SCREENS_LABELS_LIFTOFF = 70;
+	public const int OBJECTS_SCREENS_LABELS_1 = 71;
+	public const int OBJECTS_SCREENS_LABELS_2 = 72;
+	public const int OBJECTS_SCREENS_LABELS_3 = 73;
+	public const int OBJECTS_SCREENS_LABELS_4 = 74;
+	public const int OBJECTS_SCREENS_LABELS_5 = 75;
+	public const int OBJECTS_SCREENS_LABELS_6 = 76;
+	public const int OBJECTS_SCREENS_LABELS_7 = 77;
+	public const int OBJECTS_SCREENS_LABELS_8 = 78;
+	public const int OBJECTS_SCREENS_LABELS_9 = 79;
+	public const int OBJECTS_SCREENS_LABELS_10 = 80;
 	public const int OBJECTS_TICTACTOE_BLUE = 42;
 	public const int OBJECTS_TICTACTOE_RED = 41;
 	public const int OBJECTS_TICTACTOE_GRAY = 40;
@@ -86,7 +98,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 70;
+	public const int MATERIAL_AMOUNT = 81;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -125,6 +137,17 @@ public class MaterialCtrl {
 		textures[OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_3] = "Objects/processVisualization/Labels/stage_3";
 		textures[OBJECTS_PROCESSVISUALIZATION_LABELS_STAGE_4] = "Objects/processVisualization/Labels/stage_4";
 		textures[OBJECTS_ROCKETLAUNCH_LAUNCHPAD] = "Objects/rocketLaunch/launchpad";
+		textures[OBJECTS_SCREENS_LABELS_1] = "Objects/Screens/Labels/1";
+		textures[OBJECTS_SCREENS_LABELS_2] = "Objects/Screens/Labels/2";
+		textures[OBJECTS_SCREENS_LABELS_3] = "Objects/Screens/Labels/3";
+		textures[OBJECTS_SCREENS_LABELS_4] = "Objects/Screens/Labels/4";
+		textures[OBJECTS_SCREENS_LABELS_5] = "Objects/Screens/Labels/5";
+		textures[OBJECTS_SCREENS_LABELS_6] = "Objects/Screens/Labels/6";
+		textures[OBJECTS_SCREENS_LABELS_7] = "Objects/Screens/Labels/7";
+		textures[OBJECTS_SCREENS_LABELS_8] = "Objects/Screens/Labels/8";
+		textures[OBJECTS_SCREENS_LABELS_9] = "Objects/Screens/Labels/9";
+		textures[OBJECTS_SCREENS_LABELS_10] = "Objects/Screens/Labels/10";
+		textures[OBJECTS_SCREENS_LABELS_LIFTOFF] = "Objects/Screens/Labels/liftoff";
 		textures[OBJECTS_TICTACTOE_ROBOT] = "Objects/Materials/bee_tape";
 		textures[OBJECTS_TICTACTOE_LABELS_RESTART] = "Objects/TicTacToe/Labels/restart_dark";
 		textures[OBJECTS_VRCADE_DIGITWHEEL] = "Objects/vrCade/digits";

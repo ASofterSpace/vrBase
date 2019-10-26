@@ -35,8 +35,6 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 		createRocket(position, angles);
 
 		reset();
-
-		playParticles();
 	}
 
 	public void reset() {
@@ -100,10 +98,13 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 		rocket.transform.localEulerAngles = new Vector3(0, 45, 0);
 	}
 
-	public void startCountdown() {
+	public bool startRocketNext() {
+		return !rocketGone && !startingRocket;
+	}
 
-		if (!rocketGone && !startingRocket) {
-			// TODO :: actually call a countdown from 10 to lift-off
+	public void launchRocket() {
+
+		if (startRocketNext()) {
 
 			startTime = Time.time;
 

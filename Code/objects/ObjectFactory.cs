@@ -121,7 +121,7 @@ public class ObjectFactory {
 		resultMain.startLifetime = new ParticleSystem.MinMaxCurve(5.0f, 20.0f);
 		resultMain.startSpeed = 1;
 		resultMain.simulationSpeed = 10;
-		resultMain.startSize = new ParticleSystem.MinMaxCurve(1.0f, 2.0f);
+		resultMain.startSize = new ParticleSystem.MinMaxCurve(0.8f, 3.0f);
 		resultMain.maxParticles = 500;
 		result.Stop();
 
