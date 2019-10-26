@@ -217,9 +217,6 @@ public class MaterialCtrl {
 				case PLASTIC_RED:
 					result.color = new Color(1.0f, 0.0f, 0.0f, 1);
 					break;
-				case SPACE_STAR:
-					result.color = new Color(1.0f, 1.0f, 1.0f, 1);
-					break;
 				case INTERACTION_TELEPORT_RAY:
 					result.color = new Color(0.8f, 0.1f, 0.9f, 1);
 					break;
