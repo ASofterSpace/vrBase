@@ -35,6 +35,8 @@ public class RocketLaunchCtrl : UpdateableCtrl, ResetteableCtrl {
 		createRocket(position, angles);
 
 		reset();
+
+		playParticles();
 	}
 
 	public void reset() {

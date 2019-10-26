@@ -118,8 +118,11 @@ public class ObjectFactory {
 
 		ParticleSystem result = curObj.AddComponent<ParticleSystem>();
 		ParticleSystem.MainModule resultMain = result.main;
-		resultMain.startLifetime = 2.0f;
-		resultMain.startSpeed = 10;
+		resultMain.startLifetime = new ParticleSystem.MinMaxCurve(5.0f, 20.0f);
+		resultMain.startSpeed = 1;
+		resultMain.simulationSpeed = 10;
+		resultMain.startSize = new ParticleSystem.MinMaxCurve(1.0f, 2.0f);
+		resultMain.maxParticles = 500;
 		result.Stop();
 
 		return result;
