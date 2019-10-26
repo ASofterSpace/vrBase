@@ -43,7 +43,7 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 					goForward = 0;
 					move = false;
 				}
-				robot.transform.localPosition = robot.transform.localPosition + robot.transform.rotation * new Vector3(0, 0, timeStep);
+				robot.transform.localPosition = robot.transform.localPosition + robot.transform.localRotation * new Vector3(0, 0, -timeStep);
 			}
 			if (goForward < 0) {
 				float timeStep = Time.deltaTime / 2;
@@ -52,7 +52,7 @@ public class RobotCuddleCtrl: UpdateableCtrl, ResetteableCtrl {
 					goForward = 0;
 					move = false;
 				}
-				robot.transform.localPosition = robot.transform.localPosition + robot.transform.rotation * new Vector3(0, 0, -timeStep);
+				robot.transform.localPosition = robot.transform.localPosition + robot.transform.localRotation * new Vector3(0, 0, timeStep);
 			}
 			if (goRight > 0) {
 				float timeStep = Time.deltaTime * 15;
