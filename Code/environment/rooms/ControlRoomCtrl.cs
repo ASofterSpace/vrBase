@@ -20,6 +20,8 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private RobotCuddleCtrl robotCuddleCtrl;
 
+	private RobotFarmCtrl robotFarmCtrl;
+
 
 	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -156,6 +158,9 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 		robotCuddleCtrl = new RobotCuddleCtrl(
 			mainCtrl, thisRoom, new Vector3(1.82f, 0, -4.38f), new Vector3(0, 155, 0));
+
+		robotFarmCtrl = new RobotFarmCtrl(
+			mainCtrl, thisRoom, new Vector3(-18, 0, 3.45f), new Vector3(0, -33, 0));
 	}
 
 }
