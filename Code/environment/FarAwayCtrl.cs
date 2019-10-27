@@ -50,9 +50,9 @@ public class FarAwayCtrl : UpdateableCtrl {
 
 			Vector3 prevPos = satellite[i].transform.localPosition;
 			satellite[i].transform.localPosition = new Vector3(
-				prevPos.x + satDirX[i] * Time.deltaTime * 15,
+				prevPos.x + satDirX[i] * Time.deltaTime * (10 + 3*i),
 				250 * (i + 1),
-				prevPos.z + satDirZ[i] * Time.deltaTime * 15);
+				prevPos.z + satDirZ[i] * Time.deltaTime * (10 + 3*i));
 			if ((prevPos.x < -1000) || (prevPos.x > 1000) || (prevPos.z < -1000) || (prevPos.z > 1000)) {
 				randomizeSatellite(i);
 			}
@@ -83,6 +83,7 @@ public class FarAwayCtrl : UpdateableCtrl {
 			250 * (i + 1),
 			-990 * satDirZ[i]
 		);
+		satellite[i].transform.localEulerAngles = new Vector3(0, -90 - (180 * Mathf.Asin(satDirX[i]) / Mathf.PI), 90);
 	}
 
 	private void createMoon() {
