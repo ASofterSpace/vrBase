@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 
 
-public abstract class GenericRoomCtrl {
+public abstract class PrettyDomeCtrl {
 
 	protected MainCtrl mainCtrl;
 	protected string roomName;
@@ -14,7 +14,7 @@ public abstract class GenericRoomCtrl {
 	private int curBeamNum;
 
 
-	public GenericRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) {
+	public PrettyDomeCtrl(MainCtrl mainCtrl, GameObject thisRoom) {
 
 		this.mainCtrl = mainCtrl;
 
@@ -44,16 +44,38 @@ public abstract class GenericRoomCtrl {
 		floor.name = TriggerCtrl.FLOOR_NAME;
 		floor.transform.localPosition = new Vector3(0, 0, 0);
 		floor.transform.eulerAngles = new Vector3(90, 0, 0);
-		floor.transform.localScale = new Vector3(10, 10, 1);
+		floor.transform.localScale = new Vector3(15, 15, 1);
 		MaterialCtrl.setMaterial(floor, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
 
-		GameObject floor2 = createPrimitive(PrimitiveType.Quad);
-		floor2.name = TriggerCtrl.FLOOR_NAME;
-		floor2.transform.localPosition = new Vector3(0, -0.001f, 0);
-		floor2.transform.eulerAngles = new Vector3(90, 45, 0);
-		floor2.transform.localScale = new Vector3(10, 10, 1);
-		MaterialCtrl.setMaterial(floor2, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
 	}
+
+	protected List<Vector3> prettyDomeCoords(float DomeRadius, int corners) {
+		float offset = 0.1f;
+
+		float Levels = 9;
+		//int j = 1;
+		var LevelList = new List<Vector3>();
+		for (int j=0; j<=Levels; j++ ) {
+			int LevelStartIndex = LevelList.Count;
+			for (int i=0; i<=corners; i++ ) {
+				double phi = Math.PI * (i*(360/corners) + offset)/ 180.0f;
+				double theta = Math.Acos((1-j/Levels)) ;
+
+				LevelList.Add(new Vector3(System.Convert.ToSingle(DomeRadius*Math.Sin(phi)*Math.Sin(theta)),
+																	System.Convert.ToSingle(DomeRadius*(1-j/Levels)),
+																	System.Convert.ToSingle(DomeRadius*Math.Cos(phi)*Math.Sin(theta))
+																	 ) );
+			 /*LevelList.Add(new Vector3(DomeRadius*MathF.Sin(phi)*MathF.Sin(theta),
+																	DomeRadius*(1-j/Levels),
+																	DomeRadius*MathF.Cos(phi)*MathF.Sin(theta)
+																	 ) );*/
+			}
+			LevelList.Add(LevelList[LevelStartIndex]);
+			}
+			 //closing each circle on each level
+		return LevelList;
+	}
+
 
 	protected virtual void createBeams() {
 
@@ -61,129 +83,75 @@ public abstract class GenericRoomCtrl {
 
 		GameObject curBeam;
 
-		// create lowest level:
-		// 1) alternatingly a tall and a little vertically standing beam,
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(-6.7f, 0.9f, 0);
-		curBeam.transform.eulerAngles = new Vector3(0, 0, -20);
-		addBeams(ObjectFactory.pointOctuplize(curBeam));
-		curBeam = createBeam(0.425f);
-		curBeam.transform.localPosition = new Vector3(-4.88f, 0.4f, 2);
-		curBeam.transform.eulerAngles = new Vector3(-5, 0, -15);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
+		var LevelListi = new List<Vector3>( prettyDomeCoords(6.0f, 6)  );
 
-		// 2) a diagonal-ish crossbeam,
-		curBeam = createBeam(1.37f);
-		curBeam.transform.localPosition = new Vector3(-5.555f, 1.32f, 0.996f);
-		curBeam.transform.eulerAngles = new Vector3(-68, 50, -10);
-		addBeams(ObjectFactory.axisHexadeciplize(curBeam));
+		for (int i=1; i < LevelListi.Count-1; i++ ) {
+			curBeam = connectBeam(LevelListi[i], LevelListi[i+1]);
 
-		// 3) and finally a beam on the floor,
-		// all of this done for each of the 16 sides
-		curBeam = createBeam(1.45f);
-		curBeam.transform.localPosition = new Vector3(-5.985f, 0, 1.03f);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, -45);
-		addBeams(ObjectFactory.axisHexadeciplize(curBeam));
+		}
 
-		// create second level:
-		// 2 V-shaped diagonal beams on top of each of the short vertical ones
-		curBeam = createBeam(0.8f);
-		curBeam.transform.localPosition = new Vector3(-4.87f, 1.55f, 1.7f);
-		curBeam.transform.eulerAngles = new Vector3(-20, 20, 0);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-		curBeam = createBeam(0.8f);
-		curBeam.transform.localPosition = new Vector3(-4.677f, 1.597f, 2.266f);
-		curBeam.transform.eulerAngles = new Vector3(20, 20, 0);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
 
-		// 2 very wide V-shaped diagonal beams on top of each other of the long vertical ones
-		curBeam = createBeam(1.019898f);
-		curBeam.transform.localPosition = new Vector3(-3.491f, 2.077f, 4.552f);
-		curBeam.transform.eulerAngles = new Vector3(-73.006f, -122.638f, 28.424f);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-
-		// create third level:
-		// short horizontal beams between the 2V-shaped ones on top of the short vertical ones
-		curBeam = createBeam(0.56f);
-		curBeam.transform.localPosition = new Vector3(4.78f, 2.325f, 1.97f);
-		curBeam.transform.eulerAngles = new Vector3(0, 72, -92.5f);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-
-		// create fourth level:
-		// long beams upwards from the long ones of the 1st level,
-		curBeam = createBeam(1.0f);
-		curBeam.transform.localPosition = new Vector3(5.65f, 2.54f, 0);
-		curBeam.transform.eulerAngles = new Vector3(0, 0, 45);
-		addBeams(ObjectFactory.pointQuadruplize(curBeam));
-
-		// inverted-V-beams upwards from the triangles from the 2nd and 3rd level
-		curBeam = createBeam(0.9f);
-		curBeam.transform.localPosition = new Vector3(0.72f, 2.77f, -4.97f);
-		curBeam.transform.eulerAngles = new Vector3(-13, 10, 57);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-		curBeam = createBeam(1.46f);
-		curBeam.transform.localPosition = new Vector3(3.63f, 3.6f, 0.46f);
-		curBeam.transform.eulerAngles = new Vector3(50, 0, 67);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-
-		// create mid level:
-		// long beams connecting the 2nd/3rd-level triangles with the 3rd-highest-level long beams
-		curBeam = createBeam(1.28f);
-		curBeam.transform.localPosition = new Vector3(3.76f, 3.27f, 2.7f);
-		curBeam.transform.eulerAngles = new Vector3(38, -42, 25);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-
-		// create third-highest level:
-		// 8 diagonal beams that sprout from 4 points,
-		curBeam = createBeam(0.9f);
-		curBeam.transform.localPosition = new Vector3(-1.85f, 4.62f, -0.45f);
-		curBeam.transform.eulerAngles = new Vector3(45, 45, 0);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-
-		// then 4 horizontal beams that connect always 2 each of these 8 beams,
-		curBeam = createBeam(0.9f);
-		curBeam.transform.localPosition = new Vector3(0, 4, 2.3f);
-		curBeam.transform.eulerAngles = new Vector3(0, 0, 90);
-		addBeams(ObjectFactory.pointQuadruplize(curBeam));
-
-		// then 8 horizontal beams to the left and right of those,
-		curBeam = createBeam(1.0444f);
-		curBeam.transform.localPosition = new Vector3(-1.875f, 4.083f, 2.593f);
-		curBeam.transform.eulerAngles = new Vector3(81.32201f, -30.069f, 43.058f);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-
-		// then 4 long downwards beams between them
-		curBeam = createBeam(1.3f);
-		curBeam.transform.localPosition = new Vector3(2.0f, 4.52f, -2.0f);
-		curBeam.transform.eulerAngles = new Vector3(75, -45, 0);
-		addBeams(ObjectFactory.axisQuadruplize(curBeam));
-
-		// create second-highest level: 8 horizontal beams that form the basis of highest level
-		curBeam = createBeam(0.6f);
-		curBeam.transform.localPosition = new Vector3(0.55f, 5.05f, -1.25f);
-		curBeam.transform.eulerAngles = new Vector3(-40, 0, 65);
-		addBeams(ObjectFactory.axisOctuplize(curBeam));
-
-		// create highest level: 8 beams that come together in a single point
-		curBeam = createBeam(0.75f);
-		curBeam.transform.localPosition = new Vector3(0, 5.5f, -0.7f);
-		curBeam.transform.eulerAngles = new Vector3(70, 0, 0);
-		addBeams(ObjectFactory.pointQuadruplize(curBeam));
-		curBeam = createBeam(0.9f);
-		curBeam.transform.localPosition = new Vector3(-0.55f, 5.3f, -0.55f);
-		curBeam.transform.eulerAngles = new Vector3(60, 45, 0);
-		addBeams(ObjectFactory.axisQuadruplize(curBeam));
+		/* Test cases for my connectBeam method
+		Vector3 a = new Vector3(0, 0, 1);
+		Vector3 b = new Vector3(1, 3, 1);
+		Vector3 c = new Vector3(0, 5, 0);
+		GameObject Cube_a = createPrimitive(PrimitiveType.Sphere);
+		Cube_a.transform.localPosition = a;
+		Cube_a.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		GameObject Cube_b = createPrimitive(PrimitiveType.Sphere);
+		Cube_b.transform.localPosition = b;
+		Cube_b.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		GameObject Cube_c = createPrimitive(PrimitiveType.Sphere);
+		Cube_c.transform.localPosition = c;
+		Cube_c.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		curBeam = connectBeam(a, b);
+		curBeam = connectBeam(b, c);
+		curBeam = connectBeam(c, a);
+		curBeam = connectBeam(a, c);
+		*/
 	}
 
 	/**
-	 * Create one beam
-	 */
+ 	 * Create one beam
+  */
 	protected GameObject createBeam(float length) {
 		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
 		curBeam.name = "beam" + curBeamNum;
 		curBeam.transform.localScale = new Vector3(0.1f, length, 0.1f);
 		MaterialCtrl.setMaterial(curBeam, MaterialCtrl.BUILDING_BEAM_WHITE);
 		beams[curBeamNum++] = curBeam;
+		return curBeam;
+	}
+
+	/*
+	* Create and connect one beam to its start & endpoints
+	*/
+	protected GameObject connectBeam(Vector3 startpoint, Vector3 endpoint) {
+		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
+		curBeam.name = "beam" + curBeamNum;
+		float BeamThickness = 0.1f;
+
+		//move cylinder to middlepoint between startpoint and endpoint
+		Vector3 directionVector = (endpoint-startpoint);
+		curBeam.transform.position = (endpoint + startpoint)/2.0F;
+
+		//rotate cylinder
+		Vector3 cylDefaultOrientation = new Vector3(0, 1 , 0);
+		curBeam.transform.rotation = Quaternion.FromToRotation(cylDefaultOrientation, directionVector);
+
+		/*scale cylinder*/
+		float dist = Vector3.Distance(endpoint, startpoint);
+		curBeam.transform.localScale = new Vector3(BeamThickness, dist/2, BeamThickness);
+
+		MaterialCtrl.setMaterial(curBeam, MaterialCtrl.BUILDING_BEAM_WHITE);
+		beams[curBeamNum++] = curBeam;
+
+		GameObject curSphere = createPrimitive(PrimitiveType.Sphere);
+		curSphere.transform.position = startpoint;
+		float CornerSphereThickness = 2*BeamThickness;
+		curSphere.transform.localScale = new Vector3(CornerSphereThickness, CornerSphereThickness, CornerSphereThickness);
+		MaterialCtrl.setMaterial(curSphere, MaterialCtrl.BUILDING_BEAM_WHITE);
+
 		return curBeam;
 	}
 
@@ -199,73 +167,7 @@ public abstract class GenericRoomCtrl {
 	}
 
 	protected void createMeshedWall() {
-
-		// get the position of the parent explicitly, to add it to all points,
-		// as we seem to specify the mesh in world coordinates...
-		// TODO :: in case we want to rotate the parent object, actually figure
-		// out how to specify a mesh in local coordinates!
-		float x = thisRoom.transform.position.x;
-		float y = thisRoom.transform.position.y;
-		float z = thisRoom.transform.position.z;
-
-		// create the mesh
-		GameObject meshWall = new GameObject("meshWall");
-		meshWall.transform.parent = thisRoom.transform;
-		meshWall.AddComponent<MeshFilter>();
-		meshWall.AddComponent<MeshRenderer>();
-		Mesh mesh = meshWall.GetComponent<MeshFilter>().mesh;
-		MaterialCtrl.setMaterial(meshWall, MaterialCtrl.PLASTIC_WHITE);
-		mesh.Clear();
-
-		// create vertices that are available to create the mesh
-		int i = 0;
-		Vector3[] vertices = new Vector3[6*8 + getAdditionalWallVertexAmount()];
-
-		// vertices for the lowest level
-		// block 1 - North
-		vertices[i++] = new Vector3(-7.05f, 0, 0);
-		vertices[i++] = new Vector3(-6.4f, 1.84f, 0);
-		vertices[i++] = new Vector3(-4.8f, 0.8f, 1.95f);
-		vertices[i++] = new Vector3(-5, 0, 2);
-		vertices[i++] = new Vector3(-4.8f, 0.8f, -1.95f);
-		vertices[i++] = new Vector3(-5, 0, -2);
-
-		// blocks 2, 3, 4 - South, East, West
-		i = createWallBlockVertices(vertices, 6, i, x, y, z);
-
-		// block 5 - North-East
-		vertices[i++] = new Vector3(-5.02f, 0, 5.02f);
-		vertices[i++] = new Vector3(-4.65f, 1.84f, 4.65f);
-		vertices[i++] = new Vector3(-4.8f, 0.8f, 1.95f);
-		vertices[i++] = new Vector3(-5, 0, 2);
-		vertices[i++] = new Vector3(-1.95f, 0.8f, 4.8f);
-		vertices[i++] = new Vector3(-2, 0, 5);
-
-		// blocks 6, 7, 8 - South-East, South-West, North-West
-		i = createWallBlockVertices45(vertices, 6, i, x, y, z);
-
-		createAdditionalWallVertices(vertices, i);
-
-		mesh.vertices = vertices;
-
-		/*
-		// add some color!
-		Vector2[] uv = new Vector2[vertices.Length];
-		for (i = 0; i < vertices.Length;) {
-			uv[i++] = new Vector2(0, 0);
-			uv[i++] = new Vector2(0, 1);
-			uv[i++] = new Vector2(1, 1);
-		}
-		mesh.uv = uv;
-		*/
-
-		// create triangles using the previously set vertices
-		int[] triangles = createMeshedWallTriangles();
-
-		mesh.triangles = triangles;
-
-		// assign our resulting results
-		mesh.RecalculateNormals();
+		return;
 	}
 
 	protected virtual int getAdditionalWallVertexAmount() {
