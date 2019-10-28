@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -11,35 +12,12 @@ using UnityEngine;
 /**
  * This corresponds to a single button
  */
-public class Button {
+public class Button: TakeableObject {
 
-	private GameObject gameObject;
+	public Button(GameObject obj): base(obj) {
 
-	private Material defaultMaterial;
-
-
-	public Button(GameObject obj, string buttonName) {
-
-		obj.name = buttonName;
-
-		this.gameObject = obj;
-
-		this.defaultMaterial = obj.GetComponent<Renderer>().material;
-	}
-
-	/**
-	 * Some controller is hovering over this button...
-	 */
-	public void hover() {
-		MaterialCtrl.setMaterial(gameObject, MaterialCtrl.INTERACTION_BUTTON_HOVER);
-	}
-
-	/**
-	 * The controller formerly hovering over this button is moving away again,
-	 * no longer hovering...
-	 */
-	public void blur() {
-		gameObject.GetComponent<Renderer>().material = defaultMaterial;
+		rigidbody.isKinematic = true;
+		rigidbody.useGravity = false;
 	}
 
 	/**
@@ -49,8 +27,18 @@ public class Button {
 		// actually do something!
 	}
 
-	public string getName() {
-		return gameObject.name;
+	/**
+	 * This object is being grabbed - whoop whoop!
+	 */
+	public override void grab(GameObject controller) {
+		trigger();
+	}
+
+	/**
+	 * This object is being dropped again - whoopsie!
+	 */
+	public override void drop(Vector3 veloctiy) {
+		// actually do something!
 	}
 
 }

@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -13,16 +14,23 @@ using UnityEngine;
  */
 public class ColorizeButton : Button {
 
-	private Color targetColor;
+	private Color beamColor;
+
+	private Color wallColor;
 
 
-	public ColorizeButton(GameObject obj, string buttonName, Color targetColor) : base(obj, buttonName) {
+	public ColorizeButton(GameObject obj, Color beamColor, Color wallColor) : base(obj) {
 
-		this.targetColor = targetColor;
+		this.beamColor = beamColor;
+
+		this.wallColor = wallColor;
 	}
 
 	public override void trigger() {
-		MaterialCtrl.setColor(MaterialCtrl.BUILDING_BEAM_WHITE, targetColor);
+
+		MaterialCtrl.setColor(MaterialCtrl.BUILDING_BEAM_WHITE, beamColor);
+
+		MaterialCtrl.setColor(MaterialCtrl.BUILDING_WALL, wallColor);
 	}
 
 }

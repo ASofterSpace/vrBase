@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * Unlicensed code created by A Softer Space, 2019
+ * www.asofterspace.com/licenses/unlicense.txt
+ */
+
+using System.Collections.Generic;
 using System.Collections;
 
 using UnityEngine;
@@ -6,8 +11,18 @@ using UnityEngine;
 
 public class ArcadeRoomCtrl : GenericRoomCtrl {
 
+	private FlipperQnDCtrl flipperQnDCtrl;
+
+	private BowlingAlleyCtrl bowlingAlleyCtrl;
+
+	private TicTacToeCtrl ticTacToeCtrl;
+
+	private BlobFlyerCtrl blobFlyerCtrl;
+
+
 	public ArcadeRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
+		createRoom();
 	}
 
 	protected override void createRoom() {
@@ -19,6 +34,8 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		createMeshedWall();
 
 		createDoors();
+
+		createObjects();
 	}
 
 	protected override void createBeams() {
@@ -35,10 +52,10 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(2.5f, 0, 5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(4.45f, 0, 5);
-		curBeam.transform.eulerAngles = new Vector3(90, 0, curAngle);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
 	}
 
 	protected override int getAdditionalWallVertexAmount() {
@@ -87,8 +104,8 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 		// block 5 - North-East
 		i = addTriangleWallBlock(triangles, i, 24);
 		// block 6 - South-East
-		i = addTriangle(triangles, i, 30, 30 + 1, 30 + 4);
-		i = addTriangle(triangles, i, 30, 30 + 4, 30 + 5);
+		i = addTriangle(triangles, i, 30, 30 + 1, 30 + 2);
+		i = addTriangle(triangles, i, 30, 30 + 2, 30 + 3);
 		// block 7 - South-West
 		i = addTriangleWallBlock(triangles, i, 36);
 		// block 8 - North-West
@@ -101,7 +118,7 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 
 		i = addTriangle(triangles, i, 54, 54 + 1, 54 + 2);
 		i = addTriangle(triangles, i, 54, 54 + 2, 54 + 3);
-		i = addTriangle(triangles, i, 54 + 3, 54 + 4, 54 + 5);
+		i = addTriangle(triangles, i, 54 + 4, 54 + 3, 54 + 5);
 
 		return triangles;
 	}
@@ -109,6 +126,31 @@ public class ArcadeRoomCtrl : GenericRoomCtrl {
 	private void createDoors() {
 
 		createDoor(3.5f, 5.0f);
+	}
+
+	private void createObjects() {
+
+		flipperQnDCtrl = new FlipperQnDCtrl(
+			mainCtrl, thisRoom, new Vector3(-2.5f, 0, -2), new Vector3(0, 55, 0)
+		);
+
+		bowlingAlleyCtrl = new BowlingAlleyCtrl(
+			mainCtrl, thisRoom, new Vector3(-1.5f, 0, 3.5f), new Vector3(0, -90, 0)
+		);
+
+		ticTacToeCtrl = new TicTacToeCtrl(
+			mainCtrl, thisRoom, new Vector3(3, 0, -2.5f), new Vector3(0, 0, 0)
+		);
+
+		/*
+		blobFlyerCtrl = new BlobFlyerCtrl(
+			mainCtrl, thisRoom, new Vector3(-3.2f, 0, 1), new Vector3(0, 100, 0));
+		*/
+
+		GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_FLIPPERQND);
+		poster.name = "FlipperQnD Poster";
+		poster.transform.localPosition = new Vector3(-1.052f, 0.893f, -5.67f);
+		poster.transform.localEulerAngles = new Vector3(-13.834f, -135.159f, -2.95f);
 	}
 
 }

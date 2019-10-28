@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -13,21 +14,31 @@ using UnityEngine;
  */
 public class ButtonCtrl {
 
-	// all buttons' names need to start with "btn-", such that the TriggerCtrl can target them
-	public const string BTN_NOSTALGICCONSOLE_BIG_RED = "btn-1";
-	public const string BTN_NOSTALGICCONSOLE_BIG_WHITE = "btn-2";
+	public const string BUTTON_IDENTIFIER = "btn-";
+
+	private static MainCtrl mainCtrl;
+
+	private static int nextBtn = 0;
 
 	private static Dictionary<string, Button> buttons;
 
 
-	public static void init() {
+	public static void init(MainCtrl mainCtrl) {
 
-		buttons = new Dictionary<string, Button>();
+		ButtonCtrl.mainCtrl = mainCtrl;
+
+		ButtonCtrl.buttons = new Dictionary<string, Button>();
 	}
 
 	public static void add(Button button) {
 
+		nextBtn++;
+
+		button.setName(BUTTON_IDENTIFIER + nextBtn);
+
 		buttons.Add(button.getName(), button);
+
+		ObjectCtrl.add(button);
 	}
 
 	public static Button get(string buttonName) {

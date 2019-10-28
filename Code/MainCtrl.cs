@@ -2,6 +2,7 @@
  * Unlicensed code created by A Softer Space, 2019
  * www.asofterspace.com/licenses/unlicense.txt
  */
+
 using System.Collections.Generic;
 using System.Collections;
 
@@ -36,6 +37,9 @@ public class MainCtrl : MonoBehaviour {
 	// one in case a whole second elapsed since then
 	private float lastFullUpdateTime;
 
+	private List<UpdateableCtrl> updateableCtrls;
+	private List<ResetteableCtrl> resetteableCtrls;
+
 
 	/**
 	 * Main function, basically ;)
@@ -45,13 +49,17 @@ public class MainCtrl : MonoBehaviour {
 
 		// mainCtrl internal setup
 		lastFullUpdateTime = -100.0f;
+		updateableCtrls = new List<UpdateableCtrl>();
+		resetteableCtrls = new List<ResetteableCtrl>();
 
 		// main objects
 		initMainGameObjects();
 
 		// static helpers
-		MaterialCtrl.init();
-		ButtonCtrl.init();
+		MaterialCtrl.init(this);
+		SoundCtrl.init(this);
+		ObjectCtrl.init(this);
+		ButtonCtrl.init(this);
 
 		// faraway things / skybox
 		farAwayCtrl = new FarAwayCtrl(this);
@@ -80,6 +88,12 @@ public class MainCtrl : MonoBehaviour {
 			return;
 		}
 
+		// this check should not be necessary, but seems to be - as otherwise we sometimes
+		// get debug errors during game previews...
+		if (vrSpecificCtrl == null) {
+			return;
+		}
+
 		float currentUpdateTime = Time.time;
 		if (lastFullUpdateTime + 1 < currentUpdateTime) {
 			lastFullUpdateTime = currentUpdateTime;
@@ -90,7 +104,21 @@ public class MainCtrl : MonoBehaviour {
 
 		triggerCtrl.update(input);
 
-		farAwayCtrl.update(input);
+		foreach (UpdateableCtrl ctrl in updateableCtrls) {
+			ctrl.update(input);
+		}
+	}
+
+	/**
+	 * Reset the entire game - wheee! :D
+	 */
+	public void reset() {
+
+		triggerCtrl.reset();
+
+		foreach (ResetteableCtrl ctrl in resetteableCtrls) {
+			ctrl.reset();
+		}
 	}
 
 	private void initMainGameObjects() {
@@ -129,5 +157,21 @@ public class MainCtrl : MonoBehaviour {
 
 	public GameObject getMainCameraHolder() {
 		return mainCameraHolder;
+	}
+
+	public TriggerCtrl getTriggerCtrl() {
+		return triggerCtrl;
+	}
+
+	public VrSpecificCtrl getVrSpecificCtrl() {
+		return vrSpecificCtrl;
+	}
+
+	public void addUpdateableCtrl(UpdateableCtrl updateableCtrl) {
+		updateableCtrls.Add(updateableCtrl);
+	}
+
+	public void addResetteableCtrl(ResetteableCtrl resetteableCtrl) {
+		resetteableCtrls.Add(resetteableCtrl);
 	}
 }

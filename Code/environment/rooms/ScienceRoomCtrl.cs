@@ -10,22 +10,32 @@ using System;
 using UnityEngine;
 
 
-public class ControlRoomCtrl : PrettyDome2Ctrl {
+public class ScienceRoomCtrl : GenericRoomCtrl {
 
-	private NostalgicConsoleCtrl nostalgicConsoleCtrl;
+	private GameObject thisRoomInterior;
 
-	private DioramaCtrl dioramaCtrl;
+	private MathWorldCtrl mathWorldCtrl;
 
-	private RocketLaunchCtrl rocketLaunchCtrl;
+	private BreathingApparatusCtrl breathingApparatusCtrl;
 
-	private RobotCuddleCtrl robotCuddleCtrl;
-
-	private RobotFarmCtrl robotFarmCtrl;
+	private ProcessVisualizationCtrl processVisualizationCtrl;
 
 
-	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
+	public ScienceRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
+
+		thisRoomInterior = new GameObject("Science Room Interior");
+		thisRoomInterior.transform.parent = thisRoom.transform;
 
 		createRoom();
+
+		float minify = 0.8f;
+		float normalify = 1 / minify;
+
+		thisRoom.transform.localScale = new Vector3(minify, minify, minify);
+
+		thisRoomInterior.transform.localPosition = new Vector3(0, 0, 0);
+		thisRoomInterior.transform.localEulerAngles = new Vector3(0, 0, 0);
+		thisRoomInterior.transform.localScale = new Vector3(normalify, normalify, normalify);
 	}
 
 	protected override void createRoom() {
@@ -47,24 +57,19 @@ public class ControlRoomCtrl : PrettyDome2Ctrl {
 
 		GameObject curBeam;
 
-		// to Arcade Room:
 		// make room for the purple door
-		GameObject.Destroy(beams[21]); // remove cross beam
-		GameObject.Destroy(beams[37]); // remove floor beam
-		GameObject.Destroy(beams[65]); // remove head beam
+		GameObject.Destroy(beams[31]); // remove cross beam
+		GameObject.Destroy(beams[47]); // remove floor beam
+		GameObject.Destroy(beams[71]); // remove head beam
+/*
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
-		curBeam.transform.localEulerAngles = new Vector3(90, 0, 90);
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-4.45f, 0, -5);
-		curBeam.transform.localEulerAngles = new Vector3(90, 0, 90);
-
-		// to Science Room:
-		// make room for the purple door
-		GameObject.Destroy(beams[29]); // remove cross beam
-		GameObject.Destroy(beams[45]); // remove floor beam
-		GameObject.Destroy(beams[69]); // remove head beam
+		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
+*/
 	}
 
 	protected override int getAdditionalWallVertexAmount() {
@@ -95,11 +100,11 @@ public class ControlRoomCtrl : PrettyDome2Ctrl {
 
 	protected override int[] createMeshedWallTriangles() {
 
-		// 6 full wall blocks (each 6*4),
-		// two half wall blocks (each 6*4/2),
+		// 7 full wall blocks (each 6*4),
+		// one half wall block (so 6*4/2),
 		// one wall around the door
 		// (each call to addTriangle requires 6 points, each call to addTriangleWallBlock four times that many)
-		int[] triangles = new int[6*4*6 + 6*2*2 + 6*6];
+		int[] triangles = new int[6*4*7 + 6*2 + 6*6];
 		int i = 0;
 
 		// block 1 - North
@@ -111,16 +116,14 @@ public class ControlRoomCtrl : PrettyDome2Ctrl {
 		// block 4 - West
 		i = addTriangleWallBlock(triangles, i, 18);
 		// block 5 - North-East
-		i = addTriangleWallBlock(triangles, i, 24);
+		i = addTriangle(triangles, i, 24, 24 + 1, 24 + 2);
+		i = addTriangle(triangles, i, 24, 24 + 2, 24 + 3);
 		// block 6 - South-East
 		i = addTriangleWallBlock(triangles, i, 30);
 		// block 7 - South-West
-//		i = addTriangleWallBlock(triangles, i, 36);
-		i = addTriangle(triangles, i, 36, 36 + 1, 36 + 2);
-		i = addTriangle(triangles, i, 36, 36 + 2, 36 + 3);
+		i = addTriangleWallBlock(triangles, i, 36);
 		// block 8 - North-West
-		i = addTriangle(triangles, i, 42, 42 + 1, 42 + 2);
-		i = addTriangle(triangles, i, 42, 42 + 2, 42 + 3);
+		i = addTriangleWallBlock(triangles, i, 42);
 
 		// block 9 - wall around the door
 		i = addTriangle(triangles, i, 48, 48 + 1, 48 + 2);
@@ -136,31 +139,21 @@ public class ControlRoomCtrl : PrettyDome2Ctrl {
 
 	private void createDoors() {
 
-		GameObject doorToArcadeRoom = createDoor(-3.5f, -5.0f);
-
-		GameObject doorToScienceRoom = createDoor(5, -3.5f);
-		doorToScienceRoom.transform.localEulerAngles = new Vector3(0, 90, 0);
+		GameObject door = createDoor(-5, 3.39f);
+		door.transform.localEulerAngles = new Vector3(0, 90, 0);
+		door.transform.localScale = new Vector3(1.25f, 1.25f, 1.25f);
 	}
 
 	private void createObjects() {
 
-		createTank("waterTank", 7, 6);
-		createTank("heliumTank", 8, 4.2f);
+		mathWorldCtrl = new MathWorldCtrl(
+			mainCtrl, thisRoomInterior, new Vector3(2.3f, 0, -2.5f), new Vector3(0, -50, 0));
 
-		nostalgicConsoleCtrl = new NostalgicConsoleCtrl(
-			mainCtrl, thisRoom, new Vector3(-2.57f, 0, 2.73f), new Vector3(0, -50, 0));
+		breathingApparatusCtrl = new BreathingApparatusCtrl(
+			mainCtrl, thisRoomInterior, new Vector3(2.5f, 0, 2), new Vector3(0, 45, 0));
 
-		dioramaCtrl = new DioramaCtrl(
-			mainCtrl, thisRoom, new Vector3(2, 0, 2.5f), new Vector3(0, 0, 0));
-
-		rocketLaunchCtrl = new RocketLaunchCtrl(
-			mainCtrl, thisRoom, nostalgicConsoleCtrl, new Vector3(-3, 0, 13.6f), new Vector3(0, 170, 0));
-
-		robotCuddleCtrl = new RobotCuddleCtrl(
-			mainCtrl, thisRoom, new Vector3(1.82f, 0, -4.38f), new Vector3(0, 155, 0));
-
-		robotFarmCtrl = new RobotFarmCtrl(
-			mainCtrl, thisRoom, new Vector3(-18, 0, 3.45f), new Vector3(0, -33, 0));
+		processVisualizationCtrl = new ProcessVisualizationCtrl(
+			mainCtrl, thisRoomInterior, new Vector3(-2, 0, -1.6f), new Vector3(0, -295, 0));
 	}
 
 }
