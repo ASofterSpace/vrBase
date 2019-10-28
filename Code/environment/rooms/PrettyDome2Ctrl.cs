@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿
+
+using System.Collections.Generic;
 using System.Collections;
 using System;
 
@@ -114,7 +116,7 @@ public abstract class PrettyDome2Ctrl {
 	}
 
 	/**
- 	 * Create one beam
+	  * Create one beam
   */
 	protected GameObject createBeam(float length) {
 		GameObject curBeam = createPrimitive(PrimitiveType.Cylinder);
@@ -320,7 +322,7 @@ public abstract class PrettyDome2Ctrl {
 		return result;
 	}
 
-	protected void createTank(String name, int x, int z) {
+	protected void createTank(String name, float x, float z) {
 
 		GameObject tank = new GameObject(name);
 		tank.transform.parent = thisRoom.transform;
@@ -338,7 +340,7 @@ public abstract class PrettyDome2Ctrl {
 		tankFoot.transform.eulerAngles = new Vector3(0, 0, -30);
 		tankFoot.transform.localScale = new Vector3(0.1f, 0.15f, 0.1f);
 		MaterialCtrl.setMaterial(tankFoot, MaterialCtrl.PLASTIC_WHITE);
-		ObjectFactory.pointQuadruplize(tankFoot);
+		ObjectMultiplier.pointQuadruplize(tankFoot);
 	}
 
 }
