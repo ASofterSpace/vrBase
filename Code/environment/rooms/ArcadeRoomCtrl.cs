@@ -9,7 +9,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class ArcadeRoomCtrl : GenericRoomCtrl {
+public class ArcadeRoomCtrl : PrettyDome2Ctrl {
 
 	private FlipperQnDCtrl flipperQnDCtrl;
 

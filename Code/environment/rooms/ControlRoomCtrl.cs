@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 
 
-public class ControlRoomCtrl : PrettyDome2Ctrl {
+public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private NostalgicConsoleCtrl nostalgicConsoleCtrl;
 

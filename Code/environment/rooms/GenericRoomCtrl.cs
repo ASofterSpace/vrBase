@@ -17,7 +17,7 @@ public abstract class GenericRoomCtrl {
 	protected GameObject thisRoom;
 	protected GameObject[] beams;
 
-	private int curBeamNum;
+	protected int curBeamNum;
 
 	private bool insideOutWallMesh = false;
 
@@ -34,6 +34,8 @@ public abstract class GenericRoomCtrl {
 		// we create 48 for a standard room here, but special rooms
 		// (such as the control room) add extra beams afterwards
 		this.beams = new GameObject[200];
+
+		this.curBeamNum = 0;
 	}
 
 	protected abstract void createRoom();
@@ -77,8 +79,6 @@ public abstract class GenericRoomCtrl {
 	}
 
 	protected virtual void createBeams() {
-
-		curBeamNum = 0;
 
 		GameObject curBeam;
 
