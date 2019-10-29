@@ -16,6 +16,7 @@ public class MaterialCtrl {
 	private static string[] textures;
 
 	public const int BUILDING_FLOOR_CONCRETE = 0;
+	public const int BUILDING_FLOOR_CONCRETE_ROUND = 81;
 	public const int BUILDING_FLOOR_WOOD = 15;
 	public const int BUILDING_BEAM_WHITE = 24;
 	public const int BUILDING_WALL = 57;
@@ -98,7 +99,7 @@ public class MaterialCtrl {
 	public const int SPACE_SUN = 7;
 	public const int SPACE_STAR = 8;
 	// do not add anything after the amount ;)
-	public const int MATERIAL_AMOUNT = 81;
+	public const int MATERIAL_AMOUNT = 82;
 
 	private static Material standard;
 	private static Material standardFade;
@@ -113,7 +114,8 @@ public class MaterialCtrl {
 
 		textures = new string[MATERIAL_AMOUNT];
 
-		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concrete";
+		textures[BUILDING_FLOOR_CONCRETE] = "Building/Floor/concreteFloor";
+		textures[BUILDING_FLOOR_CONCRETE_ROUND] = "Building/Floor/concreteFloorRound";
 		textures[BUILDING_FLOOR_WOOD] = "Building/Floor/woodenLengthwiseFloor";
 		textures[INTERACTION_TELEPORT_TARGET] = "Interaction/teleportTarget";
 		textures[OBJECTS_FIREFIGHTING_LABEL_QUESTION] = "Objects/fireFighting/Labels/question";
@@ -182,6 +184,7 @@ public class MaterialCtrl {
 
 		if (result == null) {
 			switch (materialNum) {
+				case BUILDING_FLOOR_CONCRETE:
 				case SPACE_MOON_FLOOR:
 				case SPACE_MOON_FLOOR_INNER:
 				case SPACE_MOON_SOUTH:
@@ -197,6 +200,7 @@ public class MaterialCtrl {
 				case INTERACTION_BUTTON_HOVER:
 					result = new Material(unlitColor);
 					break;
+				case BUILDING_FLOOR_CONCRETE_ROUND:
 				case INTERACTION_TELEPORT_TARGET:
 				case OBJECTS_FIREFIGHTING_LABEL_QUESTION:
 				case OBJECTS_FIREFIGHTING_LABEL_CORRECT_READY:

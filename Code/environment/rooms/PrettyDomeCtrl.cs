@@ -21,13 +21,21 @@ public abstract class PrettyDomeCtrl: GenericRoomCtrl {
 
 	protected virtual void createFloor() {
 
+		// create floor from the top
 		GameObject floor = createPrimitive(PrimitiveType.Quad);
 		floor.name = TriggerCtrl.FLOOR_NAME;
 		floor.transform.localPosition = new Vector3(0, 0, 0);
 		floor.transform.eulerAngles = new Vector3(90, 0, 0);
-		floor.transform.localScale = new Vector3(15, 15, 1);
-		MaterialCtrl.setMaterial(floor, MaterialCtrl.BUILDING_FLOOR_CONCRETE);
+		floor.transform.localScale = new Vector3(12, 12, 1);
+		MaterialCtrl.setMaterial(floor, MaterialCtrl.BUILDING_FLOOR_CONCRETE_ROUND);
 
+		// create floor from the bottom
+		// (such that we can look at it from the bottom when we grab it in the diorama)
+		GameObject floorBtm = createPrimitive(PrimitiveType.Quad);
+		floorBtm.transform.localPosition = new Vector3(0, -0.01f, 0);
+		floorBtm.transform.eulerAngles = new Vector3(-90, 0, 0);
+		floorBtm.transform.localScale = new Vector3(12, 12, 1);
+		MaterialCtrl.setMaterial(floorBtm, MaterialCtrl.BUILDING_FLOOR_CONCRETE_ROUND);
 	}
 
 	protected List<Vector3> prettyDomeCoords(float DomeRadius, int corners) {
