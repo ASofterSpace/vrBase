@@ -125,17 +125,17 @@ public class ArcadeRoomCtrl : PrettyDome2Ctrl {
 
 	private void createDoors() {
 
-		createDoor(3.5f, 5.0f);
+		createDoor(0, 5.89f);
 	}
 
 	private void createObjects() {
 
 		flipperQnDCtrl = new FlipperQnDCtrl(
-			mainCtrl, thisRoom, new Vector3(-2.5f, 0, -2), new Vector3(0, 55, 0)
+			mainCtrl, thisRoom, new Vector3(3.33f, 0, 3.16f), new Vector3(0, -127, 0)
 		);
 
 		bowlingAlleyCtrl = new BowlingAlleyCtrl(
-			mainCtrl, thisRoom, new Vector3(-1.5f, 0, 3.5f), new Vector3(0, -90, 0)
+			mainCtrl, thisRoom, new Vector3(-2.95f, 0, -0.71f), new Vector3(0, -168.4f, 0)
 		);
 
 		ticTacToeCtrl = new TicTacToeCtrl(

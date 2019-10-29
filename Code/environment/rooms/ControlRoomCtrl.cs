@@ -144,20 +144,20 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private void createObjects() {
 
-		createTank("waterTank", 7, 6);
-		createTank("heliumTank", 8, 4.2f);
+		createTank("waterTank", 4.53f, -6.91f);
+		createTank("heliumTank", 2.67f, -7.88f);
 
 		nostalgicConsoleCtrl = new NostalgicConsoleCtrl(
 			mainCtrl, thisRoom, new Vector3(-2.57f, 0, 2.73f), new Vector3(0, -50, 0));
 
 		dioramaCtrl = new DioramaCtrl(
-			mainCtrl, thisRoom, new Vector3(2, 0, 2.5f), new Vector3(0, 0, 0));
+			mainCtrl, thisRoom, new Vector3(-0.25f, 0, -3.48f), new Vector3(0, 0, 0));
 
 		rocketLaunchCtrl = new RocketLaunchCtrl(
 			mainCtrl, thisRoom, nostalgicConsoleCtrl, new Vector3(-3, 0, 13.6f), new Vector3(0, 170, 0));
 
 		robotCuddleCtrl = new RobotCuddleCtrl(
-			mainCtrl, thisRoom, new Vector3(1.82f, 0, -4.38f), new Vector3(0, 155, 0));
+			mainCtrl, thisRoom, new Vector3(4.04f, 0, 1.48f), new Vector3(0, 65, 0));
 
 		robotFarmCtrl = new RobotFarmCtrl(
 			mainCtrl, thisRoom, new Vector3(-18, 0, 3.45f), new Vector3(0, -33, 0));

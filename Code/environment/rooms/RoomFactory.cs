@@ -51,7 +51,7 @@ public class RoomFactory {
 		// every room is a child of the overall surface of the moon
 		arcadeRoom.transform.parent = mainCtrl.getSurface().transform;
 
-		arcadeRoom.transform.localPosition = new Vector3(-7, 0, -12);
+		arcadeRoom.transform.localPosition = new Vector3(-3.47f, 0, -12.92f);
 
 		arcadeRoomCtrl = new ArcadeRoomCtrl(mainCtrl, arcadeRoom);
 	}
