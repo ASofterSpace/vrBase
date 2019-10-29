@@ -48,10 +48,12 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		GameObject curBeam;
 
 		// to Arcade Room:
+
 		// make room for the purple door
 		GameObject.Destroy(beams[21]); // remove cross beam
 		GameObject.Destroy(beams[37]); // remove floor beam
 		GameObject.Destroy(beams[65]); // remove head beam
+
 		// add two new floor beams to each side of the purple door
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
@@ -66,29 +68,32 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		curBeam = createBeam(0.2816523f);
 		curBeam.transform.localPosition = new Vector3(-4.38f, 1.723f, -4.74f);
 		curBeam.transform.localEulerAngles = new Vector3(70.35201f, -29.996f, -1.268f);
-		// aaaand the same again for the door to the science dome
+
+		// to Science Room:
+
+		// make room for the purple door
+		GameObject.Destroy(beams[29]); // remove cross beam
+		GameObject.Destroy(beams[45]); // remove floor beam
+		GameObject.Destroy(beams[69]); // remove head beam
+
+		// aaaand the same again for the door to the science dome - two floors beams...
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(5, 0, -2.5f);
 		curBeam.transform.localEulerAngles = new Vector3(0, 90, 90);
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(5, 0, -4.45f);
 		curBeam.transform.localEulerAngles = new Vector3(0, 90, 90);
+		// ... aaaand two upper ones :)
 		curBeam = createBeam(0.4479682f);
 		curBeam.transform.localPosition = new Vector3(4.886f, 0.98f, -2.379f);
 		curBeam.transform.localEulerAngles = new Vector3(70.35201f, -199.568f, -1.268f);
 		curBeam = createBeam(0.2816523f);
 		curBeam.transform.localPosition = new Vector3(4.74f, 1.723f, -4.38f);
 		curBeam.transform.localEulerAngles = new Vector3(70.35201f, -120.895f, -1.268f);
-
-		// to Science Room:
-		// make room for the purple door
-		GameObject.Destroy(beams[29]); // remove cross beam
-		GameObject.Destroy(beams[45]); // remove floor beam
-		GameObject.Destroy(beams[69]); // remove head beam
 	}
 
 	protected override int getAdditionalWallVertexAmount() {
-		return 12;
+		return 12*2;
 	}
 
 	protected override void createAdditionalWallVertices(Vector3[] vertices, int i) {
@@ -96,7 +101,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		float y = thisRoom.transform.position.y;
 		float z = thisRoom.transform.position.z;
 
-		// create the wall around the door - to the left of the door...
+		// create the wall around the arcade door - to the left of the door...
 		vertices[i++] = new Vector3(x-2.05f, y, z-5);
 		vertices[i++] = new Vector3(x-1.85f, y+0.825f, z-4.88f);
 		vertices[i++] = new Vector3(x+0.74f-3.5f, y+1.15f, z-5);
@@ -111,6 +116,22 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		vertices[i++] = new Vector3(x-0.74f-3.5f, y, z-5);
 		vertices[i++] = new Vector3(x-0.74f-3.5f, y+0.3f, z-5);
 		vertices[i++] = new Vector3(x-0.4f-3.5f, y, z-5);
+
+		// create the wall around the science door - to the left of the door...
+		vertices[i++] = new Vector3(x+5, y, z-2.05f);
+		vertices[i++] = new Vector3(x+4.88f, y+0.825f, z-1.85f);
+		vertices[i++] = new Vector3(x+5, y+1.15f, z+0.74f-3.5f);
+		vertices[i++] = new Vector3(x+5, y, z+0.74f-3.5f);
+		vertices[i++] = new Vector3(x+5, y+0.3f, z+0.74f-3.5f);
+		vertices[i++] = new Vector3(x+5, y, z+0.4f-3.5f);
+
+		// ... and to the right of the door
+		vertices[i++] = new Vector3(x+5, y+1.65f, z-0.74f-3.5f);
+		vertices[i++] = new Vector3(x+4.6f, y+1.85f, z-4.6f);
+		vertices[i++] = new Vector3(x+5, y, z-5);
+		vertices[i++] = new Vector3(x+5, y, z-0.74f-3.5f);
+		vertices[i++] = new Vector3(x+5, y+0.3f, z-0.74f-3.5f);
+		vertices[i++] = new Vector3(x+5, y, z-0.4f-3.5f);
 	}
 
 	protected override int[] createMeshedWallTriangles() {
@@ -119,7 +140,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		// two half wall blocks (each 6*4/2),
 		// one wall around the door
 		// (each call to addTriangle requires 6 points, each call to addTriangleWallBlock four times that many)
-		int[] triangles = new int[6*4*6 + 6*2*2 + 6*6];
+		int[] triangles = new int[6*4*6 + 6*2*2 + 6*6 + 6*6];
 		int i = 0;
 
 		// block 1 - North
@@ -142,7 +163,7 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		i = addTriangle(triangles, i, 42, 42 + 1, 42 + 2);
 		i = addTriangle(triangles, i, 42, 42 + 2, 42 + 3);
 
-		// block 9 - wall around the door
+		// block 9 - wall around the arcade door
 		i = addTriangle(triangles, i, 48, 48 + 1, 48 + 2);
 		i = addTriangle(triangles, i, 48, 48 + 2, 48 + 3);
 		i = addTriangle(triangles, i, 48 + 3, 48 + 4, 48 + 5);
@@ -150,6 +171,15 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		i = addTriangle(triangles, i, 54, 54 + 1, 54 + 2);
 		i = addTriangle(triangles, i, 54, 54 + 2, 54 + 3);
 		i = addTriangle(triangles, i, 54 + 4, 54 + 3, 54 + 5);
+
+		// block 9 - wall around the science door
+		i = addTriangle(triangles, i, 60, 60 + 1, 60 + 2);
+		i = addTriangle(triangles, i, 60, 60 + 2, 60 + 3);
+		i = addTriangle(triangles, i, 60 + 3, 60 + 4, 60 + 5);
+
+		i = addTriangle(triangles, i, 66, 66 + 1, 66 + 2);
+		i = addTriangle(triangles, i, 66, 66 + 2, 66 + 3);
+		i = addTriangle(triangles, i, 66 + 4, 66 + 3, 66 + 5);
 
 		return triangles;
 	}

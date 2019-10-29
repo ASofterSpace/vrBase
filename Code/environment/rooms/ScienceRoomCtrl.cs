@@ -61,15 +61,21 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 		GameObject.Destroy(beams[31]); // remove cross beam
 		GameObject.Destroy(beams[47]); // remove floor beam
 		GameObject.Destroy(beams[71]); // remove head beam
-/*
+
 		// add two new floor beams to each side of the purple door
+		curBeam = createBeam(0.4f);
+		curBeam.transform.localPosition = new Vector3(-5, 0, 2.444f);
+		curBeam.transform.localEulerAngles = new Vector3(0, 90, 90);
 		curBeam = createBeam(0.5f);
-		curBeam.transform.localPosition = new Vector3(-2.5f, 0, -5);
-		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
-		curBeam = createBeam(0.5f);
-		curBeam.transform.localPosition = new Vector3(-4.45f, 0, -5);
-		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
-*/
+		curBeam.transform.localPosition = new Vector3(-5, 0, 4.45f);
+		curBeam.transform.localEulerAngles = new Vector3(0, 90, 90);
+		// add upper beams around the purple door
+		curBeam = createBeam(0.3185984f);
+		curBeam.transform.localPosition = new Vector3(-4.886f, 0.904f, 2.213f);
+		curBeam.transform.localEulerAngles = new Vector3(70.35201f, -25.655f, -1.268f);
+		curBeam = createBeam(0.2816523f);
+		curBeam.transform.localPosition = new Vector3(-4.74f, 1.723f, 4.403f);
+		curBeam.transform.localEulerAngles = new Vector3(70.35201f, 64.973f, -1.268f);
 	}
 
 	protected override int getAdditionalWallVertexAmount() {
@@ -82,20 +88,20 @@ public class ScienceRoomCtrl : GenericRoomCtrl {
 		float z = thisRoom.transform.position.z;
 
 		// create the wall around the door - to the left of the door...
-		vertices[i++] = new Vector3(x-2.05f, y, z-5);
-		vertices[i++] = new Vector3(x-1.85f, y+0.825f, z-4.88f);
-		vertices[i++] = new Vector3(x+0.74f-3.5f, y+1.15f, z-5);
-		vertices[i++] = new Vector3(x+0.74f-3.5f, y, z-5);
-		vertices[i++] = new Vector3(x+0.74f-3.5f, y+0.3f, z-5);
-		vertices[i++] = new Vector3(x+0.4f-3.5f, y, z-5);
+		vertices[i++] = new Vector3(x-4.979f, y, z+2.08f);
+		vertices[i++] = new Vector3(x-4.828f, y+0.787f, z+1.929f);
+		vertices[i++] = new Vector3(x-4.968f, y+1.027f, z+2.48f);
+		vertices[i++] = new Vector3(x-4.98f, y, z+2.48f);
+		vertices[i++] = new Vector3(x-4.99f, y+0.409f, z+2.48f);
+		vertices[i++] = new Vector3(x-4.99f, y, z+2.898f);
 
 		// ... and to the right of the door
-		vertices[i++] = new Vector3(x-0.74f-3.5f, y+1.65f, z-5);
-		vertices[i++] = new Vector3(x-4.6f, y+1.85f, z-4.6f);
-		vertices[i++] = new Vector3(x-5f, y, z-5);
-		vertices[i++] = new Vector3(x-0.74f-3.5f, y, z-5);
-		vertices[i++] = new Vector3(x-0.74f-3.5f, y+0.3f, z-5);
-		vertices[i++] = new Vector3(x-0.4f-3.5f, y, z-5);
+		vertices[i++] = new Vector3(x-4.9685f, y+1.631f, z+4.318f);
+		vertices[i++] = new Vector3(x-4.5019f, y+1.8082f, z+4.5029f);
+		vertices[i++] = new Vector3(x-4.991f, y, z+4.993f);
+		vertices[i++] = new Vector3(x-5.0057f, y, z+4.315f);
+		vertices[i++] = new Vector3(x-5.003f, y+0.4145f, z+4.3297f);
+		vertices[i++] = new Vector3(x-5.003f, y, z+3.85f);
 	}
 
 	protected override int[] createMeshedWallTriangles() {
