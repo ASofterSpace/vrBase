@@ -59,6 +59,10 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 		curBeam = createBeam(0.5f);
 		curBeam.transform.localPosition = new Vector3(-4.45f, 0, -5);
 		curBeam.transform.localEulerAngles = new Vector3(90, 0, 90);
+		// add upper beams around the purple door
+		curBeam = createBeam(0.4479682f);
+		curBeam.transform.localPosition = new Vector3(-2.379f, 0.98f, -4.886f);
+		curBeam.transform.localEulerAngles = new Vector3(70.35201f, -108.364f, -1.268f);
 
 		// to Science Room:
 		// make room for the purple door

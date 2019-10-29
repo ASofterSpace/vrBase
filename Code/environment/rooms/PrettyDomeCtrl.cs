@@ -13,8 +13,12 @@ public abstract class PrettyDomeCtrl: GenericRoomCtrl {
 
 	protected float cornerSphereThickness;
 
+	protected List<Vector3> levelListi;
+
 
 	public PrettyDomeCtrl(MainCtrl mainCtrl, GameObject thisRoom): base(mainCtrl, thisRoom) {
+
+		this.spheres = new GameObject[200];
 
 		cornerSphereThickness = 2 * beamThickness;
 	}
@@ -65,10 +69,10 @@ public abstract class PrettyDomeCtrl: GenericRoomCtrl {
 
 		GameObject curBeam;
 
-		List<Vector3> LevelListi = prettyDomeCoords(6.0f, 6);
+		levelListi = prettyDomeCoords(6.0f, 6);
 
-		for (int i=1; i < LevelListi.Count-1; i++ ) {
-			curBeam = connectBeam(LevelListi[i], LevelListi[i+1]);
+		for (int i=1; i < levelListi.Count-1; i++ ) {
+			curBeam = connectBeam(levelListi[i], levelListi[i+1]);
 
 		}
 
@@ -116,9 +120,11 @@ public abstract class PrettyDomeCtrl: GenericRoomCtrl {
 		beams[curBeamNum++] = curBeam;
 
 		GameObject curSphere = createPrimitive(PrimitiveType.Sphere);
+		curSphere.name = "sphere" + curSphereNum;
 		curSphere.transform.localPosition = startpoint;
 		curSphere.transform.localScale = new Vector3(cornerSphereThickness, cornerSphereThickness, cornerSphereThickness);
 		MaterialCtrl.setMaterial(curSphere, MaterialCtrl.BUILDING_BEAM_WHITE);
+		spheres[curSphereNum++] = curSphere;
 
 		return curBeam;
 	}

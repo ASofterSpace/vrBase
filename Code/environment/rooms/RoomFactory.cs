@@ -40,9 +40,9 @@ public class RoomFactory {
 		// every room is a child of the overall surface of the moon
 		controlRoom.transform.parent = mainCtrl.getSurface().transform;
 
-		controlRoom.transform.localPosition = new Vector3(0, 0, 0);
-
 		controlRoomCtrl = new ControlRoomCtrl(mainCtrl, controlRoom);
+
+		controlRoom.transform.localPosition = new Vector3(0, 0, 0);
 	}
 
 	private void createArcadeRoom() {
@@ -51,9 +51,9 @@ public class RoomFactory {
 		// every room is a child of the overall surface of the moon
 		arcadeRoom.transform.parent = mainCtrl.getSurface().transform;
 
-		arcadeRoom.transform.localPosition = new Vector3(-3.47f, 0, -12.92f);
-
 		arcadeRoomCtrl = new ArcadeRoomCtrl(mainCtrl, arcadeRoom);
+
+		arcadeRoom.transform.localPosition = new Vector3(-3.47f, 0, -12.92f);
 	}
 
 	private void createScienceRoom() {
@@ -62,9 +62,9 @@ public class RoomFactory {
 		// every room is a child of the overall surface of the moon
 		scienceRoom.transform.parent = mainCtrl.getSurface().transform;
 
-		scienceRoom.transform.localPosition = new Vector3(11.77f, 0, -6.22f);
-
 		scienceRoomCtrl = new ScienceRoomCtrl(mainCtrl, scienceRoom);
+
+		scienceRoom.transform.localPosition = new Vector3(11.77f, 0, -6.22f);
 	}
 
 	private void createBridges() {

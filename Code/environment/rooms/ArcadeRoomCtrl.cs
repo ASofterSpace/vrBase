@@ -46,81 +46,114 @@ public class ArcadeRoomCtrl : PrettyDome2Ctrl {
 		int curAngle = 90;
 
 		// make room for the door to the control room
-		GameObject.Destroy(beams[23]); // remove cross beam
-		GameObject.Destroy(beams[39]); // remove floor beam
-		GameObject.Destroy(beams[67]); // remove head beam
-		// add two new floor beams to each side of the purple door
-		curBeam = createBeam(0.5f);
-		curBeam.transform.localPosition = new Vector3(2.5f, 0, 5);
-		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
-		curBeam = createBeam(0.5f);
-		curBeam.transform.localPosition = new Vector3(4.45f, 0, 5);
-		curBeam.transform.localEulerAngles = new Vector3(90, 0, curAngle);
+		GameObject.Destroy(beams[248]);
+		GameObject.Destroy(beams[223]);
+		GameObject.Destroy(beams[224]);
+		GameObject.Destroy(beams[198]);
+		GameObject.Destroy(beams[199]);
+		GameObject.Destroy(beams[173]);
+		GameObject.Destroy(beams[174]);
+		GameObject.Destroy(spheres[224]);
+		GameObject.Destroy(spheres[199]);
+		GameObject.Destroy(spheres[174]);
+
+		// add new beams to each side of the purple door
+		connectBeam(new Vector3(-1.492112f, 0.024f, 5.811457f), new Vector3(-0.39f, 0.01f, 5.87f));
+		connectBeam(new Vector3(-1.484048f, 0.624f, 5.779985f), new Vector3(-0.731f, 0.61f, 5.87f));
+		connectBeam(new Vector3(-1.460754f, 1.224f, 5.68929f), new Vector3(-0.74f, 1.21f, 5.907f));
+		connectBeam(new Vector3(-1.421505f, 1.824f, 5.536457f), new Vector3(-0.728f, 1.81f, 5.89f));
+		connectBeam(new Vector3(1.425289f, 1.776f, 5.55107f), new Vector3(0.762f, 1.778f, 5.902f));
+		connectBeam(new Vector3(1.463206f, 1.176f, 5.698776f), new Vector3(0.761f, 1.178f, 5.93f));
+		connectBeam(new Vector3(1.485249f, 0.576f, 5.784657f), new Vector3(0.76f, 0.578f, 5.89f));
 	}
 
-	protected override int getAdditionalWallVertexAmount() {
-		return 12;
-	}
+	protected override GameObject createMeshedWallSide() {
 
-	protected override void createAdditionalWallVertices(Vector3[] vertices, int i) {
-		float x = thisRoom.transform.position.x;
-		float y = thisRoom.transform.position.y;
-		float z = thisRoom.transform.position.z;
+		// create the mesh
+		GameObject meshWall = new GameObject("meshWall");
+		MeshFilter meshFilter = meshWall.AddComponent<MeshFilter>();
+		meshWall.AddComponent<MeshRenderer>();
+		Mesh mesh = meshFilter.mesh;
+		mesh.Clear();
 
-		// create the wall around the door - to the left of the door...
-		vertices[i++] = new Vector3(x+2.05f, y, z+5);
-		vertices[i++] = new Vector3(x+1.85f, y+0.825f, z+4.88f);
-		vertices[i++] = new Vector3(x-0.74f+3.5f, y+1.15f, z+5);
-		vertices[i++] = new Vector3(x-0.74f+3.5f, y, z+5);
-		vertices[i++] = new Vector3(x-0.74f+3.5f, y+0.3f, z+5);
-		vertices[i++] = new Vector3(x-0.4f+3.5f, y, z+5);
+		// create vertices that are available to create the mesh
+		int i = 0;
+		Vector3[] vertices = new Vector3[300];
 
-		// ... and to the right of the door
-		vertices[i++] = new Vector3(x+0.74f+3.5f, y+1.65f, z+5);
-		vertices[i++] = new Vector3(x+4.6f, y+1.85f, z+4.6f);
-		vertices[i++] = new Vector3(x+5f, y, z+5);
-		vertices[i++] = new Vector3(x+0.74f+3.5f, y, z+5);
-		vertices[i++] = new Vector3(x+0.74f+3.5f, y+0.3f, z+5);
-		vertices[i++] = new Vector3(x+0.4f+3.5f, y, z+5);
+		// lowest level
+		int loStart = 226;
+		for (int j = 0; j < 24; j++) {
+			Vector3 v = levelListi[loStart + j];
+			vertices[i++] = v;
+			vertices[i++] = new Vector3(v.x, 0, v.z);
+		}
+		// middle level
+		loStart = 201;
+		int hiStart = 226;
+		for (int j = 0; j < 24; j++) {
+			vertices[i++] = levelListi[loStart + j];
+			vertices[i++] = levelListi[hiStart + j];
+		}
+		// highest level
+		loStart = 176;
+		hiStart = 201;
+		for (int j = 0; j < 24; j++) {
+			vertices[i++] = levelListi[loStart + j];
+			vertices[i++] = levelListi[hiStart + j];
+		}
+
+		mesh.vertices = vertices;
+
+		// create triangles using the previously set vertices
+		int[] triangles = createMeshedWallTriangles();
+
+		mesh.triangles = triangles;
+
+		MeshFactory.finalizeMesh(mesh);
+
+		return meshWall;
 	}
 
 	protected override int[] createMeshedWallTriangles() {
 
-		// 7 full wall blocks (each 6*4),
-		// one half wall block (so 6*4/2),
-		// one wall around the door
-		// (each call to addTriangle requires 6 points, each call to addTriangleWallBlock four times that many)
-		int[] triangles = new int[6*4*7 + 6*2 + 6*6];
+		int[] triangles = new int[900];
 		int i = 0;
 
-		// block 1 - North
-		i = addTriangleWallBlock(triangles, i, 0);
-		// block 2 - South
-		i = addTriangleWallBlock(triangles, i, 6);
-		// block 3 - East
-		i = addTriangleWallBlock(triangles, i, 12);
-		// block 4 - West
-		i = addTriangleWallBlock(triangles, i, 18);
-		// block 5 - North-East
-		i = addTriangleWallBlock(triangles, i, 24);
-		// block 6 - South-East
-		i = addTriangle(triangles, i, 30, 30 + 1, 30 + 2);
-		i = addTriangle(triangles, i, 30, 30 + 2, 30 + 3);
-		// block 7 - South-West
-		i = addTriangleWallBlock(triangles, i, 36);
-		// block 8 - North-West
-		i = addTriangleWallBlock(triangles, i, 42);
-
-		// block 9 - wall around the door
-		i = addTriangle(triangles, i, 48, 48 + 1, 48 + 2);
-		i = addTriangle(triangles, i, 48, 48 + 2, 48 + 3);
-		i = addTriangle(triangles, i, 48 + 3, 48 + 4, 48 + 5);
-
-		i = addTriangle(triangles, i, 54, 54 + 1, 54 + 2);
-		i = addTriangle(triangles, i, 54, 54 + 2, 54 + 3);
-		i = addTriangle(triangles, i, 54 + 4, 54 + 3, 54 + 5);
+		for (int j = 0; j < 23; j++) {
+			i = addTriangleWallBlock(triangles, i, j*2);
+		}
+		for (int j = 0; j < 23; j++) {
+			i = addTriangleWallBlock(triangles, i, 48+j*2);
+		}
+		for (int j = 0; j < 23; j++) {
+			i = addTriangleWallBlock(triangles, i, 96+j*2);
+		}
 
 		return triangles;
+	}
+
+	// we add each triangle twice, once inwards facing, once outwards facing
+	protected int addTriangle(int[] triangles, int i, int a, int b, int c) {
+		if (insideOutWallMesh) {
+			triangles[i]   = a;
+			triangles[i+1] = b;
+			triangles[i+2] = c;
+		} else {
+			triangles[i]   = a;
+			triangles[i+1] = c;
+			triangles[i+2] = b;
+		}
+		return i + 3;
+	}
+
+	/**
+	 * i is the index into triangles that we are currently at
+	 * start is the index into vertices that we are currently at
+	 */
+	protected int addTriangleWallBlock(int[] triangles, int i, int start) {
+		i = addTriangle(triangles, i, start, start + 3, start + 1);
+		i = addTriangle(triangles, i, start, start + 2, start + 3);
+		return i;
 	}
 
 	private void createDoors() {
@@ -131,7 +164,7 @@ public class ArcadeRoomCtrl : PrettyDome2Ctrl {
 	private void createObjects() {
 
 		flipperQnDCtrl = new FlipperQnDCtrl(
-			mainCtrl, thisRoom, new Vector3(3.33f, 0, 3.16f), new Vector3(0, -127, 0)
+			mainCtrl, thisRoom, new Vector3(2.92f, 0, 3.16f), new Vector3(0, -127, 0)
 		);
 
 		bowlingAlleyCtrl = new BowlingAlleyCtrl(
@@ -139,7 +172,7 @@ public class ArcadeRoomCtrl : PrettyDome2Ctrl {
 		);
 
 		ticTacToeCtrl = new TicTacToeCtrl(
-			mainCtrl, thisRoom, new Vector3(3, 0, -2.5f), new Vector3(0, 0, 0)
+			mainCtrl, thisRoom, new Vector3(2.32f, 0, -2.61f), new Vector3(0, -7.385f, 0)
 		);
 
 		/*
@@ -149,8 +182,8 @@ public class ArcadeRoomCtrl : PrettyDome2Ctrl {
 
 		GameObject poster = createPoster(MaterialCtrl.OBJECTS_POSTERS_FLIPPERQND);
 		poster.name = "FlipperQnD Poster";
-		poster.transform.localPosition = new Vector3(-1.052f, 0.893f, -5.67f);
-		poster.transform.localEulerAngles = new Vector3(-13.834f, -135.159f, -2.95f);
+		poster.transform.localPosition = new Vector3(5.563f, 1.355f, 1.654f);
+		poster.transform.localEulerAngles = new Vector3(-12.95f, -284.716f, -2.452f);
 	}
 
 }

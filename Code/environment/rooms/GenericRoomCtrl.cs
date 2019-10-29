@@ -16,10 +16,12 @@ public abstract class GenericRoomCtrl {
 	protected string roomName;
 	protected GameObject thisRoom;
 	protected GameObject[] beams;
+	protected GameObject[] spheres;
 
 	protected int curBeamNum;
+	protected int curSphereNum;
 
-	private bool insideOutWallMesh = false;
+	protected bool insideOutWallMesh = false;
 
 
 	public GenericRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) {
@@ -34,8 +36,10 @@ public abstract class GenericRoomCtrl {
 		// we create 48 for a standard room here, but special rooms
 		// (such as the control room) add extra beams afterwards
 		this.beams = new GameObject[200];
+		this.spheres = new GameObject[0];
 
 		this.curBeamNum = 0;
+		this.curSphereNum = 0;
 	}
 
 	protected abstract void createRoom();
@@ -219,7 +223,7 @@ public abstract class GenericRoomCtrl {
 		}
 	}
 
-	protected void createMeshedWall() {
+	protected virtual void createMeshedWall() {
 
 		insideOutWallMesh = false;
 		GameObject meshWall = createMeshedWallSide();
@@ -235,7 +239,7 @@ public abstract class GenericRoomCtrl {
 		MaterialCtrl.setMaterial(meshWallInside, MaterialCtrl.BUILDING_WALL);
 	}
 
-	protected GameObject createMeshedWallSide() {
+	protected virtual GameObject createMeshedWallSide() {
 
 		// get the position of the parent explicitly, to add it to all points,
 		// as we seem to specify the mesh in world coordinates...

@@ -13,6 +13,7 @@ public abstract class PrettyDome2Ctrl: PrettyDomeCtrl {
 
 		// this pretty room needs looooots of beams!
 		this.beams = new GameObject[1000];
+		this.spheres = new GameObject[1000];
 
 		cornerSphereThickness = beamThickness;
 	}
@@ -28,7 +29,6 @@ public abstract class PrettyDome2Ctrl: PrettyDomeCtrl {
 		float Levels = resolution*spiralturns;
 		var LevelList = new List<Vector3>();
 		for (int j=0; j<=Levels; j++ ) {
-			int LevelStartIndex = LevelList.Count;
 			float phi = Mathf.PI * (j*(360/resolution) + offset)/ 180.0f;
 			float theta = Mathf.Acos((1-j/Levels)) ;
 
@@ -36,9 +36,6 @@ public abstract class PrettyDome2Ctrl: PrettyDomeCtrl {
 									  DomeRadius*(1-j/Levels),
 									  DomeRadius*Mathf.Cos(phi)*Mathf.Sin(theta)));
 			//Debug.Log(LevelList[LevelList.Count-1]);
-
-			//closing each circle on each level
-			LevelList.Add(LevelList[LevelStartIndex]);
 		}
 
 		Debug.Log(LevelList.Count);
@@ -51,11 +48,10 @@ public abstract class PrettyDome2Ctrl: PrettyDomeCtrl {
 
 		GameObject curBeam;
 
-		List<Vector3> LevelListi = prettyDome2Coords(6.0f, 10);
+		levelListi = prettyDome2Coords(6.0f, 10);
 
-		for (int i=1; i < LevelListi.Count-1; i++ ) {
-			curBeam = connectBeam(LevelListi[i], LevelListi[i+1]);
-
+		for (int i=1; i < levelListi.Count-1; i++ ) {
+			curBeam = connectBeam(levelListi[i], levelListi[i+1]);
 		}
 
 
