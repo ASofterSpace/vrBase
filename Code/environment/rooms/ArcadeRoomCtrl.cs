@@ -102,6 +102,28 @@ public class ArcadeRoomCtrl : PrettyDome2Ctrl {
 			vertices[i++] = levelListi[hiStart + j];
 		}
 
+		// arcade-room-specific - left side
+		vertices[i++] = new Vector3(-1.492112f, 0.024f, 5.811457f);
+		vertices[i++] = new Vector3(-0.731f, 0, 5.87f);
+		vertices[i++] = new Vector3(-1.484048f, 0.624f, 5.779985f);
+		vertices[i++] = new Vector3(-0.731f, 0.61f, 5.87f);
+		vertices[i++] = new Vector3(-1.460754f, 1.224f, 5.68929f);
+		vertices[i++] = new Vector3(-0.74f, 1.21f, 5.907f);
+		vertices[i++] = new Vector3(-0.39f, 0.01f, 5.87f);
+		vertices[i++] = new Vector3(-0.731f, 0.305f, 5.87f);
+
+		// arcade-room-specific - right side
+		vertices[i++] = new Vector3(0.761f, 0, 5.93f);
+		vertices[i++] = new Vector3(1.485249f, 0, 5.784657f);
+		vertices[i++] = new Vector3(0.761f, 0.576f, 5.93f);
+		vertices[i++] = new Vector3(1.485249f, 0.576f, 5.784657f);
+		vertices[i++] = new Vector3(0.761f, 1.178f, 5.93f);
+		vertices[i++] = new Vector3(1.463206f, 1.176f, 5.698776f);
+		vertices[i++] = new Vector3(0.762f, 1.778f, 5.902f);
+		vertices[i++] = new Vector3(1.425289f, 1.776f, 5.55107f);
+		vertices[i++] = new Vector3(0.76f, 0.283f, 5.89f);
+		vertices[i++] = new Vector3(0.401f, 0, 5.886f);
+
 		mesh.vertices = vertices;
 
 		// create triangles using the previously set vertices
@@ -128,6 +150,17 @@ public class ArcadeRoomCtrl : PrettyDome2Ctrl {
 		for (int j = 0; j < 23; j++) {
 			i = addTriangleWallBlock(triangles, i, 96+j*2);
 		}
+
+		// arcade-room-specific - left side
+		i = addTriangleWallBlock(triangles, i, 144);
+		i = addTriangleWallBlock(triangles, i, 146);
+		i = addTriangle(triangles, i, 145, 151, 150);
+
+		// arcade-room-specific - right side
+		i = addTriangleWallBlock(triangles, i, 152);
+		i = addTriangleWallBlock(triangles, i, 154);
+		i = addTriangleWallBlock(triangles, i, 156);
+		i = addTriangle(triangles, i, 153, 161, 160);
 
 		return triangles;
 	}
