@@ -22,6 +22,8 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 	private RobotFarmCtrl robotFarmCtrl;
 
+	private AdditiveManufacturerCtrl additiveManufacturerCtrl;
+
 
 	public ControlRoomCtrl(MainCtrl mainCtrl, GameObject thisRoom) : base(mainCtrl, thisRoom) {
 
@@ -211,6 +213,9 @@ public class ControlRoomCtrl : GenericRoomCtrl {
 
 		robotFarmCtrl = new RobotFarmCtrl(
 			mainCtrl, thisRoom, new Vector3(-18, 0, 3.45f), new Vector3(0, -33, 0));
+
+		additiveManufacturerCtrl = new AdditiveManufacturerCtrl(
+			mainCtrl, thisRoom, new Vector3(2, 0, 3.5f), new Vector3(0, -120, 0));
 	}
 
 }
